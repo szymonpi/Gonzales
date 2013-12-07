@@ -10,6 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = GonzalesApp
 TEMPLATE = app
+CONFIG += c++11
 
 
 SOURCES += main.cpp\
@@ -17,6 +18,8 @@ SOURCES += main.cpp\
     teacher.cpp
 
 HEADERS  += mainwindow.h \
-    teacher.h
+    teacher.h \
+    answer.h \
+    question.h
 
 FORMS    += mainwindow.ui
