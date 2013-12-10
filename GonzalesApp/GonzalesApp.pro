@@ -20,6 +20,7 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     teacher.h \
     answer.h \
-    question.h
+    question.h \
+    Common.h
 
 FORMS    += mainwindow.ui
