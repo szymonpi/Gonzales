@@ -21,6 +21,8 @@ HEADERS  += mainwindow.h \
     teacher.h \
     answer.h \
     question.h \
-    Common.h
+    Common.h \
+    CommonCode/optional.hpp \
+    qacontainer.h
 
 FORMS    += mainwindow.ui
