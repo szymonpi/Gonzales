@@ -1,21 +1,22 @@
 #include "teacher.h"
+#include <algorithm>
 
 Teacher::Teacher():
-    qAqueue(),
+    qAToLearn(),
     lastAskedQuestion()
-{
-}
+{}
 
 
 Teacher::Teacher(const Teacher::QAQueue &questions):
-    qAqueue(questions),
+    qAToLearn(questions),
+    allQA(questions),
     lastAskedQuestion()
-{
-}
+{}
 
 void Teacher::setQuestions(const Teacher::QAQueue &questions)
 {
-    this->qAqueue = questions;
+    this->allQA = questions;
+    this->qAToLearn = questions;
 }
 
 bool Teacher::checkAnswer(const Answer &answer)
@@ -29,6 +30,22 @@ bool Teacher::checkAnswer(const Answer &answer)
     }
     return true;
 }
+
+Answer Teacher::getCorrectAnswer(const Question &question) const
+{
+    QAQueue::const_iterator it = std::find_if(allQA.begin(),
+                                              allQA.end(),
+                                              [&question] (const QAPair &qa) { return qa.question == question; });
+    if(it==allQA.end())
+        throw std::logic_error("Can't faind question:");
+    return (*it).answer;
+}
+
+int Teacher::questionsToLearnNum()
+{
+    return qAToLearn.size();
+}
+
 
 Question Teacher::getNextQuestion()
 {
@@ -50,18 +67,18 @@ void Teacher::removeCurrentAskedQA()
 
 void Teacher::addWrongAnsweredQAToQueue()
 {
-    qAqueue.push(lastAskedQuestion.qAObject());
+    qAToLearn.push_back(lastAskedQuestion.qAObject());
     lastAskedQuestion.removeQuestion();
 }
 
 void Teacher::checkIsQaQueueEmpty()
 {
-    if(qAqueue.empty())
+    if(qAToLearn.empty())
         throw std::logic_error("empty questions container");
 }
 
 void Teacher::moveCurrentQuestionToAsked()
 {
-    lastAskedQuestion.setQA(qAqueue.front());
-    qAqueue.pop();
+    lastAskedQuestion.setQA(qAToLearn.front());
+    qAToLearn.pop_front();
 }

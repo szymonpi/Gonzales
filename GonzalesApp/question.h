@@ -1,6 +1,7 @@
 #ifndef QUESTION_H
 #define QUESTION_H
 
+
 class Question
 {
 
@@ -10,9 +11,14 @@ public:
         this->question = question;
     }
 
-    std::string getString() const
+    std::string geAstString() const
     {
         return question;
+    }
+
+    bool operator==(const Question &question) const
+    {
+        return !this->question.compare(question.geAstString());
     }
 
 private:

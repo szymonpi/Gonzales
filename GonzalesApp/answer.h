@@ -10,7 +10,12 @@ public:
         this->answer = answer;
     }
 
-    bool operator==(const Answer &a2)
+    std::string getAsString()
+    {
+        return answer;
+    }
+
+    bool operator==(const Answer &a2) const
     {
         return !answer.compare(a2.answer);
     }

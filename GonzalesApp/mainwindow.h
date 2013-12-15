@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <teacher.h>
+#include "QtLayerCode/teacheradapter.h"
 
 namespace Ui {
 class MainWindow;
@@ -16,8 +16,21 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    void updateQuestion();
+private slots:
+
+    void on_pushButtonKnowIt_clicked();
+
+    void on_pushButtonDontKnowIt_clicked();
+
+    void on_pushButtonNextWord_clicked();
+
+    void on_actionLoad_triggered();
+
 private:
     Ui::MainWindow *ui;
+    TeacherQtAdapter teacher;
+    QPair<QString,QString> currentQA;
 };
 
 #endif // MAINWINDOW_H

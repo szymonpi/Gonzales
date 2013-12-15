@@ -15,14 +15,18 @@ CONFIG += c++11
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    teacher.cpp
+    teacher.cpp \
+    qaimporter.cpp
 
 HEADERS  += mainwindow.h \
     teacher.h \
     answer.h \
     question.h \
-    Common.h \
     CommonCode/optional.hpp \
-    qacontainer.h
+    qacontainer.h \
+    QtLayerCode/teacheradapter.h \
+    qaimporter.h \
+    file.h \
+    common.h
 
 FORMS    += mainwindow.ui

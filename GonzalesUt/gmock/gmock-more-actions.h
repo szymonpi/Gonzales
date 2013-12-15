@@ -38,7 +38,7 @@
 
 #include <algorithm>
 
-#include "gmock/gmock-generated-actions.h"
+#include "gmock-generated-actions.h"
 
 namespace testing {
 namespace internal {

@@ -13,13 +13,16 @@ class Teacher
 {
 public:
     typedef QA QAPair;
-    typedef std::queue< QAPair > QAQueue;
+    typedef std::deque< QAPair > QAQueue;
 
     Teacher();
     Teacher(const QAQueue &questions);
     void setQuestions(const QAQueue &questions);
 
     bool checkAnswer(const Answer &answer);
+    Answer getCorrectAnswer(const Question &question) const;
+    int questionsToLearnNum();
+
     Question getNextQuestion();
 
 private:
@@ -31,7 +34,8 @@ private:
     void checkIsQaQueueEmpty();
     void moveCurrentQuestionToAsked();
 
-    QAQueue qAqueue;
+    QAQueue qAToLearn;
+    QAQueue allQA;
     QAContainer lastAskedQuestion;
 };
 
