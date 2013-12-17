@@ -36,23 +36,21 @@ TEST_F(FileTestSuite, readOneLineFromFile)
 {
     ExistingFile.open(QFile::ReadOnly);
 
-    char buffer[10240];
-    qint64 lineSize = ExistingFile.readLine(buffer, sizeof(buffer));
-    EXPECT_TRUE(lineSize != -1);
+    QString line = ExistingFile.readLine();
+    EXPECT_TRUE(!line.isEmpty());
 }
 
 TEST_F(FileTestSuite, readTwoLineFromFile)
 {
     ExistingFile.open(QFile::ReadOnly);
 
-    char buffer[10240];
-    qint64 lineSize = ExistingFile.readLine(buffer, sizeof(buffer));
+    QString currentLine = ExistingFile.readLine();
     QStringList lines;
 
-    while(lineSize != -1)
+    while(!currentLine.isEmpty())
     {
-        lines.append(QString::fromLocal8Bit(buffer, sizeof(buffer)));
-        lineSize = ExistingFile.readLine(buffer, sizeof(buffer));
+        lines.append(currentLine);
+        currentLine = ExistingFile.readLine();
     };
 
     EXPECT_EQ(2, lines.size());

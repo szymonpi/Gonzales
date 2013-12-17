@@ -1,4 +1,6 @@
 #include <iostream>
+#include <memory>
+
 #include "../gtest.h"
 #include "../gmock.h"
 
@@ -9,23 +11,75 @@
 
 using namespace testing;
 
-TEST(QAImporterTestSuite, shouldThrowCantOpenFile)
+class QAImporterTestSuite : public testing::Test
 {
-    FileMock fileMock;
-    EXPECT_CALL(fileMock, open(_)).WillOnce(Return(false));
+protected:
+    QAImporterTestSuite():
+        fileMock(),
+        importer(std::make_shared<QAImporter>(fileMock))
+    {
 
-    QAImporter importer(fileMock);
-    EXPECT_THROW(importer.import(), FileException);
+    }
+
+    void SetUp()
+    {
+    }
+
+    void fileShouldOpen(bool open)
+    {
+        EXPECT_CALL(fileMock, open(_)).WillOnce(Return(open));
+    }
+
+    FileMock fileMock;
+    std::shared_ptr<QAImporter> importer;
+};
+
+TEST_F(QAImporterTestSuite, shouldThrowCantOpenFile)
+{
+    fileShouldOpen(false);
+    EXPECT_THROW(importer->import(), FileException);
 }
 
-TEST(QAImporterTestSuite, shouldntImportAnyQAFromEmptyFile)
+TEST_F(QAImporterTestSuite, shouldntImportAnyQAFromEmptyFile)
 {
-    FileMock fileMock;
-    EXPECT_CALL(fileMock, open(_)).WillOnce(Return(true));
-    EXPECT_CALL(fileMock, readLine(_,_)).WillOnce(Return(-1));
-    QAImporter importer(fileMock);
-    QQueue<QA> qaQueue =  importer.import();
+    fileShouldOpen(true);
+    EXPECT_CALL(fileMock, readLine()).WillOnce(Return(QString()));
+    QQueue<QA> qaQueue =  importer->import();
     EXPECT_EQ(0, qaQueue.size());
+}
+
+TEST_F(QAImporterTestSuite, shouldImportOneQA)
+{
+    fileShouldOpen(true);
+    QString line = "question answer";
+    EXPECT_CALL(fileMock, readLine())
+                                    .WillOnce(Return(line))
+                                    .WillOnce(Return(QString("")));
+    QQueue<QA> importedQas = importer->import();
+    QA importedQa = importedQas.takeFirst();
+    EXPECT_EQ(Question("question"), importedQa.question);
+    EXPECT_EQ(Answer("answer"), importedQa.answer);
+}
+
+TEST_F(QAImporterTestSuite, shouldntImportImproperQA)
+{
+    fileShouldOpen(true);
+    QString line = "question ";
+    EXPECT_CALL(fileMock, readLine())
+                                    .WillOnce(Return(line))
+                                    .WillOnce(Return(QString("")));
+    EXPECT_TRUE(importer->import().empty());
+}
+
+TEST_F(QAImporterTestSuite, shouldImportTwoQA)
+{
+    fileShouldOpen(true);
+    QString firstLine = "question answer";
+    QString secondLine = "question answer";
+    EXPECT_CALL(fileMock, readLine())
+                                    .WillOnce(Return(firstLine))
+                                    .WillOnce(Return(secondLine));
+    EXPECT_EQ(2, importer->import().size());
 }
 
 int main(int argc, char **argv)

@@ -18,8 +18,8 @@ class ReadableFile : public virtual OpenableFile
 
 public:
     virtual QByteArray readAll()=0;
-    virtual qint64 readLine(char *data, qint64 maxlen) = 0;
-    virtual QByteArray readLine(qint64 maxlen = 0) = 0;
+    virtual QString readLine() = 0;
+    virtual QByteArray readLine(qint64 maxlen) = 0;
 
 };
 
@@ -47,12 +47,15 @@ public:
         file.setFileName(fileName);
     }
 
-    qint64 readLine(char *data, qint64 maxlen)
+    QString readLine()
     {
-        return file.readLine(data, maxlen);
+        char buffer[40000];
+        if(file.readLine(buffer, sizeof(buffer))==-1)
+            return QString();
+        return QString::fromLocal8Bit(buffer);
     }
 
-    QByteArray readLine(qint64 maxlen = 0)
+    QByteArray readLine(qint64 maxlen)
     {
         return file.readLine(maxlen);
     }
