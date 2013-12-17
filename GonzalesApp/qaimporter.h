@@ -66,7 +66,6 @@ public:
             QString answer = qas.takeFirst().trimmed();
             if(answer.isEmpty())
                 continue;
-            qDebug() << answer;
 
             qAqueue.append(QA(Question(question.toStdString()),
                               Answer(answer.toStdString())));

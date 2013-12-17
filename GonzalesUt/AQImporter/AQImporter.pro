@@ -22,5 +22,6 @@ LIBS += -lgtest
 LIBS += -lgmock
 
 OTHER_FILES += \
-    toimport.txt
+    toimport.txt \
+    toImportWithOneEmpty.txt
 

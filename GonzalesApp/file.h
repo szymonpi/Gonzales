@@ -49,7 +49,9 @@ public:
 
     QString readLine()
     {
-        char buffer[40000];
+        char buffer[1024];
+        std::memset(&buffer,0,sizeof(buffer));
+
         if(file.readLine(buffer, sizeof(buffer))==-1)
             return QString();
         return QString::fromLocal8Bit(buffer);

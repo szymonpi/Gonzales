@@ -15,11 +15,13 @@ protected:
     {
         ExistingFile.setFileName("C:/projects/Gonzales/GonzalesUt/AQImporter/toimport.txt");
         NotExistingFile.setFileName("WrongFileName.txt");
+        toImportWithOneEmpty.setFileName("C:/projects/Gonzales/GonzalesUt/AQImporter/toImportWithOneEmpty.txt");
     }
 
 
     File ExistingFile;
     File NotExistingFile;
+    File toImportWithOneEmpty;
 };
 
 TEST_F(FileTestSuite, testFileOpen)
@@ -54,4 +56,21 @@ TEST_F(FileTestSuite, readTwoLineFromFile)
     };
 
     EXPECT_EQ(2, lines.size());
+}
+
+TEST_F(FileTestSuite, readTwoLinewsWhenOneBetweenIsEmpty)
+{
+    toImportWithOneEmpty.open(QFile::ReadOnly);
+
+    QString currentLine = toImportWithOneEmpty.readLine();
+    QStringList lines;
+
+    while(!currentLine.isEmpty())
+    {
+        lines.append(currentLine);
+        currentLine = toImportWithOneEmpty.readLine();
+    };
+
+    EXPECT_EQ(3, lines.size());
+
 }

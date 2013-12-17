@@ -71,14 +71,16 @@ TEST_F(QAImporterTestSuite, shouldntImportImproperQA)
     EXPECT_TRUE(importer->import().empty());
 }
 
-TEST_F(QAImporterTestSuite, shouldImportTwoQA)
+TEST_F(QAImporterTestSuite, shouldImportTwoQAs)
 {
     fileShouldOpen(true);
     QString firstLine = "question answer";
     QString secondLine = "question answer";
     EXPECT_CALL(fileMock, readLine())
                                     .WillOnce(Return(firstLine))
-                                    .WillOnce(Return(secondLine));
+                                    .WillOnce(Return(QString(" ")))
+                                    .WillOnce(Return(secondLine))
+                                    .WillOnce(Return(QString("")));
     EXPECT_EQ(2, importer->import().size());
 }
 
