@@ -23,6 +23,8 @@ protected:
 
     void SetUp()
     {
+        properLine = "question answer";
+        improperLine = "  question";
     }
 
     void fileShouldOpen(bool open)
@@ -32,6 +34,9 @@ protected:
 
     FileMock fileMock;
     std::shared_ptr<QAImporter> importer;
+
+    QString properLine;
+    QString improperLine;
 };
 
 TEST_F(QAImporterTestSuite, shouldThrowCantOpenFile)
@@ -82,6 +87,23 @@ TEST_F(QAImporterTestSuite, shouldImportTwoQAs)
                                     .WillOnce(Return(secondLine))
                                     .WillOnce(Return(QString("")));
     EXPECT_EQ(2, importer->import().size());
+}
+
+TEST_F(QAImporterTestSuite, shouldImportOneQAsWithManyWhitespaces)
+{
+    fileShouldOpen(true);
+    QString line = "     question             answer            ";
+    EXPECT_CALL(fileMock, readLine())
+                                    .WillOnce(Return(line))
+                                    .WillOnce(Return(QString("")));
+    QQueue<QA> qAs = importer->import();
+    ASSERT_TRUE(!qAs.empty());
+    EXPECT_EQ(1, qAs.size());
+
+    QA importedQA = qAs.takeFirst();
+
+    EXPECT_EQ(Question("question"), importedQA.question);
+    EXPECT_EQ(Answer("answer"), importedQA.answer);
 }
 
 int main(int argc, char **argv)

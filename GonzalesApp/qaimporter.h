@@ -34,48 +34,15 @@ public:
     QAImporter(ReadableFile &file):
         file(file)
     {}
-
-    QQueue<QA> import()
-    {
-        if(!file.open(QFile::ReadOnly))
-            throw(FileException("Can't open file!"));
-
-        QStringList lines;
-        QString curretnLine = file.readLine();
-
-        while(!curretnLine.isEmpty())
-        {
-            lines.append(curretnLine);
-            curretnLine = file.readLine();
-        };
-
-        QQueue<QA> qAqueue;
-        foreach (QString line, lines) {
-
-            QRegExp whitespaces("\\s+");
-            QStringList qas = line.split(whitespaces);
-            if(qas.isEmpty())
-                continue;
-            QString question = qas.takeFirst().trimmed();
-
-            if(question.isEmpty())
-                continue;
-
-            if(qas.isEmpty())
-                continue;
-            QString answer = qas.takeFirst().trimmed();
-            if(answer.isEmpty())
-                continue;
-
-            qAqueue.append(QA(Question(question.toStdString()),
-                              Answer(answer.toStdString())));
-        }
-
-        return qAqueue;
-    }
+    QQueue<QA> import();
 
 private:
     ReadableFile &file;
+    QStringList getLinesFromFile();
+    void openFile();
+    QStringList getSplittedCleanedLine(QString line);
+    QString getQuestionFromSplittedLine(QStringList &splittedLine);
+    void appendQAToQueue(QQueue<QA> &qAqueue, QStringList &splittedLine);
 };
 
 #endif // QAIMPORTER_H
