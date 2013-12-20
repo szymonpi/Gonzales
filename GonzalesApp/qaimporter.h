@@ -28,10 +28,10 @@ public:
     virtual QQueue<QA> import()=0;
 };
 
-class QAImporter//: public CanImportQA
+class QAFromTextFileImporter: public CanImportQA
 {
 public:
-    QAImporter(ReadableFile &file):
+    QAFromTextFileImporter(ReadableFile &file):
         file(file)
     {}
     QQueue<QA> import();

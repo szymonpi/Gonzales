@@ -120,7 +120,7 @@
     <property name="title">
      <string>Words</string>
     </property>
-    <addaction name="actionLoad"/>
+    <addaction name="actionImportQA"/>
    </widget>
    <addaction name="menuWords"/>
   </widget>
@@ -133,7 +133,7 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionLoad">
+  <action name="actionImportQA">
    <property name="text">
     <string>import</string>
    </property>

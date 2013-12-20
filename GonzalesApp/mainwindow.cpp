@@ -1,6 +1,9 @@
+#include <QStringList>
+#include <QFileDialog>
+#include <QMessageBox>
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QStringList>
 #include <QtLayerCode/teacheradapter.h>
 
 QMap<QString, QString> getQuestionsAndAnswers()
@@ -9,16 +12,6 @@ QMap<QString, QString> getQuestionsAndAnswers()
     map["tak"] = "yes";
     map["przedimek okreslony przed rzeczownikami"] = "the";
     map["od, na, z, u"] = "of";
-//    map["do"] = "to";
-//    map["przedimek nieokreslony przed rzeczownikami"] = "a, an";
-//    map["to"] = "that";
-//    map["powiedzial"] = "said";
-//    map["jest"] = "is";
-//    map["on"] = "na";
-//    map["ono"] = "it";
-//    map["bylo"] = "was";
-//    map["z"] = "with";
-//    map["przy"] = "by";
     return map;
 }
 
@@ -94,7 +87,17 @@ void MainWindow::on_pushButtonNextWord_clicked()
     updateQuestion();
 }
 
-void MainWindow::on_actionLoad_triggered()
+void MainWindow::on_actionImportQA_triggered()
 {
-    //todo teacher.setQuestions();
+    QFileDialog dialog(this);
+    QString filePath = dialog.getOpenFileName(this);
+    File file(filePath);
+    QAFromTextFileImporter importer(file);
+    QQueue<QA> importedQAs = importer.import();
+    teacher.setQuestions(importedQAs);
+    QMessageBox importMessage(this);
+    importMessage.setWindowTitle("import");
+    QString numberOfImportedItems;
+    importMessage.setText(numberOfImportedItems.setNum(importedQAs.size())+"question and answer item has been imported.");
+    importMessage.exec();
 }

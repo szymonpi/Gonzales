@@ -11,20 +11,18 @@
 
 using namespace testing;
 
-class QAImporterTestSuite : public testing::Test
+class QATextFileImporterTestSuite : public testing::Test
 {
 protected:
-    QAImporterTestSuite():
+    QATextFileImporterTestSuite():
         fileMock(),
-        importer(std::make_shared<QAImporter>(fileMock))
+        importer(std::make_shared<QAFromTextFileImporter>(fileMock))
     {
 
     }
 
     void SetUp()
     {
-        properLine = "question answer";
-        improperLine = "  question";
     }
 
     void fileShouldOpen(bool open)
@@ -33,19 +31,16 @@ protected:
     }
 
     FileMock fileMock;
-    std::shared_ptr<QAImporter> importer;
-
-    QString properLine;
-    QString improperLine;
+    std::shared_ptr<QAFromTextFileImporter> importer;
 };
 
-TEST_F(QAImporterTestSuite, shouldThrowCantOpenFile)
+TEST_F(QATextFileImporterTestSuite, shouldThrowCantOpenFile)
 {
     fileShouldOpen(false);
     EXPECT_THROW(importer->import(), FileException);
 }
 
-TEST_F(QAImporterTestSuite, shouldntImportAnyQAFromEmptyFile)
+TEST_F(QATextFileImporterTestSuite, shouldntImportAnyQAFromEmptyFile)
 {
     fileShouldOpen(true);
     EXPECT_CALL(fileMock, readLine()).WillOnce(Return(QString()));
@@ -53,7 +48,7 @@ TEST_F(QAImporterTestSuite, shouldntImportAnyQAFromEmptyFile)
     EXPECT_EQ(0, qaQueue.size());
 }
 
-TEST_F(QAImporterTestSuite, shouldImportOneQA)
+TEST_F(QATextFileImporterTestSuite, shouldImportOneQA)
 {
     fileShouldOpen(true);
     QString line = "question answer";
@@ -66,7 +61,7 @@ TEST_F(QAImporterTestSuite, shouldImportOneQA)
     EXPECT_EQ(Answer("answer"), importedQa.answer);
 }
 
-TEST_F(QAImporterTestSuite, shouldntImportImproperQA)
+TEST_F(QATextFileImporterTestSuite, shouldntImportImproperQA)
 {
     fileShouldOpen(true);
     QString line = "question ";
@@ -76,7 +71,7 @@ TEST_F(QAImporterTestSuite, shouldntImportImproperQA)
     EXPECT_TRUE(importer->import().empty());
 }
 
-TEST_F(QAImporterTestSuite, shouldImportTwoQAs)
+TEST_F(QATextFileImporterTestSuite, shouldImportTwoQAs)
 {
     fileShouldOpen(true);
     QString firstLine = "question answer";
@@ -89,7 +84,7 @@ TEST_F(QAImporterTestSuite, shouldImportTwoQAs)
     EXPECT_EQ(2, importer->import().size());
 }
 
-TEST_F(QAImporterTestSuite, shouldImportOneQAsWithManyWhitespaces)
+TEST_F(QATextFileImporterTestSuite, shouldImportOneQAsWithManyWhitespaces)
 {
     fileShouldOpen(true);
     QString line = "     question             answer            ";

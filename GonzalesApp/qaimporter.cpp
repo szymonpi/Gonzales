@@ -2,7 +2,7 @@
 
 
 
-QStringList QAImporter::getLinesFromFile()
+QStringList QAFromTextFileImporter::getLinesFromFile()
 {
     openFile();
     QStringList lines;
@@ -16,7 +16,7 @@ QStringList QAImporter::getLinesFromFile()
     return lines;
 }
 
-QStringList QAImporter::getSplittedCleanedLine(QString line)
+QStringList QAFromTextFileImporter::getSplittedCleanedLine(QString line)
 {
     QRegExp whitespaces("\\s+");
     QStringList splittedLine = line.split(whitespaces);
@@ -24,20 +24,20 @@ QStringList QAImporter::getSplittedCleanedLine(QString line)
     return splittedLine;
 }
 
-void QAImporter::openFile()
+void QAFromTextFileImporter::openFile()
 {
     if(!file.open(QFile::ReadOnly))
         throw(FileException("Can't open file!"));
 }
 
-void QAImporter::appendQAToQueue(QQueue<QA> &qAqueue, QStringList &splittedLine)
+void QAFromTextFileImporter::appendQAToQueue(QQueue<QA> &qAqueue, QStringList &splittedLine)
 {
     QString question = splittedLine.takeFirst();
     QString answer = splittedLine.takeFirst();
     qAqueue.append(QA(Question(question.toStdString()), Answer(answer.toStdString())));
 }
 
-QQueue<QA> QAImporter::import()
+QQueue<QA> QAFromTextFileImporter::import()
 {
     QStringList lines = getLinesFromFile();
 

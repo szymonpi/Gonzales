@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "QtLayerCode/teacheradapter.h"
+#include "qaimporter.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,12 +21,10 @@ public:
 private slots:
 
     void on_pushButtonKnowIt_clicked();
-
     void on_pushButtonDontKnowIt_clicked();
-
     void on_pushButtonNextWord_clicked();
 
-    void on_actionLoad_triggered();
+    void on_actionImportQA_triggered();
 
 private:
     Ui::MainWindow *ui;

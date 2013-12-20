@@ -4,6 +4,8 @@
 #include <QStringList>
 #include <QMap>
 #include <QDebug>
+#include <QQueue>
+
 #include "../teacher.h"
 
 class TeacherQtAdapter
@@ -28,6 +30,16 @@ public:
         {
             qAQueue.push_back(QA(Question(it.key().toStdString()), Answer(it.value().toStdString())));
         }
+        teacher.setQuestions(qAQueue);
+    }
+
+    void setQuestions(const QQueue<QA> questionAnswer){
+        QAQueue qAQueue;
+        foreach(QA item, questionAnswer)
+        {
+            qAQueue.push_back(item);
+        }
+
         teacher.setQuestions(qAQueue);
     }
 
