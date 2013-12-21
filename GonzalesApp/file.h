@@ -17,9 +17,7 @@ class ReadableFile : public virtual OpenableFile
 {
 
 public:
-    virtual QByteArray readAll()=0;
     virtual QString readLine() = 0;
-    virtual QByteArray readLine(qint64 maxlen) = 0;
 
 };
 
@@ -53,17 +51,7 @@ public:
 
         if(file.readLine(buffer, sizeof(buffer))==-1)
             return QString();
-        return QString::fromLocal8Bit(buffer);
-    }
-
-    QByteArray readLine(qint64 maxlen)
-    {
-        return file.readLine(maxlen);
-    }
-
-    QByteArray readAll()
-    {
-        return file.readAll();
+        return QString::fromUtf8(buffer);
     }
 
 private:

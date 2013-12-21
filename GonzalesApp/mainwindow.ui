@@ -33,7 +33,7 @@
       <item>
        <widget class="QPushButton" name="pushButtonNextWord">
         <property name="text">
-         <string>Next word</string>
+         <string>Start Lesson</string>
         </property>
        </widget>
       </item>

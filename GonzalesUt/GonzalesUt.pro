@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     Teacher \
-    AQImporter
+    AQImporter \
+    Lesson
