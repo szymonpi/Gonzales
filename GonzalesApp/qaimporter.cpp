@@ -4,7 +4,6 @@
 
 QStringList QAFromTextFileImporter::getLinesFromFile()
 {
-    openFile();
     QStringList lines;
     QString curretnLine = file.readLine();
     while(!curretnLine.isEmpty())
@@ -24,12 +23,6 @@ QStringList QAFromTextFileImporter::getSplittedCleanedLine(QString line)
     return splittedLine;
 }
 
-void QAFromTextFileImporter::openFile()
-{
-    if(!file.open(QFile::ReadOnly))
-        throw(FileException("Can't open file!"));
-}
-
 void QAFromTextFileImporter::appendQAToQueue(QQueue<QA> &qAqueue, QStringList &splittedLine)
 {
     QString question = splittedLine.takeFirst();
@@ -39,6 +32,8 @@ void QAFromTextFileImporter::appendQAToQueue(QQueue<QA> &qAqueue, QStringList &s
 
 QQueue<QA> QAFromTextFileImporter::import()
 {
+    if(!file.open(QFile::ReadOnly))
+        throw FileException("Cant open file");
     QStringList lines = getLinesFromFile();
 
     QQueue<QA> qAqueue;

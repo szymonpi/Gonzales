@@ -2,26 +2,29 @@
 #define FILE_H
 
 #include <QFile>
+#include <QDataStream>
 
 #include <string>
 #include <cstring>
+#include <memory>
 
 class OpenableFile
 {
 public:
     virtual bool open(QFile::OpenModeFlag flags) = 0;
-    virtual void setFileName(const QString &fileName) = 0;
 };
 
-class ReadableFile : public virtual OpenableFile
+class ReadableWritableFile : public virtual OpenableFile
 {
 
 public:
     virtual QString readLine() = 0;
+    virtual QIODevice * getIODevice()=0;
+
 
 };
 
-class File : public ReadableFile
+class File : public ReadableWritableFile
 {
 
 public:
@@ -53,6 +56,19 @@ public:
             return QString();
         return QString::fromUtf8(buffer);
     }
+
+
+
+    QIODevice* getIODevice()
+    {
+        return &file;
+    }
+
+    ~File()
+    {
+        file.close();
+    }
+
 
 private:
     QFile file;

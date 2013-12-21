@@ -31,15 +31,14 @@ public:
 class QAFromTextFileImporter: public CanImportQA
 {
 public:
-    QAFromTextFileImporter(ReadableFile &file):
+    QAFromTextFileImporter(ReadableWritableFile &file):
         file(file)
     {}
     QQueue<QA> import();
 
 private:
-    ReadableFile &file;
+    ReadableWritableFile &file;
     QStringList getLinesFromFile();
-    void openFile();
     QStringList getSplittedCleanedLine(QString line);
     QString getQuestionFromSplittedLine(QStringList &splittedLine);
     void appendQAToQueue(QQueue<QA> &qAqueue, QStringList &splittedLine);

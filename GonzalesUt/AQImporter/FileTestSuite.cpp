@@ -4,7 +4,8 @@
 #include <QQueue>
 #include <QStringList>
 
-#include "FileMock.h"
+#include "../../GonzalesApp/fileserializer.h"
+#include "../../GonzalesApp/file.h"
 
 using namespace testing;
 
@@ -72,5 +73,42 @@ TEST_F(FileTestSuite, readTwoLinewsWhenOneBetweenIsEmpty)
     };
 
     EXPECT_EQ(3, lines.size());
+}
 
+TEST_F(FileTestSuite, saveClassInFile)
+{
+    File fileToWrite("C:/projects/Gonzales/GonzalesUt/AQImporter/fileToWrite.txt");
+    fileToWrite.open(QFile::WriteOnly);
+    QIODevice *deviceToWrite = fileToWrite.getIODevice();
+    std::unique_ptr<CanSerializeData> serializer(new FileSerializer(deviceToWrite));
+    std::string str="testing string";
+    int a = 64;
+    float b = 56.45;
+
+    serializer->serialize(str.c_str());
+    serializer->serialize(a);
+    serializer->serialize(b);
+    ASSERT_TRUE(serializer->status()== QDataStream::Ok);
+}
+
+TEST_F(FileTestSuite, loadClassFromFile)
+{
+    File fileToRead("C:/projects/Gonzales/GonzalesUt/AQImporter/fileToWrite.txt");
+    fileToRead.open(QFile::ReadOnly);
+    QIODevice *deviceToWrite = fileToRead.getIODevice();
+    std::unique_ptr<CanDeserializeData> deserializer(new FileDeserializer(deviceToWrite));
+    char *str;
+    int a = 0;
+    float b = 0;
+
+    deserializer->deserialize(str);
+    deserializer->deserialize(a);
+    deserializer->deserialize(b);
+
+    std::string strToCheck(str);
+
+    EXPECT_EQ("testing string", strToCheck);
+    EXPECT_EQ(64, a);
+    EXPECT_FLOAT_EQ(56.45, b);
+    ASSERT_TRUE(deserializer->status()== QDataStream::Ok);
 }

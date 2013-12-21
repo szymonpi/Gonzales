@@ -10,7 +10,7 @@ public:
         this->answer = answer;
     }
 
-    std::string getAsString()
+    std::string getAsString() const
     {
         return answer;
     }

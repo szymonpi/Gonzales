@@ -16,7 +16,8 @@ CONFIG += c++11
 SOURCES += main.cpp\
         mainwindow.cpp \
     teacher.cpp \
-    qaimporter.cpp
+    qaimporter.cpp \
+    qasaver.cpp
 
 HEADERS  += mainwindow.h \
     teacher.h \
@@ -27,6 +28,8 @@ HEADERS  += mainwindow.h \
     QtLayerCode/teacheradapter.h \
     qaimporter.h \
     file.h \
-    common.h
+    common.h \
+    qasaver.h \
+    fileserializer.h
 
 FORMS    += mainwindow.ui

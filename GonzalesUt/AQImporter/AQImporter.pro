@@ -8,12 +8,16 @@ CONFIG += warn_off
 HEADERS += ../gtest.h \
         ../gmock.h \
     ../../GonzalesApp/qaimporter.h \
-    FileMock.h
+    FileMock.h \
+    ../../GonzalesApp/fileserializer.h \
+    FileSerializeMock.h
 
 SOURCES += \
     ../../GonzalesApp/qaimporter.cpp \
     QAImporterTestSuite.cpp \
-    FileTestSuite.cpp
+    FileTestSuite.cpp \
+    QASaveLoadTestSuite.cpp \
+    ../../GonzalesApp/qasaver.cpp
 
 LIBPATH += C:/gtest/lib
 LIBPATH += C:/gmock/lib
@@ -23,5 +27,6 @@ LIBS += -lgmock
 
 OTHER_FILES += \
     toimport.txt \
-    toImportWithOneEmpty.txt
+    toImportWithOneEmpty.txt \
+    fileToWrite.txt
 
