@@ -2,7 +2,13 @@
 #define FILEREADER_H
 
 #include "../gmock.h"
-#include "../../GonzalesApp/file.h"
+#include "../../GonzalesApp/fileoperations/file.h"
+#include "../../GonzalesApp/fileoperations/filefactory.h"
+
+class FileFactoryMock : IFileFactory
+{
+    MOCK_CONST_METHOD1(create, std::shared_ptr<ReadableWritableFile>(QString));
+};
 
 
 class FileMock: public ReadableWritableFile
@@ -12,6 +18,9 @@ public:
     MOCK_METHOD0(readLine, QString());
     MOCK_METHOD1(setFileName, void(const QString& fileName));
     MOCK_METHOD0(getIODevice, QIODevice *());
+    MOCK_METHOD0(isWritable, bool());
+    MOCK_METHOD0(isReadable, bool());
+    MOCK_METHOD0(isOpen, bool());
 
 };
 

@@ -9,8 +9,11 @@ HEADERS += ../gtest.h \
         ../gmock.h \
     ../../GonzalesApp/qaimporter.h \
     FileMock.h \
-    ../../GonzalesApp/fileserializer.h \
-    FileSerializeMock.h
+    ../../GonzalesApp/fileoperations/fileserializer.h \
+    FileSerializeMock.h \
+    ../../GonzalesApp/fileoperations/file.h \
+    ../../GonzalesApp/fileoperations/filefactory.h \
+    FileSerializerFactoryMock.h
 
 SOURCES += \
     ../../GonzalesApp/qaimporter.cpp \

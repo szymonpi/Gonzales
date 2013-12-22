@@ -27,9 +27,11 @@ HEADERS  += mainwindow.h \
     qacontainer.h \
     QtLayerCode/teacheradapter.h \
     qaimporter.h \
-    file.h \
     common.h \
     qasaver.h \
-    fileserializer.h
+    fileoperations/fileserializerfactory.h \
+    fileoperations/fileserializer.h \
+    fileoperations/filefactory.h \
+    fileoperations/file.h
 
 FORMS    += mainwindow.ui

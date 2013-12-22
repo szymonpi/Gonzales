@@ -10,18 +10,7 @@
 #include <QDebug>
 
 #include "qacontainer.h"
-#include "file.h"
-
-
-class FileException : public std::runtime_error
-{
-public:
-    FileException(std::string what):
-        std::runtime_error(what)
-    {}
-
-};
-
+#include "fileoperations/file.h"
 class CanImportQA
 {
 public:

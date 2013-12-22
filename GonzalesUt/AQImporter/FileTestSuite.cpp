@@ -4,8 +4,8 @@
 #include <QQueue>
 #include <QStringList>
 
-#include "../../GonzalesApp/fileserializer.h"
-#include "../../GonzalesApp/file.h"
+#include "../../GonzalesApp/fileoperations/fileserializer.h"
+#include "../../GonzalesApp/fileoperations/file.h"
 
 using namespace testing;
 
