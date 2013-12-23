@@ -6,21 +6,30 @@ CONFIG += c++11
 CONFIG += warn_off
 
 HEADERS += ../gtest.h \
-        ../gmock.h \
+           ../gmock.h \
     ../../GonzalesApp/qaimporter.h \
-    FileMock.h \
     ../../GonzalesApp/fileoperations/fileserializer.h \
-    FileSerializeMock.h \
+    ../../GonzalesApp/fileoperations/fileserializerfactory.h \
+    ../../GonzalesApp/fileoperations/filedeserializer.h \
+    ../../GonzalesApp/fileoperations/filedeserializerfactory.h \
     ../../GonzalesApp/fileoperations/file.h \
     ../../GonzalesApp/fileoperations/filefactory.h \
-    FileSerializerFactoryMock.h
+    FileMock.h \
+    FileSerializeMock.h \
+    FileSerializerFactoryMock.h \
+    FileDeserializerMock.h \
+    FileDeserializerFactoryMock.h \
+    ../../GonzalesApp/qasaver.h \
+    ../../GonzalesApp/qaloader.h
 
 SOURCES += \
     ../../GonzalesApp/qaimporter.cpp \
     QAImporterTestSuite.cpp \
     FileTestSuite.cpp \
-    QASaveLoadTestSuite.cpp \
-    ../../GonzalesApp/qasaver.cpp
+    ../../GonzalesApp/qasaver.cpp \
+    ../../GonzalesApp/qaloader.cpp \
+    QALoaderTestSuite.cpp \
+    QASaverTestSuite.cpp
 
 LIBPATH += C:/gtest/lib
 LIBPATH += C:/gmock/lib

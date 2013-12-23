@@ -5,6 +5,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QtLayerCode/teacheradapter.h>
+#include <qasaver.h>
 
 QMap<QString, QString> getQuestionsAndAnswers()
 {
@@ -87,17 +88,40 @@ void MainWindow::on_pushButtonNextWord_clicked()
     updateQuestion();
 }
 
-void MainWindow::on_actionImportQA_triggered()
+void MainWindow::on_actionLoad_triggered()
 {
     QFileDialog dialog(this);
     QString filePath = dialog.getOpenFileName(this);
     File file(filePath);
-    QAFromTextFileImporter importer(file);
-    QQueue<QA> importedQAs = importer.import();
-    teacher.setQuestions(importedQAs);
-    QMessageBox importMessage(this);
-    importMessage.setWindowTitle("import");
-    QString numberOfImportedItems;
-    importMessage.setText(numberOfImportedItems.setNum(importedQAs.size())+"question and answer item has been imported.");
-    importMessage.exec();
+    QFileInfo fileInfo(filePath);
+
+    if(filePath.isEmpty())
+        return;
+
+    if(fileInfo.suffix()=="qa")
+    {
+        // load qa;
+    }
+    else
+    {
+        QAFromTextFileImporter importer(file);
+        QQueue<QA> importedQAs = importer.import();
+        teacher.setQuestions(importedQAs);
+        QMessageBox importMessage(this);
+        importMessage.setWindowTitle("import");
+        QString numberOfImportedItems;
+        importMessage.setText(numberOfImportedItems.setNum(importedQAs.size())+"question and answer item has been imported.");
+        importMessage.exec();
+    }
+}
+
+void MainWindow::on_actionSave_triggered()
+{
+    QFileDialog dialog(this);
+    QString filePath = dialog.getSaveFileName();
+
+    File file(filePath);
+    file.open(QFile::WriteOnly);
+    QASaver saver(file);
+    //saver.save()
 }

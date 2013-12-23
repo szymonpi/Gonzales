@@ -5,6 +5,7 @@
 #include <QStringList>
 
 #include "../../GonzalesApp/fileoperations/fileserializer.h"
+#include "../../GonzalesApp/fileoperations/filedeserializer.h"
 #include "../../GonzalesApp/fileoperations/file.h"
 
 using namespace testing;
@@ -75,7 +76,7 @@ TEST_F(FileTestSuite, readTwoLinewsWhenOneBetweenIsEmpty)
     EXPECT_EQ(3, lines.size());
 }
 
-TEST_F(FileTestSuite, saveClassInFile)
+TEST_F(FileTestSuite, saveDataInFile)
 {
     File fileToWrite("C:/projects/Gonzales/GonzalesUt/AQImporter/fileToWrite.txt");
     fileToWrite.open(QFile::WriteOnly);
@@ -91,7 +92,7 @@ TEST_F(FileTestSuite, saveClassInFile)
     ASSERT_TRUE(serializer->status()== QDataStream::Ok);
 }
 
-TEST_F(FileTestSuite, loadClassFromFile)
+TEST_F(FileTestSuite, loadDataFromFile)
 {
     File fileToRead("C:/projects/Gonzales/GonzalesUt/AQImporter/fileToWrite.txt");
     fileToRead.open(QFile::ReadOnly);
@@ -111,4 +112,30 @@ TEST_F(FileTestSuite, loadClassFromFile)
     EXPECT_EQ(64, a);
     EXPECT_FLOAT_EQ(56.45, b);
     ASSERT_TRUE(deserializer->status()== QDataStream::Ok);
+}
+
+TEST_F(FileTestSuite, loadToNotEnoughDataFromFile)
+{
+    File fileToRead("C:/projects/Gonzales/GonzalesUt/AQImporter/fileToWrite.txt");
+    fileToRead.open(QFile::ReadOnly);
+    QIODevice *deviceToWrite = fileToRead.getIODevice();
+    std::unique_ptr<CanDeserializeData> deserializer(new FileDeserializer(deviceToWrite));
+    char *str;
+    int a = 0;
+    float b = 0;
+    float c = 0;
+
+    deserializer->deserialize(str);
+    deserializer->deserialize(a);
+    deserializer->deserialize(b);
+    EXPECT_EQ(QDataStream::Ok, deserializer->status());
+    deserializer->deserialize(c);
+    EXPECT_EQ(QDataStream::ReadPastEnd, deserializer->status());
+
+    std::string strToCheck(str);
+
+    EXPECT_EQ("testing string", strToCheck);
+    EXPECT_EQ(64, a);
+    EXPECT_FLOAT_EQ(56.45, b);
+    ASSERT_FALSE(deserializer->status()== QDataStream::Ok);
 }

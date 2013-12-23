@@ -11,14 +11,14 @@ public:
         this->question = question;
     }
 
-    std::string geAstString() const
+    std::string getAsString() const
     {
         return question;
     }
 
     bool operator==(const Question &question) const
     {
-        return !this->question.compare(question.geAstString());
+        return !this->question.compare(question.getAsString());
     }
 
 private:

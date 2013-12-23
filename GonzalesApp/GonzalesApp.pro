@@ -17,7 +17,8 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     teacher.cpp \
     qaimporter.cpp \
-    qasaver.cpp
+    qasaver.cpp \
+    qaloader.cpp
 
 HEADERS  += mainwindow.h \
     teacher.h \
@@ -32,6 +33,9 @@ HEADERS  += mainwindow.h \
     fileoperations/fileserializerfactory.h \
     fileoperations/fileserializer.h \
     fileoperations/filefactory.h \
-    fileoperations/file.h
+    fileoperations/file.h \
+    qaloader.h \
+    fileoperations/filedeserializer.h \
+    fileoperations/filedeserializerfactory.h
 
 FORMS    += mainwindow.ui

@@ -50,7 +50,7 @@ public:
 
     QString getNextQuestion()
     {
-        return QString::fromStdString(teacher.getNextQuestion().geAstString());
+        return QString::fromStdString(teacher.getNextQuestion().getAsString());
     }
 
     QString getCorrectAnswer(const QString &question)

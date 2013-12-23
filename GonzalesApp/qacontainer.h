@@ -11,6 +11,11 @@ struct QA
         answer(answer)
     {}
 
+    bool operator ==(const QA &qA) const
+    {
+        return (qA.question == question) && (qA.answer == answer);
+    }
+
     Question question;
     Answer answer;
 };

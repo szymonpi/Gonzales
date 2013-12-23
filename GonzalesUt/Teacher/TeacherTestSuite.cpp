@@ -29,7 +29,7 @@ protected:
     void checkNextQuestion(const std::string & expectedQuestionString)
     {
         Question questionFromTeacher = teacher.getNextQuestion();
-        EXPECT_EQ(questionFromTeacher.geAstString(), expectedQuestionString);
+        EXPECT_EQ(questionFromTeacher.getAsString(), expectedQuestionString);
     }
 
     void checkAnswerForNextQuestionIsCorrect(std::string answer)

@@ -6,18 +6,15 @@
 #include "qacontainer.h"
 #include "fileoperations/filefactory.h"
 #include "fileoperations/fileserializerfactory.h"
+#include "common.h"
 class QASaver
 {
 public:
-    enum FileVersion
-    {
-        QAFileVersion1 = 0
-    };
 
     QASaver(ReadableWritableFile &file,
             std::shared_ptr<IFileSerializerFactory> fileSerializerFactory = std::make_shared<FileSerializerFactory>());
 
-    bool save(const QA &QuestionAnswerObject);
+    bool save(const QQueue<QA> &QuestionAnswers);
 
 private:
 
