@@ -7,15 +7,6 @@
 #include <QtLayerCode/teacheradapter.h>
 #include <qasaver.h>
 
-QMap<QString, QString> getQuestionsAndAnswers()
-{
-    QMap<QString, QString> map;
-    map["tak"] = "yes";
-    map["przedimek okreslony przed rzeczownikami"] = "the";
-    map["od, na, z, u"] = "of";
-    return map;
-}
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
