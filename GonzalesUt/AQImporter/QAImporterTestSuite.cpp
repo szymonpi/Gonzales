@@ -6,7 +6,7 @@
 
 #include <QQueue>
 
-#include "../../GonzalesApp/qaimporter.h"
+#include "../../GonzalesApp/qa/qaimporter.h"
 #include "FileMock.h"
 
 using namespace testing;

@@ -15,27 +15,27 @@ CONFIG += c++11
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    teacher.cpp \
-    qaimporter.cpp \
-    qasaver.cpp \
-    qaloader.cpp
+    qa/qasaver.cpp \
+    qa/qaloader.cpp \
+    qa/qaimporter.cpp \
+    teaching/teacher.cpp
 
 HEADERS  += mainwindow.h \
-    teacher.h \
-    answer.h \
-    question.h \
-    CommonCode/optional.hpp \
-    qacontainer.h \
-    QtLayerCode/teacheradapter.h \
-    qaimporter.h \
-    common.h \
-    qasaver.h \
-    fileoperations/fileserializerfactory.h \
-    fileoperations/fileserializer.h \
-    fileoperations/filefactory.h \
-    fileoperations/file.h \
-    qaloader.h \
-    fileoperations/filedeserializer.h \
-    fileoperations/filedeserializerfactory.h
+    file/iodevice.h \
+    file/fileserializerfactory.h \
+    file/fileserializer.h \
+    file/filefactory.h \
+    file/filedeserializerfactory.h \
+    file/filedeserializer.h \
+    file/file.h \
+    qa/question.h \
+    qa/qasaver.h \
+    qa/qaloader.h \
+    qa/qaimporter.h \
+    qa/qacontainer.h \
+    qa/answer.h \
+    teaching/teacher.h \
+    teaching/teacheradapter.h \
+    common/common.h
 
 FORMS    += mainwindow.ui

@@ -4,15 +4,33 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QtLayerCode/teacheradapter.h>
-#include <qasaver.h>
+#include <qa/qasaver.h>
+#include <qa/qaloader.h>
+#include <stdexcept>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    teacher(getQuestionsAndAnswers())
+    teacher()
 {
     ui->setupUi(this);
+
+    idleState.assignProperty(ui->pushButtonDontKnowIt, "enabled", false);
+    idleState.assignProperty(ui->pushButtonKnowIt, "enabled", false);
+    idleState.assignProperty(ui->pushButtonNextWord, "enabled", false);
+
+    startLearn.assignProperty(ui->pushButtonDontKnowIt, "enabled", true);
+    startLearn.assignProperty(ui->pushButtonKnowIt, "enabled", true);
+    startLearn.assignProperty(ui->pushButtonNextWord, "enabled", true);
+
+    stateMachine.addState(&idleState);
+    stateMachine.addState(&startLearn);
+
+    idleState.addTransition(ui->actionStart, SIGNAL(triggered()), &startLearn);
+    startLearn.addTransition(this, SIGNAL(emptyQAContainer()), &idleState);
+
+    stateMachine.setInitialState(&idleState);
+    stateMachine.start();
 }
 
 MainWindow::~MainWindow()
@@ -34,9 +52,7 @@ void MainWindow::updateQuestion()
     }
     else
     {
-        ui->pushButtonNextWord->setDisabled(true);
-        ui->pushButtonDontKnowIt->setDisabled(true);
-        ui->pushButtonKnowIt->setDisabled(true);
+        emit emptyQAContainer();
     }
 }
 
@@ -91,7 +107,22 @@ void MainWindow::on_actionLoad_triggered()
 
     if(fileInfo.suffix()=="qa")
     {
-        // load qa;
+        file.open(QFile::ReadOnly);
+        QQueue<QA> qAs;
+        QALoader loader(file);
+        try
+        {
+            qAs = loader.load();
+            teacher.setQuestions(qAs);
+        }
+        catch(FileException &e)
+        {
+            qDebug() << "something went wrong when loading qa file";
+        }
+        catch(std::logic_error &e)
+        {
+            qDebug() << e.what();
+        }
     }
     else
     {
@@ -114,5 +145,25 @@ void MainWindow::on_actionSave_triggered()
     File file(filePath);
     file.open(QFile::WriteOnly);
     QASaver saver(file);
-    //saver.save()
+    try
+    {
+        bool saved = saver.save(teacher.getQAs());
+        if(!saved)
+        {
+            QMessageBox saveMessage(this);
+            saveMessage.setWindowTitle("save");
+            saveMessage.setText("can't save file");
+            saveMessage.exec();
+        }
+
+    }
+    catch(FileException &e)
+    {
+        qDebug() << "something went wrong when saving qa file";
+    }
+}
+
+void MainWindow::on_actionStart_triggered()
+{
+    qDebug() << "dupa";
 }

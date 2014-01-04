@@ -1,6 +1,6 @@
 #include <iostream>
 #include "../gtest.h"
-#include <../../GonzalesApp/teacher.h>
+#include <../../GonzalesApp/teaching/teacher.h>
 #include <utility>
 #include <memory>
 #include <exception>

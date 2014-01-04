@@ -7,29 +7,33 @@ CONFIG += warn_off
 
 HEADERS += ../gtest.h \
            ../gmock.h \
-    ../../GonzalesApp/qaimporter.h \
-    ../../GonzalesApp/fileoperations/fileserializer.h \
-    ../../GonzalesApp/fileoperations/fileserializerfactory.h \
-    ../../GonzalesApp/fileoperations/filedeserializer.h \
-    ../../GonzalesApp/fileoperations/filedeserializerfactory.h \
-    ../../GonzalesApp/fileoperations/file.h \
-    ../../GonzalesApp/fileoperations/filefactory.h \
     FileMock.h \
     FileSerializeMock.h \
     FileSerializerFactoryMock.h \
     FileDeserializerMock.h \
     FileDeserializerFactoryMock.h \
-    ../../GonzalesApp/qasaver.h \
-    ../../GonzalesApp/qaloader.h
+    ../../GonzalesApp/file/iodevice.h \
+    ../../GonzalesApp/file/fileserializerfactory.h \
+    ../../GonzalesApp/file/fileserializer.h \
+    ../../GonzalesApp/file/filefactory.h \
+    ../../GonzalesApp/file/filedeserializerfactory.h \
+    ../../GonzalesApp/file/filedeserializer.h \
+    ../../GonzalesApp/file/file.h \
+    ../../GonzalesApp/qa/question.h \
+    ../../GonzalesApp/qa/qasaver.h \
+    ../../GonzalesApp/qa/qaloader.h \
+    ../../GonzalesApp/qa/qaimporter.h \
+    ../../GonzalesApp/qa/qacontainer.h \
+    ../../GonzalesApp/qa/answer.h
 
 SOURCES += \
-    ../../GonzalesApp/qaimporter.cpp \
     QAImporterTestSuite.cpp \
     FileTestSuite.cpp \
-    ../../GonzalesApp/qasaver.cpp \
-    ../../GonzalesApp/qaloader.cpp \
     QALoaderTestSuite.cpp \
-    QASaverTestSuite.cpp
+    QASaverTestSuite.cpp \
+    ../../GonzalesApp/qa/qasaver.cpp \
+    ../../GonzalesApp/qa/qaloader.cpp \
+    ../../GonzalesApp/qa/qaimporter.cpp
 
 LIBPATH += C:/gtest/lib
 LIBPATH += C:/gmock/lib

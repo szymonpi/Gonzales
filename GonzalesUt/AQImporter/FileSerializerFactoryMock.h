@@ -2,7 +2,7 @@
 #define FILESERIALIZERFACTORYMOCK_H
 
 #include "../gmock.h"
-#include "../../GonzalesApp/fileoperations/fileserializerfactory.h"
+#include "../../GonzalesApp/file/fileserializerfactory.h"
 
 class FileSerializerFactoryMock : public IFileSerializerFactory
 {

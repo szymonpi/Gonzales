@@ -2,8 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "QtLayerCode/teacheradapter.h"
-#include "qaimporter.h"
+#include <QStateMachine>
+#include "teaching/teacheradapter.h"
+#include "qa/qaimporter.h"
 
 namespace Ui {
 class MainWindow;
@@ -27,10 +28,19 @@ private slots:
 
     void on_actionSave_triggered();
 
+    void on_actionStart_triggered();
+
+signals:
+    void emptyQAContainer();
+
 private:
     Ui::MainWindow *ui;
-    TeacherQtAdapter teacher;
+    TeacherAdapter teacher;
     QPair<QString,QString> currentQA;
+    QStateMachine stateMachine;
+    QState idleState;
+    QState startLearn;
+
 };
 
 #endif // MAINWINDOW_H
