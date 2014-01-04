@@ -21,6 +21,9 @@ private:
 
     ReadableWritableFile &file;
     std::shared_ptr<IFileSerializerFactory> fileSerializerFactory;
+    void validateFile();
+    void serializeFileVersion(CanSerializeData &serializer);
+    void serializeQA(CanSerializeData &serializer, const QA &qa);
 };
 
 #endif // QASAVER_H

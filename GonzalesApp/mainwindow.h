@@ -30,6 +30,8 @@ private slots:
 
     void on_actionStart_triggered();
 
+    void on_actionImport_QA_triggered();
+
 signals:
     void emptyQAContainer();
 

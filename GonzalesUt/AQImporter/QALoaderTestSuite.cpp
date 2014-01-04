@@ -163,7 +163,7 @@ TEST_F(QALoadTestSuite, shouldntImportAnyQA_EmptyQAFile)
     expectDeserializeFileVersion(QAFileVersion1);
     expectDeserializerInvokeNoLoop();
 
-    EXPECT_THROW(loader.load(), FileException);
+    EXPECT_TRUE(loader.load().isEmpty());
 }
 
 TEST_F(QALoadTestSuite, shouldLoadOneQaFromFile)

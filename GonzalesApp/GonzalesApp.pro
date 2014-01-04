@@ -21,7 +21,6 @@ SOURCES += main.cpp\
     teaching/teacher.cpp
 
 HEADERS  += mainwindow.h \
-    file/iodevice.h \
     file/fileserializerfactory.h \
     file/fileserializer.h \
     file/filefactory.h \
@@ -36,6 +35,7 @@ HEADERS  += mainwindow.h \
     qa/answer.h \
     teaching/teacher.h \
     teaching/teacheradapter.h \
-    common/common.h
+    common/common.h \
+    file/readablewritablefile.h
 
 FORMS    += mainwindow.ui

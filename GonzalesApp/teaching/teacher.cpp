@@ -21,13 +21,13 @@ void Teacher::setQuestions(const Teacher::QAQueue &questions)
 
 bool Teacher::checkAnswer(const Answer &answer)
 {
-    if(isCurrentAnswerCorrect(Answer(answer)))
-        removeCurrentAskedQA();
-    else
+    if(!isCurrentAnswerCorrect(Answer(answer)))
     {
         addWrongAnsweredQAToQueue();
         return false;
     }
+
+    removeCurrentAskedQA();
     return true;
 }
 

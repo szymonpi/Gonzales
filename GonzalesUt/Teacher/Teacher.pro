@@ -6,8 +6,7 @@ CONFIG += c++11
 
 SOURCES += \
     ../../GonzalesApp/teaching/teacher.cpp \
-    TeacherTestSuite.cpp \
-    TeacherQtAdapterTestSuite.cpp
+    TeacherTestSuite.cpp
 
 HEADERS += ../gtest.h \
         ../gmock.h \

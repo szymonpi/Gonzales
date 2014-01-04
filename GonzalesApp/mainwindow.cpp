@@ -105,35 +105,21 @@ void MainWindow::on_actionLoad_triggered()
     if(filePath.isEmpty())
         return;
 
-    if(fileInfo.suffix()=="qa")
+    file.open(QFile::ReadOnly);
+    QQueue<QA> qAs;
+    QALoader loader(file);
+    try
     {
-        file.open(QFile::ReadOnly);
-        QQueue<QA> qAs;
-        QALoader loader(file);
-        try
-        {
-            qAs = loader.load();
-            teacher.setQuestions(qAs);
-        }
-        catch(FileException &e)
-        {
-            qDebug() << "something went wrong when loading qa file";
-        }
-        catch(std::logic_error &e)
-        {
-            qDebug() << e.what();
-        }
+        qAs = loader.load();
+        teacher.setQuestions(qAs);
     }
-    else
+    catch(FileException &e)
     {
-        QAFromTextFileImporter importer(file);
-        QQueue<QA> importedQAs = importer.import();
-        teacher.setQuestions(importedQAs);
-        QMessageBox importMessage(this);
-        importMessage.setWindowTitle("import");
-        QString numberOfImportedItems;
-        importMessage.setText(numberOfImportedItems.setNum(importedQAs.size())+"question and answer item has been imported.");
-        importMessage.exec();
+        qDebug() << e.what();
+    }
+    catch(std::logic_error &e)
+    {
+        qDebug() << e.what();
     }
 }
 
@@ -159,11 +145,37 @@ void MainWindow::on_actionSave_triggered()
     }
     catch(FileException &e)
     {
-        qDebug() << "something went wrong when saving qa file";
+        qDebug() << e.what();
     }
 }
 
 void MainWindow::on_actionStart_triggered()
 {
     qDebug() << "dupa";
+}
+
+void MainWindow::on_actionImport_QA_triggered()
+{
+    QFileDialog dialog(this);
+    QString filePath = dialog.getOpenFileName(this);
+    File file(filePath);
+    QFileInfo fileInfo(filePath);
+
+    if(filePath.isEmpty())
+        return;
+
+    QAFromTextFileImporter importer(file);
+    try{
+        QQueue<QA> importedQAs = importer.import();
+        teacher.setQuestions(importedQAs);
+        QMessageBox importMessage(this);
+        importMessage.setWindowTitle("import");
+        QString numberOfImportedItems;
+        importMessage.setText(numberOfImportedItems.setNum(importedQAs.size())+"question and answer item has been imported.");
+        importMessage.exec();
+    }
+    catch(FileException &e)
+    {
+        qDebug() << e.what();
+    }
 }

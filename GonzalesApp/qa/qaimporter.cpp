@@ -33,7 +33,7 @@ void QAFromTextFileImporter::appendQAToQueue(QQueue<QA> &qAqueue, QStringList &s
 QQueue<QA> QAFromTextFileImporter::import()
 {
     if(!file.open(QFile::ReadOnly))
-        throw FileException("Cant open file");
+        throw FileException("Can't open file");
     QStringList lines = getLinesFromFile();
 
     QQueue<QA> qAqueue;

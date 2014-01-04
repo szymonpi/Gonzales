@@ -124,6 +124,7 @@
     <addaction name="separator"/>
     <addaction name="actionLoad"/>
     <addaction name="actionSave"/>
+    <addaction name="actionImport_QA"/>
    </widget>
    <addaction name="menuWords"/>
   </widget>
@@ -154,6 +155,11 @@
   <action name="actionLoad">
    <property name="text">
     <string>load</string>
+   </property>
+  </action>
+  <action name="actionImport_QA">
+   <property name="text">
+    <string>import QA</string>
    </property>
   </action>
  </widget>
