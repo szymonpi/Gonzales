@@ -31,9 +31,9 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonNextWord">
+       <widget class="QPushButton" name="pushButtonShowAnswer">
         <property name="text">
-         <string>Next question</string>
+         <string>Show answer</string>
         </property>
        </widget>
       </item>
@@ -55,7 +55,7 @@
            <bool>false</bool>
           </property>
           <property name="text">
-           <string>hmmm...I don't know</string>
+           <string>I don't know</string>
           </property>
          </widget>
         </item>

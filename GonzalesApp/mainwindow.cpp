@@ -11,25 +11,42 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
+    stateIdle(),
+    stateLearn(),
+    stateAnswerVerified(&stateLearn),
+    stateShowAnswer(&stateLearn),
+    stateQuestionQiven(&stateLearn),
     teacher()
 {
     ui->setupUi(this);
 
-    idleState.assignProperty(ui->pushButtonDontKnowIt, "enabled", false);
-    idleState.assignProperty(ui->pushButtonKnowIt, "enabled", false);
-    idleState.assignProperty(ui->pushButtonNextWord, "enabled", false);
+    stateLearn.setInitialState(&stateQuestionQiven);
 
-    startLearn.assignProperty(ui->pushButtonDontKnowIt, "enabled", true);
-    startLearn.assignProperty(ui->pushButtonKnowIt, "enabled", true);
-    startLearn.assignProperty(ui->pushButtonNextWord, "enabled", true);
+    stateIdle.addTransition(this, SIGNAL(startLearn()), &stateLearn);
 
-    stateMachine.addState(&idleState);
-    stateMachine.addState(&startLearn);
+    stateLearn.addTransition(this, SIGNAL(emptyQAContainer()), &stateIdle);
+    stateQuestionQiven.addTransition(this, SIGNAL(showAnswer()), &stateShowAnswer);
+    stateShowAnswer.addTransition(this, SIGNAL(questionGiven()), &stateQuestionQiven);
 
-    idleState.addTransition(ui->actionStart, SIGNAL(triggered()), &startLearn);
-    startLearn.addTransition(this, SIGNAL(emptyQAContainer()), &idleState);
 
-    stateMachine.setInitialState(&idleState);
+    stateIdle.assignProperty(ui->pushButtonDontKnowIt, "enabled", false);
+    stateIdle.assignProperty(ui->pushButtonKnowIt, "enabled", false);
+    stateIdle.assignProperty(ui->pushButtonShowAnswer, "enabled", false);
+
+
+    stateQuestionQiven.assignProperty(ui->pushButtonDontKnowIt, "disabled", true);
+    stateQuestionQiven.assignProperty(ui->pushButtonKnowIt, "disabled", true);
+    stateQuestionQiven.assignProperty(ui->pushButtonShowAnswer, "enabled", true);
+
+    stateShowAnswer.assignProperty(ui->pushButtonDontKnowIt, "enabled", true);
+    stateShowAnswer.assignProperty(ui->pushButtonKnowIt, "enabled", true);
+    stateShowAnswer.assignProperty(ui->pushButtonShowAnswer, "disabled", true);
+
+    stateMachine.addState(&stateIdle);
+    stateMachine.addState(&stateLearn);
+
+
+    stateMachine.setInitialState(&stateIdle);
     stateMachine.start();
 }
 
@@ -38,17 +55,26 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::setNewQuestion(const QString &question)
+{
+    currentQA.first = question;
+    setNewQuestionInUI();
+}
+
+void MainWindow::setNewQuestionInUI()
+{
+    ui->textEditAnswer->clear();
+    ui->textEditAnswer->update();
+
+    ui->textEditQuestion->setText(currentQA.first);
+    ui->textEditQuestion->update();
+}
+
 void MainWindow::updateQuestion()
 {
     if(teacher.questionsToLearnNum()>0)
     {
-        currentQA.first = teacher.getNextQuestion();
-        ui->textEditAnswer->clear();
-        ui->textEditAnswer->update();
-        ui->pushButtonDontKnowIt->setEnabled(true);
-        ui->pushButtonKnowIt->setEnabled(true);
-        ui->textEditQuestion->setText(currentQA.first);
-        ui->textEditQuestion->update();
+        setNewQuestion(teacher.getNextQuestion());
     }
     else
     {
@@ -66,34 +92,26 @@ void MainWindow::on_pushButtonKnowIt_clicked()
     ui->pushButtonDontKnowIt->setDisabled(true);
     if(teacher.questionsToLearnNum()==0)
     {
-        ui->pushButtonNextWord->setDisabled(true);
-        ui->pushButtonDontKnowIt->setDisabled(true);
-        ui->pushButtonKnowIt->setDisabled(true);
+        emit emptyQAContainer();
     }
 }
 
 void MainWindow::on_pushButtonDontKnowIt_clicked()
 {
-    currentQA.second = teacher.getCorrectAnswer(currentQA.first);
-    ui->textEditAnswer->setText(currentQA.second);
     ui->textEditAnswer->update();
-
     teacher.checkAnswer(currentQA.second + "WRONG WRONG WRONG");
-    ui->pushButtonKnowIt->setDisabled(true);
-    ui->pushButtonDontKnowIt->setDisabled(true);
 
     if(teacher.questionsToLearnNum()==0)
     {
-        ui->pushButtonNextWord->setDisabled(true);
-        ui->pushButtonDontKnowIt->setDisabled(true);
-        ui->pushButtonKnowIt->setDisabled(true);
+        emit emptyQAContainer();
     }
+    emit answerVerified();
 }
 
-void MainWindow::on_pushButtonNextWord_clicked()
-{
-    updateQuestion();
-}
+//void MainWindow::on_pushButtonNextWord_clicked()
+//{
+//    updateQuestion();
+//}
 
 void MainWindow::on_actionLoad_triggered()
 {
@@ -151,7 +169,11 @@ void MainWindow::on_actionSave_triggered()
 
 void MainWindow::on_actionStart_triggered()
 {
-    qDebug() << "dupa";
+    if(teacher.questionsToLearnNum()==0)
+        return;
+
+    updateQuestion();
+    emit startLearn();
 }
 
 void MainWindow::on_actionImport_QA_triggered()
@@ -178,4 +200,10 @@ void MainWindow::on_actionImport_QA_triggered()
     {
         qDebug() << e.what();
     }
+}
+
+void MainWindow::on_pushButtonShowAnswer_clicked()
+{
+    currentQA.second = teacher.getCorrectAnswer(currentQA.first);
+    ui->textEditAnswer->setText(currentQA.second);
 }
