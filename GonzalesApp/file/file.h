@@ -14,7 +14,7 @@ class File : public ReadableWritableFile
 {
 
 public:
-    File(QString filePath):
+    File(const QString &filePath):
         file(filePath)
     {
     }

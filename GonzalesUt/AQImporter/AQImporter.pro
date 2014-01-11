@@ -12,7 +12,6 @@ HEADERS += ../gtest.h \
     FileSerializerFactoryMock.h \
     FileDeserializerMock.h \
     FileDeserializerFactoryMock.h \
-    ../../GonzalesApp/file/iodevice.h \
     ../../GonzalesApp/file/fileserializerfactory.h \
     ../../GonzalesApp/file/fileserializer.h \
     ../../GonzalesApp/file/filefactory.h \
@@ -33,7 +32,8 @@ SOURCES += \
     QASaverTestSuite.cpp \
     ../../GonzalesApp/qa/qasaver.cpp \
     ../../GonzalesApp/qa/qaloader.cpp \
-    ../../GonzalesApp/qa/qaimporter.cpp
+    ../../GonzalesApp/qa/qaimporter.cpp \
+    AllTests.cpp
 
 LIBPATH += C:/gtest/lib
 LIBPATH += C:/gmock/lib

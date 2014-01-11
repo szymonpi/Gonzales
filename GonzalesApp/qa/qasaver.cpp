@@ -3,18 +3,17 @@
 #include "qasaver.h"
 
 
-QASaver::QASaver(ReadableWritableFile &file, std::shared_ptr<IFileSerializerFactory> fileSerializerFactory):
-    file(file),
+QASaver::QASaver(std::shared_ptr<IFileFactory> fileFactory,
+                 std::shared_ptr<IFileSerializerFactory> fileSerializerFactory):
+    fileFactory(fileFactory),
     fileSerializerFactory(fileSerializerFactory)
 {
 }
 
-void QASaver::validateFile()
+void QASaver::openFile(ReadableWritableFile &file)
 {
-    if(!file.isOpen())
+    if(!file.open(QFile::WriteOnly))
         throw FileException("File isn't open");
-    if(!file.isWritable())
-        throw FileException("File isn't writable");
 }
 
 void QASaver::serializeFileVersion(CanSerializeData &serializer)
@@ -31,14 +30,16 @@ void QASaver::serializeQA(CanSerializeData &serializer, const QA &qa)
     serializer.serialize(answer.c_str());
 }
 
-bool QASaver::save(const QQueue<QA> &questionAnswers)
+void QASaver::save(const QQueue<QA> &questionAnswers, const QString &filePath)
 {
-    validateFile();
-    std::shared_ptr<CanSerializeData> serializer = fileSerializerFactory->create(file.getIODevice());
+    std::shared_ptr<ReadableWritableFile> file = fileFactory->create(filePath);
+    openFile(*file);
+    std::shared_ptr<CanSerializeData> serializer = fileSerializerFactory->create(file->getIODevice());
     serializeFileVersion(*serializer);
 
     foreach(QA qA, questionAnswers)
         serializeQA(*serializer, qA);
 
-    return serializer->status()==QDataStream::Ok;
+    if(serializer->status()!=QDataStream::Ok)
+        throw FileException("Something wen't wrong when saving file");
 }

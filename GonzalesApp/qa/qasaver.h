@@ -11,17 +11,17 @@ class QASaver
 {
 public:
 
-    QASaver(ReadableWritableFile &file,
+    QASaver(std::shared_ptr<IFileFactory> fileFactory = std::make_shared<FileFactory>(),
             std::shared_ptr<IFileSerializerFactory> fileSerializerFactory = std::make_shared<FileSerializerFactory>());
 
-    bool save(const QQueue<QA> &QuestionAnswers);
+    void save(const QQueue<QA> &QuestionAnswers, const QString &filePath);
 
 private:
 
 
-    ReadableWritableFile &file;
+    std::shared_ptr<IFileFactory> fileFactory;
     std::shared_ptr<IFileSerializerFactory> fileSerializerFactory;
-    void validateFile();
+    void openFile(ReadableWritableFile &file);
     void serializeFileVersion(CanSerializeData &serializer);
     void serializeQA(CanSerializeData &serializer, const QA &qa);
 };

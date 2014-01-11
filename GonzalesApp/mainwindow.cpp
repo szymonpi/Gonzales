@@ -11,40 +11,40 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
+    teacher(),
     stateIdle(),
     stateLearn(),
-    stateAnswerVerified(&stateLearn),
-    stateShowAnswer(&stateLearn),
     stateQuestionQiven(&stateLearn),
-    teacher()
+    stateShowAnswer(&stateLearn),
+    stateAnswerVerified(&stateLearn)
 {
     ui->setupUi(this);
+    setupStateMachine();
+}
 
+void MainWindow::setupStateMachine()
+{
     stateLearn.setInitialState(&stateQuestionQiven);
-
     stateIdle.addTransition(this, SIGNAL(startLearn()), &stateLearn);
 
     stateLearn.addTransition(this, SIGNAL(emptyQAContainer()), &stateIdle);
     stateQuestionQiven.addTransition(this, SIGNAL(showAnswer()), &stateShowAnswer);
     stateShowAnswer.addTransition(this, SIGNAL(questionGiven()), &stateQuestionQiven);
 
-
     stateIdle.assignProperty(ui->pushButtonDontKnowIt, "enabled", false);
     stateIdle.assignProperty(ui->pushButtonKnowIt, "enabled", false);
     stateIdle.assignProperty(ui->pushButtonShowAnswer, "enabled", false);
 
-
-    stateQuestionQiven.assignProperty(ui->pushButtonDontKnowIt, "disabled", true);
-    stateQuestionQiven.assignProperty(ui->pushButtonKnowIt, "disabled", true);
+    stateQuestionQiven.assignProperty(ui->pushButtonDontKnowIt, "enabled", false);
+    stateQuestionQiven.assignProperty(ui->pushButtonKnowIt, "enabled", false);
     stateQuestionQiven.assignProperty(ui->pushButtonShowAnswer, "enabled", true);
 
     stateShowAnswer.assignProperty(ui->pushButtonDontKnowIt, "enabled", true);
     stateShowAnswer.assignProperty(ui->pushButtonKnowIt, "enabled", true);
-    stateShowAnswer.assignProperty(ui->pushButtonShowAnswer, "disabled", true);
+    stateShowAnswer.assignProperty(ui->pushButtonShowAnswer, "enabled", false);
 
     stateMachine.addState(&stateIdle);
     stateMachine.addState(&stateLearn);
-
 
     stateMachine.setInitialState(&stateIdle);
     stateMachine.start();
@@ -72,11 +72,13 @@ void MainWindow::setNewQuestionInUI()
 
 void MainWindow::updateQuestion()
 {
-    if(teacher.questionsToLearnNum()>0)
-    {
-        setNewQuestion(teacher.getNextQuestion());
-    }
-    else
+    checkQuestionsToGo();
+    setNewQuestion(teacher.getNextQuestion());
+}
+
+void MainWindow::checkQuestionsToGo()
+{
+    if(teacher.questionsToLearnNum()==0)
     {
         emit emptyQAContainer();
     }
@@ -84,86 +86,75 @@ void MainWindow::updateQuestion()
 
 void MainWindow::on_pushButtonKnowIt_clicked()
 {
-    currentQA.second = teacher.getCorrectAnswer(currentQA.first);
-    ui->textEditAnswer->setText(currentQA.second);
-    ui->textEditAnswer->update();
     teacher.checkAnswer(currentQA.second);
-    ui->pushButtonKnowIt->setDisabled(true);
-    ui->pushButtonDontKnowIt->setDisabled(true);
-    if(teacher.questionsToLearnNum()==0)
-    {
-        emit emptyQAContainer();
-    }
+    emit questionGiven();
+    updateQuestion();
 }
 
 void MainWindow::on_pushButtonDontKnowIt_clicked()
 {
-    ui->textEditAnswer->update();
     teacher.checkAnswer(currentQA.second + "WRONG WRONG WRONG");
-
-    if(teacher.questionsToLearnNum()==0)
-    {
-        emit emptyQAContainer();
-    }
-    emit answerVerified();
+    emit questionGiven();
+    updateQuestion();
 }
 
-//void MainWindow::on_pushButtonNextWord_clicked()
-//{
-//    updateQuestion();
-//}
+void MainWindow::on_pushButtonShowAnswer_clicked()
+{
+    currentQA.second = teacher.getCorrectAnswer(currentQA.first);
+    ui->textEditAnswer->setText(currentQA.second);
+    emit showAnswer();
+}
 
-void MainWindow::on_actionLoad_triggered()
+QString MainWindow::getFilePathToLoadFromDialog()
 {
     QFileDialog dialog(this);
     QString filePath = dialog.getOpenFileName(this);
-    File file(filePath);
-    QFileInfo fileInfo(filePath);
-
     if(filePath.isEmpty())
-        return;
+        throw FileException("filePath is empty");
+    return filePath;
+}
 
-    file.open(QFile::ReadOnly);
-    QQueue<QA> qAs;
-    QALoader loader(file);
+QString MainWindow::getFilePathToSaveFromDialog()
+{
+    QFileDialog dialog(this);
+    QString filePath = dialog.getSaveFileName(this);
+    if(filePath.isEmpty())
+        throw FileException("filePath is empty");
+    return filePath;
+}
+
+void MainWindow::showFileErrorMessageBox(const FileException &e)
+{
+    QMessageBox saveMessage(this);
+    saveMessage.setWindowTitle("file");
+    saveMessage.setText(e.what());
+    saveMessage.exec();
+}
+
+
+void MainWindow::on_actionLoad_triggered()
+{
+    QALoader loader;
     try
     {
-        qAs = loader.load();
-        teacher.setQuestions(qAs);
+        teacher.setQuestions(loader.load(getFilePathToLoadFromDialog()));
     }
     catch(FileException &e)
     {
-        qDebug() << e.what();
-    }
-    catch(std::logic_error &e)
-    {
-        qDebug() << e.what();
+        showFileErrorMessageBox(e);
     }
 }
 
 void MainWindow::on_actionSave_triggered()
 {
-    QFileDialog dialog(this);
-    QString filePath = dialog.getSaveFileName();
-
-    File file(filePath);
-    file.open(QFile::WriteOnly);
-    QASaver saver(file);
+    QASaver saver;
     try
     {
-        bool saved = saver.save(teacher.getQAs());
-        if(!saved)
-        {
-            QMessageBox saveMessage(this);
-            saveMessage.setWindowTitle("save");
-            saveMessage.setText("can't save file");
-            saveMessage.exec();
-        }
-
+        saver.save(teacher.getQAs(), getFilePathToSaveFromDialog());
     }
     catch(FileException &e)
     {
-        qDebug() << e.what();
+        showFileErrorMessageBox(e);
     }
 }
 
@@ -180,15 +171,13 @@ void MainWindow::on_actionImport_QA_triggered()
 {
     QFileDialog dialog(this);
     QString filePath = dialog.getOpenFileName(this);
-    File file(filePath);
-    QFileInfo fileInfo(filePath);
 
     if(filePath.isEmpty())
         return;
 
-    QAFromTextFileImporter importer(file);
+    QAFromTextFileImporter importer;
     try{
-        QQueue<QA> importedQAs = importer.import();
+        QQueue<QA> importedQAs = importer.import(filePath);
         teacher.setQuestions(importedQAs);
         QMessageBox importMessage(this);
         importMessage.setWindowTitle("import");
@@ -198,12 +187,6 @@ void MainWindow::on_actionImport_QA_triggered()
     }
     catch(FileException &e)
     {
-        qDebug() << e.what();
+        showFileErrorMessageBox(e);
     }
-}
-
-void MainWindow::on_pushButtonShowAnswer_clicked()
-{
-    currentQA.second = teacher.getCorrectAnswer(currentQA.first);
-    ui->textEditAnswer->setText(currentQA.second);
 }

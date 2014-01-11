@@ -1,21 +1,19 @@
 #include "qaloader.h"
 
-
-void QALoader::validateFile()
+QALoader::QALoader(std::shared_ptr<IFileFactory> fileFactory,
+                   std::shared_ptr<IFileDeserializerFactory> fileSerializerFactory):
+    m_fileFactory(fileFactory),
+    m_fileDeserializerFactory(fileSerializerFactory)
 {
-    if(!file.isOpen())
-        throw FileException("File isn't open");
-    if(!file.isReadable())
-        throw FileException("File isn't readable");
 }
 
-void QALoader::checkfileVersion(CanDeserializeData &deserializer)
+void QALoader::checkFileVersion(CanDeserializeData &deserializer)
 {
     quint16 fileVersion=0;
     deserializer.deserialize(fileVersion);
 
     if(fileVersion != QAFileVersion1)
-        throw std::logic_error("unsupported file version");
+        throw FileException("unsupported file version");
 }
 
 void QALoader::validateDeserializerStatus(CanDeserializeData &deserializer)
@@ -46,11 +44,15 @@ void QALoader::addProperlyDeserializedQA(CanDeserializeData &deserializer, QQueu
     validateDeserializerStatus(deserializer);
 }
 
-QQueue<QA> QALoader::load()
+
+QQueue<QA> QALoader::load(const QString &filePath)
 {
-    validateFile();
-    std::shared_ptr<CanDeserializeData> deserializer = fileDeserializerFactory->create(file.getIODevice());
-    checkfileVersion(*deserializer);
+    std::shared_ptr<ReadableWritableFile> file = m_fileFactory->create(filePath);
+    if(!file->open(QFile::ReadOnly))
+        throw FileException("Can't open file");
+
+    std::shared_ptr<CanDeserializeData> deserializer = m_fileDeserializerFactory->create(file->getIODevice());
+    checkFileVersion(*deserializer);
 
     QQueue<QA> qAs;
     while(!deserializer->atEnd())

@@ -5,9 +5,10 @@
 #include "../../GonzalesApp/file/file.h"
 #include "../../GonzalesApp/file/filefactory.h"
 
-class FileFactoryMock : IFileFactory
+class FileFactoryMock : public IFileFactory
 {
-    MOCK_CONST_METHOD1(create, std::shared_ptr<ReadableWritableFile>(QString));
+public:
+    MOCK_CONST_METHOD1(create, std::shared_ptr<ReadableWritableFile>(const QString &));
 };
 
 

@@ -19,20 +19,23 @@ class QASaveTestSuite : public testing::Test
 {
 protected:
     QASaveTestSuite():
-        fileMock(),
-        fileSerializerMock(std::make_shared<FileSerializerMock>()),
-        fileSerializerFactoryMock(std::make_shared<FileSerializerFactoryMock>()),
-        saver(fileMock, fileSerializerFactoryMock),
-        qa(Question("question"), Answer("answer"))
+        m_fileMock(std::make_shared<FileMock>()),
+        m_fileFactoryMock(std::make_shared<FileFactoryMock>()),
+        m_fileSerializerMock(std::make_shared<FileSerializerMock>()),
+        m_fileSerializerFactoryMock(std::make_shared<FileSerializerFactoryMock>()),
+        m_saver(m_fileFactoryMock, m_fileSerializerFactoryMock),
+        m_qa(Question("question"), Answer("answer"))
     {
     }
 
     void SetUp()
     {
-        oneQAs.append(qa);
+        m_oneQAs.append(m_qa);
 
-        twoQAs.append(qa);
-        twoQAs.append(qa);
+        m_twoQAs.append(m_qa);
+        m_twoQAs.append(m_qa);
+        m_path = "path";
+        EXPECT_CALL(*m_fileFactoryMock, create(m_path)).WillOnce(Return(m_fileMock));
     }
 
     Matcher<const char *> questionMatcher(Question qa)
@@ -50,56 +53,56 @@ protected:
         return  Matcher<quint16>(static_cast<quint16>(QAFileVersion1));
     }
 
-    void saveWillThrow()
+    void saveWillThrow(QQueue<QA> &qAs)
     {
-        EXPECT_THROW(saver.save(oneQAs), FileException);
+        EXPECT_THROW(m_saver.save(qAs, m_path), FileException);
     }
 
     void expectSerializeQaVersion()
     {
-        EXPECT_CALL(*fileSerializerMock, serialize(fileVersionMatcher(QAFileVersion1)));
+        EXPECT_CALL(*m_fileSerializerMock, serialize(fileVersionMatcher(QAFileVersion1)));
     }
 
     void expectSerializeQA(unsigned times = 1)
     {
-        EXPECT_CALL(*fileSerializerMock, serialize(questionMatcher(qa.question))).Times(times);
-        EXPECT_CALL(*fileSerializerMock, serialize(answerMatcher(qa.answer))).Times(times);
+        EXPECT_CALL(*m_fileSerializerMock, serialize(questionMatcher(m_qa.question))).Times(times);
+        EXPECT_CALL(*m_fileSerializerMock, serialize(answerMatcher(m_qa.answer))).Times(times);
     }
 
     void expectDataStreamStatusOk()
     {
-        EXPECT_CALL(*fileSerializerMock, status()).WillOnce(Return(QDataStream::Ok));
+        EXPECT_CALL(*m_fileSerializerMock, status()).WillOnce(Return(QDataStream::Ok));
+    }
+
+    void expectDataStreamStatusNotOk()
+    {
+        EXPECT_CALL(*m_fileSerializerMock, status()).WillOnce(Return(QDataStream::WriteFailed));
     }
 
     void expectFileIsReadyToWrite()
     {
         QFile file;
-        EXPECT_CALL(*fileSerializerFactoryMock, create(_)).WillOnce(Return(fileSerializerMock));
-        EXPECT_CALL(fileMock, getIODevice()).WillOnce(Return(&file));
-        expectFileIsWritable(true);
+        EXPECT_CALL(*m_fileSerializerFactoryMock, create(_)).WillOnce(Return(m_fileSerializerMock));
+        EXPECT_CALL(*m_fileMock, getIODevice()).WillOnce(Return(&file));
+        expectFileIsOpen(true);
     }
 
     void expectFileIsOpen(bool open)
     {
-        EXPECT_CALL(fileMock, isOpen()).WillOnce(Return(open));
-    }
-
-    void expectFileIsWritable(bool writable)
-    {
-        expectFileIsOpen(true);
-        EXPECT_CALL(fileMock, isWritable()).WillOnce(Return(writable));
+        EXPECT_CALL(*m_fileMock, open(QFile::WriteOnly)).WillOnce(Return(open));
     }
 
 
 
-    FileMock fileMock;
-    std::shared_ptr<FileSerializerMock> fileSerializerMock;
-    std::shared_ptr<FileSerializerFactoryMock> fileSerializerFactoryMock;
-    QASaver saver;
-    QQueue<QA> oneQAs;
-    QQueue<QA> twoQAs;
-    QA qa;
-
+    std::shared_ptr<FileMock> m_fileMock;
+    std::shared_ptr<FileFactoryMock> m_fileFactoryMock;
+    std::shared_ptr<FileSerializerMock> m_fileSerializerMock;
+    std::shared_ptr<FileSerializerFactoryMock> m_fileSerializerFactoryMock;
+    QASaver m_saver;
+    QQueue<QA> m_oneQAs;
+    QQueue<QA> m_twoQAs;
+    QA m_qa;
+    QString m_path;
 };
 
 TEST_F(QASaveTestSuite, shouldSaveOneQA)
@@ -108,7 +111,7 @@ TEST_F(QASaveTestSuite, shouldSaveOneQA)
     expectSerializeQaVersion();
     expectSerializeQA();
     expectDataStreamStatusOk();
-    ASSERT_TRUE(saver.save(oneQAs));
+    ASSERT_NO_THROW(m_saver.save(m_oneQAs, "path"));
 }
 
 TEST_F(QASaveTestSuite, shouldSaveTwoQA)
@@ -117,18 +120,21 @@ TEST_F(QASaveTestSuite, shouldSaveTwoQA)
     expectSerializeQaVersion();
     expectSerializeQA(2);
     expectDataStreamStatusOk();
-    ASSERT_TRUE(saver.save(twoQAs));
+    ASSERT_NO_THROW(m_saver.save(m_twoQAs, "path"));
 }
 
 TEST_F(QASaveTestSuite, shouldntSaveFile_FileIsntOpen)
 {
     expectFileIsOpen(false);
-    saveWillThrow();
+    saveWillThrow(m_oneQAs);
 }
 
-TEST_F(QASaveTestSuite, shouldntSaveFile_FileIsntWriteable)
+TEST_F(QASaveTestSuite, shouldFileDontSave_DataStreamIsNotOk)
 {
-    expectFileIsWritable(false);
-    saveWillThrow();
+    expectFileIsReadyToWrite();
+    expectSerializeQaVersion();
+    expectSerializeQA(2);
+    expectDataStreamStatusNotOk();
+    saveWillThrow(m_twoQAs);
 }
 

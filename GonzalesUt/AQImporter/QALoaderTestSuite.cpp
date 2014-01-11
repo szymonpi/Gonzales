@@ -18,10 +18,11 @@ class QALoadTestSuite : public testing::Test
 {
 protected:
     QALoadTestSuite():
-        fileMock(),
+        fileMock(std::make_shared<FileMock>()),
+        fileFactoryMock(std::make_shared<FileFactoryMock>()),
         fileDeserializerMock(std::make_shared<FileDeserializerMock>()),
         fileDeserializerFactoryMock(std::make_shared<FileDeserializerFactoryMock>()),
-        loader(fileMock, fileDeserializerFactoryMock),
+        loader(fileFactoryMock, fileDeserializerFactoryMock),
         qa(Question("question"), Answer("answer"))
     {
     }
@@ -29,25 +30,20 @@ protected:
     void SetUp()
     {
         qAs.append(qa);
+        EXPECT_CALL(*fileFactoryMock, create(path)).WillOnce(Return(fileMock));
     }
 
 
     void expectFileIsReadyToRead()
     {
         QFile device;
-        expectFileIsReadable(true);
-        EXPECT_CALL(fileMock, getIODevice()).WillOnce(Return(&device));
+        expectOpenFile(true);
+        EXPECT_CALL(*fileMock, getIODevice()).WillOnce(Return(&device));
     }
 
-    void expectFileIsOpen(bool open)
+    void expectOpenFile(bool success)
     {
-        EXPECT_CALL(fileMock, isOpen()).WillOnce(Return(open));
-    }
-
-    void expectFileIsReadable(bool readable)
-    {
-        expectFileIsOpen(true);
-        EXPECT_CALL(fileMock, isReadable()).WillOnce(Return(readable));
+        EXPECT_CALL(*fileMock, open(_)).WillOnce(Return(success));
     }
 
     void expectCreateDeserializer()
@@ -100,7 +96,9 @@ protected:
         EXPECT_CALL(*fileDeserializerMock, atEnd()).WillOnce(Return(false));
     }
 
-    FileMock fileMock;
+    QString path = "path";
+    std::shared_ptr<FileMock> fileMock;
+    std::shared_ptr<FileFactoryMock> fileFactoryMock;
     std::shared_ptr<FileDeserializerMock> fileDeserializerMock;
     std::shared_ptr<FileDeserializerFactoryMock> fileDeserializerFactoryMock;
     QALoader loader;
@@ -109,18 +107,10 @@ protected:
 
 };
 
-
-
 TEST_F(QALoadTestSuite, shouldntLoadFile_FileIsntOpen)
 {
-    expectFileIsOpen(false);
-    ASSERT_THROW(loader.load(), FileException);
-}
-
-TEST_F(QALoadTestSuite, shouldntLoadFile_FileIsntReadable)
-{
-    expectFileIsReadable(false);
-    ASSERT_THROW(loader.load(), FileException);
+    expectOpenFile(false);
+    ASSERT_THROW(loader.load(path), FileException);
 }
 
 TEST_F(QALoadTestSuite, shouldntLoadAnyQA_FileVersionIsUnsupported)
@@ -128,7 +118,7 @@ TEST_F(QALoadTestSuite, shouldntLoadAnyQA_FileVersionIsUnsupported)
     expectFileIsReadyToRead();
     expectCreateDeserializer();
     expectDeserializeFileVersion(QAUnsupportedFileVersion);
-    EXPECT_THROW(loader.load(), std::logic_error);
+    EXPECT_THROW(loader.load(path), std::logic_error);
 
 }
 
@@ -141,7 +131,7 @@ TEST_F(QALoadTestSuite, shouldntImportAnyQA_DataCorupted)
     expectDeserializeQuestionAndAnswer();
     expectDeserializedDataWillBeCorupted();
 
-    EXPECT_THROW(loader.load(), FileException);
+    EXPECT_THROW(loader.load(path), FileException);
 }
 
 TEST_F(QALoadTestSuite, shouldntImportAnyQA_ReadPastEnd)
@@ -153,7 +143,7 @@ TEST_F(QALoadTestSuite, shouldntImportAnyQA_ReadPastEnd)
     expectDeserializeQuestionAndAnswer();
     expectDeserializerPastEndToQuickly();
 
-    EXPECT_THROW(loader.load(), FileException);
+    EXPECT_THROW(loader.load(path), FileException);
 }
 
 TEST_F(QALoadTestSuite, shouldntImportAnyQA_EmptyQAFile)
@@ -163,7 +153,7 @@ TEST_F(QALoadTestSuite, shouldntImportAnyQA_EmptyQAFile)
     expectDeserializeFileVersion(QAFileVersion1);
     expectDeserializerInvokeNoLoop();
 
-    EXPECT_TRUE(loader.load().isEmpty());
+    EXPECT_TRUE(loader.load(path).isEmpty());
 }
 
 TEST_F(QALoadTestSuite, shouldLoadOneQaFromFile)
@@ -175,7 +165,7 @@ TEST_F(QALoadTestSuite, shouldLoadOneQaFromFile)
     expectDeserializerInvokeOneLoop();
     EXPECT_CALL(*fileDeserializerMock, status()).WillOnce(Return(QDataStream::Ok));
 
-    QQueue<QA> qAs = loader.load();
+    QQueue<QA> qAs = loader.load(path);
     ASSERT_FALSE(qAs.isEmpty());
     QA importedQa = qAs.first();
     EXPECT_EQ(qa, importedQa);

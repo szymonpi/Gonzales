@@ -2,7 +2,7 @@
 
 
 
-QStringList QAFromTextFileImporter::getLinesFromFile()
+QStringList QAFromTextFileImporter::getLinesFromFile(ReadableWritableFile &file)
 {
     QStringList lines;
     QString curretnLine = file.readLine();
@@ -30,11 +30,12 @@ void QAFromTextFileImporter::appendQAToQueue(QQueue<QA> &qAqueue, QStringList &s
     qAqueue.append(QA(Question(question.toStdString()), Answer(answer.toStdString())));
 }
 
-QQueue<QA> QAFromTextFileImporter::import()
+QQueue<QA> QAFromTextFileImporter::import(const QString &filePath)
 {
-    if(!file.open(QFile::ReadOnly))
+    std::shared_ptr<ReadableWritableFile> file = m_fileFactory->create(filePath);
+    if(!file->open(QFile::ReadOnly))
         throw FileException("Can't open file");
-    QStringList lines = getLinesFromFile();
+    QStringList lines = getLinesFromFile(*file);
 
     QQueue<QA> qAqueue;
     foreach (QString line, lines) {

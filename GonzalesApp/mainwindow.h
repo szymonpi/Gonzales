@@ -55,6 +55,11 @@ private:
 
         void setNewQuestionInUI();
         void setNewQuestion(const QString &question);
+        void setupStateMachine();
+        void checkQuestionsToGo();
+        QString getFilePathToLoadFromDialog();
+        void showFileErrorMessageBox(const FileException &e);
+        QString getFilePathToSaveFromDialog();
 };
 
 #endif // MAINWINDOW_H

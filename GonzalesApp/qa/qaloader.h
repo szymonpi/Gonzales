@@ -8,27 +8,22 @@
 #include "qacontainer.h"
 #include "../file/file.h"
 #include "../file/filedeserializerfactory.h"
+#include "../file/filefactory.h"
 #include "../common/common.h"
 
 class QALoader
 {
 public:
-    QALoader(ReadableWritableFile &file,
-            std::shared_ptr<IFileDeserializerFactory> fileSerializerFactory = std::make_shared<FileDeserializerFactory>()):
-        file(file),
-        fileDeserializerFactory(fileSerializerFactory)
-    {
+    QALoader(std::shared_ptr<IFileFactory> fileFactory = std::make_shared<FileFactory>(),
+            std::shared_ptr<IFileDeserializerFactory> fileSerializerFactory = std::make_shared<FileDeserializerFactory>());
 
-    }
-
-    QQueue<QA> load();
+    QQueue<QA> load(const QString &filePath);
 
 private:
-    ReadableWritableFile &file;
-    std::shared_ptr<IFileDeserializerFactory> fileDeserializerFactory;
+    std::shared_ptr<IFileFactory> m_fileFactory;
+    std::shared_ptr<IFileDeserializerFactory> m_fileDeserializerFactory;
 
-    void validateFile();
-    void checkfileVersion(CanDeserializeData &deserializer);
+    void checkFileVersion(CanDeserializeData &deserializer);
     void validateDeserializerStatus(CanDeserializeData &deserializer);
     QA getDeserializedQA(CanDeserializeData &deserializer);
     void addProperlyDeserializedQA(CanDeserializeData &deserializer, QQueue<QA> &queue);

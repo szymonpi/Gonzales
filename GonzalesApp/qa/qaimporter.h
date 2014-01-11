@@ -10,24 +10,20 @@
 #include <QDebug>
 
 #include "qacontainer.h"
+#include "../file/filefactory.h"
 #include "../file/file.h"
-class CanImportQA
-{
-public:
-    virtual QQueue<QA> import()=0;
-};
 
-class QAFromTextFileImporter: public CanImportQA
+class QAFromTextFileImporter
 {
 public:
-    QAFromTextFileImporter(ReadableWritableFile &file):
-        file(file)
+    QAFromTextFileImporter(std::shared_ptr<IFileFactory> fileFactory = std::make_shared<FileFactory>()):
+        m_fileFactory(fileFactory)
     {}
-    QQueue<QA> import();
+    QQueue<QA> import(const QString &filePath);
 
 private:
-    ReadableWritableFile &file;
-    QStringList getLinesFromFile();
+    std::shared_ptr<IFileFactory> m_fileFactory;
+    QStringList getLinesFromFile(ReadableWritableFile &file);
     QStringList getSplittedCleanedLine(QString line);
     QString getQuestionFromSplittedLine(QStringList &splittedLine);
     void appendQAToQueue(QQueue<QA> &qAqueue, QStringList &splittedLine);
