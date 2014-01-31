@@ -7,6 +7,7 @@
 #include <qa/qasaver.h>
 #include <qa/qaloader.h>
 #include <stdexcept>
+#include "user/logindialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -19,6 +20,9 @@ MainWindow::MainWindow(QWidget *parent) :
     stateAnswerVerified(&stateLearn)
 {
     ui->setupUi(this);
+    LoginDialog loginDialog;
+    loginDialog.setModal(true);
+    loginDialog.exec();
     setupStateMachine();
 }
 

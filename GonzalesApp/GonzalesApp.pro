@@ -18,7 +18,11 @@ SOURCES += main.cpp\
     qa/qasaver.cpp \
     qa/qaloader.cpp \
     qa/qaimporter.cpp \
-    teaching/teacher.cpp
+    teaching/teacher.cpp \
+    user/logindialog.cpp \
+    user/dialogcreateaccount.cpp \
+    user/accountcreator.cpp \
+    user/accountsprovider.cpp
 
 HEADERS  += mainwindow.h \
     file/fileserializerfactory.h \
@@ -36,6 +40,13 @@ HEADERS  += mainwindow.h \
     teaching/teacher.h \
     teaching/teacheradapter.h \
     common/common.h \
-    file/readablewritablefile.h
+    file/readablewritablefile.h \
+    user/logindialog.h \
+    user/dialogcreateaccount.h \
+    user/accountcreator.h \
+    common/applicationsettings.h \
+    user/accountsprovider.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    user/logindialog.ui \
+    user/dialogcreateaccount.ui
