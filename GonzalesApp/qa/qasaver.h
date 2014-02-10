@@ -3,9 +3,9 @@
 #include <memory>
 
 #include "qacontainer.h"
-#include "../file/file.h"
-#include "../file/filefactory.h"
-#include "../file/fileserializerfactory.h"
+#include "../common/qtproxies/file.h"
+#include "../common/qtproxies/filefactory.h"
+#include "../common/qtproxies/fileserializerfactory.h"
 #include "../common/common.h"
 class QASaver
 {

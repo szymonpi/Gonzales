@@ -2,7 +2,7 @@
 #define FILESERIALIZEMOCK_H
 
 #include "../gmock.h"
-#include "../../GonzalesApp/file/fileserializer.h"
+#include "../../GonzalesApp/common/qtproxies/fileserializer.h"
 
 class FileSerializerMock : public CanSerializeData
 {

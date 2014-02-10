@@ -2,8 +2,8 @@
 #define FILEREADER_H
 
 #include "../gmock.h"
-#include "../../GonzalesApp/file/file.h"
-#include "../../GonzalesApp/file/filefactory.h"
+#include "../../GonzalesApp/common/qtproxies/file.h"
+#include "../../GonzalesApp/common/qtproxies/filefactory.h"
 
 class FileFactoryMock : public IFileFactory
 {

@@ -118,7 +118,7 @@ TEST_F(QALoadTestSuite, shouldntLoadAnyQA_FileVersionIsUnsupported)
     expectFileIsReadyToRead();
     expectCreateDeserializer();
     expectDeserializeFileVersion(QAUnsupportedFileVersion);
-    EXPECT_THROW(loader.load(path), std::logic_error);
+    EXPECT_THROW(loader.load(path), FileException);
 
 }
 

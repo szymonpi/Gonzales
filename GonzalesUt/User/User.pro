@@ -9,14 +9,15 @@ SOURCES += \
     alltests.cpp \
     ../../GonzalesApp/user/accountcreator.cpp \
     ../../GonzalesApp/user/accountsprovider.cpp \
-    AccountCreatorTestSuite.cpp
+    AccountCreatorTestSuite.cpp \
+    accountsprovidetestsuite.cpp \
+    QSettingsTestSuite.cpp
 
 HEADERS += ../gtest.h \
         ../gmock.h \
     ../../GonzalesApp/user/accountcreator.h \
-    applicationsettingsmock.h \
     ../../GonzalesApp/user/accountsprovider.h \
-    ../../GonzalesApp/common/applicationsettings.h
+    ../../GonzalesApp/common/qtproxies/applicationsettings.h
 
 LIBPATH += C:/gtest/lib
 LIBPATH += C:/gmock/lib

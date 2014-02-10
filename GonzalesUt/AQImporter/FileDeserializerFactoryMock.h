@@ -2,7 +2,7 @@
 #define FILEDESERIALIZERFACTORYMOCK_H
 
 #include "../gmock.h"
-#include "../../GonzalesApp/file/filedeserializerfactory.h"
+#include "../../GonzalesApp/common/qtproxies/filedeserializerfactory.h"
 
 class FileDeserializerFactoryMock : public IFileDeserializerFactory
 {

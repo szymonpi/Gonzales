@@ -4,9 +4,9 @@
 #include <QQueue>
 #include <QStringList>
 
-#include "../../GonzalesApp/file/fileserializer.h"
-#include "../../GonzalesApp/file/filedeserializer.h"
-#include "../../GonzalesApp/file/file.h"
+#include "../../GonzalesApp/common/qtproxies/fileserializer.h"
+#include "../../GonzalesApp/common/qtproxies/filedeserializer.h"
+#include "../../GonzalesApp/common/qtproxies/file.h"
 
 using namespace testing;
 

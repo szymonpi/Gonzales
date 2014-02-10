@@ -12,18 +12,19 @@ HEADERS += ../gtest.h \
     FileSerializerFactoryMock.h \
     FileDeserializerMock.h \
     FileDeserializerFactoryMock.h \
-    ../../GonzalesApp/file/fileserializerfactory.h \
-    ../../GonzalesApp/file/fileserializer.h \
-    ../../GonzalesApp/file/filefactory.h \
-    ../../GonzalesApp/file/filedeserializerfactory.h \
-    ../../GonzalesApp/file/filedeserializer.h \
-    ../../GonzalesApp/file/file.h \
     ../../GonzalesApp/qa/question.h \
     ../../GonzalesApp/qa/qasaver.h \
     ../../GonzalesApp/qa/qaloader.h \
     ../../GonzalesApp/qa/qaimporter.h \
     ../../GonzalesApp/qa/qacontainer.h \
-    ../../GonzalesApp/qa/answer.h
+    ../../GonzalesApp/qa/answer.h \
+    ../../GonzalesApp/common/qtproxies/readablewritablefile.h \
+    ../../GonzalesApp/common/qtproxies/fileserializerfactory.h \
+    ../../GonzalesApp/common/qtproxies/fileserializer.h \
+    ../../GonzalesApp/common/qtproxies/filefactory.h \
+    ../../GonzalesApp/common/qtproxies/filedeserializerfactory.h \
+    ../../GonzalesApp/common/qtproxies/filedeserializer.h \
+    ../../GonzalesApp/common/qtproxies/file.h
 
 SOURCES += \
     QAImporterTestSuite.cpp \

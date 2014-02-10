@@ -25,12 +25,6 @@ SOURCES += main.cpp\
     user/accountsprovider.cpp
 
 HEADERS  += mainwindow.h \
-    file/fileserializerfactory.h \
-    file/fileserializer.h \
-    file/filefactory.h \
-    file/filedeserializerfactory.h \
-    file/filedeserializer.h \
-    file/file.h \
     qa/question.h \
     qa/qasaver.h \
     qa/qaloader.h \
@@ -40,12 +34,19 @@ HEADERS  += mainwindow.h \
     teaching/teacher.h \
     teaching/teacheradapter.h \
     common/common.h \
-    file/readablewritablefile.h \
     user/logindialog.h \
     user/dialogcreateaccount.h \
     user/accountcreator.h \
     common/applicationsettings.h \
-    user/accountsprovider.h
+    user/accountsprovider.h \
+    common/qtproxies/readablewritablefile.h \
+    common/qtproxies/fileserializerfactory.h \
+    common/qtproxies/fileserializer.h \
+    common/qtproxies/filefactory.h \
+    common/qtproxies/filedeserializerfactory.h \
+    common/qtproxies/filedeserializer.h \
+    common/qtproxies/file.h \
+    common/qtproxies/applicationsettings.h
 
 FORMS    += mainwindow.ui \
     user/logindialog.ui \

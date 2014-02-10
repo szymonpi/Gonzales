@@ -6,9 +6,9 @@
 #include<QQueue>
 
 #include "qacontainer.h"
-#include "../file/file.h"
-#include "../file/filedeserializerfactory.h"
-#include "../file/filefactory.h"
+#include "../common/qtproxies/file.h"
+#include "../common/qtproxies/filedeserializerfactory.h"
+#include "../common/qtproxies/filefactory.h"
 #include "../common/common.h"
 
 class QALoader

@@ -10,8 +10,8 @@
 #include <QDebug>
 
 #include "qacontainer.h"
-#include "../file/filefactory.h"
-#include "../file/file.h"
+#include "../common/qtproxies/filefactory.h"
+#include "../common/qtproxies/file.h"
 
 class QAFromTextFileImporter
 {
