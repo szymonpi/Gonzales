@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     user/logindialog.cpp \
     user/dialogcreateaccount.cpp \
     user/accountcreator.cpp \
-    user/accountsprovider.cpp
+    user/accountsprovider.cpp \
+    qa/qarepository.cpp
 
 HEADERS  += mainwindow.h \
     qa/question.h \
@@ -46,7 +47,10 @@ HEADERS  += mainwindow.h \
     common/qtproxies/filedeserializerfactory.h \
     common/qtproxies/filedeserializer.h \
     common/qtproxies/file.h \
-    common/qtproxies/applicationsettings.h
+    common/qtproxies/applicationsettings.h \
+    teaching/iteacher.h \
+    qa/qarepository.h \
+    qa/iqarepository.h
 
 FORMS    += mainwindow.ui \
     user/logindialog.ui \

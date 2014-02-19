@@ -3,4 +3,5 @@ TEMPLATE = subdirs
 SUBDIRS += \
     Teacher \
     AQImporter \
-    User
+    User \
+    qa

@@ -3,6 +3,7 @@
 
 #include "question.h"
 #include "answer.h"
+#include "stdexcept"
 
 struct QA
 {

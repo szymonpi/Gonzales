@@ -8,11 +8,13 @@
 #include <qa/qaloader.h>
 #include <stdexcept>
 #include "user/logindialog.h"
+#include "qa/qarepository.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     teacher(),
+    qARepository(std::make_shared<QARepository>()),
     stateIdle(),
     stateLearn(),
     stateQuestionQiven(&stateLearn),
@@ -141,7 +143,8 @@ void MainWindow::on_actionLoad_triggered()
     QALoader loader;
     try
     {
-        teacher.setQuestions(loader.load(getFilePathToLoadFromDialog()));
+        qARepository->setQuestions(loader.load(getFilePathToLoadFromDialog()));
+        teacher.setQuestions(qARepository->getQAs());
     }
     catch(FileException &e)
     {
@@ -154,7 +157,7 @@ void MainWindow::on_actionSave_triggered()
     QASaver saver;
     try
     {
-        saver.save(teacher.getQAs(), getFilePathToSaveFromDialog());
+        saver.save(qARepository->getQAs(), getFilePathToSaveFromDialog());
     }
     catch(FileException &e)
     {
