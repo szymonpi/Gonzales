@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QStateMachine>
+#include <memory>
 #include "teaching/teacheradapter.h"
 #include "qa/qaimporter.h"
 

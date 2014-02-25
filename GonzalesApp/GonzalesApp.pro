@@ -23,7 +23,9 @@ SOURCES += main.cpp\
     user/dialogcreateaccount.cpp \
     user/accountcreator.cpp \
     user/accountsprovider.cpp \
-    qa/qarepository.cpp
+    qa/qarepository.cpp \
+    user/authorizer.cpp \
+    user/credentialsvalidator.cpp
 
 HEADERS  += mainwindow.h \
     qa/question.h \
@@ -50,7 +52,9 @@ HEADERS  += mainwindow.h \
     common/qtproxies/applicationsettings.h \
     teaching/iteacher.h \
     qa/qarepository.h \
-    qa/iqarepository.h
+    qa/iqarepository.h \
+    user/authorizer.h \
+    user/credentialsvalidator.h
 
 FORMS    += mainwindow.ui \
     user/logindialog.ui \

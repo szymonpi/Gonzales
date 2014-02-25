@@ -143,8 +143,11 @@ void MainWindow::on_actionLoad_triggered()
     QALoader loader;
     try
     {
-        qARepository->setQuestions(loader.load(getFilePathToLoadFromDialog()));
-        teacher.setQuestions(qARepository->getQAs());
+        QQueue<QA> qas = loader.load(getFilePathToLoadFromDialog());
+        std::list<QA> qasList;
+        std::copy(qas.begin(), qas.end(), std::back_inserter(qasList));
+        qARepository->setQuestions(qasList);
+        teacher.setQuestions(qas);
     }
     catch(FileException &e)
     {
@@ -184,8 +187,11 @@ void MainWindow::on_actionImport_QA_triggered()
 
     QAFromTextFileImporter importer;
     try{
-        QQueue<QA> importedQAs = importer.import(filePath);
-        teacher.setQuestions(importedQAs);
+        std::list<QA> importedQAs = importer.import(filePath);
+        QQueue<QA> qAsQueue;
+        std::copy(importedQAs.begin(), importedQAs.end(), std::back_inserter(qAsQueue));
+        qARepository->setQuestions(importedQAs);
+        teacher.setQuestions(qAsQueue);
         QMessageBox importMessage(this);
         importMessage.setWindowTitle("import");
         QString numberOfImportedItems;

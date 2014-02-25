@@ -14,7 +14,7 @@ public:
     QASaver(std::shared_ptr<IFileFactory> fileFactory = std::make_shared<FileFactory>(),
             std::shared_ptr<IFileSerializerFactory> fileSerializerFactory = std::make_shared<FileSerializerFactory>());
 
-    void save(const QQueue<QA> &QuestionAnswers, const QString &filePath);
+    void save(const std::list<QA> &QuestionAnswers, const QString &filePath);
 
 private:
 

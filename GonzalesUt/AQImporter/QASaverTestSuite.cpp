@@ -30,10 +30,10 @@ protected:
 
     void SetUp()
     {
-        m_oneQAs.append(m_qa);
+        m_oneQAs.push_back(m_qa);
 
-        m_twoQAs.append(m_qa);
-        m_twoQAs.append(m_qa);
+        m_twoQAs.push_back(m_qa);
+        m_twoQAs.push_back(m_qa);
         m_path = "path";
         EXPECT_CALL(*m_fileFactoryMock, create(m_path)).WillOnce(Return(m_fileMock));
     }
@@ -53,7 +53,7 @@ protected:
         return  Matcher<quint16>(static_cast<quint16>(QAFileVersion1));
     }
 
-    void saveWillThrow(QQueue<QA> &qAs)
+    void saveWillThrow(std::list<QA> &qAs)
     {
         EXPECT_THROW(m_saver.save(qAs, m_path), FileException);
     }
@@ -99,8 +99,8 @@ protected:
     std::shared_ptr<FileSerializerMock> m_fileSerializerMock;
     std::shared_ptr<FileSerializerFactoryMock> m_fileSerializerFactoryMock;
     QASaver m_saver;
-    QQueue<QA> m_oneQAs;
-    QQueue<QA> m_twoQAs;
+    std::list<QA> m_oneQAs;
+    std::list<QA> m_twoQAs;
     QA m_qa;
     QString m_path;
 };

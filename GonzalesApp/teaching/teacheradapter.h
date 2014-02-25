@@ -1,9 +1,12 @@
 #ifndef TEACHERADAPTER_H
 #define TEACHERADAPTER_H
 
-#include <QQueue>
+#include <queue>
 #include <QString>
 #include "teacher.h"
+
+#include <QQueue>
+#include "teaching/iteacher.h"
 
 
 class TeacherAdapter
