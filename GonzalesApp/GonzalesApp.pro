@@ -54,7 +54,10 @@ HEADERS  += mainwindow.h \
     qa/qarepository.h \
     qa/iqarepository.h \
     user/authorizer.h \
-    user/credentialsvalidator.h
+    user/credentialsvalidator.h \
+    user/credentialsvalidatorfactory.h \
+    user/icredentialsvalidator.h \
+    user/UserInfo.h
 
 FORMS    += mainwindow.ui \
     user/logindialog.ui \

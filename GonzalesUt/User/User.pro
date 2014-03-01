@@ -12,14 +12,21 @@ SOURCES += \
     AccountCreatorTestSuite.cpp \
     accountsprovidetestsuite.cpp \
     QSettingsTestSuite.cpp \
-    ../../GonzalesApp/user/credentialsvalidator.cpp
+    ../../GonzalesApp/user/credentialsvalidator.cpp \
+    CredentialsValidatorTestSuite.cpp \
+    AuthorizerTestSuite.cpp \
+    ../../GonzalesApp/user/authorizer.cpp
 
 HEADERS += ../gtest.h \
         ../gmock.h \
     ../../GonzalesApp/user/accountcreator.h \
     ../../GonzalesApp/user/accountsprovider.h \
     ../../GonzalesApp/common/qtproxies/applicationsettings.h \
-    ../../GonzalesApp/user/credentialsvalidator.h
+    ../../GonzalesApp/user/credentialsvalidator.h \
+    ../../GonzalesApp/user/authorizer.h \
+    CredentialsValidatorMock.h \
+    CredentialsValidatorFactoryMock.h \
+    applicationsettingsmock.h
 
 LIBPATH += C:/gtest/lib
 LIBPATH += C:/gmock/lib

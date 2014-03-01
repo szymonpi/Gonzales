@@ -6,6 +6,7 @@
 #include <memory>
 #include "teaching/teacheradapter.h"
 #include "qa/qaimporter.h"
+#include "user/UserInfo.h"
 
 class IQARepository;
 
@@ -56,13 +57,15 @@ private:
         QState stateShowAnswer;
         QState stateAnswerVerified;
 
+    UserInfo m_userInfo;
+
     void setNewQuestionInUI();
     void setNewQuestion(const QString &question);
     void setupStateMachine();
     void checkQuestionsToGo();
     QString getFilePathToLoadFromDialog();
     void showFileErrorMessageBox(const FileException &e);
-    QString getFilePathToSaveFromDialog();
+    QString getFilePathToQas();
 };
 
 #endif // MAINWINDOW_H

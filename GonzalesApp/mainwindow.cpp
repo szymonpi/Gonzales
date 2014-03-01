@@ -9,6 +9,8 @@
 #include <stdexcept>
 #include "user/logindialog.h"
 #include "qa/qarepository.h"
+#include "user/UserInfo.h"
+#include "common/common.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -25,6 +27,10 @@ MainWindow::MainWindow(QWidget *parent) :
     LoginDialog loginDialog;
     loginDialog.setModal(true);
     loginDialog.exec();
+    if(!loginDialog.result() != QDialog::Accepted)
+        exit(0);
+    m_userInfo = loginDialog.getUserInfo();
+    setWindowTitle(m_userInfo.login);
     setupStateMachine();
 }
 
@@ -111,22 +117,21 @@ void MainWindow::on_pushButtonShowAnswer_clicked()
     emit showAnswer();
 }
 
-QString MainWindow::getFilePathToLoadFromDialog()
+QString MainWindow::getFilePathToQas()
 {
-    QFileDialog dialog(this);
-    QString filePath = dialog.getOpenFileName(this);
-    if(filePath.isEmpty())
-        throw FileException("filePath is empty");
-    return filePath;
-}
-
-QString MainWindow::getFilePathToSaveFromDialog()
-{
-    QFileDialog dialog(this);
-    QString filePath = dialog.getSaveFileName(this);
-    if(filePath.isEmpty())
-        throw FileException("filePath is empty");
-    return filePath;
+    QDir homeDirectory = QDir::homePath();
+    if(!homeDirectory.cd(g_Company))
+    {
+        homeDirectory.mkdir(g_Company);
+        homeDirectory.cd(g_Company);
+    }
+    if(!homeDirectory.cd(g_Company))
+    {
+        homeDirectory.mkdir(g_Project);
+        homeDirectory.cd(g_Project);
+    }
+    QString path = homeDirectory.path()+"/"+m_userInfo.login+".qas";
+    return path;
 }
 
 void MainWindow::showFileErrorMessageBox(const FileException &e)
@@ -143,7 +148,7 @@ void MainWindow::on_actionLoad_triggered()
     QALoader loader;
     try
     {
-        QQueue<QA> qas = loader.load(getFilePathToLoadFromDialog());
+        QQueue<QA> qas = loader.load(getFilePathToQas());
         std::list<QA> qasList;
         std::copy(qas.begin(), qas.end(), std::back_inserter(qasList));
         qARepository->setQuestions(qasList);
@@ -160,7 +165,7 @@ void MainWindow::on_actionSave_triggered()
     QASaver saver;
     try
     {
-        saver.save(qARepository->getQAs(), getFilePathToSaveFromDialog());
+        saver.save(qARepository->getQAs(), getFilePathToQas());
     }
     catch(FileException &e)
     {
