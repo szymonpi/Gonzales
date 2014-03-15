@@ -1,16 +1,23 @@
 #include "teacher.h"
 #include <algorithm>
 
-Teacher::Teacher():
+Teacher::Teacher(std::shared_ptr<ITextPresenter> questionPresenter,
+                 std::shared_ptr<ITextPresenter> answerPresenter):
     qAToLearn(),
-    lastAskedQuestion()
+    lastAskedQuestion(),
+    m_questionPresenter(questionPresenter),
+    m_answerPresenter(answerPresenter)
 {}
 
 
-Teacher::Teacher(const Teacher::QAQueue &questions):
+Teacher::Teacher(const Teacher::QAQueue &questions,
+                 std::shared_ptr<ITextPresenter> questionPresenter,
+                 std::shared_ptr<ITextPresenter> answerPresenter):
     qAToLearn(questions),
     allQA(questions),
-    lastAskedQuestion()
+    lastAskedQuestion(),
+    m_questionPresenter(questionPresenter),
+    m_answerPresenter(answerPresenter)
 {}
 
 void Teacher::setQuestions(const Teacher::QAQueue &questions)
@@ -19,26 +26,19 @@ void Teacher::setQuestions(const Teacher::QAQueue &questions)
     this->qAToLearn = questions;
 }
 
-bool Teacher::checkAnswer(const Answer &answer)
+void Teacher::markAsUnknown()
 {
-    if(!isCurrentAnswerCorrect(Answer(answer)))
-    {
-        addWrongAnsweredQAToQueue();
-        return false;
-    }
-
-    removeCurrentAskedQA();
-    return true;
+    addWrongAnsweredQAToQueue();
 }
 
-Answer Teacher::getCorrectAnswer(const Question &question) const
+void Teacher::markAsKnown()
 {
-    QAQueue::const_iterator it = std::find_if(allQA.begin(),
-                                              allQA.end(),
-                                              [&question] (const QAPair &qa) { return qa.question == question; });
-    if(it==allQA.end())
-        throw std::logic_error("Can't faind question:");
-    return (*it).answer;
+    removeCurrentAskedQA();
+}
+
+void Teacher::showCorrectAnswer() const
+{
+    m_answerPresenter->setText(lastAskedQuestion.qAObject().answer.getAsString());
 }
 
 int Teacher::questionsToLearnNum() const
@@ -46,23 +46,12 @@ int Teacher::questionsToLearnNum() const
     return qAToLearn.size();
 }
 
-Teacher::QAQueue Teacher::getQAs() const
-{
-    return allQA;
-}
-
-
-Question Teacher::getNextQuestion()
+void Teacher::showNextQuestion()
 {
     checkIsQaQueueEmpty();
     moveCurrentQuestionToAsked();
-    return lastAskedQuestion.qAObject().question;
-}
-
-bool Teacher::isCurrentAnswerCorrect(const Answer &answer)
-{
-    QAPair currentQA = lastAskedQuestion.qAObject();
-    return currentQA.answer == answer;
+    m_answerPresenter->clear();
+    m_questionPresenter->setText(lastAskedQuestion.qAObject().question.getAsString());
 }
 
 void Teacher::removeCurrentAskedQA()

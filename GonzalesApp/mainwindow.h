@@ -46,7 +46,7 @@ signals:
 
 private:
     Ui::MainWindow *ui;
-    TeacherAdapter teacher;
+
     QPair<QString,QString> currentQA;
     QStateMachine stateMachine;
     std::shared_ptr<IQARepository> qARepository;
@@ -58,6 +58,9 @@ private:
         QState stateAnswerVerified;
 
     UserInfo m_userInfo;
+    std::shared_ptr<ITextPresenter> m_questionPresenter;
+    std::shared_ptr<ITextPresenter> m_answerPresenter;
+    std::shared_ptr<TeacherAdapter> teacher;
 
     void setNewQuestionInUI();
     void setNewQuestion(const QString &question);

@@ -11,11 +11,11 @@
 #include "qa/qarepository.h"
 #include "user/UserInfo.h"
 #include "common/common.h"
+#include "UIAdapters.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    teacher(),
     qARepository(std::make_shared<QARepository>()),
     stateIdle(),
     stateLearn(),
@@ -24,6 +24,10 @@ MainWindow::MainWindow(QWidget *parent) :
     stateAnswerVerified(&stateLearn)
 {
     ui->setupUi(this);
+    m_questionPresenter = std::make_shared<TextPresenter>(*ui->textEditQuestion);
+    m_answerPresenter = std::make_shared<TextPresenter>(*ui->textEditAnswer);
+    teacher = std::make_shared<TeacherAdapter>(m_questionPresenter, m_answerPresenter);
+
     LoginDialog loginDialog;
     loginDialog.setModal(true);
     loginDialog.exec();
@@ -67,53 +71,39 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::setNewQuestion(const QString &question)
+void MainWindow::on_pushButtonKnowIt_clicked()
 {
-    currentQA.first = question;
-    setNewQuestionInUI();
-}
+    teacher->markAsKnown();
+    emit questionGiven();
 
-void MainWindow::setNewQuestionInUI()
-{
-    ui->textEditAnswer->clear();
-    ui->textEditAnswer->update();
-
-    ui->textEditQuestion->setText(currentQA.first);
-    ui->textEditQuestion->update();
-}
-
-void MainWindow::updateQuestion()
-{
-    checkQuestionsToGo();
-    setNewQuestion(teacher.getNextQuestion());
-}
-
-void MainWindow::checkQuestionsToGo()
-{
-    if(teacher.questionsToLearnNum()==0)
+    try
+    {
+        teacher->showNextQuestion();
+    }
+    catch(std::logic_error)
     {
         emit emptyQAContainer();
     }
 }
 
-void MainWindow::on_pushButtonKnowIt_clicked()
-{
-    teacher.checkAnswer(currentQA.second);
-    emit questionGiven();
-    updateQuestion();
-}
-
 void MainWindow::on_pushButtonDontKnowIt_clicked()
 {
-    teacher.checkAnswer(currentQA.second + "WRONG WRONG WRONG");
+    teacher->markAsUnknown();
     emit questionGiven();
-    updateQuestion();
+
+    try
+    {
+        teacher->showNextQuestion();
+    }
+    catch(std::logic_error)
+    {
+        emit emptyQAContainer();
+    }
 }
 
 void MainWindow::on_pushButtonShowAnswer_clicked()
 {
-    currentQA.second = teacher.getCorrectAnswer(currentQA.first);
-    ui->textEditAnswer->setText(currentQA.second);
+    teacher->showCorrectAnswer();
     emit showAnswer();
 }
 
@@ -152,7 +142,7 @@ void MainWindow::on_actionLoad_triggered()
         std::list<QA> qasList;
         std::copy(qas.begin(), qas.end(), std::back_inserter(qasList));
         qARepository->setQuestions(qasList);
-        teacher.setQuestions(qas);
+        teacher->setQuestions(qas);
     }
     catch(FileException &e)
     {
@@ -175,10 +165,9 @@ void MainWindow::on_actionSave_triggered()
 
 void MainWindow::on_actionStart_triggered()
 {
-    if(teacher.questionsToLearnNum()==0)
+    if(teacher->questionsToLearnNum()==0)
         return;
 
-    updateQuestion();
     emit startLearn();
 }
 
@@ -196,7 +185,7 @@ void MainWindow::on_actionImport_QA_triggered()
         QQueue<QA> qAsQueue;
         std::copy(importedQAs.begin(), importedQAs.end(), std::back_inserter(qAsQueue));
         qARepository->setQuestions(importedQAs);
-        teacher.setQuestions(qAsQueue);
+        teacher->setQuestions(qAsQueue);
         QMessageBox importMessage(this);
         importMessage.setWindowTitle("import");
         QString numberOfImportedItems;

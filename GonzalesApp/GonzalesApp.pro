@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     user/accountsprovider.cpp \
     qa/qarepository.cpp \
     user/authorizer.cpp \
-    user/credentialsvalidator.cpp
+    user/credentialsvalidator.cpp \
+    UIAdapters.cpp
 
 HEADERS  += mainwindow.h \
     qa/question.h \
@@ -57,7 +58,9 @@ HEADERS  += mainwindow.h \
     user/credentialsvalidator.h \
     user/credentialsvalidatorfactory.h \
     user/icredentialsvalidator.h \
-    user/UserInfo.h
+    user/UserInfo.h \
+    UIAdapters.h \
+    IUIAdapters.h
 
 FORMS    += mainwindow.ui \
     user/logindialog.ui \

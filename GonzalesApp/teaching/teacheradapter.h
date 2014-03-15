@@ -13,8 +13,14 @@ class TeacherAdapter
 {
 public:
 
-    TeacherAdapter(){}
-    TeacherAdapter(const QQueue<QA> &questions){
+    TeacherAdapter(std::shared_ptr<ITextPresenter> questionPresenter,
+                   std::shared_ptr<ITextPresenter> answerPresenter):
+        m_teacher(questionPresenter, answerPresenter){}
+
+    TeacherAdapter(const QQueue<QA> &questions, std::shared_ptr<ITextPresenter> questionPresenter,
+                   std::shared_ptr<ITextPresenter> answerPresenter):
+        m_teacher(questionPresenter, answerPresenter)
+    {
         m_teacher.setQuestions(Teacher::QAQueue(questions.begin(), questions.end()));
     }
 
@@ -23,14 +29,10 @@ public:
         m_teacher.setQuestions(Teacher::QAQueue(questions.begin(), questions.end()));
     }
 
-    bool checkAnswer(const QString &answer)
-    {
-        return m_teacher.checkAnswer(Answer(answer.toStdString()));
-    }
 
-    QString getCorrectAnswer(const QString &question) const
+    void showCorrectAnswer() const
     {
-        return QString::fromStdString(m_teacher.getCorrectAnswer(Question(question.toStdString())).getAsString());
+        m_teacher.showCorrectAnswer();
     }
 
     int questionsToLearnNum() const
@@ -38,21 +40,19 @@ public:
         return m_teacher.questionsToLearnNum();
     }
 
-    QQueue<QA> getQAs() const
+    void showNextQuestion()
     {
-        Teacher::QAQueue l_qAs = m_teacher.getQAs();
-        QQueue<QA> l_qtQas;
-
-        foreach (QA qa, l_qAs) {
-            l_qtQas.append(qa);
-        }
-
-        return l_qtQas;
+         m_teacher.showNextQuestion();
     }
 
-    QString getNextQuestion()
+    void markAsKnown()
     {
-        return QString::fromStdString(m_teacher.getNextQuestion().getAsString());
+        m_teacher.markAsKnown();
+    }
+
+    void markAsUnknown()
+    {
+        m_teacher.markAsUnknown();
     }
 
 private:

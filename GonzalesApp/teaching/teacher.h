@@ -8,6 +8,7 @@
 #include <memory>
 #include <stack>
 #include "../qa/qacontainer.h"
+#include "../IUIAdapters.h"
 
 class Teacher
 {
@@ -15,16 +16,16 @@ public:
     typedef QA QAPair;
     typedef std::deque< QAPair > QAQueue;
 
-    Teacher();
-    Teacher(const QAQueue &questions);
+    Teacher(std::shared_ptr<ITextPresenter> questionPresenter, std::shared_ptr<ITextPresenter> answerPresenter);
+    Teacher(const QAQueue &questions, std::shared_ptr<ITextPresenter> questionPresenter, std::shared_ptr<ITextPresenter> answerPresenter);
     void setQuestions(const QAQueue &questions);
+    void markAsUnknown();
+    void markAsKnown();
 
-    bool checkAnswer(const Answer &answer);
-    Answer getCorrectAnswer(const Question &question) const;
+    void showCorrectAnswer() const;
+    void showNextQuestion();
     int questionsToLearnNum() const;
-    QAQueue getQAs() const;
 
-    Question getNextQuestion();
 
 private:
 
@@ -38,6 +39,8 @@ private:
     QAQueue qAToLearn;
     QAQueue allQA;
     QAContainer lastAskedQuestion;
+    std::shared_ptr<ITextPresenter> m_questionPresenter;
+    std::shared_ptr<ITextPresenter> m_answerPresenter;
 };
 
 #endif // TEACHER_H

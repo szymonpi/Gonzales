@@ -35,7 +35,7 @@ struct QAContainer
         this->isAvailable = true;
     }
 
-    QA qAObject()
+    QA qAObject() const
     {
         if(isAvailable)
             return questionAnswer;
