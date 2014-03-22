@@ -23,7 +23,7 @@ private:
     std::shared_ptr<IFileSerializerFactory> fileSerializerFactory;
     void openFile(ReadableWritableFile &file);
     void serializeFileVersion(CanSerializeData &serializer);
-    void serializeQA(CanSerializeData &serializer, const QA &qa);
+    void serializeQA(CanSerializeData &serializer, QA &qa);
 };
 
 #endif // QASAVER_H

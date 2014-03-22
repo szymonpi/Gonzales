@@ -22,7 +22,7 @@ public:
         return !answer.compare(a2.answer);
     }
 
-    void serializeQA(CanSerializeData &serializer)
+    void serialize(CanSerializeData &serializer) const
     {
         serializer.serialize(answer.c_str());
     }

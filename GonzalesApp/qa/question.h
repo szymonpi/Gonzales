@@ -23,7 +23,7 @@ public:
         return !this->question.compare(question.getAsString());
     }
 
-    void serialize(CanSerializeData &serializer)
+    void serialize(CanSerializeData &serializer) const
     {
         serializer.serialize(question.c_str());
     }

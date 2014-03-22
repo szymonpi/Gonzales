@@ -21,13 +21,10 @@ void QASaver::serializeFileVersion(CanSerializeData &serializer)
     serializer.serialize(static_cast<quint16>(QAFileVersion1));
 }
 
-void QASaver::serializeQA(CanSerializeData &serializer, const QA &qa)
+void QASaver::serializeQA(CanSerializeData &serializer, QA &qa) const
 {
-    std::string question= qa.question.getAsString();
-    std::string answer= qa.answer.getAsString();
-
-    serializer.serialize(question.c_str());
-    serializer.serialize(answer.c_str());
+    qa.question.serialize(serializer);
+    qa.answer.serialize(serializer);
 }
 
 void QASaver::save(const std::vector<QA> &questionAnswers, const QString &userName)
