@@ -1,7 +1,6 @@
 #ifndef TEACHER_H
 #define TEACHER_H
 
-#include <string>
 #include <iostream>
 #include <queue>
 #include <stdexcept>
@@ -18,8 +17,8 @@ public:
     typedef QA QAPair;
     typedef std::deque< QAPair > QAQueue;
 
-    Teacher(std::shared_ptr<ITextPresenter> questionPresenter,
-            std::shared_ptr<ITextPresenter> answerPresenter,
+    Teacher(std::shared_ptr<IQuestionPresenter> questionPresenter,
+            std::shared_ptr<IAnswerPresenter> answerPresenter,
             std::shared_ptr<QasProvider> qAsProvider);
     void setQuestions(const std::vector<QA> &questions);
     void markAsUnknown();
@@ -40,8 +39,8 @@ private:
     QAQueue qAToLearn;
     QAQueue allQA;
     QAContainer lastAskedQuestion;
-    std::shared_ptr<ITextPresenter> m_questionPresenter;
-    std::shared_ptr<ITextPresenter> m_answerPresenter;
+    std::shared_ptr<IQuestionPresenter> m_questionPresenter;
+    std::shared_ptr<IAnswerPresenter> m_answerPresenter;
     std::shared_ptr<QasProvider> m_qAsProvider;
 };
 

@@ -13,8 +13,10 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/IUIAdapters.h \
     ../../GonzalesApp/teaching/teacheradapter.h \
     ../../GonzalesApp/teaching/teacher.h \
-    TextPresenterMock.h \
-    QasProviderMock.h
+    QasProviderMock.h \
+    PresentersMock.h \
+    ../../GonzalesApp/common/qtproxies/filedeserializerfactory.h \
+    ../../GonzalesApp/common/qtproxies/filedeserializer.h
 
 LIBPATH += C:/gtest/lib
 LIBPATH += C:/gmock/lib

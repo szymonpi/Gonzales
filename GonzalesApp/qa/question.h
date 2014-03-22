@@ -1,6 +1,8 @@
 #ifndef QUESTION_H
 #define QUESTION_H
 #include <string>
+#include "../common/qtproxies/filedeserializer.h"
+#include "../common/qtproxies/fileserializer.h"
 
 class Question
 {
@@ -19,6 +21,20 @@ public:
     bool operator==(const Question &question) const
     {
         return !this->question.compare(question.getAsString());
+    }
+
+    void serialize(CanSerializeData &serializer)
+    {
+        serializer.serialize(question.c_str());
+    }
+
+    void deserialize(CanDeserializeData &deserializer)
+    {
+        char *chars;
+
+        deserializer.deserialize(chars);
+        question = chars;
+        delete chars;
     }
 
 private:

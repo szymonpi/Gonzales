@@ -1,8 +1,8 @@
 #include "teacher.h"
 #include <algorithm>
 
-Teacher::Teacher(std::shared_ptr<ITextPresenter> questionPresenter,
-                 std::shared_ptr<ITextPresenter> answerPresenter,
+Teacher::Teacher(std::shared_ptr<IQuestionPresenter> questionPresenter,
+                 std::shared_ptr<IAnswerPresenter> answerPresenter,
                  std::shared_ptr<QasProvider> qAsProvider):
     qAToLearn(),
     lastAskedQuestion(),
@@ -34,7 +34,7 @@ void Teacher::markAsKnown()
 
 void Teacher::showCorrectAnswer() const
 {
-    m_answerPresenter->setText(lastAskedQuestion.qAObject().answer.getAsString());
+    m_answerPresenter->presentAnswer(lastAskedQuestion.qAObject().answer);
 }
 
 int Teacher::questionsToLearnNum() const
@@ -47,7 +47,7 @@ void Teacher::showNextQuestion()
     checkIsQaQueueEmpty();
     moveCurrentQuestionToAsked();
     m_answerPresenter->clear();
-    m_questionPresenter->setText(lastAskedQuestion.qAObject().question.getAsString());
+    m_questionPresenter->presentQuestion(lastAskedQuestion.qAObject().question);
 }
 
 void Teacher::removeCurrentAskedQA()

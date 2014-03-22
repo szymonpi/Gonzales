@@ -53,8 +53,8 @@ private:
         QState stateAnswerVerified;
 
     UserInfo m_userInfo;
-    std::shared_ptr<ITextPresenter> m_questionPresenter;
-    std::shared_ptr<ITextPresenter> m_answerPresenter;
+    std::shared_ptr<IQuestionPresenter> m_questionPresenter;
+    std::shared_ptr<IAnswerPresenter> m_answerPresenter;
     std::shared_ptr<TeacherController> teacher;
 
     void setupStateMachine();

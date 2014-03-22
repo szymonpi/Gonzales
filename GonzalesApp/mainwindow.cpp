@@ -24,8 +24,8 @@ MainWindow::MainWindow(QWidget *parent) :
     stateAnswerVerified(&stateLearn)
 {
     ui->setupUi(this);
-    m_questionPresenter = std::make_shared<TextPresenter>(*ui->textEditQuestion);
-    m_answerPresenter = std::make_shared<TextPresenter>(*ui->textEditAnswer);
+    m_questionPresenter = std::make_shared<QuestionPresenter>(*ui->textEditQuestion);
+    m_answerPresenter = std::make_shared<AnswerPresenter>(*ui->textEditAnswer);
     std::shared_ptr<IExceptionHandler> l_exceptionHandler = std::make_shared<ExceptionHandler>();
 
 

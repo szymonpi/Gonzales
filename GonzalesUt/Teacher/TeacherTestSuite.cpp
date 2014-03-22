@@ -4,7 +4,7 @@
 #include <utility>
 #include <memory>
 #include <exception>
-#include "TextPresenterMock.h"
+#include "PresentersMock.h"
 #include "QasProviderMock.h"
 
 
@@ -13,8 +13,8 @@ class TeacherTestSuite: public ::testing::Test
 
 protected:
     TeacherTestSuite():
-        questionPresenterMock(std::make_shared<TextPresenterMock>()),
-        answerPresenterMock(std::make_shared<TextPresenterMock>()),
+        questionPresenterMock(std::make_shared<QuestionPresenterMock>()),
+        answerPresenterMock(std::make_shared<AnswerPresenterMock>()),
         m_qasProvider(std::make_shared<QasProviderMock>()),
         teacher(questionPresenterMock, answerPresenterMock, m_qasProvider)
     {
@@ -73,8 +73,8 @@ protected:
         teacher.setQuestions(sixQuestionQueue);
     }
 
-    std::shared_ptr<TextPresenterMock> questionPresenterMock;
-    std::shared_ptr<TextPresenterMock> answerPresenterMock;
+    std::shared_ptr<QuestionPresenterMock> questionPresenterMock;
+    std::shared_ptr<AnswerPresenterMock> answerPresenterMock;
     std::shared_ptr<QasProviderMock> m_qasProvider;
     Teacher teacher;
     std::vector<QA> oneQuestionQueue;

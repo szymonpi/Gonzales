@@ -29,13 +29,15 @@ void QALoader::validateDeserializerStatus(CanDeserializeData &deserializer)
 
 QA QALoader::getDeserializedQA(CanDeserializeData &deserializer)
 {
-    char *question;
-    char *answer;
+    Question q("");
+    q.deserialize(deserializer);
 
-    deserializer.deserialize(question);
-    deserializer.deserialize(answer);
+    Answer a("");
+    a.deserialize(deserializer);
 
-    return QA(Question(question), Answer(answer));
+    QA qa(q, a);
+
+    return qa;
 }
 
 void QALoader::addProperlyDeserializedQA(CanDeserializeData &deserializer, std::vector<QA> &queue)
