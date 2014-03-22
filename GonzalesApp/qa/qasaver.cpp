@@ -21,7 +21,7 @@ void QASaver::serializeFileVersion(CanSerializeData &serializer)
     serializer.serialize(static_cast<quint16>(QAFileVersion1));
 }
 
-void QASaver::serializeQA(CanSerializeData &serializer, QA &qa) const
+void QASaver::serializeQA(CanSerializeData &serializer, const QA &qa) const
 {
     qa.question.serialize(serializer);
     qa.answer.serialize(serializer);

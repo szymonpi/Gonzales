@@ -4,4 +4,5 @@ SUBDIRS += \
     Teacher \
     AQImporter \
     User \
-    qa
+    qa \
+    Common

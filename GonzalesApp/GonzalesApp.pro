@@ -28,7 +28,8 @@ SOURCES += main.cpp\
     user/credentialsvalidator.cpp \
     UIAdapters.cpp \
     teaching/teachercontroller.cpp \
-    exceptionhandler.cpp
+    exceptionhandler.cpp \
+    common/simpletree.cpp
 
 HEADERS  += mainwindow.h \
     qa/question.h \
@@ -64,7 +65,8 @@ HEADERS  += mainwindow.h \
     qa/QAsProvider.h \
     teaching/teachercontroller.h \
     exceptionhandler.h \
-    qa/iqarepository.h
+    qa/iqarepository.h \
+    common/simpletree.h
 
 FORMS    += mainwindow.ui \
     user/logindialog.ui \
