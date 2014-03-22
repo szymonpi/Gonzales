@@ -2,6 +2,7 @@
 TEMPLATE = app
 CONFIG += console
 CONFIG += c++11
+CONFIG += qt
 
 SOURCES += \
     ../../GonzalesApp/teaching/teacher.cpp \
@@ -12,7 +13,8 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/IUIAdapters.h \
     ../../GonzalesApp/teaching/teacheradapter.h \
     ../../GonzalesApp/teaching/teacher.h \
-    TextPresenterMock.h
+    TextPresenterMock.h \
+    QasProviderMock.h
 
 LIBPATH += C:/gtest/lib
 LIBPATH += C:/gmock/lib

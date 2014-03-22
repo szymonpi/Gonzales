@@ -49,7 +49,7 @@ TEST_F(QATextFileImporterTestSuite, shouldntImportAnyQAFromEmptyFile)
 {
     fileShouldOpen(true);
     EXPECT_CALL(*m_fileMock, readLine()).WillOnce(Return(QString()));
-    std::list<QA> qaQueue =  importer.import(filePath);
+    std::vector<QA> qaQueue =  importer.import(filePath);
     EXPECT_EQ(0, qaQueue.size());
 }
 
@@ -60,8 +60,8 @@ TEST_F(QATextFileImporterTestSuite, shouldImportOneQA)
     EXPECT_CALL(*m_fileMock, readLine())
                                     .WillOnce(Return(line))
                                     .WillOnce(Return(QString("")));
-    std::list<QA> importedQas = importer.import(filePath);
-    QA importedQa = importedQas.front();
+    std::vector<QA> importedQas = importer.import(filePath);
+    QA importedQa = importedQas[0];
     EXPECT_EQ(Question("question"), importedQa.question);
     EXPECT_EQ(Answer("answer"), importedQa.answer);
 }
@@ -96,7 +96,7 @@ TEST_F(QATextFileImporterTestSuite, shouldImportOneQAsWithManyWhitespaces)
     EXPECT_CALL(*m_fileMock, readLine())
                                     .WillOnce(Return(line))
                                     .WillOnce(Return(QString("")));
-    std::list<QA> qAs = importer.import(filePath);
+    std::vector<QA> qAs = importer.import(filePath);
     ASSERT_TRUE(!qAs.empty());
     EXPECT_EQ(1, qAs.size());
 

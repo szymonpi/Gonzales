@@ -53,7 +53,7 @@ protected:
         return  Matcher<quint16>(static_cast<quint16>(QAFileVersion1));
     }
 
-    void saveWillThrow(std::list<QA> &qAs)
+    void saveWillThrow(std::vector<QA> &qAs)
     {
         EXPECT_THROW(m_saver.save(qAs, m_path), FileException);
     }
@@ -99,8 +99,8 @@ protected:
     std::shared_ptr<FileSerializerMock> m_fileSerializerMock;
     std::shared_ptr<FileSerializerFactoryMock> m_fileSerializerFactoryMock;
     QASaver m_saver;
-    std::list<QA> m_oneQAs;
-    std::list<QA> m_twoQAs;
+    std::vector<QA> m_oneQAs;
+    std::vector<QA> m_twoQAs;
     QA m_qa;
     QString m_path;
 };

@@ -2,28 +2,24 @@
 #include <algorithm>
 
 Teacher::Teacher(std::shared_ptr<ITextPresenter> questionPresenter,
-                 std::shared_ptr<ITextPresenter> answerPresenter):
+                 std::shared_ptr<ITextPresenter> answerPresenter,
+                 std::shared_ptr<QasProvider> qAsProvider):
     qAToLearn(),
     lastAskedQuestion(),
     m_questionPresenter(questionPresenter),
-    m_answerPresenter(answerPresenter)
-{}
-
-
-Teacher::Teacher(const Teacher::QAQueue &questions,
-                 std::shared_ptr<ITextPresenter> questionPresenter,
-                 std::shared_ptr<ITextPresenter> answerPresenter):
-    qAToLearn(questions),
-    allQA(questions),
-    lastAskedQuestion(),
-    m_questionPresenter(questionPresenter),
-    m_answerPresenter(answerPresenter)
-{}
-
-void Teacher::setQuestions(const Teacher::QAQueue &questions)
+    m_answerPresenter(answerPresenter),
+    m_qAsProvider(qAsProvider)
 {
-    this->allQA = questions;
-    this->qAToLearn = questions;
+    std::vector<QA> l_qas = m_qAsProvider->getQAs();
+    std::copy(l_qas.begin(), l_qas.end(), std::back_inserter(allQA));
+    qAToLearn = allQA;
+}
+
+void Teacher::setQuestions(const std::vector<QA> &questions)
+{
+    std::vector<QA> l_qas = questions;
+    std::copy(l_qas.begin(), l_qas.end(), std::back_inserter(allQA));
+    qAToLearn = allQA;
 }
 
 void Teacher::markAsUnknown()

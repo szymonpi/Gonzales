@@ -23,21 +23,21 @@ QStringList QAFromTextFileImporter::getSplittedCleanedLine(QString line)
     return splittedLine;
 }
 
-void QAFromTextFileImporter::pushQa(std::list<QA> &qAqueue, QStringList &splittedLine)
+void QAFromTextFileImporter::pushQa(std::vector<QA> &qAqueue, QStringList &splittedLine)
 {
     QString question = splittedLine.takeFirst();
     QString answer = splittedLine.takeFirst();
     qAqueue.push_back(QA(Question(question.toStdString()), Answer(answer.toStdString())));
 }
 
-std::list<QA> QAFromTextFileImporter::import(const QString &filePath)
+std::vector<QA> QAFromTextFileImporter::import(const QString &filePath)
 {
     std::shared_ptr<ReadableWritableFile> file = m_fileFactory->create(filePath);
     if(!file->open(QFile::ReadOnly))
         throw FileException("Can't open file");
     QStringList lines = getLinesFromFile(*file);
 
-    std::list<QA> qAqueue;
+    std::vector<QA> qAqueue;
     foreach (QString line, lines) {
         QStringList splittedLine = getSplittedCleanedLine(line);
         if(splittedLine.size()==2)

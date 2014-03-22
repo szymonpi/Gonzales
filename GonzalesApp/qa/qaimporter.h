@@ -19,14 +19,14 @@ public:
     QAFromTextFileImporter(std::shared_ptr<IFileFactory> fileFactory = std::make_shared<FileFactory>()):
         m_fileFactory(fileFactory)
     {}
-    std::list<QA> import(const QString &filePath);
+    std::vector<QA> import(const QString &filePath);
 
 private:
     std::shared_ptr<IFileFactory> m_fileFactory;
     QStringList getLinesFromFile(ReadableWritableFile &file);
     QStringList getSplittedCleanedLine(QString line);
     QString getQuestionFromSplittedLine(QStringList &splittedLine);
-    void pushQa(std::list<QA> &qAqueue, QStringList &splittedLine);
+    void pushQa(std::vector<QA> &qAqueue, QStringList &splittedLine);
 };
 
 #endif // QAIMPORTER_H

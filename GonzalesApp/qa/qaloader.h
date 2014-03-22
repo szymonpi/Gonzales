@@ -17,7 +17,7 @@ public:
     QALoader(std::shared_ptr<IFileFactory> fileFactory = std::make_shared<FileFactory>(),
             std::shared_ptr<IFileDeserializerFactory> fileSerializerFactory = std::make_shared<FileDeserializerFactory>());
 
-    QQueue<QA> load(const QString &filePath);
+    std::vector<QA> load(const QString &userName);
 
 private:
     std::shared_ptr<IFileFactory> m_fileFactory;
@@ -26,7 +26,7 @@ private:
     void checkFileVersion(CanDeserializeData &deserializer);
     void validateDeserializerStatus(CanDeserializeData &deserializer);
     QA getDeserializedQA(CanDeserializeData &deserializer);
-    void addProperlyDeserializedQA(CanDeserializeData &deserializer, QQueue<QA> &queue);
+    void addProperlyDeserializedQA(CanDeserializeData &deserializer, std::vector<QA> &queue);
 };
 
 

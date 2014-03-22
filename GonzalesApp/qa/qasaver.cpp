@@ -30,9 +30,10 @@ void QASaver::serializeQA(CanSerializeData &serializer, const QA &qa)
     serializer.serialize(answer.c_str());
 }
 
-void QASaver::save(const std::list<QA> &questionAnswers, const QString &filePath)
+void QASaver::save(const std::vector<QA> &questionAnswers, const QString &userName)
 {
-    std::shared_ptr<ReadableWritableFile> file = fileFactory->create(filePath);
+    QString fileName = getFilePathToQas(userName);
+    std::shared_ptr<ReadableWritableFile> file = fileFactory->create(fileName);
     openFile(*file);
     std::shared_ptr<CanSerializeData> serializer = fileSerializerFactory->create(file->getIODevice());
     serializeFileVersion(*serializer);

@@ -7,8 +7,10 @@
 #include <stdexcept>
 #include <memory>
 #include <stack>
+#include <vector>
 #include "../qa/qacontainer.h"
 #include "../IUIAdapters.h"
+#include "../qa/iqarepository.h"
 
 class Teacher
 {
@@ -16,16 +18,15 @@ public:
     typedef QA QAPair;
     typedef std::deque< QAPair > QAQueue;
 
-    Teacher(std::shared_ptr<ITextPresenter> questionPresenter, std::shared_ptr<ITextPresenter> answerPresenter);
-    Teacher(const QAQueue &questions, std::shared_ptr<ITextPresenter> questionPresenter, std::shared_ptr<ITextPresenter> answerPresenter);
-    void setQuestions(const QAQueue &questions);
+    Teacher(std::shared_ptr<ITextPresenter> questionPresenter,
+            std::shared_ptr<ITextPresenter> answerPresenter,
+            std::shared_ptr<QasProvider> qAsProvider);
+    void setQuestions(const std::vector<QA> &questions);
     void markAsUnknown();
     void markAsKnown();
-
     void showCorrectAnswer() const;
     void showNextQuestion();
     int questionsToLearnNum() const;
-
 
 private:
 
@@ -41,6 +42,7 @@ private:
     QAContainer lastAskedQuestion;
     std::shared_ptr<ITextPresenter> m_questionPresenter;
     std::shared_ptr<ITextPresenter> m_answerPresenter;
+    std::shared_ptr<QasProvider> m_qAsProvider;
 };
 
 #endif // TEACHER_H

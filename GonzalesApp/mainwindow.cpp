@@ -16,7 +16,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    qARepository(std::make_shared<QARepository>()),
+    qARepository(),
     stateIdle(),
     stateLearn(),
     stateQuestionQiven(&stateLearn),
@@ -26,7 +26,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     m_questionPresenter = std::make_shared<TextPresenter>(*ui->textEditQuestion);
     m_answerPresenter = std::make_shared<TextPresenter>(*ui->textEditAnswer);
-    teacher = std::make_shared<TeacherAdapter>(m_questionPresenter, m_answerPresenter);
+    std::shared_ptr<IExceptionHandler> l_exceptionHandler = std::make_shared<ExceptionHandler>();
+
 
     LoginDialog loginDialog;
     loginDialog.setModal(true);
@@ -36,6 +37,14 @@ MainWindow::MainWindow(QWidget *parent) :
     m_userInfo = loginDialog.getUserInfo();
     setWindowTitle(m_userInfo.login);
     setupStateMachine();
+
+    qARepository = std::make_shared<QARepository>(m_userInfo.login);
+    qARepository->load();
+    teacher = std::make_shared<TeacherController>(m_questionPresenter,
+                                                  m_answerPresenter,
+                                                  qARepository,
+                                                  l_exceptionHandler);
+
 }
 
 void MainWindow::setupStateMachine()
@@ -71,34 +80,21 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::showNextQuestion()
+{
+    teacher->showNextQuestion();
+}
+
 void MainWindow::on_pushButtonKnowIt_clicked()
 {
-    teacher->markAsKnown();
+    teacher->markAsKnownAndShowNextQuestion();
     emit questionGiven();
-
-    try
-    {
-        teacher->showNextQuestion();
-    }
-    catch(std::logic_error)
-    {
-        emit emptyQAContainer();
-    }
 }
 
 void MainWindow::on_pushButtonDontKnowIt_clicked()
 {
-    teacher->markAsUnknown();
+    teacher->markAsUnknownAndShowNextQuestion();
     emit questionGiven();
-
-    try
-    {
-        teacher->showNextQuestion();
-    }
-    catch(std::logic_error)
-    {
-        emit emptyQAContainer();
-    }
 }
 
 void MainWindow::on_pushButtonShowAnswer_clicked()
@@ -107,67 +103,9 @@ void MainWindow::on_pushButtonShowAnswer_clicked()
     emit showAnswer();
 }
 
-QString MainWindow::getFilePathToQas()
-{
-    QDir homeDirectory = QDir::homePath();
-    if(!homeDirectory.cd(g_Company))
-    {
-        homeDirectory.mkdir(g_Company);
-        homeDirectory.cd(g_Company);
-    }
-    if(!homeDirectory.cd(g_Company))
-    {
-        homeDirectory.mkdir(g_Project);
-        homeDirectory.cd(g_Project);
-    }
-    QString path = homeDirectory.path()+"/"+m_userInfo.login+".qas";
-    return path;
-}
-
-void MainWindow::showFileErrorMessageBox(const FileException &e)
-{
-    QMessageBox saveMessage(this);
-    saveMessage.setWindowTitle("file");
-    saveMessage.setText(e.what());
-    saveMessage.exec();
-}
-
-
-void MainWindow::on_actionLoad_triggered()
-{
-    QALoader loader;
-    try
-    {
-        QQueue<QA> qas = loader.load(getFilePathToQas());
-        std::list<QA> qasList;
-        std::copy(qas.begin(), qas.end(), std::back_inserter(qasList));
-        qARepository->setQuestions(qasList);
-        teacher->setQuestions(qas);
-    }
-    catch(FileException &e)
-    {
-        showFileErrorMessageBox(e);
-    }
-}
-
-void MainWindow::on_actionSave_triggered()
-{
-    QASaver saver;
-    try
-    {
-        saver.save(qARepository->getQAs(), getFilePathToQas());
-    }
-    catch(FileException &e)
-    {
-        showFileErrorMessageBox(e);
-    }
-}
-
 void MainWindow::on_actionStart_triggered()
 {
-    if(teacher->questionsToLearnNum()==0)
-        return;
-
+    teacher->startTeaching();
     emit startLearn();
 }
 
@@ -178,22 +116,5 @@ void MainWindow::on_actionImport_QA_triggered()
 
     if(filePath.isEmpty())
         return;
-
-    QAFromTextFileImporter importer;
-    try{
-        std::list<QA> importedQAs = importer.import(filePath);
-        QQueue<QA> qAsQueue;
-        std::copy(importedQAs.begin(), importedQAs.end(), std::back_inserter(qAsQueue));
-        qARepository->setQuestions(importedQAs);
-        teacher->setQuestions(qAsQueue);
-        QMessageBox importMessage(this);
-        importMessage.setWindowTitle("import");
-        QString numberOfImportedItems;
-        importMessage.setText(numberOfImportedItems.setNum(importedQAs.size())+"question and answer item has been imported.");
-        importMessage.exec();
-    }
-    catch(FileException &e)
-    {
-        showFileErrorMessageBox(e);
-    }
+    qARepository->import(filePath);
 }

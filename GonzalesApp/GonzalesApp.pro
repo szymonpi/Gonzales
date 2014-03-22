@@ -26,7 +26,9 @@ SOURCES += main.cpp\
     qa/qarepository.cpp \
     user/authorizer.cpp \
     user/credentialsvalidator.cpp \
-    UIAdapters.cpp
+    UIAdapters.cpp \
+    teaching/teachercontroller.cpp \
+    exceptionhandler.cpp
 
 HEADERS  += mainwindow.h \
     qa/question.h \
@@ -36,7 +38,6 @@ HEADERS  += mainwindow.h \
     qa/qacontainer.h \
     qa/answer.h \
     teaching/teacher.h \
-    teaching/teacheradapter.h \
     common/common.h \
     user/logindialog.h \
     user/dialogcreateaccount.h \
@@ -53,14 +54,17 @@ HEADERS  += mainwindow.h \
     common/qtproxies/applicationsettings.h \
     teaching/iteacher.h \
     qa/qarepository.h \
-    qa/iqarepository.h \
     user/authorizer.h \
     user/credentialsvalidator.h \
     user/credentialsvalidatorfactory.h \
     user/icredentialsvalidator.h \
     user/UserInfo.h \
     UIAdapters.h \
-    IUIAdapters.h
+    IUIAdapters.h \
+    qa/QAsProvider.h \
+    teaching/teachercontroller.h \
+    exceptionhandler.h \
+    qa/iqarepository.h
 
 FORMS    += mainwindow.ui \
     user/logindialog.ui \
