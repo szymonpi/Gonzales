@@ -12,6 +12,8 @@ struct QA
         answer(answer)
     {}
 
+    QA(){}
+
     bool operator ==(const QA &qA) const
     {
         return (qA.question == question) && (qA.answer == answer);

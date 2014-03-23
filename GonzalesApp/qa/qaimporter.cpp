@@ -1,7 +1,5 @@
 #include "qaimporter.h"
 
-
-
 QStringList QAFromTextFileImporter::getLinesFromFile(ReadableWritableFile &file)
 {
     QStringList lines;
@@ -23,25 +21,25 @@ QStringList QAFromTextFileImporter::getSplittedCleanedLine(QString line)
     return splittedLine;
 }
 
-void QAFromTextFileImporter::pushQa(std::vector<QA> &qAqueue, QStringList &splittedLine)
+void QAFromTextFileImporter::appendQa(Node<QA> &qAqueue, QStringList &splittedLine)
 {
     QString question = splittedLine.takeFirst();
     QString answer = splittedLine.takeFirst();
-    qAqueue.push_back(QA(Question(question.toStdString()), Answer(answer.toStdString())));
+    qAqueue.append(std::make_shared<QA>(Question(question.toStdString()), Answer(answer.toStdString())));
 }
 
-std::vector<QA> QAFromTextFileImporter::import(const QString &filePath)
+Node<QA> QAFromTextFileImporter::import(const QString &filePath)
 {
     std::shared_ptr<ReadableWritableFile> file = m_fileFactory->create(filePath);
     if(!file->open(QFile::ReadOnly))
         throw FileException("Can't open file");
     QStringList lines = getLinesFromFile(*file);
 
-    std::vector<QA> qAqueue;
+    Node<QA> qAqueue;
     foreach (QString line, lines) {
         QStringList splittedLine = getSplittedCleanedLine(line);
         if(splittedLine.size()==2)
-            pushQa(qAqueue, splittedLine);
+            appendQa(qAqueue, splittedLine);
     }
     return qAqueue;
 }

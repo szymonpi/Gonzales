@@ -1,6 +1,7 @@
 #include <QQueue>
 
 #include "qasaver.h"
+#include "../Common/simpletree.h"
 
 
 QASaver::QASaver(std::shared_ptr<IFileFactory> fileFactory,
@@ -27,7 +28,7 @@ void QASaver::serializeQA(CanSerializeData &serializer, const QA &qa) const
     qa.answer.serialize(serializer);
 }
 
-void QASaver::save(const std::vector<QA> &questionAnswers, const QString &userName)
+void QASaver::save(const Node<QA> &questionAnswers, const QString &userName)
 {
     QString fileName = getFilePathToQas(userName);
     std::shared_ptr<ReadableWritableFile> file = fileFactory->create(fileName);
@@ -35,8 +36,12 @@ void QASaver::save(const std::vector<QA> &questionAnswers, const QString &userNa
     std::shared_ptr<CanSerializeData> serializer = fileSerializerFactory->create(file->getIODevice());
     serializeFileVersion(*serializer);
 
-    foreach(QA qA, questionAnswers)
-        serializeQA(*serializer, qA);
+    foreach(Node<QA> qA, questionAnswers.getNodes())
+    {
+        std::shared_ptr<QA> qap = qA.getNodeValue();
+        if(qap)
+            serializeQA(*serializer, *qap);
+    }
 
     if(serializer->status()!=QDataStream::Ok)
         throw FileException("Something wen't wrong when saving file");

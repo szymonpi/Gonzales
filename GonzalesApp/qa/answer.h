@@ -7,6 +7,7 @@
 class Answer
 {
 public:
+    Answer(){}
     Answer(std::string answer)
     {
         this->answer = answer;

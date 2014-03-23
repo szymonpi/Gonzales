@@ -8,6 +8,7 @@ class Question
 {
 
 public:
+    Question(){}
     Question(std::string question)
     {
         this->question = question;

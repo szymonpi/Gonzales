@@ -1,4 +1,5 @@
 #include "qaloader.h"
+#include <memory>
 
 QALoader::QALoader(std::shared_ptr<IFileFactory> fileFactory,
                    std::shared_ptr<IFileDeserializerFactory> fileSerializerFactory):
@@ -27,7 +28,7 @@ void QALoader::validateDeserializerStatus(CanDeserializeData &deserializer)
     }
 }
 
-QA QALoader::getDeserializedQA(CanDeserializeData &deserializer)
+std::shared_ptr<QA> QALoader::getDeserializedQA(CanDeserializeData &deserializer)
 {
     Question q("");
     q.deserialize(deserializer);
@@ -35,19 +36,17 @@ QA QALoader::getDeserializedQA(CanDeserializeData &deserializer)
     Answer a("");
     a.deserialize(deserializer);
 
-    QA qa(q, a);
-
-    return qa;
+    return std::make_shared<QA>(q,a);
 }
 
-void QALoader::addProperlyDeserializedQA(CanDeserializeData &deserializer, std::vector<QA> &queue)
+void QALoader::addProperlyDeserializedQA(CanDeserializeData &deserializer, Node<QA> &node)
 {
-    queue.push_back(getDeserializedQA(deserializer));
+    node.append(getDeserializedQA(deserializer));
     validateDeserializerStatus(deserializer);
 }
 
 
-std::vector<QA> QALoader::load(const QString &userName)
+Node<QA> QALoader::load(const QString &userName)
 {
     QString filePath = getFilePathToQas(userName);
     std::shared_ptr<ReadableWritableFile> file = m_fileFactory->create(filePath);
@@ -57,7 +56,7 @@ std::vector<QA> QALoader::load(const QString &userName)
     std::shared_ptr<CanDeserializeData> deserializer = m_fileDeserializerFactory->create(file->getIODevice());
     checkFileVersion(*deserializer);
 
-    std::vector<QA> qAs;
+    Node<QA> qAs;
     while(!deserializer->atEnd())
         addProperlyDeserializedQA(*deserializer, qAs);
 

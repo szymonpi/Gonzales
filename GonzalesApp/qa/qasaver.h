@@ -7,6 +7,7 @@
 #include "../common/qtproxies/filefactory.h"
 #include "../common/qtproxies/fileserializerfactory.h"
 #include "../common/common.h"
+#include "../Common/simpletree.h"
 class QASaver
 {
 public:
@@ -14,7 +15,7 @@ public:
     QASaver(std::shared_ptr<IFileFactory> fileFactory = std::make_shared<FileFactory>(),
             std::shared_ptr<IFileSerializerFactory> fileSerializerFactory = std::make_shared<FileSerializerFactory>());
 
-    void save(const std::vector<QA> &QuestionAnswers, const QString &filePath);
+    void save(const Node<QA> &QuestionAnswers, const QString &filePath);
 
 private:
 
