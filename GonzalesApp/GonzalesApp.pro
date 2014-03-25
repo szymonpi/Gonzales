@@ -66,7 +66,8 @@ HEADERS  += mainwindow.h \
     teaching/teachercontroller.h \
     exceptionhandler.h \
     qa/iqarepository.h \
-    common/simpletree.h
+    common/simpletree.h \
+    IExceptionHandler.h
 
 FORMS    += mainwindow.ui \
     user/logindialog.ui \

@@ -12,6 +12,7 @@
 #include "user/UserInfo.h"
 #include "common/common.h"
 #include "UIAdapters.h"
+#include "exceptionhandler.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
