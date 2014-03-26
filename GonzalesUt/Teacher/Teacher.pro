@@ -3,6 +3,7 @@ TEMPLATE = app
 CONFIG += console
 CONFIG += c++11
 CONFIG += qt
+CONFIG += warn_off
 
 SOURCES += \
     ../../GonzalesApp/teaching/teacher.cpp \

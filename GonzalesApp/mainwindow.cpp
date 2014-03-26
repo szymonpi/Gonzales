@@ -25,10 +25,10 @@ MainWindow::MainWindow(QWidget *parent) :
     stateAnswerVerified(&stateLearn)
 {
     ui->setupUi(this);
-    m_questionPresenter = std::make_shared<QuestionPresenter>(*ui->textEditQuestion);
-    m_answerPresenter = std::make_shared<AnswerPresenter>(*ui->textEditAnswer);
+    std::shared_ptr<IQuestionPresenter> l_questionPresenter(new QuestionPresenter(*ui->textEditQuestion));
+    std::shared_ptr<IAnswerPresenter> l_answerPresenter(new AnswerPresenter(*ui->textEditAnswer));
     std::shared_ptr<IExceptionHandler> l_exceptionHandler = std::make_shared<ExceptionHandler>();
-
+    std::unique_ptr<IQuestionCollectionPresenter> l_questionCollectionPresenter(new QuestionCollectionPresenter(*ui->treeWidgetQuestions));
 
     LoginDialog loginDialog;
     loginDialog.setModal(true);
@@ -39,12 +39,14 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowTitle(m_userInfo.login);
     setupStateMachine();
 
-    qARepository = std::make_shared<QARepository>(m_userInfo.login);
+    qARepository = std::make_shared<QARepository>(m_userInfo.login,
+                                                  l_exceptionHandler,
+                                                  std::move(l_questionCollectionPresenter));
     qARepository->load();
-    teacher = std::make_shared<TeacherController>(m_questionPresenter,
-                                                  m_answerPresenter,
-                                                  qARepository,
-                                                  l_exceptionHandler);
+    teacher.reset(new TeacherController(std::move(l_questionPresenter),
+                                        std::move(l_answerPresenter),
+                                        qARepository,
+                                        l_exceptionHandler));
 
 }
 
@@ -54,6 +56,7 @@ void MainWindow::setupStateMachine()
     stateIdle.addTransition(this, SIGNAL(startLearn()), &stateLearn);
 
     stateLearn.addTransition(this, SIGNAL(emptyQAContainer()), &stateIdle);
+    stateLearn.addTransition(this, SIGNAL(stopLearn()), &stateIdle);
     stateQuestionQiven.addTransition(this, SIGNAL(showAnswer()), &stateShowAnswer);
     stateShowAnswer.addTransition(this, SIGNAL(questionGiven()), &stateQuestionQiven);
 

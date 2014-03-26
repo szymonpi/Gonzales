@@ -38,6 +38,7 @@ signals:
     void questionGiven();
     void showAnswer();
     void answerVerified();
+    void stopLearn();
 
 private:
     Ui::MainWindow *ui;
@@ -53,9 +54,7 @@ private:
         QState stateAnswerVerified;
 
     UserInfo m_userInfo;
-    std::shared_ptr<IQuestionPresenter> m_questionPresenter;
-    std::shared_ptr<IAnswerPresenter> m_answerPresenter;
-    std::shared_ptr<TeacherController> teacher;
+    std::unique_ptr<TeacherController> teacher;
 
     void setupStateMachine();
 };

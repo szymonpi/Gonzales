@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>599</width>
-    <height>478</height>
+    <width>704</width>
+    <height>480</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -138,40 +138,50 @@ p, li { white-space: pre-wrap; }
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_12">
           <item>
-           <widget class="QGroupBox" name="groupBoxGroups">
-            <property name="title">
-             <string>Groups</string>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_10">
-             <item>
-              <widget class="QTreeWidget" name="treeWidget_2">
-               <property name="columnCount">
-                <number>1</number>
-               </property>
-               <column>
-                <property name="text">
-                 <string>questions</string>
-                </property>
-               </column>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
            <widget class="QGroupBox" name="groupBoxQuestionsInGroup">
             <property name="title">
              <string>Questions</string>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_7">
              <item>
-              <widget class="QTreeWidget" name="treeWidget">
-               <property name="columnCount">
-                <number>1</number>
+              <widget class="QTreeWidget" name="treeWidgetQuestions">
+               <property name="uniformRowHeights">
+                <bool>true</bool>
                </property>
+               <property name="sortingEnabled">
+                <bool>true</bool>
+               </property>
+               <property name="animated">
+                <bool>true</bool>
+               </property>
+               <property name="allColumnsShowFocus">
+                <bool>false</bool>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+               <property name="columnCount">
+                <number>2</number>
+               </property>
+               <attribute name="headerVisible">
+                <bool>false</bool>
+               </attribute>
+               <attribute name="headerHighlightSections">
+                <bool>true</bool>
+               </attribute>
                <column>
                 <property name="text">
                  <string>questions</string>
+                </property>
+                <property name="font">
+                 <font>
+                  <kerning>true</kerning>
+                 </font>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>answers</string>
                 </property>
                </column>
               </widget>
@@ -192,6 +202,9 @@ p, li { white-space: pre-wrap; }
              <property name="columnCount">
               <number>1</number>
              </property>
+             <attribute name="headerVisible">
+              <bool>false</bool>
+             </attribute>
              <column>
               <property name="text">
                <string>questions</string>
@@ -210,7 +223,7 @@ p, li { white-space: pre-wrap; }
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QGroupBox" name="groupBox_3">
+         <widget class="QGroupBox" name="groupBoxActualQuestions">
           <property name="title">
            <string>Acctual questions</string>
           </property>
@@ -222,7 +235,7 @@ p, li { white-space: pre-wrap; }
          </widget>
         </item>
         <item>
-         <widget class="QGroupBox" name="groupBox_4">
+         <widget class="QGroupBox" name="groupBoxQuestionForNextLearning">
           <property name="title">
            <string>Question for next learning</string>
           </property>
@@ -244,7 +257,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>599</width>
+     <width>704</width>
      <height>21</height>
     </rect>
    </property>
