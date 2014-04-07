@@ -12,7 +12,6 @@ SOURCES += \
 HEADERS += ../gtest.h \
         ../gmock.h \
     ../../GonzalesApp/IUIAdapters.h \
-    ../../GonzalesApp/teaching/teacheradapter.h \
     ../../GonzalesApp/teaching/teacher.h \
     QasProviderMock.h \
     PresentersMock.h \

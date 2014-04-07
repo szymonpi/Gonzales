@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>704</width>
-    <height>480</height>
+    <width>870</width>
+    <height>523</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -134,80 +134,136 @@ p, li { white-space: pre-wrap; }
        <attribute name="title">
         <string>Questions</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <layout class="QVBoxLayout" name="verticalLayout_7">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_12">
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="QGroupBox" name="groupBoxQuestionsInGroup">
-            <property name="title">
-             <string>Questions</string>
+           <widget class="QFontComboBox" name="ComboBoxSubject">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>28</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_7">
-             <item>
-              <widget class="QTreeWidget" name="treeWidgetQuestions">
-               <property name="uniformRowHeights">
-                <bool>true</bool>
-               </property>
-               <property name="sortingEnabled">
-                <bool>true</bool>
-               </property>
-               <property name="animated">
-                <bool>true</bool>
-               </property>
-               <property name="allColumnsShowFocus">
-                <bool>false</bool>
-               </property>
-               <property name="wordWrap">
-                <bool>true</bool>
-               </property>
-               <property name="columnCount">
-                <number>2</number>
-               </property>
-               <attribute name="headerVisible">
-                <bool>false</bool>
-               </attribute>
-               <attribute name="headerHighlightSections">
-                <bool>true</bool>
-               </attribute>
-               <column>
-                <property name="text">
-                 <string>questions</string>
-                </property>
-                <property name="font">
-                 <font>
-                  <kerning>true</kerning>
-                 </font>
-                </property>
-               </column>
-               <column>
-                <property name="text">
-                 <string>answers</string>
-                </property>
-               </column>
-              </widget>
-             </item>
-            </layout>
+            <property name="minimumSize">
+             <size>
+              <width>256</width>
+              <height>28</height>
+             </size>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::RightToLeft</enum>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="currentText">
+             <string>chose subject</string>
+            </property>
            </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
          </layout>
         </item>
         <item>
-         <widget class="QGroupBox" name="groupBoxToLearn">
+         <widget class="QGroupBox" name="groupBoxQuestionsInGroup">
           <property name="title">
-           <string>Questions to learn</string>
+           <string>Questions &amp; Answers</string>
           </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <layout class="QVBoxLayout" name="verticalLayout_10">
            <item>
-            <widget class="QTreeWidget" name="treeWidget_3">
-             <property name="columnCount">
-              <number>1</number>
-             </property>
-             <attribute name="headerVisible">
+            <widget class="QTreeWidget" name="treeWidgetQuestions">
+             <property name="autoFillBackground">
               <bool>false</bool>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="midLineWidth">
+              <number>0</number>
+             </property>
+             <property name="autoScrollMargin">
+              <number>2</number>
+             </property>
+             <property name="editTriggers">
+              <set>QAbstractItemView::NoEditTriggers</set>
+             </property>
+             <property name="tabKeyNavigation">
+              <bool>false</bool>
+             </property>
+             <property name="showDropIndicator" stdset="0">
+              <bool>false</bool>
+             </property>
+             <property name="dragEnabled">
+              <bool>false</bool>
+             </property>
+             <property name="dragDropMode">
+              <enum>QAbstractItemView::NoDragDrop</enum>
+             </property>
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+             <property name="selectionMode">
+              <enum>QAbstractItemView::ExtendedSelection</enum>
+             </property>
+             <property name="selectionBehavior">
+              <enum>QAbstractItemView::SelectRows</enum>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="textElideMode">
+              <enum>Qt::ElideRight</enum>
+             </property>
+             <property name="horizontalScrollMode">
+              <enum>QAbstractItemView::ScrollPerPixel</enum>
+             </property>
+             <property name="uniformRowHeights">
+              <bool>false</bool>
+             </property>
+             <property name="sortingEnabled">
+              <bool>true</bool>
+             </property>
+             <property name="animated">
+              <bool>true</bool>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+             <attribute name="headerCascadingSectionResizes">
+              <bool>true</bool>
+             </attribute>
+             <attribute name="headerHighlightSections">
+              <bool>true</bool>
              </attribute>
              <column>
               <property name="text">
-               <string>questions</string>
+               <string>question</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>answer</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>check to learn</string>
               </property>
              </column>
             </widget>
@@ -257,7 +313,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>704</width>
+     <width>870</width>
      <height>21</height>
     </rect>
    </property>

@@ -29,7 +29,11 @@ SOURCES += main.cpp\
     UIAdapters.cpp \
     teaching/teachercontroller.cpp \
     exceptionhandler.cpp \
-    common/simpletree.cpp
+    common/simpletree.cpp \
+    filepathselector.cpp \
+    dialogqaimporterselector.cpp \
+    qa/importedqasappender.cpp \
+    filepathbydialogselector.cpp
 
 HEADERS  += mainwindow.h \
     qa/question.h \
@@ -43,7 +47,6 @@ HEADERS  += mainwindow.h \
     user/logindialog.h \
     user/dialogcreateaccount.h \
     user/accountcreator.h \
-    common/applicationsettings.h \
     user/accountsprovider.h \
     common/qtproxies/readablewritablefile.h \
     common/qtproxies/fileserializerfactory.h \
@@ -67,8 +70,20 @@ HEADERS  += mainwindow.h \
     exceptionhandler.h \
     qa/iqarepository.h \
     common/simpletree.h \
-    IExceptionHandler.h
+    IExceptionHandler.h \
+    filepathselector.h \
+    qa/QAFilePathSelector.h \
+    dialogqaimporterselector.h \
+    qa/importedqasappender.h \
+    qa/QANodeCreator.h \
+    qa/ImportHandler.h \
+    filepathbydialogselector.h \
+    qa/QAsAppender.h
 
 FORMS    += mainwindow.ui \
     user/logindialog.ui \
-    user/dialogcreateaccount.ui
+    user/dialogcreateaccount.ui \
+    dialogqaimporterselector.ui
+
+RESOURCES += \
+    icons.qrc

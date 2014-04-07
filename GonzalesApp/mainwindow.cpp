@@ -13,6 +13,7 @@
 #include "common/common.h"
 #include "UIAdapters.h"
 #include "exceptionhandler.h"
+#include <QHeaderView>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -33,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
     LoginDialog loginDialog;
     loginDialog.setModal(true);
     loginDialog.exec();
-    if(!loginDialog.result() != QDialog::Accepted)
+    if(loginDialog.result() != QDialog::Accepted)
         exit(0);
     m_userInfo = loginDialog.getUserInfo();
     setWindowTitle(m_userInfo.login);
@@ -121,4 +122,11 @@ void MainWindow::on_actionImport_QA_triggered()
     if(filePath.isEmpty())
         return;
     qARepository->import(filePath);
+}
+
+void MainWindow::on_treeWidgetQuestions_itemChanged(QTreeWidgetItem *item, int column)
+{
+    if(column != 2)
+        return;
+
 }
