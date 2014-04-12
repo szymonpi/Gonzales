@@ -16,6 +16,7 @@
 #include <QHeaderView>
 #include "filepathbydialogselector.h"
 #include "qa/importedqasappender.h"
+#include "dialogqaimporterselector.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -51,9 +52,11 @@ MainWindow::MainWindow(QWidget *parent) :
                                         qARepository,
                                         l_exceptionHandler));
 
-//    importHandler.reset(new ImportHandler(std::make_shared<FilePathByDialogSelector>(),
-//                                          std::make_shared<QAFromTextFileImporter>(),
-//                                          std::make_shared<ImportedQAsAppender>(std::make_shared<DialogQAImporterSelector>())));
+    importHandler.reset(new ImportHandler(std::make_shared<FilePathByDialogSelector>(),
+                                          std::make_shared<QAFromTextFileImporter>(),
+                                          std::make_shared<ImportedQAsAppender>(std::make_shared<QAsImporterSelector>(),
+                                                                                qARepository),
+                                          l_exceptionHandler));
 
 }
 
