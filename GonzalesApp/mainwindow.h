@@ -7,6 +7,7 @@
 #include "qa/qaimporter.h"
 #include "user/UserInfo.h"
 #include "teaching/teachercontroller.h"
+#include "qa/ImportHandler.h"
 
 class IQARepository;
 
@@ -57,6 +58,7 @@ private:
 
     UserInfo m_userInfo;
     std::unique_ptr<TeacherController> teacher;
+    std::unique_ptr<ImportHandler> importHandler;
 
     void setupStateMachine();
 };

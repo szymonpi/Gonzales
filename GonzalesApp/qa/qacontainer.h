@@ -19,41 +19,14 @@ struct QA
         return (qA.question == question) && (qA.answer == answer);
     }
 
+    bool toLearn() const
+    {
+        return m_toLearn;
+    }
+
     Question question;
     Answer answer;
-};
-
-
-struct QAContainer
-{
-    QAContainer():
-        isAvailable(false),
-        questionAnswer(Question("undefined"), Answer("Undefined"))
-    {}
-
-    void setQA(const QA &qA)
-    {
-        this->questionAnswer = qA;
-        this->isAvailable = true;
-    }
-
-    QA qAObject() const
-    {
-        if(isAvailable)
-            return questionAnswer;
-        throw std::logic_error("empty asked questions");
-    }
-
-    void removeQuestion()
-    {
-        this->isAvailable = false;
-        questionAnswer.answer = Answer("Undefined");
-        questionAnswer.question = Question("Undefined");
-    }
-
-private:
-    bool isAvailable = false;
-    QA questionAnswer;
+    bool m_toLearn;
 };
 
 #endif // QACONTAINER_H

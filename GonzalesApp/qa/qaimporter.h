@@ -17,7 +17,7 @@
 class QAsImporter
 {
 public:
-    virtual std::vector<Node<QA> > import(const QString &filePath) = 0;
+    virtual std::vector<std::shared_ptr<QA> > import(const QString &filePath) = 0;
     ~QAsImporter(){}
 };
 
@@ -27,14 +27,14 @@ public:
     QAFromTextFileImporter(std::shared_ptr<IFileFactory> fileFactory = std::make_shared<FileFactory>()):
         m_fileFactory(fileFactory)
     {}
-    std::vector<Node<QA> > import(const QString &filePath);
+    std::vector<std::shared_ptr<QA> > import(const QString &filePath);
 
 private:
     std::shared_ptr<IFileFactory> m_fileFactory;
     QStringList getLinesFromFile(ReadableWritableFile &file);
     QStringList getSplittedCleanedLine(QString line);
     QString getQuestionFromSplittedLine(QStringList &splittedLine);
-    void appendQa(std::vector<Node<QA> > &qAs, QStringList &splittedLine);
+    void appendQa(std::vector<std::shared_ptr<QA> > &qAs, QStringList &splittedLine);
 };
 
 #endif // QAIMPORTER_H

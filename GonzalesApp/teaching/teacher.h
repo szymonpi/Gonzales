@@ -15,12 +15,11 @@ class Teacher
 {
 public:
     typedef QA QAPair;
-    typedef std::deque< QAPair > QAQueue;
+    typedef std::deque<std::shared_ptr<QA> > QAQueue;
 
     Teacher(std::shared_ptr<IQuestionPresenter> questionPresenter,
             std::shared_ptr<IAnswerPresenter> answerPresenter,
-            std::shared_ptr<QasProvider> qAsProvider);
-    void setQuestions(const std::vector<QA> &questions);
+            std::shared_ptr<IQARepository> qAsProvider);
     void markAsUnknown();
     void markAsKnown();
     void showCorrectAnswer() const;
@@ -35,13 +34,14 @@ private:
     void addWrongAnsweredQAToQueue();
     void checkIsQaQueueEmpty();
     void moveCurrentQuestionToAsked();
+    void fillQAsToLearn(std::vector<std::shared_ptr<QA> > &qasToLearn, const Node<QA> &node) const;
 
     QAQueue qAToLearn;
     QAQueue allQA;
-    QAContainer lastAskedQuestion;
+    std::shared_ptr<QA> lastAskedQuestion;
     std::shared_ptr<IQuestionPresenter> m_questionPresenter;
     std::shared_ptr<IAnswerPresenter> m_answerPresenter;
-    std::shared_ptr<QasProvider> m_qAsProvider;
+    std::shared_ptr<IQARepository> m_qAsRepository;
 };
 
 #endif // TEACHER_H

@@ -13,7 +13,6 @@ HEADERS += ../gtest.h \
         ../gmock.h \
     ../../GonzalesApp/IUIAdapters.h \
     ../../GonzalesApp/teaching/teacher.h \
-    QasProviderMock.h \
     PresentersMock.h \
     ../../GonzalesApp/common/qtproxies/filedeserializerfactory.h \
     ../../GonzalesApp/common/qtproxies/filedeserializer.h

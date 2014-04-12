@@ -5,7 +5,7 @@
 #include <memory>
 #include <exception>
 #include "PresentersMock.h"
-#include "QasProviderMock.h"
+#include "../qa/QAsRepositoryMock.h"
 
 
 class TeacherTestSuite: public ::testing::Test
@@ -15,7 +15,7 @@ protected:
     TeacherTestSuite():
         questionPresenterMock(std::make_shared<QuestionPresenterMock>()),
         answerPresenterMock(std::make_shared<AnswerPresenterMock>()),
-        m_qasProvider(std::make_shared<QasProviderMock>()),
+        m_qasProvider(std::make_shared<QAsRepositoryMock>()),
         teacher(questionPresenterMock, answerPresenterMock, m_qasProvider)
     {
 
@@ -60,22 +60,22 @@ protected:
 
     void setOneQuestion()
     {
-        teacher.setQuestions(oneQuestionQueue);
+        //teacher.setQuestions(oneQuestionQueue);
     }
 
     void setTwoQuestions()
     {
-        teacher.setQuestions(twoQuestionQueue);
+        //teacher.setQuestions(twoQuestionQueue);
     }
 
     void setSixQuestions()
     {
-        teacher.setQuestions(sixQuestionQueue);
+        //teacher.setQuestions(sixQuestionQueue);
     }
 
     std::shared_ptr<QuestionPresenterMock> questionPresenterMock;
     std::shared_ptr<AnswerPresenterMock> answerPresenterMock;
-    std::shared_ptr<QasProviderMock> m_qasProvider;
+    std::shared_ptr<QAsRepositoryMock> m_qasProvider;
     Teacher teacher;
     std::vector<QA> oneQuestionQueue;
     std::vector<QA> twoQuestionQueue;

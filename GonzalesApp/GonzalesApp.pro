@@ -65,7 +65,6 @@ HEADERS  += mainwindow.h \
     user/UserInfo.h \
     UIAdapters.h \
     IUIAdapters.h \
-    qa/QAsProvider.h \
     teaching/teachercontroller.h \
     exceptionhandler.h \
     qa/iqarepository.h \
@@ -78,7 +77,8 @@ HEADERS  += mainwindow.h \
     qa/QANodeCreator.h \
     qa/ImportHandler.h \
     filepathbydialogselector.h \
-    qa/QAsAppender.h
+    qa/QAsAppender.h \
+    QAsDestinationSelector.h
 
 FORMS    += mainwindow.ui \
     user/logindialog.ui \

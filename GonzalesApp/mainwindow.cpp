@@ -14,6 +14,8 @@
 #include "UIAdapters.h"
 #include "exceptionhandler.h"
 #include <QHeaderView>
+#include "filepathbydialogselector.h"
+#include "qa/importedqasappender.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -48,6 +50,10 @@ MainWindow::MainWindow(QWidget *parent) :
                                         std::move(l_answerPresenter),
                                         qARepository,
                                         l_exceptionHandler));
+
+//    importHandler.reset(new ImportHandler(std::make_shared<FilePathByDialogSelector>(),
+//                                          std::make_shared<QAFromTextFileImporter>(),
+//                                          std::make_shared<ImportedQAsAppender>(std::make_shared<DialogQAImporterSelector>())));
 
 }
 
@@ -116,12 +122,12 @@ void MainWindow::on_actionStart_triggered()
 
 void MainWindow::on_actionImport_QA_triggered()
 {
-    QFileDialog dialog(this);
-    QString filePath = dialog.getOpenFileName(this);
+//    QFileDialog dialog(this);
+//    QString filePath = dialog.getOpenFileName(this);
 
-    if(filePath.isEmpty())
-        return;
-    qARepository->import(filePath);
+//    if(filePath.isEmpty())
+//        return;
+//    qARepository->import(filePath);
 }
 
 void MainWindow::on_treeWidgetQuestions_itemChanged(QTreeWidgetItem *item, int column)
