@@ -37,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
     LoginDialog loginDialog;
     loginDialog.setModal(true);
     loginDialog.exec();
-    if(loginDialog.result() != QDialog::Accepted)
+    if(!loginDialog.isAuthorized())
         exit(0);
     m_userInfo = loginDialog.getUserInfo();
     setWindowTitle(m_userInfo.login);
