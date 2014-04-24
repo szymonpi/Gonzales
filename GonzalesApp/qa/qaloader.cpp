@@ -57,7 +57,7 @@ std::vector<Node<QA>> QALoader::load(const QString &userName)
     checkFileVersion(*deserializer);
 
     std::vector<Node<QA>> qAs;
-    Node<QA>::deserialize(qAs, *deserializer);
+    SimpleTree::deserialize(*deserializer, qAs.at(0));
     validateDeserializerStatus(*deserializer);
     return qAs;
 }

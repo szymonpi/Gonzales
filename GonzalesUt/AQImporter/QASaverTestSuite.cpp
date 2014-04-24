@@ -8,7 +8,7 @@
 
 #include "../../GonzalesApp/qa/qasaver.h"
 #include "../../GonzalesApp/qa/qaloader.h"
-#include "FileSerializeMock.h"
+#include "FileSerializerMock.h"
 #include "FileSerializerFactoryMock.h"
 
 #include "FileMock.h"

@@ -32,7 +32,7 @@ void QASaver::save(const std::vector<Node<QA> > &questionAnswers, const QString 
 
     for(auto it = questionAnswers.begin(); it!=questionAnswers.end(); it++)
     {
-        (*it).serialize(*serializer);
+        SimpleTree::serialize(*serializer, *it);
     }
 
     if(serializer->status()!=QDataStream::Ok)
