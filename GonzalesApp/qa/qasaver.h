@@ -15,7 +15,7 @@ public:
     QASaver(std::shared_ptr<IFileFactory> fileFactory = std::make_shared<FileFactory>(),
             std::shared_ptr<IFileSerializerFactory> fileSerializerFactory = std::make_shared<FileSerializerFactory>());
 
-    void save(const Node<QA> &QuestionAnswers, const QString &filePath);
+    void save(const std::vector<Node<QA> > &QuestionAnswers, const QString &filePath);
 
 private:
 
@@ -24,7 +24,6 @@ private:
     std::shared_ptr<IFileSerializerFactory> fileSerializerFactory;
     void openFile(ReadableWritableFile &file);
     void serializeFileVersion(CanSerializeData &serializer);
-    void serializeQA(CanSerializeData &serializer, const QA &qa) const;
 };
 
 #endif // QASAVER_H

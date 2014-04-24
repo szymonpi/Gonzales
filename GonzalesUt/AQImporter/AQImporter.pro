@@ -11,7 +11,6 @@ CONFIG += warn_off
 HEADERS += ../gtest.h \
            ../gmock.h \
     FileMock.h \
-    FileSerializeMock.h \
     FileSerializerFactoryMock.h \
     FileDeserializerMock.h \
     FileDeserializerFactoryMock.h \
@@ -27,7 +26,8 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/common/qtproxies/filefactory.h \
     ../../GonzalesApp/common/qtproxies/filedeserializerfactory.h \
     ../../GonzalesApp/common/qtproxies/filedeserializer.h \
-    ../../GonzalesApp/common/qtproxies/file.h
+    ../../GonzalesApp/common/qtproxies/file.h \
+    FileSerializerMock.h
 
 SOURCES += \
     QAImporterTestSuite.cpp \

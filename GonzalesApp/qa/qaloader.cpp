@@ -41,12 +41,12 @@ std::shared_ptr<QA> QALoader::getDeserializedQA(CanDeserializeData &deserializer
 
 void QALoader::addProperlyDeserializedQA(CanDeserializeData &deserializer, Node<QA> &node)
 {
-    node.append(getDeserializedQA(deserializer));
-    validateDeserializerStatus(deserializer);
+    node.appendNodeValue(getDeserializedQA(deserializer));
+
 }
 
 
-Node<QA> QALoader::load(const QString &userName)
+std::vector<Node<QA>> QALoader::load(const QString &userName)
 {
     QString filePath = getFilePathToQas(userName);
     std::shared_ptr<ReadableWritableFile> file = m_fileFactory->create(filePath);
@@ -56,9 +56,8 @@ Node<QA> QALoader::load(const QString &userName)
     std::shared_ptr<CanDeserializeData> deserializer = m_fileDeserializerFactory->create(file->getIODevice());
     checkFileVersion(*deserializer);
 
-    Node<QA> qAs;
-    while(!deserializer->atEnd())
-        addProperlyDeserializedQA(*deserializer, qAs);
-
+    std::vector<Node<QA>> qAs;
+    Node<QA>::deserialize(qAs, *deserializer);
+    validateDeserializerStatus(*deserializer);
     return qAs;
 }

@@ -22,13 +22,7 @@ void QASaver::serializeFileVersion(CanSerializeData &serializer)
     serializer.serialize(static_cast<quint16>(QAFileVersion1));
 }
 
-void QASaver::serializeQA(CanSerializeData &serializer, const QA &qa) const
-{
-    qa.question.serialize(serializer);
-    qa.answer.serialize(serializer);
-}
-
-void QASaver::save(const Node<QA> &questionAnswers, const QString &userName)
+void QASaver::save(const std::vector<Node<QA> > &questionAnswers, const QString &userName)
 {
     QString fileName = getFilePathToQas(userName);
     std::shared_ptr<ReadableWritableFile> file = fileFactory->create(fileName);
@@ -36,11 +30,9 @@ void QASaver::save(const Node<QA> &questionAnswers, const QString &userName)
     std::shared_ptr<CanSerializeData> serializer = fileSerializerFactory->create(file->getIODevice());
     serializeFileVersion(*serializer);
 
-    foreach(Node<QA> qA, questionAnswers.getNodes())
+    for(auto it = questionAnswers.begin(); it!=questionAnswers.end(); it++)
     {
-        std::shared_ptr<QA> qap = qA.getNodeValue();
-        if(qap)
-            serializeQA(*serializer, *qap);
+        (*it).serialize(*serializer);
     }
 
     if(serializer->status()!=QDataStream::Ok)

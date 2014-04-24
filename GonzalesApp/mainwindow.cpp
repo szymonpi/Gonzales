@@ -125,17 +125,5 @@ void MainWindow::on_actionStart_triggered()
 
 void MainWindow::on_actionImport_QA_triggered()
 {
-//    QFileDialog dialog(this);
-//    QString filePath = dialog.getOpenFileName(this);
-
-//    if(filePath.isEmpty())
-//        return;
-//    qARepository->import(filePath);
-}
-
-void MainWindow::on_treeWidgetQuestions_itemChanged(QTreeWidgetItem *item, int column)
-{
-    if(column != 2)
-        return;
-
+    importHandler->import();
 }

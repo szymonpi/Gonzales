@@ -18,7 +18,7 @@ public:
     QALoader(std::shared_ptr<IFileFactory> fileFactory = std::make_shared<FileFactory>(),
             std::shared_ptr<IFileDeserializerFactory> fileSerializerFactory = std::make_shared<FileDeserializerFactory>());
 
-    Node<QA> load(const QString &userName);
+    std::vector<Node<QA> > load(const QString &userName);
 
 private:
     std::shared_ptr<IFileFactory> m_fileFactory;
