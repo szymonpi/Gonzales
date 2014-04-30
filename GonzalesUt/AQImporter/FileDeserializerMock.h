@@ -19,6 +19,7 @@ public:
     MOCK_METHOD1(deserialize, void(float &i));
     MOCK_METHOD1(deserialize, void(double &i));
     MOCK_METHOD1(deserialize, void(char *&i));
+    MOCK_METHOD1(deserialize, void(QString &str));
     MOCK_METHOD0(status, QDataStream::Status());
     MOCK_METHOD0(atEnd, bool());
 
