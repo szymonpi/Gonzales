@@ -1,0 +1,12 @@
+INPUT(
+./debug\AllTests.o
+./debug\QARepositoryTestSuite.o
+./debug\qasaver.o
+./debug\qaloader.o
+./debug\qaimporter.o
+./debug\qarepository.o
+./debug\ImportHandlertestSuite.o
+./debug\FilePathSelectorTestSuite.o
+./debug\QAsAppenderTestSuite.o
+./debug\importedqasappender.o
+);
