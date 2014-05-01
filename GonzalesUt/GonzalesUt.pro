@@ -5,4 +5,5 @@ SUBDIRS += \
     AQImporter \
     User \
     qa \
-    Common
+    Common \
+    CommonUtUtilities
