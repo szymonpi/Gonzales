@@ -9,6 +9,20 @@ public:
     virtual void deserialize(CanDeserializeData &deserializer) = 0;
 };
 
+class NodeValueStub: public NodeValue
+{
+public:
+    virtual void serialize(CanSerializeData &serializer)
+    {
+
+    }
+
+    virtual void deserialize(CanDeserializeData &deserializer)
+    {
+
+    }
+};
+
 class NodeValueMock: public NodeValue
 {
 public:

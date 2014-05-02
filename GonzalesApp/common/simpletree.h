@@ -117,6 +117,17 @@ enum
     NodeType_WithValue = 2
 };
 
+class ValueFactory
+{
+public:
+
+    template<class T>
+    static std::shared_ptr<T> create()
+    {
+        return std::make_shared<T>();
+    }
+};
+
 template<typename T>
 static void deserialize(CanDeserializeData &deserializer, Node<T> &node)
 {
@@ -131,12 +142,19 @@ static void deserialize(CanDeserializeData &deserializer, Node<T> &node)
     {
         std::shared_ptr<T> value = std::make_shared<T>();
         value->deserialize(deserializer);
+        node.appendNodeValue(value);
     }
     if(nodeType & NodeType_WithChildren)
     {
         QString nodeName;
         deserializer.deserialize(nodeName);
         node.setName(nodeName);
+        for(int i = 0; i < numOfChildren; ++i)
+        {
+            Node<T> childNode;
+            deserialize(deserializer, childNode);
+            node.appendNode(childNode);
+        }
     }
 }
 
