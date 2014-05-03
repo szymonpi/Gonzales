@@ -2,7 +2,7 @@
 
 
 
-const std::vector<Node<QA> > &QARepository::getQAs() const
+const std::vector<SimpleTree::Node<QA> > &QARepository::getQAs() const
 {
     return m_questionsTree;
 }
@@ -14,7 +14,7 @@ void QARepository::onQAsUpdate()
     saver.save(m_questionsTree, m_userName);
 }
 
-std::vector<Node<QA> > &QARepository::getQAs()
+std::vector<SimpleTree::Node<QA> > &QARepository::getQAs()
 {
     return m_questionsTree;
 }
@@ -38,7 +38,7 @@ void QARepository::load()
 //    try
 //    {
 //        QAFromTextFileImporter importer;
-//        std::vector<Node<QA> > importedQuestions = importer.import(path);
+//        std::vector<SimpleTree::Node<QA> > importedQuestions = importer.import(path);
 //        if(importedQuestions.size() == 0)
 //            return;
         

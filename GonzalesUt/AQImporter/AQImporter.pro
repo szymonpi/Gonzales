@@ -27,7 +27,10 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/common/qtproxies/filedeserializerfactory.h \
     ../../GonzalesApp/common/qtproxies/filedeserializer.h \
     ../../GonzalesApp/common/qtproxies/file.h \
-    FileSerializerMock.h
+    FileSerializerMock.h \
+    ../../GonzalesApp/common/SimpleTree/node.h \
+    ../../GonzalesApp/common/SimpleTree/utils.h \
+    QASerializerMock.h
 
 SOURCES += \
     QAImporterTestSuite.cpp \

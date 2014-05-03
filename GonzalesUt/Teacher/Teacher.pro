@@ -15,7 +15,8 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/teaching/teacher.h \
     PresentersMock.h \
     ../../GonzalesApp/common/qtproxies/filedeserializerfactory.h \
-    ../../GonzalesApp/common/qtproxies/filedeserializer.h
+    ../../GonzalesApp/common/qtproxies/filedeserializer.h \
+    ../../GonzalesApp/common/SimpleTree/node.h
 
 LIBPATH += C:/gtest/lib
 LIBPATH += C:/gmock/lib

@@ -10,24 +10,28 @@
 #include "../common/qtproxies/filedeserializerfactory.h"
 #include "../common/qtproxies/filefactory.h"
 #include "../common/common.h"
-#include "../Common/simpletree.h"
+#include "../Common/SimpleTree/node.h"
+#include "QASerializer.h"
 
 class QALoader
 {
 public:
     QALoader(std::shared_ptr<IFileFactory> fileFactory = std::make_shared<FileFactory>(),
-            std::shared_ptr<IFileDeserializerFactory> fileSerializerFactory = std::make_shared<FileDeserializerFactory>());
+            std::shared_ptr<IQADeserializer> qADeserializer = std::make_shared<QASerializer>(),
+             std::shared_ptr<IFileDeserializerFactory> fileDeserializerFactory
+                = std::make_shared<FileDeserializerFactory>());
 
-    std::vector<Node<QA> > load(const QString &userName);
+    std::vector<SimpleTree::Node<QA> > load(const QString &userName);
 
 private:
     std::shared_ptr<IFileFactory> m_fileFactory;
+    std::shared_ptr<IQADeserializer> m_qADeserializer;
     std::shared_ptr<IFileDeserializerFactory> m_fileDeserializerFactory;
 
     void checkFileVersion(CanDeserializeData &deserializer);
     void validateDeserializerStatus(CanDeserializeData &deserializer);
     std::shared_ptr<QA> getDeserializedQA(CanDeserializeData &deserializer);
-    void addProperlyDeserializedQA(CanDeserializeData &deserializer, Node<QA> &queue);
+    void addProperlyDeserializedQA(CanDeserializeData &deserializer, SimpleTree::Node<QA> &queue);
 };
 
 

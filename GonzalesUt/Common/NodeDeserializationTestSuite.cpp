@@ -1,13 +1,16 @@
 
 #include "../gtest.h"
 #include "../gmock.h"
-#include "../../GonzalesApp/common/simpletree.h"
+#include "../../GonzalesApp/common/SimpleTree/node.h"
+#include "../../GonzalesApp/common/SimpleTree/utils.h"
 #include "../AQImporter/FileDeserializerMock.h"
 #include "../CommonUtUtilities/CommonMocks.h"
-//#include "../CommonUtUtilities/PrintTo.h"
+#include "../CommonUtUtilities/PrintTo.h"
 #include <QString>
 
 using namespace testing;
+using namespace SimpleTree;
+using namespace SimpleTree::Utils;
 
 class DeserializationTestSuite: public testing::Test
 {
@@ -17,9 +20,10 @@ public:
     }
     FileDeserializerMock deserializerMock;
     std::shared_ptr<NodeValueStub> value = std::make_shared<NodeValueStub>();
-    quint8 nodeTypeEmpty = SimpleTree::NodeType_Empty;
-    quint8 nodeTypeWithValue = SimpleTree::NodeType_WithValue;
-    quint8 nodeTypeWithChildren = SimpleTree::NodeType_WithChildren;
+    quint8 nodeTypeEmpty = NodeType_Empty;
+    quint8 nodeTypeWithValue = NodeType_WithValue;
+    quint8 nodeTypeWithChildren = NodeType_WithChildren;
+    NodeSerializer serializer;
 
 };
 
@@ -32,7 +36,7 @@ TEST_F(DeserializationTestSuite, DeserializeOneEmptyNode)
     Node<NodeValueStub> node;
 
     EXPECT_CALL(deserializerMock, deserialize(An<quint8 &>())).WillOnce(SetArgReferee<0>(nodeTypeEmpty));
-    EXPECT_THROW(SimpleTree::deserialize(deserializerMock, node), std::logic_error);
+    EXPECT_THROW(serializer.deserialize(deserializerMock, node), std::logic_error);
 }
 
 //___
@@ -48,7 +52,7 @@ TEST_F(DeserializationTestSuite, DeserializeOneNodeWithValue)
     EXPECT_CALL(deserializerMock, deserialize(An<quint8 &>())).WillOnce(SetArgReferee<0>(nodeTypeWithValue));
     EXPECT_CALL(deserializerMock, deserialize(An<unsigned &>())).WillOnce(SetArgReferee<0>(numOfChildren));
 
-    SimpleTree::deserialize(deserializerMock, node);
+    serializer.deserialize(deserializerMock, node);
 
     ASSERT_TRUE(node.getNodeValue().get());
 }
@@ -79,7 +83,7 @@ TEST_F(DeserializationTestSuite, DeserializeOneNodeWithOneChild)
 
     EXPECT_CALL(deserializerMock, deserialize(An<QString &>())).WillOnce(SetArgReferee<0>(mainNodeName));
 
-    SimpleTree::deserialize(deserializerMock, nodeWithChildren);
+    serializer.deserialize(deserializerMock, nodeWithChildren);
 
     EXPECT_EQ(mainNodeName, nodeWithChildren.getName());
     ASSERT_EQ(1, nodeWithChildren.size());
@@ -116,7 +120,7 @@ TEST_F(DeserializationTestSuite, DeserializeOneNodeWithThreeChild)
 
     EXPECT_CALL(deserializerMock, deserialize(An<QString &>())).WillOnce(SetArgReferee<0>(mainNodeName));
 
-    SimpleTree::deserialize(deserializerMock, nodeWithChildren);
+    serializer.deserialize(deserializerMock, nodeWithChildren);
 
     EXPECT_EQ(mainNodeName, nodeWithChildren.getName());
     ASSERT_EQ(3, nodeWithChildren.size());
@@ -174,7 +178,7 @@ TEST_F(DeserializationTestSuite, DeserializeOneNodeWithTwoChildrenWithThreeNodeI
             .WillOnce(SetArgReferee<0>(nodeFirstWithChildrenName))
             .WillOnce(SetArgReferee<0>(nodeSecondWithChildrenName));
 
-    SimpleTree::deserialize(deserializerMock, nodeWithChildren);
+    serializer.deserialize(deserializerMock, nodeWithChildren);
 
     EXPECT_EQ(mainNodeName, nodeWithChildren.getName());
     EXPECT_EQ(nodeFirstWithChildrenName, nodeWithChildren.getNode(0).getName());

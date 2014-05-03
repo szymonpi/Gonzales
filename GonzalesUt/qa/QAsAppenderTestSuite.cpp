@@ -24,17 +24,17 @@ protected:
 TEST_F(QAsAppenderTestSuite, shouldntAppendImportedQAsNoDestinationSelected)
 {
     EXPECT_CALL(*destinationSelectorMock, select(_,_)).WillOnce(Return(false));
-    std::vector<Node<QA> > allNodes;
+    std::vector<SimpleTree::Node<QA> > allNodes;
     EXPECT_CALL(*repositoryMock, getQAs()).WillOnce(ReturnRef(allNodes));
     appender.append(std::vector<std::shared_ptr<QA> >());
 }
 
 TEST_F(QAsAppenderTestSuite, shouldAppendOneImportedQAToExistingGroup)
 {
-    std::vector<Node<QA> > allNodes;
-    Node<QA> group;
+    std::vector<SimpleTree::Node<QA> > allNodes;
+    SimpleTree::Node<QA> group;
     group.setName("group");
-    Node<QA> subject;
+    SimpleTree::Node<QA> subject;
     subject.setName("subject");
     subject.appendNode(group);
     allNodes.push_back(subject);
@@ -58,10 +58,10 @@ TEST_F(QAsAppenderTestSuite, shouldAppendOneImportedQAToExistingGroup)
 
 TEST_F(QAsAppenderTestSuite, shouldAppendOneImportedQAToNotExistingGroup)
 {
-    std::vector<Node<QA> > allNodes;
-    Node<QA> group;
+    std::vector<SimpleTree::Node<QA> > allNodes;
+    SimpleTree::Node<QA> group;
     group.setName("group");
-    Node<QA> subject;
+    SimpleTree::Node<QA> subject;
     subject.setName("subject");
     subject.appendNode(group);
     allNodes.push_back(subject);
@@ -87,10 +87,10 @@ TEST_F(QAsAppenderTestSuite, shouldAppendOneImportedQAToNotExistingGroup)
 
 TEST_F(QAsAppenderTestSuite, shouldAppendOneImportedQAToNotExistingSubjectAndGroup)
 {
-    std::vector<Node<QA> > allNodes;
-    Node<QA> group;
+    std::vector<SimpleTree::Node<QA> > allNodes;
+    SimpleTree::Node<QA> group;
     group.setName("group");
-    Node<QA> subject;
+    SimpleTree::Node<QA> subject;
     subject.setName("subject");
     subject.appendNode(group);
     allNodes.push_back(subject);

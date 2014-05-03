@@ -12,7 +12,7 @@
 #include "qacontainer.h"
 #include "../common/qtproxies/filefactory.h"
 #include "../common/qtproxies/file.h"
-#include "../Common/simpletree.h"
+#include "../Common/SimpleTree/node.h"
 
 class QAsImporter
 {

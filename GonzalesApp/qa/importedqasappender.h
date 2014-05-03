@@ -1,6 +1,6 @@
 #ifndef IMPORTEDQASAPPENDER_H
 #define IMPORTEDQASAPPENDER_H
-#include "../Common/simpletree.h"
+#include "../Common/SimpleTree/node.h"
 #include "../qa/qacontainer.h"
 #include "QAsAppender.h"
 #include <QStringList>
@@ -27,24 +27,24 @@ public:
 private:
     void appendNewNodesToNewSubject(const QString &subject,
                                     const QString &group,
-                                    std::vector<Node<QA> > &newNodes,
-                                    std::vector<Node<QA> > &subjects);
+                                    std::vector<SimpleTree::Node<QA> > &newNodes,
+                                    std::vector<SimpleTree::Node<QA> > &subjects);
     void appendNewNodesToNewGroup(const QString &group,
-                                  std::vector<Node<QA> > &newNodes,
-                                  std::vector<Node<QA> > &groups);
+                                  std::vector<SimpleTree::Node<QA> > &newNodes,
+                                  std::vector<SimpleTree::Node<QA> > &groups);
 
-    void appendInExistingSubject(std::vector<Node<QA> > &groups,
-                                 std::vector<Node<QA> > &newNodes,
+    void appendInExistingSubject(std::vector<SimpleTree::Node<QA> > &groups,
+                                 std::vector<SimpleTree::Node<QA> > &newNodes,
                                  const QString &group);
     void appendNewNodesToRelevantSubject(const QString &subject,
                                          const QString &group,
-                                         std::vector<Node<QA> > &newNodes,
-                                         std::vector<Node<QA> > &subjects);
+                                         std::vector<SimpleTree::Node<QA> > &newNodes,
+                                         std::vector<SimpleTree::Node<QA> > &subjects);
     QStringList createStringQuestionsList(std::vector<std::shared_ptr<QA> > &importedQAs);
-    QStringList createGroupList(std::vector<Node<QA>> &nodes);
-    QMap<QString, QStringList> createGroupsMap(std::vector<Node<QA> > &subjects);
-    std::vector<Node<QA> > createNewNodes(std::vector<std::shared_ptr<QA> > &importedQAs);
-    void appendNewNodes(std::vector<Node<QA> > &newNodes, std::vector<Node<QA> > &subjects);
+    QStringList createGroupList(std::vector<SimpleTree::Node<QA>> &nodes);
+    QMap<QString, QStringList> createGroupsMap(std::vector<SimpleTree::Node<QA> > &subjects);
+    std::vector<SimpleTree::Node<QA> > createNewNodes(std::vector<std::shared_ptr<QA> > &importedQAs);
+    void appendNewNodes(std::vector<SimpleTree::Node<QA> > &newNodes, std::vector<SimpleTree::Node<QA> > &subjects);
 
     std::shared_ptr<QAsDestinationSelector> m_destinationSelector;
     std::shared_ptr<IQARepository> m_qAsRepository;

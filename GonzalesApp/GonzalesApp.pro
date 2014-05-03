@@ -29,7 +29,6 @@ SOURCES += main.cpp\
     UIAdapters.cpp \
     teaching/teachercontroller.cpp \
     exceptionhandler.cpp \
-    common/simpletree.cpp \
     filepathselector.cpp \
     dialogqaimporterselector.cpp \
     qa/importedqasappender.cpp \
@@ -68,7 +67,6 @@ HEADERS  += mainwindow.h \
     teaching/teachercontroller.h \
     exceptionhandler.h \
     qa/iqarepository.h \
-    common/simpletree.h \
     IExceptionHandler.h \
     filepathselector.h \
     qa/QAFilePathSelector.h \
@@ -78,7 +76,10 @@ HEADERS  += mainwindow.h \
     qa/ImportHandler.h \
     filepathbydialogselector.h \
     qa/QAsAppender.h \
-    QAsDestinationSelector.h
+    QAsDestinationSelector.h \
+    common/SimpleTree/utils.h \
+    common/SimpleTree/node.h \
+    qa/QASerializer.h
 
 FORMS    += mainwindow.ui \
     user/logindialog.ui \

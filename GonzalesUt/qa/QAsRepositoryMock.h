@@ -8,7 +8,7 @@ class QAsRepositoryMock: public IQARepository
 public:
     MOCK_METHOD0(load, void());
     MOCK_METHOD0(onQAsUpdate, void());
-    MOCK_METHOD0(getQAs, std::vector<Node<QA> >&());
-    MOCK_CONST_METHOD0(getQAs, const std::vector<Node<QA> >&());
+    MOCK_METHOD0(getQAs, std::vector<SimpleTree::Node<QA> >&());
+    MOCK_CONST_METHOD0(getQAs, const std::vector<SimpleTree::Node<QA> >&());
 };
 #endif // QASREPOSITORYMOCK_H

@@ -34,15 +34,15 @@ public:
 
     }
 
-    void presentQuestions(const std::vector<Node<QA>> &questions)
+    void presentQuestions(const std::vector<SimpleTree::Node<QA>> &questions)
     {
         m_widget.clear();
-        foreach (const Node<QA> &node, questions) {
+        foreach (const SimpleTree::Node<QA> &node, questions) {
             buildWidgetTree(node, 0);
         }
     }
 
-    void buildWidgetTree(const Node<QA> &node, QTreeWidgetItem *parent)
+    void buildWidgetTree(const SimpleTree::Node<QA> &node, QTreeWidgetItem *parent)
     {
         if(!node.getNodeValue().get())
         {
@@ -53,7 +53,7 @@ public:
                 parent->addChild(item);
             else
                 m_widget.addTopLevelItem(item);
-            foreach(const Node<QA> &childNode, node.getNodes())
+            foreach(const SimpleTree::Node<QA> &childNode, node.getNodes())
             {
                     buildWidgetTree(childNode, item);
             }

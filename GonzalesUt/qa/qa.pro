@@ -29,7 +29,9 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/qa/importedqasappender.h \
     QAsDestinationSelectorMock.h \
     ../../GonzalesApp/QAsDestinationSelector.h \
-    QAsRepositoryMock.h
+    QAsRepositoryMock.h \
+    ../../GonzalesApp/common/SimpleTree/utils.h \
+    ../../GonzalesApp/common/SimpleTree/node.h
 
 SOURCES += \
     AllTests.cpp \

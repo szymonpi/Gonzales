@@ -1,10 +1,13 @@
 #include "qaloader.h"
 #include <memory>
+#include "../Common/SimpleTree/utils.h"
 
 QALoader::QALoader(std::shared_ptr<IFileFactory> fileFactory,
-                   std::shared_ptr<IFileDeserializerFactory> fileSerializerFactory):
+                   std::shared_ptr<IQADeserializer> qADeserializer,
+                   std::shared_ptr<IFileDeserializerFactory> fileDeserializerFactory):
     m_fileFactory(fileFactory),
-    m_fileDeserializerFactory(fileSerializerFactory)
+    m_qADeserializer(qADeserializer),
+    m_fileDeserializerFactory(fileDeserializerFactory)
 {
 }
 
@@ -28,25 +31,8 @@ void QALoader::validateDeserializerStatus(CanDeserializeData &deserializer)
     }
 }
 
-std::shared_ptr<QA> QALoader::getDeserializedQA(CanDeserializeData &deserializer)
-{
-    Question q("");
-    q.deserialize(deserializer);
 
-    Answer a("");
-    a.deserialize(deserializer);
-
-    return std::make_shared<QA>(q,a);
-}
-
-void QALoader::addProperlyDeserializedQA(CanDeserializeData &deserializer, Node<QA> &node)
-{
-    node.appendNodeValue(getDeserializedQA(deserializer));
-
-}
-
-
-std::vector<Node<QA>> QALoader::load(const QString &userName)
+std::vector<SimpleTree::Node<QA>> QALoader::load(const QString &userName)
 {
     QString filePath = getFilePathToQas(userName);
     std::shared_ptr<ReadableWritableFile> file = m_fileFactory->create(filePath);
@@ -56,8 +42,8 @@ std::vector<Node<QA>> QALoader::load(const QString &userName)
     std::shared_ptr<CanDeserializeData> deserializer = m_fileDeserializerFactory->create(file->getIODevice());
     checkFileVersion(*deserializer);
 
-    std::vector<Node<QA>> qAs;
-    SimpleTree::deserialize(*deserializer, qAs.at(0));
+    std::vector<SimpleTree::Node<QA>> qAs;
+    m_qADeserializer->deserialize(*deserializer, qAs.at(0));
     validateDeserializerStatus(*deserializer);
     return qAs;
 }

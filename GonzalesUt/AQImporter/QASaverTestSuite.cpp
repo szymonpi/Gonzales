@@ -10,6 +10,7 @@
 #include "../../GonzalesApp/qa/qaloader.h"
 #include "FileSerializerMock.h"
 #include "FileSerializerFactoryMock.h"
+#include "QASerializerMock.h"
 
 #include "FileMock.h"
 
@@ -23,7 +24,7 @@ protected:
         m_fileFactoryMock(std::make_shared<FileFactoryMock>()),
         m_fileSerializerMock(std::make_shared<FileSerializerMock>()),
         m_fileSerializerFactoryMock(std::make_shared<FileSerializerFactoryMock>()),
-        m_saver(m_fileFactoryMock, m_fileSerializerFactoryMock),
+        m_saver(m_fileFactoryMock, m_qaSerializerMock, m_fileSerializerFactoryMock),
         m_qa(Question("question"), Answer("answer"))
     {
     }
@@ -98,6 +99,7 @@ protected:
     std::shared_ptr<FileFactoryMock> m_fileFactoryMock;
     std::shared_ptr<FileSerializerMock> m_fileSerializerMock;
     std::shared_ptr<FileSerializerFactoryMock> m_fileSerializerFactoryMock;
+    std::shared_ptr<QASerializerMock> m_qaSerializerMock = std::make_shared<QASerializerMock>();
     QASaver m_saver;
     std::vector<QA> m_oneQAs;
     std::vector<QA> m_twoQAs;

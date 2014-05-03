@@ -34,7 +34,7 @@ private:
     void addWrongAnsweredQAToQueue();
     void checkIsQaQueueEmpty();
     void moveCurrentQuestionToAsked();
-    void fillQAsToLearn(std::vector<std::shared_ptr<QA> > &qasToLearn, const Node<QA> &node) const;
+    void fillQAsToLearn(std::vector<std::shared_ptr<QA> > &qasToLearn, const SimpleTree::Node<QA> &node) const;
 
     QAQueue qAToLearn;
     QAQueue allQA;

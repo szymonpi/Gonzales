@@ -1,6 +1,6 @@
 #ifndef IUIADAPTERS_H
 #define IUIADAPTERS_H
-#include "Common/simpletree.h"
+#include "Common/SimpleTree/node.h"
 
 class Answer;
 class Question;
@@ -8,7 +8,7 @@ class Question;
 class IQuestionCollectionPresenter
 {
 public:
-    virtual void presentQuestions(const std::vector<Node<QA>> &p_questions) = 0;
+    virtual void presentQuestions(const std::vector<SimpleTree::Node<QA>> &p_questions) = 0;
     virtual ~IQuestionCollectionPresenter(){}
 };
 

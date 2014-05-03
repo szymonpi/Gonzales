@@ -1,11 +1,12 @@
 #include "../gtest.h"
 #include "../gmock.h"
-#include "../../GonzalesApp/common/simpletree.h"
+#include "../../GonzalesApp/common/SimpleTree/node.h"
 #include "../AQImporter/FileDeserializerMock.h"
 #include "../AQImporter/FileSerializerMock.h"
 #include <QString>
 
 using namespace testing;
+using namespace SimpleTree;
 
 TEST(SimpleTreeTestSuite, createRootItem)
 {

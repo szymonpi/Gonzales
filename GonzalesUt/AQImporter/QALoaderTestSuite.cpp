@@ -11,6 +11,7 @@
 #include "FileDeserializerMock.h"
 #include "FileDeserializerFactoryMock.h"
 #include "FileMock.h"
+#include "QASerializerMock.h"
 
 using namespace testing;
 
@@ -22,7 +23,7 @@ protected:
         fileFactoryMock(std::make_shared<FileFactoryMock>()),
         fileDeserializerMock(std::make_shared<FileDeserializerMock>()),
         fileDeserializerFactoryMock(std::make_shared<FileDeserializerFactoryMock>()),
-        loader(fileFactoryMock, fileDeserializerFactoryMock),
+        loader(fileFactoryMock, m_qaDeserializerMock, fileDeserializerFactoryMock),
         qa(Question("question"), Answer("answer"))
     {
     }
@@ -101,6 +102,7 @@ protected:
     std::shared_ptr<FileFactoryMock> fileFactoryMock;
     std::shared_ptr<FileDeserializerMock> fileDeserializerMock;
     std::shared_ptr<FileDeserializerFactoryMock> fileDeserializerFactoryMock;
+    std::shared_ptr<QADeserializerMock> m_qaDeserializerMock = std::make_shared<QADeserializerMock>();
     QALoader loader;
     QQueue<QA> qAs;
     QA qa;

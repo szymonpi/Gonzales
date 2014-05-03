@@ -5,7 +5,7 @@
 #include "qaimporter.h"
 #include "qasaver.h"
 #include <QMultiMap>
-#include "../Common/simpletree.h"
+#include "../Common/SimpleTree/node.h"
 #include "../IExceptionHandler.h"
 #include "../IUIAdapters.h"
 
@@ -33,13 +33,13 @@ public:
     {
     }
 
-    std::vector<Node<QA> > &getQAs();
-    const std::vector<Node<QA> > &getQAs() const;
+    std::vector<SimpleTree::Node<QA> > &getQAs();
+    const std::vector<SimpleTree::Node<QA> > &getQAs() const;
     void onQAsUpdate();
     void load();
 
 private:
-    std::vector<Node<QA>> m_questionsTree;
+    std::vector<SimpleTree::Node<QA>> m_questionsTree;
     const QString m_userName;
     std::shared_ptr<IExceptionHandler> m_exceptionHandler;
     std::unique_ptr<IQuestionCollectionPresenter> m_questionsPresnter;

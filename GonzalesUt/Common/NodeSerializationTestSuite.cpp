@@ -1,7 +1,8 @@
 
 #include "../gtest.h"
 #include "../gmock.h"
-#include "../../GonzalesApp/common/simpletree.h"
+#include "../../GonzalesApp/common/SimpleTree/node.h"
+#include "../../GonzalesApp/common/SimpleTree/utils.h"
 #include "../AQImporter/FileDeserializerMock.h"
 #include "../AQImporter/FileSerializerMock.h"
 #include "../CommonUtUtilities/PrintTo.h"
@@ -9,6 +10,8 @@
 #include <QString>
 
 using namespace testing;
+using namespace SimpleTree;
+using namespace SimpleTree::Utils;
 
 class SerializationTestSuite: public testing::Test
 {
@@ -30,14 +33,15 @@ public:
     std::shared_ptr<NodeValueMock> nodeValue6 = std::make_shared<NodeValueMock>();
 
     Node<NodeValueMock> nodeWithValue;
+    NodeSerializer serializer;
 };
 
 TEST_F(SerializationTestSuite, serializeOneNodeWithValue)
 {
     EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(numOfChildrenNotContaining)));
-    EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(SimpleTree::NodeType_WithValue)));
+    EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(NodeType_WithValue)));
     EXPECT_CALL(*nodeValue, serialize(_));
-    SimpleTree::serialize(serializerMock, nodeWithValue);
+    serializer.serialize(serializerMock, nodeWithValue);
 }
 
 TEST_F(SerializationTestSuite, serializeTwoItemsInOneNode)
@@ -52,15 +56,15 @@ TEST_F(SerializationTestSuite, serializeTwoItemsInOneNode)
     mainNode.appendNode(node2);
 
 
-    EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(SimpleTree::NodeType_WithChildren)));
+    EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(NodeType_WithChildren)));
     EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(numOfChildrenContaining2Nodes)));
     EXPECT_CALL(serializerMock, serialize(TypedEq<const QString &>(nodeName)));
 
     EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(numOfChildrenNotContaining))).Times(2);
-    EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(SimpleTree::NodeType_WithValue))).Times(2);
+    EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(NodeType_WithValue))).Times(2);
     EXPECT_CALL(*nodeValue, serialize(_));
     EXPECT_CALL(*nodeValue2, serialize(_));
-    SimpleTree::serialize(serializerMock, mainNode);
+    serializer.serialize(serializerMock, mainNode);
 }
 
 TEST_F(SerializationTestSuite, serializeSixItemsInThreeNodes)
@@ -95,8 +99,8 @@ TEST_F(SerializationTestSuite, serializeSixItemsInThreeNodes)
     mainNode.appendNode(continingNode2);
     mainNode.appendNode(continingNode3);
 
-    EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(SimpleTree::NodeType_WithChildren))).Times(4);
-    EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(SimpleTree::NodeType_WithValue))).Times(6);
+    EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(NodeType_WithChildren))).Times(4);
+    EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(NodeType_WithValue))).Times(6);
 
     EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(numOfChildrenNotContaining))).Times(6);
     EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(numOfChildrenContaining3Nodes)));
@@ -112,7 +116,7 @@ TEST_F(SerializationTestSuite, serializeSixItemsInThreeNodes)
     EXPECT_CALL(*nodeValue4, serialize(_));
     EXPECT_CALL(*nodeValue5, serialize(_));
     EXPECT_CALL(*nodeValue6, serialize(_));
-    SimpleTree::serialize(serializerMock, mainNode);
+    serializer.serialize(serializerMock, mainNode);
 }
 
 
