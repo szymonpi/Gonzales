@@ -19,7 +19,7 @@ public:
             std::shared_ptr<IFileSerializerFactory> fileSerializerFactory =
                 std::make_shared<FileSerializerFactory>());
 
-    void save(const std::vector<SimpleTree::Node<QA> > &QuestionAnswers, const QString &filePath);
+    void save(const SimpleTree::Node<QA> &QuestionAnswers, const QString &path);
 
 private:
 

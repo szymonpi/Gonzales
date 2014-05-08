@@ -12,7 +12,7 @@ Teacher::Teacher(std::shared_ptr<IQuestionPresenter> questionPresenter,
 {
     std::vector<std::shared_ptr<QA> > l_qas;
 
-    foreach(const SimpleTree::Node<QA> &node, m_qAsRepository->getQAs())
+    foreach(const SimpleTree::Node<QA> &node, m_qAsRepository->getQAs().getNodes())
     {
         fillQAsToLearn(l_qas, node);
     }

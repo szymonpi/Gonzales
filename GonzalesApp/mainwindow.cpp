@@ -40,10 +40,11 @@ MainWindow::MainWindow(QWidget *parent) :
     if(!loginDialog.isAuthorized())
         exit(0);
     m_userInfo = loginDialog.getUserInfo();
+    PathCreator pathCreator;
     setWindowTitle(m_userInfo.login);
     setupStateMachine();
 
-    qARepository = std::make_shared<QARepository>(m_userInfo.login,
+    qARepository = std::make_shared<QARepository>(pathCreator.createQAsFilePath(m_userInfo.login),
                                                   l_exceptionHandler,
                                                   std::move(l_questionCollectionPresenter));
     qARepository->load();

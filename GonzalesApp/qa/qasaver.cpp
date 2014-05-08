@@ -25,18 +25,14 @@ void QASaver::serializeFileVersion(CanSerializeData &serializer)
     serializer.serialize(static_cast<quint16>(QAFileVersion1));
 }
 
-void QASaver::save(const std::vector<SimpleTree::Node<QA> > &questionAnswers, const QString &userName)
+void QASaver::save(const SimpleTree::Node<QA> &questionAnswers, const QString &filePath)
 {
-    QString fileName = getFilePathToQas(userName);
-    std::shared_ptr<ReadableWritableFile> file = fileFactory->create(fileName);
+    std::shared_ptr<ReadableWritableFile> file = fileFactory->create(filePath);
     openFile(*file);
     std::shared_ptr<CanSerializeData> serializer = fileSerializerFactory->create(file->getIODevice());
     serializeFileVersion(*serializer);
 
-    for(auto it = questionAnswers.begin(); it!=questionAnswers.end(); it++)
-    {
-        qASerializer->serialize(*serializer, *it);
-    }
+    qASerializer->serialize(*serializer, questionAnswers);
 
     if(serializer->status()!=QDataStream::Ok)
         throw FileException("Something wen't wrong when saving file");

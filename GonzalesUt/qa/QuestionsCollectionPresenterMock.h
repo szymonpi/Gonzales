@@ -6,7 +6,7 @@
 class QuestionCollectionPresenteMock: public IQuestionCollectionPresenter
 {
 public:
-    MOCK_METHOD1(presentQuestions, void(const std::vector<SimpleTree::Node<QA>> &));
+    MOCK_METHOD1(presentQuestions, void(const SimpleTree::Node<QA> &));
 };
 
 #endif // QUESTIONSCOLLECTIONPRESENTERMOCK_H

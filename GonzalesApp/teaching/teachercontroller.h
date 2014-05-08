@@ -2,7 +2,7 @@
 #define TEACHERCONTROLLER_H
 
 #include "../IExceptionHandler.h"
-#include "../qa/iqarepository.h"
+#include "../qa/IQARepository.h"
 #include "../UIAdapters.h"
 #include "teacher.h"
 #include <memory>

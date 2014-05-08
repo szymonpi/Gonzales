@@ -8,7 +8,7 @@ class Question;
 class IQuestionCollectionPresenter
 {
 public:
-    virtual void presentQuestions(const std::vector<SimpleTree::Node<QA>> &p_questions) = 0;
+    virtual void presentQuestions(const SimpleTree::Node<QA> &p_questions) = 0;
     virtual ~IQuestionCollectionPresenter(){}
 };
 

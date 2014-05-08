@@ -11,6 +11,7 @@
 #include "FileSerializerMock.h"
 #include "FileSerializerFactoryMock.h"
 #include "QASerializerMock.h"
+#include "../../GonzalesApp/common/SimpleTree/node.h"
 
 #include "FileMock.h"
 
@@ -24,17 +25,17 @@ protected:
         m_fileFactoryMock(std::make_shared<FileFactoryMock>()),
         m_fileSerializerMock(std::make_shared<FileSerializerMock>()),
         m_fileSerializerFactoryMock(std::make_shared<FileSerializerFactoryMock>()),
-        m_saver(m_fileFactoryMock, m_qaSerializerMock, m_fileSerializerFactoryMock),
-        m_qa(Question("question"), Answer("answer"))
+        m_qaSerializerMock(std::make_shared<QASerializerMock>()),
+        m_saver(m_fileFactoryMock, m_qaSerializerMock, m_fileSerializerFactoryMock)
     {
     }
 
     void SetUp()
     {
-        m_oneQAs.push_back(m_qa);
+        m_oneQAs.emplaceNode(m_qa);
 
-        m_twoQAs.push_back(m_qa);
-        m_twoQAs.push_back(m_qa);
+        m_twoQAs.emplaceNode(m_qa);
+        m_twoQAs.emplaceNode(m_qa);
         m_path = "path";
         EXPECT_CALL(*m_fileFactoryMock, create(m_path)).WillOnce(Return(m_fileMock));
     }
@@ -54,9 +55,9 @@ protected:
         return  Matcher<quint16>(static_cast<quint16>(QAFileVersion1));
     }
 
-    void saveWillThrow(std::vector<QA> &qAs)
+    void saveWillThrow(SimpleTree::Node<QA> &qAs)
     {
-        //EXPECT_THROW(m_saver.save(qAs, m_path), FileException);
+        EXPECT_THROW(m_saver.save(qAs, m_path), FileException);
     }
 
     void expectSerializeQaVersion()
@@ -66,8 +67,7 @@ protected:
 
     void expectSerializeQA(unsigned times = 1)
     {
-        EXPECT_CALL(*m_fileSerializerMock, serialize(questionMatcher(m_qa.question))).Times(times);
-        EXPECT_CALL(*m_fileSerializerMock, serialize(answerMatcher(m_qa.answer))).Times(times);
+        EXPECT_CALL(*m_qaSerializerMock, serialize(_,_)).Times(times);
     }
 
     void expectDataStreamStatusOk()
@@ -101,9 +101,9 @@ protected:
     std::shared_ptr<FileSerializerFactoryMock> m_fileSerializerFactoryMock;
     std::shared_ptr<QASerializerMock> m_qaSerializerMock = std::make_shared<QASerializerMock>();
     QASaver m_saver;
-    std::vector<QA> m_oneQAs;
-    std::vector<QA> m_twoQAs;
-    QA m_qa;
+    SimpleTree::Node<QA> m_oneQAs;
+    SimpleTree::Node<QA> m_twoQAs;
+    std::shared_ptr<QA> m_qa = std::make_shared<QA>();
     QString m_path;
 };
 
@@ -113,7 +113,7 @@ TEST_F(QASaveTestSuite, shouldSaveOneQA)
     expectSerializeQaVersion();
     expectSerializeQA();
     expectDataStreamStatusOk();
-    //ASSERT_NO_THROW(m_saver.save(m_oneQAs, "path"));
+    ASSERT_NO_THROW(m_saver.save(m_oneQAs, m_path));
 }
 
 TEST_F(QASaveTestSuite, shouldSaveTwoQA)
@@ -122,7 +122,7 @@ TEST_F(QASaveTestSuite, shouldSaveTwoQA)
     expectSerializeQaVersion();
     expectSerializeQA(2);
     expectDataStreamStatusOk();
-    //ASSERT_NO_THROW(m_saver.save(m_twoQAs, "path"));
+    ASSERT_NO_THROW(m_saver.save(m_twoQAs, m_path));
 }
 
 TEST_F(QASaveTestSuite, shouldntSaveFile_FileIsntOpen)

@@ -1,6 +1,6 @@
 #ifndef QAREPOSITORY_H
 #define QAREPOSITORY_H
-#include "iqarepository.h"
+#include "IQARepository.h"
 #include "qaloader.h"
 #include "qaimporter.h"
 #include "qasaver.h"
@@ -24,25 +24,22 @@
 class QARepository: public IQARepository
 {
 public:
-    QARepository(const QString &userName,
+    QARepository(const QString &userFilePath,
                  std::shared_ptr<IExceptionHandler> exceptionHandler,
-                 std::unique_ptr<IQuestionCollectionPresenter> questionsPresenter):
-        m_userName(userName),
-        m_exceptionHandler(exceptionHandler),
-        m_questionsPresnter(std::move(questionsPresenter))
-    {
-    }
+                 std::shared_ptr<IQuestionCollectionPresenter> questionsPresenter,
+                 std::shared_ptr<IQALoader> qAsLoader);
 
-    std::vector<SimpleTree::Node<QA> > &getQAs();
-    const std::vector<SimpleTree::Node<QA> > &getQAs() const;
+    SimpleTree::Node<QA> &getQAs();
+    const SimpleTree::Node<QA> &getQAs() const;
     void onQAsUpdate();
     void load();
 
 private:
-    std::vector<SimpleTree::Node<QA>> m_questionsTree;
-    const QString m_userName;
+    SimpleTree::Node<QA> m_questionsTree;
+    const QString m_userQAsFilePath;
     std::shared_ptr<IExceptionHandler> m_exceptionHandler;
-    std::unique_ptr<IQuestionCollectionPresenter> m_questionsPresnter;
+    std::shared_ptr<IQuestionCollectionPresenter> m_questionsPresnter;
+    std::shared_ptr<IQALoader> m_qAsLoader;
 };
 
 #endif // QAREPOSITORY_H

@@ -34,12 +34,10 @@ public:
 
     }
 
-    void presentQuestions(const std::vector<SimpleTree::Node<QA>> &questions)
+    void presentQuestions(const SimpleTree::Node<QA> &questions)
     {
         m_widget.clear();
-        foreach (const SimpleTree::Node<QA> &node, questions) {
-            buildWidgetTree(node, 0);
-        }
+            buildWidgetTree(questions, 0);
     }
 
     void buildWidgetTree(const SimpleTree::Node<QA> &node, QTreeWidgetItem *parent)

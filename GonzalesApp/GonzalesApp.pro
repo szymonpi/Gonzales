@@ -15,15 +15,11 @@ CONFIG += c++11
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    qa/qasaver.cpp \
-    qa/qaloader.cpp \
-    qa/qaimporter.cpp \
     teaching/teacher.cpp \
     user/logindialog.cpp \
     user/dialogcreateaccount.cpp \
     user/accountcreator.cpp \
     user/accountsprovider.cpp \
-    qa/qarepository.cpp \
     user/authorizer.cpp \
     user/credentialsvalidator.cpp \
     UIAdapters.cpp \
@@ -31,15 +27,15 @@ SOURCES += main.cpp\
     exceptionhandler.cpp \
     filepathselector.cpp \
     dialogqaimporterselector.cpp \
-    qa/importedqasappender.cpp \
-    filepathbydialogselector.cpp
+    filepathbydialogselector.cpp \
+    qa/QASaver.cpp \
+    qa/QARepository.cpp \
+    qa/QAimporter.cpp \
+    qa/ImportedQAsAppender.cpp \
+    qa/QALoader.cpp
 
 HEADERS  += mainwindow.h \
     qa/question.h \
-    qa/qasaver.h \
-    qa/qaloader.h \
-    qa/qaimporter.h \
-    qa/qacontainer.h \
     qa/answer.h \
     teaching/teacher.h \
     common/common.h \
@@ -56,7 +52,6 @@ HEADERS  += mainwindow.h \
     common/qtproxies/file.h \
     common/qtproxies/applicationsettings.h \
     teaching/iteacher.h \
-    qa/qarepository.h \
     user/authorizer.h \
     user/credentialsvalidator.h \
     user/credentialsvalidatorfactory.h \
@@ -66,12 +61,10 @@ HEADERS  += mainwindow.h \
     IUIAdapters.h \
     teaching/teachercontroller.h \
     exceptionhandler.h \
-    qa/iqarepository.h \
     IExceptionHandler.h \
     filepathselector.h \
     qa/QAFilePathSelector.h \
     dialogqaimporterselector.h \
-    qa/importedqasappender.h \
     qa/QANodeCreator.h \
     qa/ImportHandler.h \
     filepathbydialogselector.h \
@@ -79,7 +72,14 @@ HEADERS  += mainwindow.h \
     QAsDestinationSelector.h \
     common/SimpleTree/utils.h \
     common/SimpleTree/node.h \
-    qa/QASerializer.h
+    qa/QASerializer.h \
+    qa/QASaver.h \
+    qa/ImportedQAsAppender.h \
+    qa/QAContainer.h \
+    qa/QALoader.h \
+    qa/QARepository.h \
+    qa/QAImporter.h \
+    qa/IQARepository.h
 
 FORMS    += mainwindow.ui \
     user/logindialog.ui \

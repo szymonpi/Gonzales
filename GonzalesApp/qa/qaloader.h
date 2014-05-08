@@ -13,7 +13,14 @@
 #include "../Common/SimpleTree/node.h"
 #include "QASerializer.h"
 
-class QALoader
+class IQALoader
+{
+public:
+    virtual SimpleTree::Node<QA> load(const QString &userName) = 0;
+    ~IQALoader(){}
+};
+
+class QALoader: public IQALoader
 {
 public:
     QALoader(std::shared_ptr<IFileFactory> fileFactory = std::make_shared<FileFactory>(),
@@ -21,7 +28,7 @@ public:
              std::shared_ptr<IFileDeserializerFactory> fileDeserializerFactory
                 = std::make_shared<FileDeserializerFactory>());
 
-    std::vector<SimpleTree::Node<QA> > load(const QString &userName);
+    SimpleTree::Node<QA> load(const QString &userName);
 
 private:
     std::shared_ptr<IFileFactory> m_fileFactory;

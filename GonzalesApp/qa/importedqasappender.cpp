@@ -4,12 +4,12 @@
 
 void ImportedQAsAppender::append(std::vector<std::shared_ptr<QA> > importedQAs)
 {
-    std::vector<SimpleTree::Node<QA> > &subjects = m_qAsRepository->getQAs();
+    SimpleTree::Node<QA> &mainNode = m_qAsRepository->getQAs();
     std::vector<SimpleTree::Node<QA> > newNodes = createNewNodes(importedQAs);
 
-    if(m_destinationSelector->select(createGroupsMap(subjects), createStringQuestionsList(importedQAs)))
+    if(m_destinationSelector->select(createGroupsMap(mainNode), createStringQuestionsList(importedQAs)))
     {
-        appendNewNodes(newNodes, subjects);
+        appendNewNodes(newNodes, mainNode);
         m_qAsRepository->onQAsUpdate();
     }
 }
@@ -36,8 +36,9 @@ QStringList ImportedQAsAppender::createGroupList(std::vector<SimpleTree::Node<QA
     return groupsList;
 }
 
-QMap<QString, QStringList> ImportedQAsAppender::createGroupsMap(std::vector<SimpleTree::Node<QA> > &subjects)
+QMap<QString, QStringList> ImportedQAsAppender::createGroupsMap(SimpleTree::Node<QA> &qas)
 {
+    std::vector<SimpleTree::Node<QA>> &subjects = qas.getNodes();
     QMap<QString, QStringList> groupMap;
     for(auto subjectIt = subjects.begin(); subjectIt!= subjects.end(); ++subjectIt)
     {
@@ -85,7 +86,7 @@ void ImportedQAsAppender::appendInExistingSubject(std::vector<SimpleTree::Node<Q
 void ImportedQAsAppender::appendNewNodesToNewSubject(const QString &subject,
                                                      const QString &group,
                                                      std::vector<SimpleTree::Node<QA> > &newNodes,
-                                                     std::vector<SimpleTree::Node<QA> > &subjects)
+                                                     SimpleTree::Node<QA> &mainNode)
 {
     SimpleTree::Node<QA> groupN;
     groupN.setName(group);
@@ -93,30 +94,30 @@ void ImportedQAsAppender::appendNewNodesToNewSubject(const QString &subject,
     SimpleTree::Node<QA> subjectN;
     subjectN.setName(subject);
     subjectN.appendNode(groupN);
-    subjects.push_back(subjectN);
+    mainNode.appendNode(subjectN);
 }
 
 void ImportedQAsAppender::appendNewNodesToRelevantSubject(const QString &subject,
                                                           const QString &group,
                                                           std::vector<SimpleTree::Node<QA> > &newNodes,
-                                                          std::vector<SimpleTree::Node<QA> > &subjects)
+                                                          SimpleTree::Node<QA> &mainNode)
 {
-    for(unsigned i=0; i < subjects.size(); ++i)
+    for(unsigned i=0; i < mainNode.size(); ++i)
     {
-        if(subjects.at(i).getName()==subject)
+        if(mainNode.getNode(i).getName()==subject)
         {
-            appendInExistingSubject(subjects[i].getNodes(), newNodes, group);
+            appendInExistingSubject(mainNode.getNode(i).getNodes(), newNodes, group);
             return;
         }
     }
-    appendNewNodesToNewSubject(subject, group, newNodes, subjects);
+    appendNewNodesToNewSubject(subject, group, newNodes, mainNode);
 }
 
 void ImportedQAsAppender::appendNewNodes(std::vector<SimpleTree::Node<QA> > &newNodes,
-                                         std::vector<SimpleTree::Node<QA> > &subjects)
+                                         SimpleTree::Node<QA> &mainNode)
 {
     QString subject = m_destinationSelector->getSubject();
     QString group = m_destinationSelector->getGroup();
 
-    appendNewNodesToRelevantSubject(subject, group, newNodes, subjects);
+    appendNewNodesToRelevantSubject(subject, group, newNodes, mainNode);
 }

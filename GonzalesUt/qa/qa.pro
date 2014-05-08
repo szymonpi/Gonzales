@@ -14,7 +14,6 @@ CONFIG += warn_off
 
 HEADERS += ../gtest.h \
            ../gmock.h \
-    ../../GonzalesApp/qa/qarepository.h \
     ../../GonzalesApp/qa/qasaver.h \
     ../../GonzalesApp/qa/qaloader.h \
     ../../GonzalesApp/qa/qaimporter.h \
@@ -31,7 +30,8 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/QAsDestinationSelector.h \
     QAsRepositoryMock.h \
     ../../GonzalesApp/common/SimpleTree/utils.h \
-    ../../GonzalesApp/common/SimpleTree/node.h
+    ../../GonzalesApp/common/SimpleTree/node.h \
+    QALoaderMock.h
 
 SOURCES += \
     AllTests.cpp \
@@ -39,7 +39,7 @@ SOURCES += \
     ../../GonzalesApp/qa/qasaver.cpp \
     ../../GonzalesApp/qa/qaloader.cpp \
     ../../GonzalesApp/qa/qaimporter.cpp \
-    ../../GonzalesApp/qa/qarepository.cpp \
+    ../../GonzalesApp/qa/QARepository.cpp \
     ImportHandlertestSuite.cpp \
     FilePathSelectorTestSuite.cpp \
     QAsAppenderTestSuite.cpp \

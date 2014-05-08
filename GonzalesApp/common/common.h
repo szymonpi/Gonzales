@@ -15,21 +15,4 @@ enum QAFileVersion
     QAFileVersion1 = 1
 };
 
-inline QString getFilePathToQas(const QString &userName)
-{
-    QDir homeDirectory = QDir::homePath();
-    if(!homeDirectory.cd(g_Company))
-    {
-        homeDirectory.mkdir(g_Company);
-        homeDirectory.cd(g_Company);
-    }
-    if(!homeDirectory.cd(g_Company))
-    {
-        homeDirectory.mkdir(g_Project);
-        homeDirectory.cd(g_Project);
-    }
-    QString path = homeDirectory.path()+"/"+userName+file_qAs;
-    return path;
-}
-
 #endif // COMMON_H

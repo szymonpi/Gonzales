@@ -9,7 +9,7 @@
 #include <vector>
 #include "../qa/qacontainer.h"
 #include "../IUIAdapters.h"
-#include "../qa/iqarepository.h"
+#include "../qa/IQARepository.h"
 
 class Teacher
 {

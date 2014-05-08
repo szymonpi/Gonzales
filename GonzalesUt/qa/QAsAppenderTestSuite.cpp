@@ -24,20 +24,20 @@ protected:
 TEST_F(QAsAppenderTestSuite, shouldntAppendImportedQAsNoDestinationSelected)
 {
     EXPECT_CALL(*destinationSelectorMock, select(_,_)).WillOnce(Return(false));
-    std::vector<SimpleTree::Node<QA> > allNodes;
-    EXPECT_CALL(*repositoryMock, getQAs()).WillOnce(ReturnRef(allNodes));
+    SimpleTree::Node<QA> mainNode;
+    EXPECT_CALL(*repositoryMock, getQAs()).WillOnce(ReturnRef(mainNode));
     appender.append(std::vector<std::shared_ptr<QA> >());
 }
 
 TEST_F(QAsAppenderTestSuite, shouldAppendOneImportedQAToExistingGroup)
 {
-    std::vector<SimpleTree::Node<QA> > allNodes;
+    SimpleTree::Node<QA> rootNode;
     SimpleTree::Node<QA> group;
     group.setName("group");
     SimpleTree::Node<QA> subject;
     subject.setName("subject");
     subject.appendNode(group);
-    allNodes.push_back(subject);
+    rootNode.appendNode(subject);
 
     std::vector<std::shared_ptr<QA> > importedNodes;
     importedNodes.push_back(std::make_shared<QA>(Question("question"), Answer("answer")));
@@ -45,26 +45,27 @@ TEST_F(QAsAppenderTestSuite, shouldAppendOneImportedQAToExistingGroup)
     QMap<QString, QStringList> groupMap;
     groupMap["subject"] = QStringList() << "group";
 
-    EXPECT_CALL(*repositoryMock, getQAs()).WillOnce(ReturnRef(allNodes));
+    EXPECT_CALL(*repositoryMock, getQAs()).WillOnce(ReturnRef(rootNode));
     EXPECT_CALL(*destinationSelectorMock, select(groupMap, QStringList() << "question")).WillOnce(Return(true));
     EXPECT_CALL(*destinationSelectorMock, getSubject()).WillOnce(Return("subject"));
     EXPECT_CALL(*destinationSelectorMock, getGroup()).WillOnce(Return("group"));
+    EXPECT_CALL(*repositoryMock, onQAsUpdate());
     appender.append(importedNodes);
-    ASSERT_FALSE(allNodes.empty());
-    ASSERT_FALSE(allNodes.at(0).getNodes().empty());
-    ASSERT_EQ(1, allNodes.at(0).getNodes().at(0).size());
-    ASSERT_EQ(importedNodes.at(0), allNodes.at(0).getNodes().at(0).getNodes().at(0).getNodeValue());
+    ASSERT_GT(rootNode.size(), 0);
+    ASSERT_FALSE(rootNode.getNode(0).getNodes().empty());
+    ASSERT_EQ(1, rootNode.getNode(0).getNodes().at(0).size());
+    ASSERT_EQ(importedNodes.at(0), rootNode.getNode(0).getNodes().at(0).getNodes().at(0).getNodeValue());
 }
 
 TEST_F(QAsAppenderTestSuite, shouldAppendOneImportedQAToNotExistingGroup)
 {
-    std::vector<SimpleTree::Node<QA> > allNodes;
+    SimpleTree::Node<QA> rootNode;
     SimpleTree::Node<QA> group;
     group.setName("group");
     SimpleTree::Node<QA> subject;
     subject.setName("subject");
     subject.appendNode(group);
-    allNodes.push_back(subject);
+    rootNode.appendNode(subject);
 
     std::vector<std::shared_ptr<QA> > importedNodes;
     importedNodes.push_back(std::make_shared<QA>(Question("question"), Answer("answer")));
@@ -72,44 +73,46 @@ TEST_F(QAsAppenderTestSuite, shouldAppendOneImportedQAToNotExistingGroup)
     QMap<QString, QStringList> groupMap;
     groupMap["subject"] = QStringList() << "group";
 
-    EXPECT_CALL(*repositoryMock, getQAs()).WillOnce(ReturnRef(allNodes));
+    EXPECT_CALL(*repositoryMock, getQAs()).WillOnce(ReturnRef(rootNode));
     EXPECT_CALL(*destinationSelectorMock, select(groupMap, QStringList() << "question")).WillOnce(Return(true));
     EXPECT_CALL(*destinationSelectorMock, getSubject()).WillOnce(Return("subject"));
     EXPECT_CALL(*destinationSelectorMock, getGroup()).WillOnce(Return("different_group"));
+    EXPECT_CALL(*repositoryMock, onQAsUpdate());
     appender.append(importedNodes);
-    ASSERT_FALSE(allNodes.empty());
-    ASSERT_FALSE(allNodes.at(0).getNodes().empty());
+    ASSERT_GT(rootNode.size(), 0);
+    ASSERT_FALSE(rootNode.getNode(0).getNodes().empty());
                 //subjects ------groups---first group size
-    ASSERT_EQ(1, allNodes.at(0).getNodes().at(1).size());
+    ASSERT_EQ(1, rootNode.getNode(0).getNodes().at(1).size());
                                    //subjects ------groups---newly imported nodes first new QA Value
-    ASSERT_EQ(importedNodes.at(0), allNodes.at(0).getNodes().at(1).getNodes().at(0).getNodeValue());
+    ASSERT_EQ(importedNodes.at(0), rootNode.getNode(0).getNodes().at(1).getNodes().at(0).getNodeValue());
 }
 
 TEST_F(QAsAppenderTestSuite, shouldAppendOneImportedQAToNotExistingSubjectAndGroup)
 {
-    std::vector<SimpleTree::Node<QA> > allNodes;
+    SimpleTree::Node<QA> rootNode;
     SimpleTree::Node<QA> group;
     group.setName("group");
     SimpleTree::Node<QA> subject;
     subject.setName("subject");
     subject.appendNode(group);
-    allNodes.push_back(subject);
+    rootNode.appendNode(subject);
 
-    std::vector<std::shared_ptr<QA> > importedNodes;
-    importedNodes.push_back(std::make_shared<QA>(Question("question"), Answer("answer")));
+    std::vector<std::shared_ptr<QA> > importedQAs;
+    importedQAs.push_back(std::make_shared<QA>(Question("question"), Answer("answer")));
 
     QMap<QString, QStringList> groupMap;
     groupMap["subject"] = QStringList() << "group";
 
-    EXPECT_CALL(*repositoryMock, getQAs()).WillOnce(ReturnRef(allNodes));
+    EXPECT_CALL(*repositoryMock, getQAs()).WillOnce(ReturnRef(rootNode));
     EXPECT_CALL(*destinationSelectorMock, select(groupMap, QStringList() << "question")).WillOnce(Return(true));
     EXPECT_CALL(*destinationSelectorMock, getSubject()).WillOnce(Return("different_subject"));
     EXPECT_CALL(*destinationSelectorMock, getGroup()).WillOnce(Return("different_group"));
-    appender.append(importedNodes);
-    ASSERT_FALSE(allNodes.empty());
-    ASSERT_FALSE(allNodes.at(1).getNodes().empty());
+    EXPECT_CALL(*repositoryMock, onQAsUpdate());
+    appender.append(importedQAs);
+    ASSERT_GT(rootNode.size(), 0);
+    ASSERT_FALSE(rootNode.getNode(1).getNodes().empty());
                 //subjects ------groups---first group size
-    ASSERT_EQ(1, allNodes.at(1).getNodes().at(0).size());
+    ASSERT_EQ(1, rootNode.getNode(1).getNodes().at(0).size());
                                    //subjects ------groups---newly imported nodes first new QA Value
-    ASSERT_EQ(importedNodes.at(0), allNodes.at(1).getNodes().at(0).getNodes().at(0).getNodeValue());
+    ASSERT_EQ(importedQAs.at(0), rootNode.getNode(1).getNodes().at(0).getNodes().at(0).getNodeValue());
 }

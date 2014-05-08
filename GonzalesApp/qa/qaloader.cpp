@@ -32,9 +32,8 @@ void QALoader::validateDeserializerStatus(CanDeserializeData &deserializer)
 }
 
 
-std::vector<SimpleTree::Node<QA>> QALoader::load(const QString &userName)
+SimpleTree::Node<QA> QALoader::load(const QString &filePath)
 {
-    QString filePath = getFilePathToQas(userName);
     std::shared_ptr<ReadableWritableFile> file = m_fileFactory->create(filePath);
     if(!file->open(QFile::ReadOnly))
         throw FileException("Can't open file");
@@ -42,8 +41,8 @@ std::vector<SimpleTree::Node<QA>> QALoader::load(const QString &userName)
     std::shared_ptr<CanDeserializeData> deserializer = m_fileDeserializerFactory->create(file->getIODevice());
     checkFileVersion(*deserializer);
 
-    std::vector<SimpleTree::Node<QA>> qAs;
-    m_qADeserializer->deserialize(*deserializer, qAs.at(0));
+    SimpleTree::Node<QA> qAs;
+    m_qADeserializer->deserialize(*deserializer, qAs);
     validateDeserializerStatus(*deserializer);
     return qAs;
 }

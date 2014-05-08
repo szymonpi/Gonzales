@@ -15,7 +15,7 @@ public:
         m_settings(p_settings)
     {}
 
-    UserInfo authorize(QString login, QString password)
+    UserInfo authorize(const QString &login, const QString &password)
     {
         m_settings->beginGroup(g_Users);
         if(!m_settings->contains(login+"/password"))
