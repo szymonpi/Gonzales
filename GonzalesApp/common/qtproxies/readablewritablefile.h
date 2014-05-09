@@ -1,14 +1,6 @@
 #ifndef READABLEWRITABLEFILE_H
 #define READABLEWRITABLEFILE_H
-
-class FileException : public std::runtime_error
-{
-public:
-    FileException(std::string what = ""):
-        std::runtime_error(what)
-    {}
-
-};
+#include "../FileException.h"
 
 class OpenableFile
 {

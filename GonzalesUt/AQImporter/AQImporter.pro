@@ -30,7 +30,8 @@ HEADERS += ../gtest.h \
     FileSerializerMock.h \
     ../../GonzalesApp/common/SimpleTree/node.h \
     ../../GonzalesApp/common/SimpleTree/utils.h \
-    QASerializerMock.h
+    QASerializerMock.h \
+    ../../GonzalesApp/common/FileException.h
 
 SOURCES += \
     QAImporterTestSuite.cpp \

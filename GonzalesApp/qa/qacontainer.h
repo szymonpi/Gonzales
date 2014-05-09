@@ -4,6 +4,7 @@
 #include "question.h"
 #include "answer.h"
 #include "stdexcept"
+#include "../Common/FileException.h"
 
 struct QA
 {
@@ -24,6 +25,8 @@ struct QA
     void deserialize(CanDeserializeData &deserializer)
     {
         question.deserialize(deserializer);
+        if(deserializer.status()==QDataStream::ReadPastEnd)
+            throw FileException("empty file or can't read answer");
         answer.deserialize(deserializer);
         deserializer.deserialize(m_toLearn);
     }

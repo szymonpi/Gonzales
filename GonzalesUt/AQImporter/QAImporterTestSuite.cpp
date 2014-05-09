@@ -39,7 +39,7 @@ protected:
     QAFromTextFileImporter importer;
 };
 
-TEST_F(QATextFileImporterTestSuite, shouldThrowCantOpenFile)
+TEST_F(QATextFileImporterTestSuite, fileShouldThrowCantOpenFile)
 {
     fileShouldOpen(false);
     EXPECT_THROW(importer.import(filePath), FileException);
@@ -49,8 +49,7 @@ TEST_F(QATextFileImporterTestSuite, shouldntImportAnyQAFromEmptyFile)
 {
     fileShouldOpen(true);
     EXPECT_CALL(*m_fileMock, readLine()).WillOnce(Return(QString()));
-    //std::vector<QA> qaQueue =  importer.import(filePath);
-    //EXPECT_EQ(0, qaQueue.size());
+    EXPECT_THROW(importer.import(filePath), FileException);
 }
 
 TEST_F(QATextFileImporterTestSuite, shouldImportOneQA)
@@ -60,10 +59,11 @@ TEST_F(QATextFileImporterTestSuite, shouldImportOneQA)
     EXPECT_CALL(*m_fileMock, readLine())
                                     .WillOnce(Return(line))
                                     .WillOnce(Return(QString("")));
-    //std::vector<QA> importedQas = importer.import(filePath);
-    //QA importedQa = importedQas[0];
-    //EXPECT_EQ(Question("question"), importedQa.question);
-    //EXPECT_EQ(Answer("answer"), importedQa.answer);
+    std::vector<std::shared_ptr<QA> > importedQas = importer.import(filePath);
+    ASSERT_FALSE(importedQas.empty());
+    std::shared_ptr<QA> importedQa = importedQas[0];
+    EXPECT_EQ(Question("question"), importedQa->question);
+    EXPECT_EQ(Answer("answer"), importedQa->answer);
 }
 
 TEST_F(QATextFileImporterTestSuite, shouldntImportImproperQA)
@@ -73,7 +73,7 @@ TEST_F(QATextFileImporterTestSuite, shouldntImportImproperQA)
     EXPECT_CALL(*m_fileMock, readLine())
                                     .WillOnce(Return(line))
                                     .WillOnce(Return(QString("")));
-    //EXPECT_TRUE(importer.import(filePath).empty());
+    EXPECT_THROW(importer.import(filePath), FileException);
 }
 
 TEST_F(QATextFileImporterTestSuite, shouldImportTwoQAs)
@@ -96,12 +96,12 @@ TEST_F(QATextFileImporterTestSuite, shouldImportOneQAsWithManyWhitespaces)
     EXPECT_CALL(*m_fileMock, readLine())
                                     .WillOnce(Return(line))
                                     .WillOnce(Return(QString("")));
-    //std::vector<QA> qAs = importer.import(filePath);
-    //ASSERT_TRUE(!qAs.empty());
-    //EXPECT_EQ(1, qAs.size());
+    std::vector<std::shared_ptr<QA> > qAs = importer.import(filePath);
+    ASSERT_TRUE(!qAs.empty());
+    EXPECT_EQ(1, qAs.size());
 
-    //QA importedQA = qAs.front();
+    std::shared_ptr<QA> importedQA = qAs.front();
 
-    //EXPECT_EQ(Question("question"), importedQA.question);
-    //EXPECT_EQ(Answer("answer"), importedQA.answer);
+    EXPECT_EQ(Question("question"), importedQA->question);
+    EXPECT_EQ(Answer("answer"), importedQA->answer);
 }

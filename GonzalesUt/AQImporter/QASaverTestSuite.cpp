@@ -34,8 +34,6 @@ protected:
     {
         m_oneQAs.emplaceNode(m_qa);
 
-        m_twoQAs.emplaceNode(m_qa);
-        m_twoQAs.emplaceNode(m_qa);
         m_path = "path";
         EXPECT_CALL(*m_fileFactoryMock, create(m_path)).WillOnce(Return(m_fileMock));
     }
@@ -65,9 +63,9 @@ protected:
         EXPECT_CALL(*m_fileSerializerMock, serialize(fileVersionMatcher(QAFileVersion1)));
     }
 
-    void expectSerializeQA(unsigned times = 1)
+    void expectSerializeQA()
     {
-        EXPECT_CALL(*m_qaSerializerMock, serialize(_,_)).Times(times);
+        EXPECT_CALL(*m_qaSerializerMock, serialize(_,_));
     }
 
     void expectDataStreamStatusOk()
@@ -102,7 +100,6 @@ protected:
     std::shared_ptr<QASerializerMock> m_qaSerializerMock = std::make_shared<QASerializerMock>();
     QASaver m_saver;
     SimpleTree::Node<QA> m_oneQAs;
-    SimpleTree::Node<QA> m_twoQAs;
     std::shared_ptr<QA> m_qa = std::make_shared<QA>();
     QString m_path;
 };
@@ -120,9 +117,9 @@ TEST_F(QASaveTestSuite, shouldSaveTwoQA)
 {
     expectFileIsReadyToWrite();
     expectSerializeQaVersion();
-    expectSerializeQA(2);
+    expectSerializeQA();
     expectDataStreamStatusOk();
-    ASSERT_NO_THROW(m_saver.save(m_twoQAs, m_path));
+    ASSERT_NO_THROW(m_saver.save(m_oneQAs, m_path));
 }
 
 TEST_F(QASaveTestSuite, shouldntSaveFile_FileIsntOpen)
@@ -135,8 +132,8 @@ TEST_F(QASaveTestSuite, shouldFileDontSave_DataStreamIsNotOk)
 {
     expectFileIsReadyToWrite();
     expectSerializeQaVersion();
-    expectSerializeQA(2);
+    expectSerializeQA();
     expectDataStreamStatusNotOk();
-    saveWillThrow(m_twoQAs);
+    saveWillThrow(m_oneQAs);
 }
 

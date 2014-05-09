@@ -22,13 +22,10 @@ void QALoader::checkFileVersion(CanDeserializeData &deserializer)
 
 void QALoader::validateDeserializerStatus(CanDeserializeData &deserializer)
 {
-    if(deserializer.status() != QDataStream::Ok)
-    {
-        if(deserializer.status()==QDataStream::ReadCorruptData)
-            throw FileException("corrupted data");
-        else if(deserializer.status()==QDataStream::ReadPastEnd)
-            throw FileException("empty file or can't read answer");
-    }
+
+    if(deserializer.status()==QDataStream::ReadCorruptData)
+        throw FileException("corrupted data");
+
 }
 
 

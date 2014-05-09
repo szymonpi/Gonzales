@@ -20,7 +20,7 @@ class NodeSerializer
 {
 public:
 template<typename T>
-inline void deserialize(CanDeserializeData &deserializer, Node<T> &node)
+void deserialize(CanDeserializeData &deserializer, Node<T> &node)
 {
     unsigned numOfChildren = 0;
     quint8 nodeType;
@@ -50,7 +50,7 @@ inline void deserialize(CanDeserializeData &deserializer, Node<T> &node)
 }
 
 template<typename T>
-inline void serialize(CanSerializeData &serializer, const Node<T> &node)
+void serialize(CanSerializeData &serializer, const Node<T> &node)
 {
     quint8 nodeType = concludeNodeType(node);
     serializer.serialize(nodeType);

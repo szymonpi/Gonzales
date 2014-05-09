@@ -58,43 +58,14 @@ protected:
                         .WillOnce(SetArgReferee<0>(static_cast<quint16>(version)));
     }
 
-    void expectDeserializeQuestionAndAnswer()
+    void expectDeserializeQAs()
     {
-        char *question = const_cast<char *>(qa.question.getAsString().c_str());
-        char *answer = const_cast<char *>(qa.answer.getAsString().c_str());
-
-        EXPECT_CALL(*fileDeserializerMock, deserialize(An<char *&>()))
-                .WillOnce(SetArgReferee<0>(question))
-                .WillOnce(SetArgReferee<0>(answer));
+        EXPECT_CALL(*m_qaDeserializerMock, deserialize(_,_));
     }
 
     void expectDeserializedDataWillBeCorupted()
     {
-        EXPECT_CALL(*fileDeserializerMock, status()).WillOnce(Return(QDataStream::ReadCorruptData))
-                                                    .WillOnce(Return(QDataStream::ReadCorruptData));
-    }
-
-    void expectDeserializerPastEndToQuickly()
-    {
-        EXPECT_CALL(*fileDeserializerMock, status()).WillOnce(Return(QDataStream::ReadPastEnd))
-                                                    .WillOnce(Return(QDataStream::ReadPastEnd))
-                                                    .WillOnce(Return(QDataStream::ReadPastEnd));
-    }
-
-    void expectDeserializerInvokeOneLoop()
-    {
-        EXPECT_CALL(*fileDeserializerMock, atEnd()).WillOnce(Return(false))
-                                                 .WillOnce(Return(true));
-    }
-
-    void expectDeserializerInvokeNoLoop()
-    {
-        EXPECT_CALL(*fileDeserializerMock, atEnd()).WillOnce(Return(true));
-    }
-
-    void expectDeserializerInvokeOneUnfinishedLoop()
-    {
-        EXPECT_CALL(*fileDeserializerMock, atEnd()).WillOnce(Return(false));
+        EXPECT_CALL(*fileDeserializerMock, status()).WillOnce(Return(QDataStream::ReadCorruptData));
     }
 
     QString path = "path";
@@ -121,7 +92,6 @@ TEST_F(QALoadTestSuite, shouldntLoadAnyQA_FileVersionIsUnsupported)
     expectCreateDeserializer();
     expectDeserializeFileVersion(QAUnsupportedFileVersion);
     EXPECT_THROW(loader.load(path), FileException);
-
 }
 
 TEST_F(QALoadTestSuite, shouldntImportAnyQA_DataCorupted)
@@ -129,48 +99,23 @@ TEST_F(QALoadTestSuite, shouldntImportAnyQA_DataCorupted)
     expectFileIsReadyToRead();
     expectCreateDeserializer();
     expectDeserializeFileVersion(QAFileVersion1);
-    expectDeserializerInvokeOneUnfinishedLoop();
-    expectDeserializeQuestionAndAnswer();
+    expectDeserializeQAs();
     expectDeserializedDataWillBeCorupted();
 
     EXPECT_THROW(loader.load(path), FileException);
 }
 
-TEST_F(QALoadTestSuite, shouldntImportAnyQA_ReadPastEnd)
+TEST_F(QALoadTestSuite, shouldLoadQAsFromFile)
 {
     expectFileIsReadyToRead();
     expectCreateDeserializer();
     expectDeserializeFileVersion(QAFileVersion1);
-    expectDeserializerInvokeOneUnfinishedLoop();
-    expectDeserializeQuestionAndAnswer();
-    expectDeserializerPastEndToQuickly();
 
-    EXPECT_THROW(loader.load(path), FileException);
-}
-
-TEST_F(QALoadTestSuite, shouldntImportAnyQA_EmptyQAFile)
-{
-    expectFileIsReadyToRead();
-    expectCreateDeserializer();
-    expectDeserializeFileVersion(QAFileVersion1);
-    expectDeserializerInvokeNoLoop();
-
-    //EXPECT_TRUE(loader.load(path).empty());
-}
-
-TEST_F(QALoadTestSuite, shouldLoadOneQaFromFile)
-{
-    expectFileIsReadyToRead();
-    expectCreateDeserializer();
-    expectDeserializeFileVersion(QAFileVersion1);
-    expectDeserializeQuestionAndAnswer();
-    expectDeserializerInvokeOneLoop();
+    std::shared_ptr<QA> qa = std::make_shared<QA>(Question("question"), Answer("answer"));
+    SimpleTree::Node<QA> rootNodeToSet(qa);
+    EXPECT_CALL(*m_qaDeserializerMock, deserialize(_,_)).WillOnce(SetArgReferee<1>(rootNodeToSet));
     EXPECT_CALL(*fileDeserializerMock, status()).WillOnce(Return(QDataStream::Ok));
 
-    //std::vector<QA> qAs = loader.load(path);
-    //ASSERT_FALSE(qAs.empty());
-    //QA importedQa = qAs[0];
-    //EXPECT_EQ(qa, importedQa);
-
+    SimpleTree::Node<QA> rootNode = loader.load(path);
+    EXPECT_EQ(rootNode, rootNodeToSet);
 }
-

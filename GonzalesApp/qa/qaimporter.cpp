@@ -43,6 +43,6 @@ std::vector<std::shared_ptr<QA> > QAFromTextFileImporter::import(const QString &
     }
 
     if(qAqueue.empty())
-        throw std::logic_error("No items imported");
+        throw FileException("No items imported");
     return qAqueue;
 }
