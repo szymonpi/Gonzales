@@ -15,46 +15,32 @@ CONFIG += c++11
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    teaching/teacher.cpp \
-    user/logindialog.cpp \
-    user/dialogcreateaccount.cpp \
-    user/accountcreator.cpp \
-    user/accountsprovider.cpp \
-    user/authorizer.cpp \
-    user/credentialsvalidator.cpp \
     UIAdapters.cpp \
-    teaching/teachercontroller.cpp \
-    exceptionhandler.cpp \
-    filepathselector.cpp \
-    dialogqaimporterselector.cpp \
     qa/QASaver.cpp \
     qa/QARepository.cpp \
     qa/QAimporter.cpp \
     qa/ImportedQAsAppender.cpp \
     qa/QALoader.cpp \
     qa/QAsToLearnProvider.cpp \
-    FilePathByDialogSelector.cpp
+    FilePathByDialogSelector.cpp \
+    teaching/Teacher.cpp \
+    teaching/TeacherController.cpp \
+    user/AccountCreator.cpp \
+    user/AccountsProvider.cpp \
+    user/Authorizer.cpp \
+    user/CredentialsValidator.cpp \
+    user/DialogCreateAccount.cpp \
+    user/LoginDialog.cpp \
+    DialogQAImporterSelector.cpp \
+    ExceptionHandler.cpp \
+    FilePathSelector.cpp
 
 HEADERS  += mainwindow.h \
-    teaching/teacher.h \
-    user/logindialog.h \
-    user/dialogcreateaccount.h \
-    user/accountcreator.h \
-    user/accountsprovider.h \
-    teaching/iteacher.h \
-    user/authorizer.h \
-    user/credentialsvalidator.h \
-    user/credentialsvalidatorfactory.h \
-    user/icredentialsvalidator.h \
     user/UserInfo.h \
     UIAdapters.h \
     IUIAdapters.h \
-    teaching/teachercontroller.h \
-    exceptionhandler.h \
     IExceptionHandler.h \
-    filepathselector.h \
     qa/QAFilePathSelector.h \
-    dialogqaimporterselector.h \
     qa/ImportHandler.h \
     qa/QAsAppender.h \
     QAsDestinationSelector.h \
@@ -81,7 +67,21 @@ HEADERS  += mainwindow.h \
     common/qtproxies/IFile.h \
     common/SimpleTree/Node.h \
     common/SimpleTree/Utils.h \
-    common/Common.h
+    common/Common.h \
+    teaching/ITeacher.h \
+    teaching/Teacher.h \
+    teaching/TeacherController.h \
+    user/Accountcreator.h \
+    user/AccountsProvider.h \
+    user/Authorizer.h \
+    user/CredentialsValidator.h \
+    user/CredentialsValidatorFactory.h \
+    user/DialogCreateAccount.h \
+    user/ICredentialsValidator.h \
+    user/LoginDialog.h \
+    DialogQAImporterSelector.h \
+    ExceptionHandler.h \
+    FilePathSelector.h
 
 FORMS    += mainwindow.ui \
     user/logindialog.ui \

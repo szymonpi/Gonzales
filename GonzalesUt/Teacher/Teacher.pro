@@ -12,10 +12,10 @@ SOURCES += \
 HEADERS += ../gtest.h \
         ../gmock.h \
     ../../GonzalesApp/IUIAdapters.h \
-    ../../GonzalesApp/teaching/teacher.h \
+    ../../GonzalesApp/teaching/Teacher.h \
     PresentersMock.h \
-    ../../GonzalesApp/common/qtproxies/filedeserializerfactory.h \
-    ../../GonzalesApp/common/qtproxies/filedeserializer.h \
+    ../../GonzalesApp/common/qtproxies/FileDeserializerFactory.h \
+    ../../GonzalesApp/common/qtproxies/FileDeserializer.h \
     ../../GonzalesApp/common/SimpleTree/Node.h \
     QAsToLearnProviderMock.h
 

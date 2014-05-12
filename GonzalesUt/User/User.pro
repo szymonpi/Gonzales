@@ -10,8 +10,8 @@ CONFIG += warn_off
 
 SOURCES += \
     alltests.cpp \
-    ../../GonzalesApp/user/accountcreator.cpp \
-    ../../GonzalesApp/user/accountsprovider.cpp \
+    ../../GonzalesApp/user/AccountCreator.cpp \
+    ../../GonzalesApp/user/AccountsProvider.cpp \
     AccountCreatorTestSuite.cpp \
     accountsprovidetestsuite.cpp \
     QSettingsTestSuite.cpp \
@@ -22,11 +22,11 @@ SOURCES += \
 
 HEADERS += ../gtest.h \
         ../gmock.h \
-    ../../GonzalesApp/user/accountcreator.h \
-    ../../GonzalesApp/user/accountsprovider.h \
+    ../../GonzalesApp/user/AccountCreator.h \
+    ../../GonzalesApp/user/AccountsProvider.h \
     ../../GonzalesApp/common/qtproxies/IApplicationSettings.h \
-    ../../GonzalesApp/user/credentialsvalidator.h \
-    ../../GonzalesApp/user/authorizer.h \
+    ../../GonzalesApp/user/CredentialsValidator.h \
+    ../../GonzalesApp/user/Authorizer.h \
     CredentialsValidatorMock.h \
     CredentialsValidatorFactoryMock.h \
     applicationsettingsmock.h

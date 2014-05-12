@@ -14,12 +14,12 @@ HEADERS += ../gtest.h \
     FileSerializerFactoryMock.h \
     FileDeserializerMock.h \
     FileDeserializerFactoryMock.h \
-    ../../GonzalesApp/qa/question.h \
-    ../../GonzalesApp/qa/qasaver.h \
-    ../../GonzalesApp/qa/qaloader.h \
-    ../../GonzalesApp/qa/qaimporter.h \
-    ../../GonzalesApp/qa/qacontainer.h \
-    ../../GonzalesApp/qa/answer.h \
+    ../../GonzalesApp/qa/Question.h \
+    ../../GonzalesApp/qa/QASaver.h \
+    ../../GonzalesApp/qa/QALoader.h \
+    ../../GonzalesApp/qa/QAImporter.h \
+    ../../GonzalesApp/qa/QAContainer.h \
+    ../../GonzalesApp/qa/Answer.h \
     ../../GonzalesApp/common/qtproxies/IFile.h \
     ../../GonzalesApp/common/qtproxies/FileFerializerFactory.h \
     ../../GonzalesApp/common/qtproxies/FileSerializer.h \
@@ -38,9 +38,9 @@ SOURCES += \
     FileTestSuite.cpp \
     QALoaderTestSuite.cpp \
     QASaverTestSuite.cpp \
-    ../../GonzalesApp/qa/qasaver.cpp \
-    ../../GonzalesApp/qa/qaloader.cpp \
-    ../../GonzalesApp/qa/qaimporter.cpp \
+    ../../GonzalesApp/qa/QASaver.cpp \
+    ../../GonzalesApp/qa/QALoader.cpp \
+    ../../GonzalesApp/qa/QAImporter.cpp \
     AllTests.cpp
 
 LIBPATH += C:/gtest/lib
