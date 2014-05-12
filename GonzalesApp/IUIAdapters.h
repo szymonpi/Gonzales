@@ -1,6 +1,6 @@
 #ifndef IUIADAPTERS_H
 #define IUIADAPTERS_H
-#include "Common/SimpleTree/node.h"
+#include "Common/SimpleTree/Node.h"
 
 class Answer;
 class Question;

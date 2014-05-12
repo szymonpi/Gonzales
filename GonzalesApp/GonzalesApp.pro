@@ -37,7 +37,6 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     teaching/teacher.h \
-    common/common.h \
     user/logindialog.h \
     user/dialogcreateaccount.h \
     user/accountcreator.h \
@@ -59,8 +58,6 @@ HEADERS  += mainwindow.h \
     qa/ImportHandler.h \
     qa/QAsAppender.h \
     QAsDestinationSelector.h \
-    common/SimpleTree/utils.h \
-    common/SimpleTree/node.h \
     qa/QASerializer.h \
     qa/QASaver.h \
     qa/ImportedQAsAppender.h \
@@ -81,7 +78,10 @@ HEADERS  += mainwindow.h \
     common/qtproxies/FileSerializer.h \
     common/qtproxies/FileSerializerFactory.h \
     common/qtproxies/IApplicationSettings.h \
-    common/qtproxies/IFile.h
+    common/qtproxies/IFile.h \
+    common/SimpleTree/Node.h \
+    common/SimpleTree/Utils.h \
+    common/Common.h
 
 FORMS    += mainwindow.ui \
     user/logindialog.ui \

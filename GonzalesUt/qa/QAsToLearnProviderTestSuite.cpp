@@ -2,7 +2,7 @@
 #include "../gtest.h"
 #include "../gmock.h"
 #include "../../GonzalesApp/qa/QAsToLearnProvider.h"
-#include "../../GonzalesApp/common/SimpleTree/node.h"
+#include "../../GonzalesApp/common/SimpleTree/Node.h"
 #include "QAsRepositoryMock.h"
 
 using namespace testing;

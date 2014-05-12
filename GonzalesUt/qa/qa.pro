@@ -22,8 +22,8 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/qa/QAsAppender.h \
     ../../GonzalesApp/qa/ImportedQAsAppender.h \
     ../../GonzalesApp/QAsDestinationSelector.h \
-    ../../GonzalesApp/common/SimpleTree/utils.h \
-    ../../GonzalesApp/common/SimpleTree/node.h \
+    ../../GonzalesApp/common/SimpleTree/Utils.h \
+    ../../GonzalesApp/common/SimpleTree/Node.h \
     ExceptionHandlerMock.h \
     QuestionsCollectionPresenterMock.h \
     FilePathSelectorMock.h \

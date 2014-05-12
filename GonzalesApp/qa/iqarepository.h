@@ -1,7 +1,7 @@
 #ifndef IQAREPOSITORY_H
 #define IQAREPOSITORY_H
 #include <QString>
-#include "../Common/SimpleTree/node.h"
+#include "../Common/SimpleTree/Node.h"
 #include "qacontainer.h"
 
 class QAsProvider

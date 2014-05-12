@@ -1,8 +1,8 @@
 
 #include "../gtest.h"
 #include "../gmock.h"
-#include "../../GonzalesApp/common/SimpleTree/node.h"
-#include "../../GonzalesApp/common/SimpleTree/utils.h"
+#include "../../GonzalesApp/common/SimpleTree/Node.h"
+#include "../../GonzalesApp/common/SimpleTree/Utils.h"
 #include "../AQImporter/FileDeserializerMock.h"
 #include "../AQImporter/FileSerializerMock.h"
 #include "../CommonUtUtilities/PrintTo.h"

@@ -18,8 +18,8 @@ HEADERS += ../gtest.h \
     ../AQImporter/FileDeserializerMock.h \
     ../CommonUtUtilities/PrintTo.h \
     ../CommonUtUtilities/CommonMocks.h \
-    ../../GonzalesApp/common/SimpleTree/node.h \
-    ../../GonzalesApp/common/SimpleTree/utils.h
+    ../../GonzalesApp/common/SimpleTree/Node.h \
+    ../../GonzalesApp/common/SimpleTree/Utils.h
 
 SOURCES += main.cpp \
     SimpleTreeTestSuite.cpp \

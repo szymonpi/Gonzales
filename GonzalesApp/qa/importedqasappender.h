@@ -1,6 +1,6 @@
 #ifndef IMPORTEDQASAPPENDER_H
 #define IMPORTEDQASAPPENDER_H
-#include "../Common/SimpleTree/node.h"
+#include "../Common/SimpleTree/Node.h"
 #include "../qa/qacontainer.h"
 #include "QAsAppender.h"
 #include <QStringList>

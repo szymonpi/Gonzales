@@ -28,8 +28,8 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/common/qtproxies/FileDeserializer.h \
     ../../GonzalesApp/common/qtproxies/File.h \
     FileSerializerMock.h \
-    ../../GonzalesApp/common/SimpleTree/node.h \
-    ../../GonzalesApp/common/SimpleTree/utils.h \
+    ../../GonzalesApp/common/SimpleTree/Node.h \
+    ../../GonzalesApp/common/SimpleTree/Utils.h \
     QASerializerMock.h \
     ../../GonzalesApp/common/FileException.h
 

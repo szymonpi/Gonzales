@@ -5,7 +5,7 @@
 #include "qaimporter.h"
 #include "qasaver.h"
 #include <QMultiMap>
-#include "../Common/SimpleTree/node.h"
+#include "../Common/SimpleTree/Node.h"
 #include "../IExceptionHandler.h"
 #include "../IUIAdapters.h"
 

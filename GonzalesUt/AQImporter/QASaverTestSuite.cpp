@@ -11,7 +11,7 @@
 #include "FileSerializerMock.h"
 #include "FileSerializerFactoryMock.h"
 #include "QASerializerMock.h"
-#include "../../GonzalesApp/common/SimpleTree/node.h"
+#include "../../GonzalesApp/common/SimpleTree/Node.h"
 
 #include "FileMock.h"
 

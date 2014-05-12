@@ -1,6 +1,6 @@
 #ifndef QASAPPENDER_H
 #define QASAPPENDER_H
-#include "../Common/SimpleTree/node.h"
+#include "../Common/SimpleTree/Node.h"
 #include "qacontainer.h"
 
 class QAsAppender

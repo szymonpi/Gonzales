@@ -1,5 +1,5 @@
 #include "QAsToLearnProvider.h"
-#include "../Common/SimpleTree/node.h"
+#include "../Common/SimpleTree/Node.h"
 #include <memory>
 
 QAsToLearnProvider::QAsToLearnProvider(std::shared_ptr<QAsProvider> qasProvider):

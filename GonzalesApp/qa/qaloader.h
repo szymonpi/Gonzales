@@ -10,7 +10,7 @@
 #include "../common/qtproxies/filedeserializerfactory.h"
 #include "../common/qtproxies/filefactory.h"
 #include "../common/common.h"
-#include "../Common/SimpleTree/node.h"
+#include "../Common/SimpleTree/Node.h"
 #include "QASerializer.h"
 
 class IQALoader

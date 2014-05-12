@@ -1,6 +1,6 @@
 #include "../gtest.h"
 #include "../gmock.h"
-#include "../../GonzalesApp/common/SimpleTree/node.h"
+#include "../../GonzalesApp/common/SimpleTree/Node.h"
 #include "../AQImporter/FileDeserializerMock.h"
 #include "../AQImporter/FileSerializerMock.h"
 #include <QString>
