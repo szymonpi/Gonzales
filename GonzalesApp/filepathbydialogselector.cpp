@@ -1,1 +1,1 @@
-#include "filepathbydialogselector.h"
+#include "FilePathByDialogSelector.h"

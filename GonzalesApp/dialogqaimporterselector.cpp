@@ -2,23 +2,24 @@
 #include "ui_dialogqaimporterselector.h"
 #include <QInputDialog>
 
-DialogQAImporterSelector::DialogQAImporterSelector(QWidget *parent) :
+DialogQAImporterSelector::DialogQAImporterSelector(QMap<QString, QStringList> groupsMap, QStringList importedQAs, QWidget *parent) :
     QDialog(parent),
+    m_groupsMap(groupsMap),
+    m_importedQAs(importedQAs),
     ui(new Ui::DialogQAImporterSelector)
 {
     ui->setupUi(this);
 }
 
-bool DialogQAImporterSelector::select(QMap<QString, QStringList> groupsMap, QStringList importedQAs)
+bool DialogQAImporterSelector::select()
 {
-    ui->listWidgetQuestions->insertItems(0, importedQAs);
-    ui->comboBoxSubjects->insertItems(0,groupsMap.keys());
-    ui->comboBoxGroups->insertItems(0,groupsMap[ui->comboBoxSubjects->currentText()]);
+    ui->listWidgetQuestions->addItems(m_importedQAs);
+    ui->comboBoxSubjects->addItems(m_groupsMap.keys());
+    ui->comboBoxGroups->clear();
+    ui->comboBoxGroups->addItems(m_groupsMap[ui->comboBoxSubjects->currentText()]);
     exec();
-    if(result()!=QDialog::Accepted)
-        return false;
-    else
-        return true;
+    return ui->comboBoxSubjects->currentText().size()>0
+           && ui->comboBoxGroups->currentText().size()>0;
 }
 
 DialogQAImporterSelector::~DialogQAImporterSelector()
@@ -33,7 +34,7 @@ QString DialogQAImporterSelector::getSubject() const
 
 QString DialogQAImporterSelector::getGroup() const
 {
-    return ui->comboBoxSubjects->currentText();
+    return ui->comboBoxGroups->currentText();
 }
 
 void DialogQAImporterSelector::on_buttonBox_accepted()
@@ -48,7 +49,14 @@ void DialogQAImporterSelector::on_toolButtonCreateSubject_clicked()
                                          tr("Subject:"), QLineEdit::Normal,
                                          "", &ok);
     if(ok)
-        ui->comboBoxSubjects->addItem(text);
+    {
+        if(!m_groupsMap.contains(text))
+        {
+            ui->comboBoxSubjects->addItem(text);
+            ui->comboBoxGroups->clear();
+        }
+        ui->comboBoxSubjects->setCurrentText(text);
+    }
 }
 
 void DialogQAImporterSelector::on_toolButtonCreateGroup_clicked()
@@ -58,5 +66,18 @@ void DialogQAImporterSelector::on_toolButtonCreateGroup_clicked()
                                          tr("Group:"), QLineEdit::Normal,
                                          "", &ok);
     if(ok)
-        ui->comboBoxGroups->addItem(text);
+    {
+        if(!m_groupsMap[ui->comboBoxSubjects->currentText()].contains(text))
+        {
+            ui->comboBoxGroups->addItem(text);
+            m_groupsMap[ui->comboBoxSubjects->currentText()].append(text);
+        }
+        ui->comboBoxGroups->setCurrentText(text);
+    }
+}
+
+void DialogQAImporterSelector::on_comboBoxSubjects_currentIndexChanged(const QString &arg1)
+{
+    ui->comboBoxGroups->clear();
+    ui->comboBoxGroups->addItems(m_groupsMap[ui->comboBoxSubjects->currentText()]);
 }

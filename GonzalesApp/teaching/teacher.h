@@ -9,17 +9,18 @@
 #include <vector>
 #include "../qa/qacontainer.h"
 #include "../IUIAdapters.h"
-#include "../qa/IQARepository.h"
+#include "../qa/QAsToLearnProvider.h"
 
 class Teacher
 {
 public:
     typedef QA QAPair;
-    typedef std::deque<std::shared_ptr<QA> > QAQueue;
+    typedef QQueue<std::shared_ptr<QA> > QAQueue;
 
     Teacher(std::shared_ptr<IQuestionPresenter> questionPresenter,
             std::shared_ptr<IAnswerPresenter> answerPresenter,
-            std::shared_ptr<IQARepository> qAsProvider);
+            std::shared_ptr<IQAsToLearnProvider> qAsProvider);
+
     void markAsUnknown();
     void markAsKnown();
     void showCorrectAnswer() const;
@@ -34,14 +35,11 @@ private:
     void addWrongAnsweredQAToQueue();
     void checkIsQaQueueEmpty();
     void moveCurrentQuestionToAsked();
-    void fillQAsToLearn(std::vector<std::shared_ptr<QA> > &qasToLearn, const SimpleTree::Node<QA> &node) const;
 
-    QAQueue qAToLearn;
-    QAQueue allQA;
     std::shared_ptr<QA> lastAskedQuestion;
     std::shared_ptr<IQuestionPresenter> m_questionPresenter;
     std::shared_ptr<IAnswerPresenter> m_answerPresenter;
-    std::shared_ptr<IQARepository> m_qAsRepository;
+    QAQueue m_qAsToLearn;
 };
 
 #endif // TEACHER_H

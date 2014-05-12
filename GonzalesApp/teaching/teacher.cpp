@@ -3,34 +3,14 @@
 
 Teacher::Teacher(std::shared_ptr<IQuestionPresenter> questionPresenter,
                  std::shared_ptr<IAnswerPresenter> answerPresenter,
-                 std::shared_ptr<IQARepository> repository):
-    qAToLearn(),
+                 std::shared_ptr<IQAsToLearnProvider> qAsToLearnProvider):
     lastAskedQuestion(),
     m_questionPresenter(questionPresenter),
     m_answerPresenter(answerPresenter),
-    m_qAsRepository(repository)
+    m_qAsToLearn(qAsToLearnProvider->getQAs())
 {
-    std::vector<std::shared_ptr<QA> > l_qas;
-
-    foreach(const SimpleTree::Node<QA> &node, m_qAsRepository->getQAs().getNodes())
-    {
-        fillQAsToLearn(l_qas, node);
-    }
-
-    std::copy(l_qas.begin(), l_qas.end(), std::back_inserter(allQA));
-    qAToLearn = allQA;
-}
-
-void Teacher::fillQAsToLearn(std::vector<std::shared_ptr<QA> > &qasToLearn,
-                    const SimpleTree::Node<QA> &node) const
-{
-    if(node.getNodeValue().get())
-        if(node.getNodeValue()->toLearn() == true)
-            qasToLearn.push_back(node.getNodeValue());
-    foreach(const SimpleTree::Node<QA> node, node.getNodes())
-    {
-        fillQAsToLearn(qasToLearn, node);
-    }
+    if(m_qAsToLearn.empty())
+        throw std::logic_error("Are you check what you want to learn?");
 }
 
 void Teacher::markAsUnknown()
@@ -50,7 +30,7 @@ void Teacher::showCorrectAnswer() const
 
 int Teacher::questionsToLearnNum() const
 {
-    return qAToLearn.size();
+    return m_qAsToLearn.size();
 }
 
 void Teacher::showNextQuestion()
@@ -68,18 +48,18 @@ void Teacher::removeCurrentAskedQA()
 
 void Teacher::addWrongAnsweredQAToQueue()
 {
-    qAToLearn.push_back(lastAskedQuestion);
+    m_qAsToLearn.push_back(lastAskedQuestion);
     lastAskedQuestion.reset();
 }
 
 void Teacher::checkIsQaQueueEmpty()
 {
-    if(qAToLearn.empty())
+    if(m_qAsToLearn.empty())
         throw std::logic_error("empty questions container");
 }
 
 void Teacher::moveCurrentQuestionToAsked()
 {
-    lastAskedQuestion = qAToLearn.front();
-    qAToLearn.pop_front();
+    lastAskedQuestion = m_qAsToLearn.front();
+    m_qAsToLearn.pop_front();
 }

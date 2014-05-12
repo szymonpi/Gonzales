@@ -11,7 +11,7 @@
 using namespace testing;
 
 
-
+// only for experiments
 //TEST(QSettingsTestSuite, should_retriveChildGropEntries)
 //{
 //    QSettings settings(AppSettingsGlobals::g_Company, AppSettingsGlobals::g_Project);

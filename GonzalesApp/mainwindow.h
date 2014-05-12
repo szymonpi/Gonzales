@@ -33,6 +33,8 @@ private slots:
     void on_actionImport_QA_triggered();
     void on_pushButtonShowAnswer_clicked();
     
+    void on_treeWidgetQuestions_itemChanged(QTreeWidgetItem *item, int column);
+
 signals:
     void startLearn();
     void emptyQAContainer();

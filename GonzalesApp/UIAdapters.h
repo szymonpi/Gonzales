@@ -8,6 +8,7 @@
 #include "IUIAdapters.h"
 #include <memory>
 #include <QString>
+#include "Common/common.h"
 
 Q_DECLARE_METATYPE(std::weak_ptr<QA>);
 
@@ -16,10 +17,6 @@ Q_DECLARE_METATYPE(std::weak_ptr<QA>);
 class QuestionCollectionPresenter: public IQuestionCollectionPresenter
 {
 public:
-    enum DataRole
-    {
-        DATA_ROLE_QA_POINTER = 1
-    };
 
     enum Type
     {
@@ -37,7 +34,10 @@ public:
     void presentQuestions(const SimpleTree::Node<QA> &questions)
     {
         m_widget.clear();
-            buildWidgetTree(questions, 0);
+        foreach(const SimpleTree::Node<QA> &node, questions.getNodes())
+        {
+            buildWidgetTree(node, 0);
+        }
     }
 
     void buildWidgetTree(const SimpleTree::Node<QA> &node, QTreeWidgetItem *parent)
@@ -47,6 +47,8 @@ public:
             QTreeWidgetItem *item = new QTreeWidgetItem(parent, TREE_WIDGET_TYPE_GROUP);
             item->setFlags(Qt::ItemIsUserCheckable);
             item->setData(2, Qt::CheckStateRole, Qt::Checked);
+            item->setText(0, node.getName());
+            item->setDisabled(false);
             if(parent)
                 parent->addChild(item);
             else
@@ -63,6 +65,7 @@ public:
             item->setText(0, QString::fromStdString(node.getNodeValue()->question.getAsString()));
             item->setText(1, QString::fromStdString(node.getNodeValue()->answer.getAsString()));
             item->setData(0, DATA_ROLE_QA_POINTER, QVariant::fromValue(weakPtr));
+            item->setDisabled(false);
             QPixmap pixmap("://resources/icons/question.jpg");
             QIcon icon(pixmap);
             item->setIcon(0, icon);

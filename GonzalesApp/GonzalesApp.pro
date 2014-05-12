@@ -27,16 +27,15 @@ SOURCES += main.cpp\
     exceptionhandler.cpp \
     filepathselector.cpp \
     dialogqaimporterselector.cpp \
-    filepathbydialogselector.cpp \
     qa/QASaver.cpp \
     qa/QARepository.cpp \
     qa/QAimporter.cpp \
     qa/ImportedQAsAppender.cpp \
-    qa/QALoader.cpp
+    qa/QALoader.cpp \
+    qa/QAsToLearnProvider.cpp \
+    FilePathByDialogSelector.cpp
 
 HEADERS  += mainwindow.h \
-    qa/question.h \
-    qa/answer.h \
     teaching/teacher.h \
     common/common.h \
     user/logindialog.h \
@@ -65,9 +64,7 @@ HEADERS  += mainwindow.h \
     filepathselector.h \
     qa/QAFilePathSelector.h \
     dialogqaimporterselector.h \
-    qa/QANodeCreator.h \
     qa/ImportHandler.h \
-    filepathbydialogselector.h \
     qa/QAsAppender.h \
     QAsDestinationSelector.h \
     common/SimpleTree/utils.h \
@@ -79,7 +76,11 @@ HEADERS  += mainwindow.h \
     qa/QALoader.h \
     qa/QARepository.h \
     qa/QAImporter.h \
-    qa/IQARepository.h
+    qa/IQARepository.h \
+    qa/QAsToLearnProvider.h \
+    qa/Answer.h \
+    qa/Question.h \
+    FilePathByDialogSelector.h
 
 FORMS    += mainwindow.ui \
     user/logindialog.ui \

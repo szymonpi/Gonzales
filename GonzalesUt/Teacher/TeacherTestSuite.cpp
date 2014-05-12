@@ -6,205 +6,113 @@
 #include <exception>
 #include "PresentersMock.h"
 #include "../qa/QAsRepositoryMock.h"
+#include "QAsToLearnProviderMock.h"
 
+using namespace testing;
 
 class TeacherTestSuite: public ::testing::Test
 {
 
 protected:
     TeacherTestSuite():
-        questionPresenterMock(std::make_shared<QuestionPresenterMock>()),
-        answerPresenterMock(std::make_shared<AnswerPresenterMock>()),
-        m_qasProvider(std::make_shared<QAsRepositoryMock>()),
-        teacher(questionPresenterMock, answerPresenterMock, m_qasProvider)
+        m_questionPresenterMock(std::make_shared<QuestionPresenterMock>()),
+        m_answerPresenterMock(std::make_shared<AnswerPresenterMock>()),
+        m_qasProvider(std::make_shared<QAsToLearnProviderMock>())
     {
 
     }
-    void SetUp()
-    {
-        oneQuestionQueue.push_back(QA(Question("question1"), Answer("answer1")));
 
-        twoQuestionQueue.push_back(QA(Question("question1"), Answer("answer1")));
-        twoQuestionQueue.push_back(QA(Question("question2"), Answer("answer2")));
-
-        sixQuestionQueue.push_back(QA(Question("question1"), Answer("answer1")));
-        sixQuestionQueue.push_back(QA(Question("question2"), Answer("answer2")));
-        sixQuestionQueue.push_back(QA(Question("question3"), Answer("answer3")));
-        sixQuestionQueue.push_back(QA(Question("question4"), Answer("answer4")));
-        sixQuestionQueue.push_back(QA(Question("question5"), Answer("answer5")));
-        sixQuestionQueue.push_back(QA(Question("question6"), Answer("answer6")));
-    }
-
-    void checkNextQuestion(const std::string & expectedQuestionString)
-    {
-        teacher.showNextQuestion();
-        //EXPECT_EQ(questionFromTeacher.getAsString(), expectedQuestionString);
-    }
-
-    void checkAnswerForNextQuestionIsCorrect(std::string answer)
-    {
-        teacher.showNextQuestion();
-        ASSERT_TRUE(isAnswerCorrect(answer));
-    }
-
-    void checkAnswerForNextQuestionIsInCorrect(std::string answer)
-    {
-        teacher.showNextQuestion();
-        ASSERT_FALSE(isAnswerCorrect(answer));
-    }
-
-    bool isAnswerCorrect(std::string answer)
-    {
-        return false;//teacher.checkAnswer(Answer(answer));
-    }
-
-    void setOneQuestion()
-    {
-        //teacher.setQuestions(oneQuestionQueue);
-    }
-
-    void setTwoQuestions()
-    {
-        //teacher.setQuestions(twoQuestionQueue);
-    }
-
-    void setSixQuestions()
-    {
-        //teacher.setQuestions(sixQuestionQueue);
-    }
-
-    std::shared_ptr<QuestionPresenterMock> questionPresenterMock;
-    std::shared_ptr<AnswerPresenterMock> answerPresenterMock;
-    std::shared_ptr<QAsRepositoryMock> m_qasProvider;
-    Teacher teacher;
+    std::shared_ptr<QuestionPresenterMock> m_questionPresenterMock;
+    std::shared_ptr<AnswerPresenterMock> m_answerPresenterMock;
+    std::shared_ptr<QAsToLearnProviderMock> m_qasProvider;
+    std::shared_ptr<Teacher> teacher;
     std::vector<QA> oneQuestionQueue;
     std::vector<QA> twoQuestionQueue;
     std::vector<QA> sixQuestionQueue;
 
 };
 
-TEST_F(TeacherTestSuite, ZeroQuestionGiven_ShouldThrowNoQuestionException)
+TEST_F(TeacherTestSuite, QAsToLearnProviderReturnNoItem_ShouldThrow)
 {
-    ASSERT_THROW(teacher.showNextQuestion();, std::logic_error);
-}
 
-TEST_F(TeacherTestSuite, oneQuestionQueueGiven_ShouldReturnNextQuestion)
-{
-    setOneQuestion();
-    checkNextQuestion("question1");
-}
-
-TEST_F(TeacherTestSuite, twoQuestionQueueGiven_ShouldReturnTwoNextQuestions)
-{
-    setTwoQuestions();
-    checkNextQuestion("question1");
-    checkNextQuestion("question2");
-}
-
-TEST_F(TeacherTestSuite, NoQuestionGiven_CheckAnswerShouldThrow)
-{
-    ASSERT_THROW(isAnswerCorrect("bad Answer"), std::logic_error);
-}
-
-TEST_F(TeacherTestSuite, oneQuestionQueueGiven_CheckAnswerShouldThrow)
-{
-    setOneQuestion();
-    ASSERT_THROW(isAnswerCorrect("bad Answer"), std::logic_error);
-}
-
-TEST_F(TeacherTestSuite, oneQuestionGivenOneWrongAnswerGiven_ShouldCheckAnswerReturnFalse)
-{
-    setOneQuestion();
-    checkAnswerForNextQuestionIsInCorrect("wrong answer");
-}
-
-TEST_F(TeacherTestSuite, oneQuestionGivenOneCorrectAnswerGiven_shouldCheckAnswerReturnTrue)
-{
-    setOneQuestion();
-    checkAnswerForNextQuestionIsCorrect("answer1");
+    EXPECT_CALL(*m_qasProvider, getQAs()).WillOnce(Return(QQueue<std::shared_ptr<QA>>()));
+    EXPECT_THROW(std::make_shared<Teacher>(m_questionPresenterMock, m_answerPresenterMock, m_qasProvider), std::logic_error);
 }
 
 
-TEST_F(TeacherTestSuite, twoQuestionsGivenTwoCorrectAnswersGiven_shouldChecksAnswerReturnTrue)
+TEST_F(TeacherTestSuite, QAsToLearnProviderReturnOne_ShouldPresentQuestion)
 {
-    setTwoQuestions();
-    checkAnswerForNextQuestionIsCorrect("answer1");
-    checkAnswerForNextQuestionIsCorrect("answer2");
+    QQueue<std::shared_ptr<QA>> qas;
+    qas.push_back(std::make_shared<QA>(Question("question"), Answer("answer")));
+    EXPECT_CALL(*m_qasProvider, getQAs()).WillOnce(Return(qas));
+    teacher = std::make_shared<Teacher>(m_questionPresenterMock, m_answerPresenterMock, m_qasProvider);
+
+    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.first()->question));
+    EXPECT_CALL(*m_answerPresenterMock, clear());
+    ASSERT_EQ(1, teacher->questionsToLearnNum());
+    EXPECT_NO_THROW(teacher->showNextQuestion());
+    ASSERT_EQ(0, teacher->questionsToLearnNum());
 }
 
-TEST_F(TeacherTestSuite, twoQuestionsGivenTwoCorrectAnswersGiven_shouldntBeAnyMoreToCheck)
+TEST_F(TeacherTestSuite, QAsToLearnProviderReturnOne_ShouldPresentQuestionAndThrowWhilePresentNext)
 {
-    setTwoQuestions();
-    checkAnswerForNextQuestionIsCorrect("answer1");
-    checkAnswerForNextQuestionIsCorrect("answer2");
-    ASSERT_THROW(isAnswerCorrect("dupa"), std::logic_error);
+    QQueue<std::shared_ptr<QA>> qas;
+    qas.push_back(std::make_shared<QA>(Question("question"), Answer("answer")));
+    EXPECT_CALL(*m_qasProvider, getQAs()).WillOnce(Return(qas));
+    teacher = std::make_shared<Teacher>(m_questionPresenterMock, m_answerPresenterMock, m_qasProvider);
+
+    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.first()->question));
+    EXPECT_CALL(*m_answerPresenterMock, clear());
+    ASSERT_EQ(1, teacher->questionsToLearnNum());
+    EXPECT_NO_THROW(teacher->showNextQuestion());
+    ASSERT_EQ(0, teacher->questionsToLearnNum());
+    EXPECT_THROW(teacher->showNextQuestion(), std::logic_error);
 }
 
-TEST_F(TeacherTestSuite, twoQuestionsGivenTwoCorrectAnswersGiven_shouldntBeAnyMoreToLearn)
+TEST_F(TeacherTestSuite, QAsToLearnProviderReturnOne_ShouldPresentTwoQuestionAndMarkAsKnown)
 {
-    setTwoQuestions();
-    checkAnswerForNextQuestionIsCorrect("answer1");
-    checkAnswerForNextQuestionIsCorrect("answer2");
-    ASSERT_THROW(teacher.showNextQuestion();, std::logic_error);
+    QQueue<std::shared_ptr<QA>> qas;
+    qas.push_back(std::make_shared<QA>(Question("question"), Answer("answer")));
+    qas.push_back(std::make_shared<QA>(Question("question2"), Answer("answer2")));
+    EXPECT_CALL(*m_qasProvider, getQAs()).WillOnce(Return(qas));
+    teacher = std::make_shared<Teacher>(m_questionPresenterMock, m_answerPresenterMock, m_qasProvider);
+
+    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.first()->question));
+    EXPECT_CALL(*m_answerPresenterMock, clear());
+    ASSERT_EQ(2, teacher->questionsToLearnNum());
+    EXPECT_NO_THROW(teacher->showNextQuestion());
+    ASSERT_EQ(1, teacher->questionsToLearnNum());
+
+    teacher->markAsKnown();
+
+    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.at(1)->question));
+    EXPECT_CALL(*m_answerPresenterMock, clear());
+    ASSERT_EQ(1, teacher->questionsToLearnNum());
+    EXPECT_NO_THROW(teacher->showNextQuestion());
+    ASSERT_EQ(0, teacher->questionsToLearnNum());
 }
 
-TEST_F(TeacherTestSuite, twoQuestionsGivenOneIncorrectAnswersGiven_shouldBeStillOneQuestionToLearn)
+TEST_F(TeacherTestSuite, QAsToLearnProviderReturnOne_ShouldPresentTwoQuestionAndMarkTwoAsUnknown)
 {
-    setTwoQuestions();
-    checkAnswerForNextQuestionIsCorrect("answer1");
-    checkAnswerForNextQuestionIsInCorrect("wrong answer");
-    ASSERT_NO_THROW(teacher.showNextQuestion());
-}
+    QQueue<std::shared_ptr<QA>> qas;
+    qas.push_back(std::make_shared<QA>(Question("question"), Answer("answer")));
+    qas.push_back(std::make_shared<QA>(Question("question2"), Answer("answer2")));
+    EXPECT_CALL(*m_qasProvider, getQAs()).WillOnce(Return(qas));
+    teacher = std::make_shared<Teacher>(m_questionPresenterMock, m_answerPresenterMock, m_qasProvider);
 
-TEST_F(TeacherTestSuite, sixQuestionsGivenThreeIncorrectAnswersGiven_shouldBeStillThreeQuestionToLearn)
-{
-    setSixQuestions();
-    checkAnswerForNextQuestionIsCorrect("answer1");
-    checkAnswerForNextQuestionIsCorrect("answer2");
-    checkAnswerForNextQuestionIsCorrect("answer3");
-    checkAnswerForNextQuestionIsInCorrect("answer4wrong");
-    checkAnswerForNextQuestionIsInCorrect("answer5wrong");
-    checkAnswerForNextQuestionIsInCorrect("answer6wrong");
-    checkAnswerForNextQuestionIsCorrect("answer4");
-    checkAnswerForNextQuestionIsCorrect("answer5");
-    checkAnswerForNextQuestionIsCorrect("answer6");
-}
+    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.first()->question));
+    EXPECT_CALL(*m_answerPresenterMock, clear());
+    ASSERT_EQ(2, teacher->questionsToLearnNum());
+    EXPECT_NO_THROW(teacher->showNextQuestion());
+    ASSERT_EQ(1, teacher->questionsToLearnNum());
 
-TEST_F(TeacherTestSuite, NoOneQuestionGiven_GetCorrectAnswerShouldThrowNoQuestionInContainer)
-{
-    //ASSERT_THROW(teacher.getCorrectAnswer(Question("q")), std::logic_error);
-}
+    teacher->markAsUnknown();
 
-TEST_F(TeacherTestSuite, OneQuestionGiven_GetCorrectAnswerShouldReturnCorrectAnswer)
-{
-    setOneQuestion();
-    //EXPECT_EQ(Answer("answer1"), teacher.showCorrectAnswer(Question("question1")));
-}
-
-TEST_F(TeacherTestSuite, OneQuesionGiven_GetNextQuestionCalledShouldStillGetCorrectAnswer)
-{
-    setOneQuestion();
-    teacher.showNextQuestion();
-    //teacher.showCorrectAnswer(Question("question1"));
-}
-
-TEST_F(TeacherTestSuite, TwoQuestionGiven_6badAnswers2GoodAnswers)
-{
-    setTwoQuestions();
-    checkAnswerForNextQuestionIsInCorrect("answer1-bad");
-    checkAnswerForNextQuestionIsInCorrect("answer2-bad");
-    checkAnswerForNextQuestionIsInCorrect("answer1-bad");
-    checkAnswerForNextQuestionIsInCorrect("answer2-bad");
-    checkAnswerForNextQuestionIsInCorrect("answer1-bad");
-    checkAnswerForNextQuestionIsInCorrect("answer2-bad");
-    checkAnswerForNextQuestionIsCorrect("answer1");
-    checkAnswerForNextQuestionIsCorrect("answer2");
-}
-
-TEST_F(TeacherTestSuite, TwoQuestionGiven_GetQuestionsToLearnShouldReturnTwo)
-{
-    setTwoQuestions();
-    EXPECT_EQ(2, teacher.questionsToLearnNum());
+    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.at(1)->question));
+    EXPECT_CALL(*m_answerPresenterMock, clear());
+    ASSERT_EQ(2, teacher->questionsToLearnNum());
+    EXPECT_NO_THROW(teacher->showNextQuestion());
+    ASSERT_EQ(1, teacher->questionsToLearnNum());
 }
 
 int main(int argc, char **argv)

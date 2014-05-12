@@ -14,36 +14,39 @@ CONFIG += warn_off
 
 HEADERS += ../gtest.h \
            ../gmock.h \
-    ../../GonzalesApp/qa/qasaver.h \
-    ../../GonzalesApp/qa/qaloader.h \
-    ../../GonzalesApp/qa/qaimporter.h \
-    ExceptionHandlerMock.h \
+    ../../GonzalesApp/qa/QASaver.h \
+    ../../GonzalesApp/qa/QALoader.h \
+    ../../GonzalesApp/qa/QAImporter.h \
     ../../GonzalesApp/IExceptionHandler.h \
-    QuestionsCollectionPresenterMock.h \
     ../../GonzalesApp/qa/ImportHandler.h \
+    ../../GonzalesApp/qa/QAsAppender.h \
+    ../../GonzalesApp/qa/ImportedQAsAppender.h \
+    ../../GonzalesApp/QAsDestinationSelector.h \
+    ../../GonzalesApp/common/SimpleTree/utils.h \
+    ../../GonzalesApp/common/SimpleTree/node.h \
+    ExceptionHandlerMock.h \
+    QuestionsCollectionPresenterMock.h \
     FilePathSelectorMock.h \
     QAsImporterMock.h \
     QAsAppenderMock.h \
-    ../../GonzalesApp/qa/QAsAppender.h \
-    ../../GonzalesApp/qa/importedqasappender.h \
     QAsDestinationSelectorMock.h \
-    ../../GonzalesApp/QAsDestinationSelector.h \
     QAsRepositoryMock.h \
-    ../../GonzalesApp/common/SimpleTree/utils.h \
-    ../../GonzalesApp/common/SimpleTree/node.h \
-    QALoaderMock.h
+    QALoaderMock.h \
+    ../../GonzalesApp/qa/QAsToLearnProvider.h
 
 SOURCES += \
     AllTests.cpp \
     QARepositoryTestSuite.cpp \
-    ../../GonzalesApp/qa/qasaver.cpp \
-    ../../GonzalesApp/qa/qaloader.cpp \
-    ../../GonzalesApp/qa/qaimporter.cpp \
+    ../../GonzalesApp/qa/QASaver.cpp \
+    ../../GonzalesApp/qa/QALoader.cpp \
+    ../../GonzalesApp/qa/QAImporter.cpp \
     ../../GonzalesApp/qa/QARepository.cpp \
+    ../../GonzalesApp/qa/ImportedQAsAppender.cpp \
     ImportHandlertestSuite.cpp \
     FilePathSelectorTestSuite.cpp \
     QAsAppenderTestSuite.cpp \
-    ../../GonzalesApp/qa/importedqasappender.cpp
+    QAsToLearnProviderTestSuite.cpp \
+    ../../GonzalesApp/qa/QAsToLearnProvider.cpp
 
 LIBPATH += C:/gtest/lib
 LIBPATH += C:/gmock/lib

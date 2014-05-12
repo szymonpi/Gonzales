@@ -17,6 +17,7 @@
 #include "filepathbydialogselector.h"
 #include "qa/importedqasappender.h"
 #include "dialogqaimporterselector.h"
+#include "qa/QALoader.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -32,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
     std::shared_ptr<IQuestionPresenter> l_questionPresenter(new QuestionPresenter(*ui->textEditQuestion));
     std::shared_ptr<IAnswerPresenter> l_answerPresenter(new AnswerPresenter(*ui->textEditAnswer));
     std::shared_ptr<IExceptionHandler> l_exceptionHandler = std::make_shared<ExceptionHandler>();
-    std::unique_ptr<IQuestionCollectionPresenter> l_questionCollectionPresenter(new QuestionCollectionPresenter(*ui->treeWidgetQuestions));
+    std::shared_ptr<IQuestionCollectionPresenter> l_questionCollectionPresenter(new QuestionCollectionPresenter(*ui->treeWidgetQuestions));
 
     LoginDialog loginDialog;
     loginDialog.setModal(true);
@@ -44,13 +45,18 @@ MainWindow::MainWindow(QWidget *parent) :
     setWindowTitle(m_userInfo.login);
     setupStateMachine();
 
+    std::shared_ptr<QALoader> loader = std::make_shared<QALoader>();
     qARepository = std::make_shared<QARepository>(pathCreator.createQAsFilePath(m_userInfo.login),
                                                   l_exceptionHandler,
-                                                  std::move(l_questionCollectionPresenter));
+                                                  l_questionCollectionPresenter,
+                                                  loader);
+
+    std::shared_ptr<QAsToLearnProvider> qasToLearnProvider = std::make_shared<QAsToLearnProvider>(qARepository);
+
     qARepository->load();
     teacher.reset(new TeacherController(std::move(l_questionPresenter),
                                         std::move(l_answerPresenter),
-                                        qARepository,
+                                        qasToLearnProvider,
                                         l_exceptionHandler));
 
     importHandler.reset(new ImportHandler(std::make_shared<FilePathByDialogSelector>(),
@@ -127,4 +133,11 @@ void MainWindow::on_actionStart_triggered()
 void MainWindow::on_actionImport_QA_triggered()
 {
     importHandler->import();
+}
+
+void MainWindow::on_treeWidgetQuestions_itemChanged(QTreeWidgetItem *item, int column)
+{
+    if(column != 2)
+        return;
+
 }

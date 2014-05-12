@@ -43,8 +43,20 @@ void TeacherController::markAsUnknownAndShowNextQuestion()
 
 void TeacherController::startTeaching()
 {
-    m_teacher.reset(new Teacher(m_questionPresenter, m_answerPresenter, m_qARepository));
-    if(m_teacher->questionsToLearnNum()==0)
+    try
+    {
+        m_teacher.reset(new Teacher(m_questionPresenter, m_answerPresenter, m_qAsToLearnProvider));
+    }
+    catch(std::logic_error &e)
+    {
+        m_exceptionHandler->handleException(e.what(), "Teacher error");
         return;
+    }
+
+    if(m_teacher->questionsToLearnNum()==0)
+    {
+        m_exceptionHandler->handleException("You finished learning, there is no items left", "Info");
+        return;
+    }
     showNextQuestion();
 }
