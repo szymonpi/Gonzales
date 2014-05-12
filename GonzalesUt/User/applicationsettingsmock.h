@@ -2,7 +2,7 @@
 #define APPLICATIONSETTINGSMOCK_H
 
 #include "../gmock.h"
-#include "../../GonzalesApp/common/qtproxies/applicationsettings.h"
+#include "../../GonzalesApp/common/qtproxies/IApplicationSettings.h"
 
 class ApplicationSettingsMock: public IApplicationSettings
 {

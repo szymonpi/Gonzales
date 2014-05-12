@@ -4,7 +4,7 @@
 #include "../gtest.h"
 #include "../../GonzalesApp/user/accountcreator.h"
 #include "applicationsettingsmock.h"
-#include "../../GonzalesApp/common/qtproxies/applicationsettings.h"
+#include "../../GonzalesApp/common/qtproxies/IApplicationSettings.h"
 #include <QStringList>
 #include <algorithm>
 

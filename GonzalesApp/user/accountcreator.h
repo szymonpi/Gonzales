@@ -6,11 +6,6 @@
 #include "credentialsvalidator.h"
 #include "credentialsvalidatorfactory.h"
 
-class UesrInfo
-{
-    
-};
-
 class QString;
 
 class AccountCreator

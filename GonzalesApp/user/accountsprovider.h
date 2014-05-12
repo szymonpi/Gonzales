@@ -2,7 +2,7 @@
 #define ACCOUNTSPROVIDER_H
 #include <memory>
 
-#include "../common/qtproxies/applicationsettings.h"
+#include "../common/qtproxies/ApplicationSettings.h"
 
 class AccountsProvider
 {

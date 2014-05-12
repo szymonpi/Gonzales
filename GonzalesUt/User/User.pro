@@ -24,7 +24,7 @@ HEADERS += ../gtest.h \
         ../gmock.h \
     ../../GonzalesApp/user/accountcreator.h \
     ../../GonzalesApp/user/accountsprovider.h \
-    ../../GonzalesApp/common/qtproxies/applicationsettings.h \
+    ../../GonzalesApp/common/qtproxies/IApplicationSettings.h \
     ../../GonzalesApp/user/credentialsvalidator.h \
     ../../GonzalesApp/user/authorizer.h \
     CredentialsValidatorMock.h \

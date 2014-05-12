@@ -4,7 +4,7 @@
 #include "string"
 #include "credentialsvalidator.h"
 #include <memory>
-#include "../common/qtproxies/applicationsettings.h"
+#include "../common/qtproxies/ApplicationSettings.h"
 #include "UserInfo.h"
 #include "../common/common.h"
 
