@@ -2,17 +2,17 @@
 #define FILEREADER_H
 
 #include "../gmock.h"
-#include "../../GonzalesApp/common/qtproxies/file.h"
+#include "../../GonzalesApp/common/qtproxies/IFile.h"
 #include "../../GonzalesApp/common/qtproxies/filefactory.h"
 
 class FileFactoryMock : public IFileFactory
 {
 public:
-    MOCK_CONST_METHOD1(create, std::shared_ptr<ReadableWritableFile>(const QString &));
+    MOCK_CONST_METHOD1(create, std::shared_ptr<IFile>(const QString &));
 };
 
 
-class FileMock: public ReadableWritableFile
+class FileMock: public IFile
 {
 public:
     MOCK_METHOD1(open, bool(QFile::OpenModeFlag));

@@ -28,10 +28,9 @@ void QALoader::validateDeserializerStatus(CanDeserializeData &deserializer)
 
 }
 
-
 SimpleTree::Node<QA> QALoader::load(const QString &filePath)
 {
-    std::shared_ptr<ReadableWritableFile> file = m_fileFactory->create(filePath);
+    std::shared_ptr<IFile> file = m_fileFactory->create(filePath);
     if(!file->open(QFile::ReadOnly))
         throw FileException("Can't open file");
 

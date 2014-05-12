@@ -1,6 +1,6 @@
 #include "qaimporter.h"
 
-QStringList QAFromTextFileImporter::getLinesFromFile(ReadableWritableFile &file)
+QStringList QAFromTextFileImporter::getLinesFromFile(IFile &file)
 {
     QStringList lines;
     QString curretnLine = file.readLine();
@@ -30,7 +30,7 @@ void QAFromTextFileImporter::appendQa(std::vector<std::shared_ptr<QA> > &qAs, QS
 
 std::vector<std::shared_ptr<QA> > QAFromTextFileImporter::import(const QString &filePath)
 {
-    std::shared_ptr<ReadableWritableFile> file = m_fileFactory->create(filePath);
+    std::shared_ptr<IFile> file = m_fileFactory->create(filePath);
     if(!file->open(QFile::ReadOnly))
         throw FileException("Can't open file");
     QStringList lines = getLinesFromFile(*file);

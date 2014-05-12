@@ -20,13 +20,13 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/qa/qaimporter.h \
     ../../GonzalesApp/qa/qacontainer.h \
     ../../GonzalesApp/qa/answer.h \
-    ../../GonzalesApp/common/qtproxies/readablewritablefile.h \
-    ../../GonzalesApp/common/qtproxies/fileserializerfactory.h \
-    ../../GonzalesApp/common/qtproxies/fileserializer.h \
-    ../../GonzalesApp/common/qtproxies/filefactory.h \
-    ../../GonzalesApp/common/qtproxies/filedeserializerfactory.h \
-    ../../GonzalesApp/common/qtproxies/filedeserializer.h \
-    ../../GonzalesApp/common/qtproxies/file.h \
+    ../../GonzalesApp/common/qtproxies/IFile.h \
+    ../../GonzalesApp/common/qtproxies/FileFerializerFactory.h \
+    ../../GonzalesApp/common/qtproxies/FileSerializer.h \
+    ../../GonzalesApp/common/qtproxies/FileFactory.h \
+    ../../GonzalesApp/common/qtproxies/FiledeFerializerFactory.h \
+    ../../GonzalesApp/common/qtproxies/FileDeserializer.h \
+    ../../GonzalesApp/common/qtproxies/File.h \
     FileSerializerMock.h \
     ../../GonzalesApp/common/SimpleTree/node.h \
     ../../GonzalesApp/common/SimpleTree/utils.h \

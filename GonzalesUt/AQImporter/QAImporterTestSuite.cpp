@@ -5,7 +5,6 @@
 #include "../gmock.h"
 
 #include <QQueue>
-
 #include "../../GonzalesApp/qa/qaimporter.h"
 #include "FileMock.h"
 

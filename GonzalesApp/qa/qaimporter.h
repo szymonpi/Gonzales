@@ -31,7 +31,7 @@ public:
 
 private:
     std::shared_ptr<IFileFactory> m_fileFactory;
-    QStringList getLinesFromFile(ReadableWritableFile &file);
+    QStringList getLinesFromFile(IFile &file);
     QStringList getSplittedCleanedLine(QString line);
     QString getQuestionFromSplittedLine(QStringList &splittedLine);
     void appendQa(std::vector<std::shared_ptr<QA> > &qAs, QStringList &splittedLine);

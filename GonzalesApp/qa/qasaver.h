@@ -27,7 +27,7 @@ private:
     std::shared_ptr<IFileFactory> fileFactory;
     std::shared_ptr<IQASerializer> qASerializer;
     std::shared_ptr<IFileSerializerFactory> fileSerializerFactory;
-    void openFile(ReadableWritableFile &file);
+    void openFile(IFile &file);
     void serializeFileVersion(CanSerializeData &serializer);
 };
 

@@ -14,7 +14,7 @@ QASaver::QASaver(std::shared_ptr<IFileFactory> fileFactory,
 {
 }
 
-void QASaver::openFile(ReadableWritableFile &file)
+void QASaver::openFile(IFile &file)
 {
     if(!file.open(QFile::WriteOnly))
         throw FileException("File isn't open");
@@ -27,7 +27,7 @@ void QASaver::serializeFileVersion(CanSerializeData &serializer)
 
 void QASaver::save(const SimpleTree::Node<QA> &questionAnswers, const QString &filePath)
 {
-    std::shared_ptr<ReadableWritableFile> file = fileFactory->create(filePath);
+    std::shared_ptr<IFile> file = fileFactory->create(filePath);
     openFile(*file);
     std::shared_ptr<CanSerializeData> serializer = fileSerializerFactory->create(file->getIODevice());
     serializeFileVersion(*serializer);

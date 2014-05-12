@@ -80,8 +80,8 @@ HEADERS  += mainwindow.h \
     common/qtproxies/FileFactory.h \
     common/qtproxies/FileSerializer.h \
     common/qtproxies/FileSerializerFactory.h \
-    common/qtproxies/ReadableWritableFile.h \
-    common/qtproxies/IApplicationSettings.h
+    common/qtproxies/IApplicationSettings.h \
+    common/qtproxies/IFile.h
 
 FORMS    += mainwindow.ui \
     user/logindialog.ui \

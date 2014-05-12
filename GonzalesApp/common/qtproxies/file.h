@@ -8,9 +8,9 @@
 #include <cstring>
 #include <memory>
 
-#include "readablewritablefile.h"
+#include "IFile.h"
 
-class File : public ReadableWritableFile
+class File : public IFile
 {
 
 public:
