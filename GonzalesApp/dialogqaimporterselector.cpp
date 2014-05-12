@@ -79,5 +79,5 @@ void DialogQAImporterSelector::on_toolButtonCreateGroup_clicked()
 void DialogQAImporterSelector::on_comboBoxSubjects_currentIndexChanged(const QString &arg1)
 {
     ui->comboBoxGroups->clear();
-    ui->comboBoxGroups->addItems(m_groupsMap[ui->comboBoxSubjects->currentText()]);
+    ui->comboBoxGroups->addItems(m_groupsMap[arg1]);
 }

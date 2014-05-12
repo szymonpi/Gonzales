@@ -42,14 +42,6 @@ HEADERS  += mainwindow.h \
     user/dialogcreateaccount.h \
     user/accountcreator.h \
     user/accountsprovider.h \
-    common/qtproxies/readablewritablefile.h \
-    common/qtproxies/fileserializerfactory.h \
-    common/qtproxies/fileserializer.h \
-    common/qtproxies/filefactory.h \
-    common/qtproxies/filedeserializerfactory.h \
-    common/qtproxies/filedeserializer.h \
-    common/qtproxies/file.h \
-    common/qtproxies/applicationsettings.h \
     teaching/iteacher.h \
     user/authorizer.h \
     user/credentialsvalidator.h \
@@ -80,7 +72,16 @@ HEADERS  += mainwindow.h \
     qa/QAsToLearnProvider.h \
     qa/Answer.h \
     qa/Question.h \
-    FilePathByDialogSelector.h
+    FilePathByDialogSelector.h \
+    common/qtproxies/ApplicationSettings.h \
+    common/qtproxies/File.h \
+    common/qtproxies/FileDeserializer.h \
+    common/qtproxies/FileDeserializerFactory.h \
+    common/qtproxies/FileFactory.h \
+    common/qtproxies/FileSerializer.h \
+    common/qtproxies/FileSerializerFactory.h \
+    common/qtproxies/ReadableWritableFile.h \
+    common/qtproxies/IApplicationSettings.h
 
 FORMS    += mainwindow.ui \
     user/logindialog.ui \

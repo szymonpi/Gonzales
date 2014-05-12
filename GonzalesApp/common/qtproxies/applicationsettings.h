@@ -26,8 +26,6 @@ public:
     ApplicationSettings():
         settings(g_Company, g_Project)
     {
-
-
     }
 
     QString group()

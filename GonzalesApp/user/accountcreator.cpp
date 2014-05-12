@@ -2,7 +2,7 @@
 #include <QString>
 #include <QRegExp>
 #include <QSettings>
-#include "../common/qtproxies/applicationsettings.h"
+#include "../common/qtproxies/ApplicationSettings.h"
 
 AccountCreator::AccountCreator(std::shared_ptr<IApplicationSettings>
                                settings, std::shared_ptr<ICredentialsValidatorFactory> validatorFactory):

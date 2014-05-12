@@ -2,7 +2,7 @@
 #define ACCOUNTCREATOR_H
 #include <stdexcept>
 #include <memory>
-#include "../common/qtproxies/applicationsettings.h"
+#include "../common/qtproxies/ApplicationSettings.h"
 #include "credentialsvalidator.h"
 #include "credentialsvalidatorfactory.h"
 
