@@ -25,6 +25,10 @@ public:
 
     void updateQuestion();
     void showNextQuestion();
+    void authorize();
+    void setupWindowUI();
+    void setupControllers();
+    void loadUserData();
 private slots:
 
     void on_pushButtonKnowIt_clicked();
@@ -57,8 +61,8 @@ private:
         QState stateAnswerVerified;
 
     UserInfo m_userInfo;
-    std::unique_ptr<TeacherController> teacher;
-    std::unique_ptr<ImportHandler> importHandler;
+    std::shared_ptr<TeacherController> teacher;
+    std::shared_ptr<ImportHandler> importHandler;
 
     void setupStateMachine();
 };

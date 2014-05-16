@@ -21,6 +21,14 @@
 #include "../ui/dialogs/DialogQAImporterSelector.h"
 #include "../uiobservers/QAsDestinationSelector.h"
 #include "../qa/QALoader.h"
+#include "../TeacherControllerFactory.h"
+#include "../ImportHandlerFactory.h"
+#include "../QARepositoryFactory.h"
+
+void MainWindow::loadUserData()
+{
+    qARepository->load();
+}
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -33,41 +41,40 @@ MainWindow::MainWindow(QWidget *parent) :
     stateAnswerVerified(&stateLearn)
 {
     ui->setupUi(this);
-    std::shared_ptr<IQuestionPresenter> l_questionPresenter(new QuestionPresenter(*ui->textEditQuestion));
-    std::shared_ptr<IAnswerPresenter> l_answerPresenter(new AnswerPresenter(*ui->textEditAnswer));
-    std::shared_ptr<IExceptionHandler> l_exceptionHandler = std::make_shared<ExceptionHandler>();
-    std::shared_ptr<IQuestionCollectionPresenter> l_questionCollectionPresenter(new QuestionCollectionPresenter(*ui->treeWidgetQuestions));
+    authorize();
+    setupWindowUI();
+    setupControllers();
+    loadUserData();
 
+}
+
+void MainWindow::authorize()
+{
     LoginDialog loginDialog;
     loginDialog.setModal(true);
     loginDialog.exec();
     if(!loginDialog.isAuthorized())
         exit(0);
     m_userInfo = loginDialog.getUserInfo();
-    PathCreator pathCreator;
+}
+
+void MainWindow::setupWindowUI()
+{
     setWindowTitle(m_userInfo.login);
     setupStateMachine();
+}
 
-    std::shared_ptr<QALoader> loader = std::make_shared<QALoader>();
-    qARepository = std::make_shared<QARepository>(pathCreator.createQAsFilePath(m_userInfo.login),
-                                                  l_exceptionHandler,
-                                                  l_questionCollectionPresenter,
-                                                  loader);
+void MainWindow::setupControllers()
+{
+    QARepositoryFactory qARepositoryFactory(*ui->treeWidgetQuestions,
+                                            m_userInfo.login);
+    qARepository = qARepositoryFactory.create();
 
-    std::shared_ptr<QAsToLearnProvider> qasToLearnProvider = std::make_shared<QAsToLearnProvider>(qARepository);
+    TeacherControllerFactory teacherControllerFactory(qARepository, *ui->textEditQuestion, *ui->textEditAnswer);
+    ImportHandlerFactory importFactory(qARepository);
 
-    qARepository->load();
-    teacher.reset(new TeacherController(std::move(l_questionPresenter),
-                                        std::move(l_answerPresenter),
-                                        qasToLearnProvider,
-                                        l_exceptionHandler));
-
-    importHandler.reset(new ImportHandler(std::make_shared<FilePathByDialogSelector>(),
-                                          std::make_shared<QAFromTextFileImporter>(),
-                                          std::make_shared<QAsAppender>(std::make_shared<QAsImporterSelector>(),
-                                                                                qARepository),
-                                          l_exceptionHandler));
-
+    teacher = teacherControllerFactory.create();
+    importHandler = importFactory.create();
 }
 
 void MainWindow::setupStateMachine()

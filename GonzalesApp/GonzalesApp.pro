@@ -36,7 +36,8 @@ SOURCES += main.cpp\
     ui/dialogs/DialogCreateAccount.cpp \
     uiobservers/QuestionPresenter.cpp \
     uiobservers/AnswerPresenter.cpp \
-    uiobservers/questioncollectionpresenter.cpp
+    uiobservers/questioncollectionpresenter.cpp \
+    QARepositoryFactory.cpp
 
 HEADERS  += user/UserInfo.h \
     qa/QAFilePathSelector.h \
@@ -92,7 +93,10 @@ HEADERS  += user/UserInfo.h \
     uiobservers/IQuestionPresenter.h \
     uiobservers/IAnswerPresenter.h \
     uiobservers/QuestionCollectionPresenter.h \
-    uiobservers/IQuestionCollectionPresenter.h
+    uiobservers/IQuestionCollectionPresenter.h \
+    TeacherControllerFactory.h \
+    ImportHandlerFactory.h \
+    QARepositoryFactory.h
 
 FORMS    += ui/dialogs/logindialog.ui \
     ui/dialogs/dialogcreateaccount.ui \
