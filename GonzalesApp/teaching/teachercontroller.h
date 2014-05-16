@@ -3,7 +3,6 @@
 
 #include "../uiobservers/IExceptionHandler.h"
 #include "../qa/IQARepository.h"
-#include "../uiobservers/UIAdapters.h"
 #include "teacher.h"
 #include <memory>
 

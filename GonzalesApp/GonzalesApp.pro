@@ -33,7 +33,10 @@ SOURCES += main.cpp\
     uiobservers/ExceptionHandler.cpp \
     ui/dialogs/DialogQAImporterSelector.cpp \
     ui/dialogs/LoginDialog.cpp \
-    ui/dialogs/DialogCreateAccount.cpp
+    ui/dialogs/DialogCreateAccount.cpp \
+    uiobservers/QuestionPresenter.cpp \
+    uiobservers/AnswerPresenter.cpp \
+    uiobservers/questioncollectionpresenter.cpp
 
 HEADERS  += user/UserInfo.h \
     qa/QAFilePathSelector.h \
@@ -75,9 +78,7 @@ HEADERS  += user/UserInfo.h \
     qa/IQALoader.h \
     qa/IQASerializer.h \
     qa/IQAsToLearnProvider.h \
-    uiobservers/UIAdapters.h \
     uiobservers/QAsDestinationSelector.h \
-    uiobservers/IUIAdapters.h \
     uiobservers/IExceptionHandler.h \
     uiobservers/FilePathSelector.h \
     uiobservers/FilePathByDialogSelector.h \
@@ -85,7 +86,13 @@ HEADERS  += user/UserInfo.h \
     ui/mainwindow.h \
     ui/dialogs/DialogQAImporterSelector.h \
     ui/dialogs/LoginDialog.h \
-    ui/dialogs/DialogCreateAccount.h
+    ui/dialogs/DialogCreateAccount.h \
+    uiobservers/QuestionPresenter.h \
+    uiobservers/AnswerPresenter.h \
+    uiobservers/IQuestionPresenter.h \
+    uiobservers/IAnswerPresenter.h \
+    uiobservers/QuestionCollectionPresenter.h \
+    uiobservers/IQuestionCollectionPresenter.h
 
 FORMS    += ui/dialogs/logindialog.ui \
     ui/dialogs/dialogcreateaccount.ui \

@@ -6,7 +6,7 @@
 #include <QMultiMap>
 #include "../Common/SimpleTree/Node.h"
 #include "../uiobservers/IExceptionHandler.h"
-#include "../uiobservers/IUIAdapters.h"
+#include "../uiobservers/IQuestionCollectionPresenter.h"
 
 class QARepository: public IQARepository
 {

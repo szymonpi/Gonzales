@@ -1,19 +1,21 @@
 #include <QStringList>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QHeaderView>
+#include <stdexcept>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <qa/qasaver.h>
-#include <qa/qaloader.h>
-#include <stdexcept>
+#include "../qa/qasaver.h"
+#include "../qa/qaloader.h"
 #include "../ui/dialogs/LoginDialog.h"
 #include "../qa/qarepository.h"
 #include "../user/UserInfo.h"
 #include "../common/common.h"
-#include "../uiobservers/UIAdapters.h"
+#include "../uiobservers/AnswerPresenter.h"
+#include "../uiobservers/QuestionPresenter.h"
+#include "../uiobservers/QuestionCollectionPresenter.h"
 #include "../uiobservers/exceptionhandler.h"
-#include <QHeaderView>
 #include "../uiobservers/filepathbydialogselector.h"
 #include "../qa/QAsAppender.h"
 #include "../ui/dialogs/DialogQAImporterSelector.h"

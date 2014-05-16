@@ -8,6 +8,7 @@
 #include "user/UserInfo.h"
 #include "teaching/teachercontroller.h"
 #include "qa/ImportHandler.h"
+#include <QTreeWidgetItem>
 
 class IQARepository;
 

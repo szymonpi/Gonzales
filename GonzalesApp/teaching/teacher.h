@@ -8,7 +8,8 @@
 #include <stack>
 #include <vector>
 #include "../qa/qacontainer.h"
-#include "../uiobservers/IUIAdapters.h"
+#include "../uiobservers/IQuestionPresenter.h"
+#include "../uiobservers/IAnswerPresenter.h"
 #include "../qa/QAsToLearnProvider.h"
 
 class Teacher
