@@ -10,8 +10,6 @@
 #include <QString>
 #include "Common/common.h"
 
-Q_DECLARE_METATYPE(std::weak_ptr<QA>);
-
 // todo clear duplications - add class textpresenter inside questionpresenter and answerpresenter
 
 class QuestionCollectionPresenter: public IQuestionCollectionPresenter
@@ -61,10 +59,8 @@ public:
         else
         {
             QTreeWidgetItem *item = new QTreeWidgetItem(parent, TREE_WIDGET_TYPE_QA);
-            std::weak_ptr<QA> weakPtr = node.getNodeValue();
             item->setText(0, QString::fromStdString(node.getNodeValue()->question.getAsString()));
             item->setText(1, QString::fromStdString(node.getNodeValue()->answer.getAsString()));
-            item->setData(0, DATA_ROLE_QA_POINTER, QVariant::fromValue(weakPtr));
             item->setDisabled(false);
             QPixmap pixmap("://resources/icons/question.jpg");
             QIcon icon(pixmap);
