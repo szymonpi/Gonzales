@@ -1,5 +1,4 @@
-#ifndef QASAVER_H
-#define QASAVER_H
+#pragma once
 #include <memory>
 
 #include "qacontainer.h"
@@ -31,4 +30,3 @@ private:
     void serializeFileVersion(CanSerializeData &serializer);
 };
 
-#endif // QASAVER_H

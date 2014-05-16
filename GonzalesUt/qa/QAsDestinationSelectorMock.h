@@ -1,7 +1,7 @@
 #ifndef QASDESTINATIONSELECTORMOCK_H
 #define QASDESTINATIONSELECTORMOCK_H
 
-#include "../../GonzalesApp/QAsDestinationSelector.h"
+#include "../../GonzalesApp/uiobservers/QAsDestinationSelector.h"
 #include "../gmock.h"
 
 class QAsDestinationSelectorMock: public QAsDestinationSelector

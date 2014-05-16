@@ -1,5 +1,4 @@
-#ifndef QALOADER_H
-#define QALOADER_H
+#pragma once
 
 #include <memory>
 
@@ -12,13 +11,7 @@
 #include "../common/common.h"
 #include "../Common/SimpleTree/Node.h"
 #include "QASerializer.h"
-
-class IQALoader
-{
-public:
-    virtual SimpleTree::Node<QA> load(const QString &userName) = 0;
-    ~IQALoader(){}
-};
+#include "IQALoader.h"
 
 class QALoader: public IQALoader
 {
@@ -40,6 +33,3 @@ private:
     std::shared_ptr<QA> getDeserializedQA(CanDeserializeData &deserializer);
     void addProperlyDeserializedQA(CanDeserializeData &deserializer, SimpleTree::Node<QA> &queue);
 };
-
-
-#endif // QALOADER_H

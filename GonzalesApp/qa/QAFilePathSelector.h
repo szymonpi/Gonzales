@@ -1,17 +1,8 @@
-#ifndef QAFILEPATHSELECTOR_H
-#define QAFILEPATHSELECTOR_H
+#pragma once
 #include <QString>
-#include "../dialogselectgroup.h"
+#include "QAFilePathSelector.h"
 
-class QAFilePathSelector
-{
-public:
-    virtual bool select() = 0;
-    virtual QString getSelected() = 0;
-    virtual ~QAFilePathSelector(){}
-};
-
-class QAFileDialogFilePathSelector: public QAFilePathSelector
+class QAFilePathSelector: public QAFilePathSelector
 {
 public:
     bool select()
@@ -29,5 +20,3 @@ public:
     }
 
 };
-
-#endif // QAFILEPATHSELECTOR_H

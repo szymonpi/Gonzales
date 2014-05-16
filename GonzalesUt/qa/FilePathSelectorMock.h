@@ -1,6 +1,6 @@
 #ifndef FILEPATHSELECTORMOCK_H
 #define FILEPATHSELECTORMOCK_H
-#include "../../GonzalesApp/filepathselector.h"
+#include "../../GonzalesApp/uiobservers/FilePathSelector.h"
 #include "../gmock.h"
 
 class FilePathSelectorMock: public FilePathSelector

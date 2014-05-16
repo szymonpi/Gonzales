@@ -1,5 +1,4 @@
-#ifndef QACONTAINER_H
-#define QACONTAINER_H
+#pragma once
 
 #include "question.h"
 #include "answer.h"
@@ -45,5 +44,3 @@ struct QA
     Answer answer;
     bool m_toLearn;
 };
-
-#endif // QACONTAINER_H

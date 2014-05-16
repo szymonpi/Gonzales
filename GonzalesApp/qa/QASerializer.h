@@ -1,16 +1,9 @@
-#ifndef QASERIALIZER_H
-#define QASERIALIZER_H
+#pragma once
 #include "../Common/SimpleTree/Utils.h"
 #include "../Common/qtproxies/fileserializer.h"
 #include "../Common/qtproxies/filedeserializer.h"
 #include "../Common/qtproxies/fileserializer.h"
-
-class IQASerializer
-{
-public:
-    virtual void serialize(CanSerializeData& serializer, const SimpleTree::Node<QA> &node) = 0;
-    virtual ~IQASerializer(){}
-};
+#include "IQASerializer.h"
 
 class IQADeserializer
 {
@@ -37,5 +30,3 @@ public:
 private:
     SimpleTree::Utils::NodeSerializer serializer;
 };
-
-#endif // QASERIALIZER_H

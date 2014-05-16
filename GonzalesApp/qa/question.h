@@ -1,5 +1,4 @@
-#ifndef QUESTION_H
-#define QUESTION_H
+#pragma once
 #include <string>
 #include "../common/qtproxies/filedeserializer.h"
 #include "../common/qtproxies/fileserializer.h"
@@ -41,5 +40,3 @@ public:
 private:
     std::string question;
 };
-
-#endif // QUESTION_H

@@ -1,7 +1,7 @@
 #include <memory>
 #include "../gtest.h"
 #include "../gmock.h"
-#include "../../GonzalesApp/qa/importedqasappender.h"
+#include "../../GonzalesApp/qa/QAsAppender.h"
 #include "QAsDestinationSelectorMock.h"
 #include "QAsRepositoryMock.h"
 
@@ -18,7 +18,7 @@ protected:
 
     std::shared_ptr<QAsDestinationSelectorMock> destinationSelectorMock;
     std::shared_ptr<QAsRepositoryMock> repositoryMock;
-    ImportedQAsAppender appender;
+    QAsAppender appender;
 };
 
 TEST_F(QAsAppenderTestSuite, shouldntAppendImportedQAsNoDestinationSelected)

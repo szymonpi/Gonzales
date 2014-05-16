@@ -1,6 +1,6 @@
 #ifndef EXCEPTIONHANDLERMOCK_H
 #define EXCEPTIONHANDLERMOCK_H
-#include "../../GonzalesApp/IExceptionHandler.h"
+#include "../../GonzalesApp/uiobservers/IExceptionHandler.h"
 #include "../gmock.h"
 
 class ExceptionHandlerMock: public IExceptionHandler

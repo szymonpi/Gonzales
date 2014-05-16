@@ -20,7 +20,7 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/IExceptionHandler.h \
     ../../GonzalesApp/qa/ImportHandler.h \
     ../../GonzalesApp/qa/QAsAppender.h \
-    ../../GonzalesApp/qa/ImportedQAsAppender.h \
+    ../../GonzalesApp/qa/IQAsAppender.h \
     ../../GonzalesApp/QAsDestinationSelector.h \
     ../../GonzalesApp/common/SimpleTree/Utils.h \
     ../../GonzalesApp/common/SimpleTree/Node.h \
@@ -41,7 +41,7 @@ SOURCES += \
     ../../GonzalesApp/qa/QALoader.cpp \
     ../../GonzalesApp/qa/QAImporter.cpp \
     ../../GonzalesApp/qa/QARepository.cpp \
-    ../../GonzalesApp/qa/ImportedQAsAppender.cpp \
+    ../../GonzalesApp/qa/QAsAppender.cpp \
     ImportHandlertestSuite.cpp \
     FilePathSelectorTestSuite.cpp \
     QAsAppenderTestSuite.cpp \

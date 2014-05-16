@@ -14,39 +14,32 @@ CONFIG += c++11
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    UIAdapters.cpp \
+        ui/mainwindow.cpp \
     qa/QASaver.cpp \
     qa/QARepository.cpp \
     qa/QAimporter.cpp \
-    qa/ImportedQAsAppender.cpp \
     qa/QALoader.cpp \
     qa/QAsToLearnProvider.cpp \
-    FilePathByDialogSelector.cpp \
+    qa/QAsAppender.cpp \
     teaching/Teacher.cpp \
     teaching/TeacherController.cpp \
     user/AccountCreator.cpp \
     user/AccountsProvider.cpp \
     user/Authorizer.cpp \
     user/CredentialsValidator.cpp \
-    user/DialogCreateAccount.cpp \
-    user/LoginDialog.cpp \
-    DialogQAImporterSelector.cpp \
-    ExceptionHandler.cpp \
-    FilePathSelector.cpp
+    uiobservers/UIAdapters.cpp \
+    uiobservers/FilePathSelector.cpp \
+    uiobservers/FilePathByDialogSelector.cpp \
+    uiobservers/ExceptionHandler.cpp \
+    ui/dialogs/DialogQAImporterSelector.cpp \
+    ui/dialogs/LoginDialog.cpp \
+    ui/dialogs/DialogCreateAccount.cpp
 
-HEADERS  += mainwindow.h \
-    user/UserInfo.h \
-    UIAdapters.h \
-    IUIAdapters.h \
-    IExceptionHandler.h \
+HEADERS  += user/UserInfo.h \
     qa/QAFilePathSelector.h \
     qa/ImportHandler.h \
-    qa/QAsAppender.h \
-    QAsDestinationSelector.h \
     qa/QASerializer.h \
     qa/QASaver.h \
-    qa/ImportedQAsAppender.h \
     qa/QAContainer.h \
     qa/QALoader.h \
     qa/QARepository.h \
@@ -55,7 +48,6 @@ HEADERS  += mainwindow.h \
     qa/QAsToLearnProvider.h \
     qa/Answer.h \
     qa/Question.h \
-    FilePathByDialogSelector.h \
     common/qtproxies/ApplicationSettings.h \
     common/qtproxies/File.h \
     common/qtproxies/FileDeserializer.h \
@@ -76,17 +68,30 @@ HEADERS  += mainwindow.h \
     user/Authorizer.h \
     user/CredentialsValidator.h \
     user/CredentialsValidatorFactory.h \
-    user/DialogCreateAccount.h \
     user/ICredentialsValidator.h \
-    user/LoginDialog.h \
-    DialogQAImporterSelector.h \
-    ExceptionHandler.h \
-    FilePathSelector.h
+    qa/IQAsAppender.h \
+    qa/QAsAppender.h \
+    qa/IQAFilePathSelector.h \
+    qa/IQALoader.h \
+    qa/IQASerializer.h \
+    qa/IQAsToLearnProvider.h \
+    uiobservers/UIAdapters.h \
+    uiobservers/QAsDestinationSelector.h \
+    uiobservers/IUIAdapters.h \
+    uiobservers/IExceptionHandler.h \
+    uiobservers/FilePathSelector.h \
+    uiobservers/FilePathByDialogSelector.h \
+    uiobservers/ExceptionHandler.h \
+    ui/mainwindow.h \
+    ui/dialogs/DialogQAImporterSelector.h \
+    ui/dialogs/LoginDialog.h \
+    ui/dialogs/DialogCreateAccount.h
 
-FORMS    += mainwindow.ui \
-    user/logindialog.ui \
-    user/dialogcreateaccount.ui \
-    dialogqaimporterselector.ui
+FORMS    += ui/dialogs/logindialog.ui \
+    ui/dialogs/dialogcreateaccount.ui \
+    ui/dialogs/dialogqaimporterselector.ui \
+    ui/mainwindow.ui \
+    ui/dialogs/dialogqaimporterselector.ui \
 
 RESOURCES += \
     icons.qrc

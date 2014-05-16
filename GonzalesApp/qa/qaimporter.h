@@ -1,5 +1,4 @@
-#ifndef QAIMPORTER_H
-#define QAIMPORTER_H
+#pragma once
 
 #include <error.h>
 
@@ -36,5 +35,3 @@ private:
     QString getQuestionFromSplittedLine(QStringList &splittedLine);
     void appendQa(std::vector<std::shared_ptr<QA> > &qAs, QStringList &splittedLine);
 };
-
-#endif // QAIMPORTER_H

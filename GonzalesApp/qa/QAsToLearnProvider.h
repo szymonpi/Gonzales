@@ -1,16 +1,9 @@
-#ifndef QASTOLEARNPROVIDER_H
-#define QASTOLEARNPROVIDER_H
+#pragma once
 
 #include "IQARepository.h"
+#include "IQAsToLearnProvider.h"
 #include <QQueue>
 #include <memory>
-
-class IQAsToLearnProvider
-{
-public:
-    virtual QQueue<std::shared_ptr<QA> > getQAs() = 0;
-    ~IQAsToLearnProvider(){}
-};
 
 class QAsToLearnProvider : public IQAsToLearnProvider
 {
@@ -24,5 +17,3 @@ private:
     bool canBeThereSomethingToLearn(const SimpleTree::Node<QA> &rootNode) const;
     std::shared_ptr<QAsProvider> m_qasProvider;
 };
-
-#endif // QASTOLEARNPROVIDER_H

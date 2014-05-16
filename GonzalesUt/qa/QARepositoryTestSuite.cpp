@@ -1,7 +1,7 @@
 #include <memory>
 #include "../gtest.h"
 #include "../gmock.h"
-#include "../../GonzalesApp/qa/qarepository.h"
+#include "../../GonzalesApp/qa/QARepository.h"
 #include "ExceptionHandlerMock.h"
 #include "QuestionsCollectionPresenterMock.h"
 #include "QALoaderMock.h"

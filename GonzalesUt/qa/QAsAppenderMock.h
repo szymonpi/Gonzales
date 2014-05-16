@@ -4,7 +4,7 @@
 #include "../../GonzalesApp/qa/QAsAppender.h"
 #include "../gmock.h"
 
-class QAsAppenderMock: public QAsAppender
+class QAsAppenderMock: public IQAsAppender
 {
 public:
     MOCK_METHOD1(append, void(std::vector<std::shared_ptr<QA> > importedQAs));

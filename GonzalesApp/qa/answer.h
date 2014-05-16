@@ -1,5 +1,5 @@
-#ifndef ANSWER_H
-#define ANSWER_H
+#pragma once
+
 #include <string>
 #include "../common/qtproxies/fileserializer.h"
 #include "../common/qtproxies/filedeserializer.h"
@@ -41,5 +41,3 @@ private:
     std::string answer;
 
 };
-
-#endif // ANSWER_H

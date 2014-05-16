@@ -1,6 +1,6 @@
 #ifndef QUESTIONSCOLLECTIONPRESENTERMOCK_H
 #define QUESTIONSCOLLECTIONPRESENTERMOCK_H
-#include "../../GonzalesApp/IUIAdapters.h"
+#include "../../GonzalesApp/uiobservers/IUIAdapters.h"
 #include "../gmock.h"
 
 class QuestionCollectionPresenteMock: public IQuestionCollectionPresenter

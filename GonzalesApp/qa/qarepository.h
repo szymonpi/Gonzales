@@ -1,25 +1,12 @@
-#ifndef QAREPOSITORY_H
-#define QAREPOSITORY_H
+#pragma once
 #include "IQARepository.h"
 #include "qaloader.h"
 #include "qaimporter.h"
 #include "qasaver.h"
 #include <QMultiMap>
 #include "../Common/SimpleTree/Node.h"
-#include "../IExceptionHandler.h"
-#include "../IUIAdapters.h"
-
-
-
-//
-//
-//  QA REPOSITORY
-//
-//
-
-//==================
-//should be class that contains all QAs and trigger presentation of those QAs on every change.
-//==================
+#include "../uiobservers/IExceptionHandler.h"
+#include "../uiobservers/IUIAdapters.h"
 
 class QARepository: public IQARepository
 {
@@ -41,5 +28,3 @@ private:
     std::shared_ptr<IQuestionCollectionPresenter> m_questionsPresnter;
     std::shared_ptr<IQALoader> m_qAsLoader;
 };
-
-#endif // QAREPOSITORY_H

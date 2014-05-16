@@ -1,5 +1,5 @@
-#ifndef IQAREPOSITORY_H
-#define IQAREPOSITORY_H
+#pragma once
+
 #include <QString>
 #include "../Common/SimpleTree/Node.h"
 #include "qacontainer.h"
@@ -18,5 +18,3 @@ public:
     virtual void load() = 0;
     virtual void onQAsUpdate() = 0;
 };
-
-#endif // IQAREPOSITORY_H

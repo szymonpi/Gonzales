@@ -1,9 +1,9 @@
 #ifndef TEACHERCONTROLLER_H
 #define TEACHERCONTROLLER_H
 
-#include "../IExceptionHandler.h"
+#include "../uiobservers/IExceptionHandler.h"
 #include "../qa/IQARepository.h"
-#include "../UIAdapters.h"
+#include "../uiobservers/UIAdapters.h"
 #include "teacher.h"
 #include <memory>
 

@@ -1,9 +1,9 @@
-#ifndef IMPORTHANDLER_H
-#define IMPORTHANDLER_H
-#include "../filepathselector.h"
+#pragma once
+
+#include "../uiobservers/filepathselector.h"
 #include "qaimporter.h"
 #include "QAsAppender.h"
-#include "../IExceptionHandler.h"
+#include "../uiobservers/IExceptionHandler.h"
 #include <memory>
 
 class ImportHandler
@@ -11,7 +11,7 @@ class ImportHandler
 public:
     ImportHandler(std::shared_ptr<FilePathSelector> filePathSelector,
                   std::shared_ptr<QAsImporter> importer,
-                  std::shared_ptr<QAsAppender> importedQAsAppender,
+                  std::shared_ptr<IQAsAppender> importedQAsAppender,
                   std::shared_ptr<IExceptionHandler> exceptionHandler):
         m_filePathSelector(filePathSelector),
         m_importer(importer),
@@ -47,8 +47,6 @@ private:
 
     std::shared_ptr<FilePathSelector> m_filePathSelector;
     std::shared_ptr<QAsImporter> m_importer;
-    std::shared_ptr<QAsAppender> m_importedQAsAppender;
+    std::shared_ptr<IQAsAppender> m_importedQAsAppender;
     std::shared_ptr<IExceptionHandler> m_exceptionHandler;
 };
-
-#endif // IMPORTHANDLER_H
