@@ -1,5 +1,4 @@
-#ifndef ACCOUNTSPROVIDER_H
-#define ACCOUNTSPROVIDER_H
+#pragma once
 #include <memory>
 
 #include "../common/qtproxies/ApplicationSettings.h"
@@ -20,5 +19,3 @@ public:
 private:
     std::shared_ptr<IApplicationSettings> m_applicationSettings;
 };
-
-#endif // ACCOUNTSPROVIDER_H

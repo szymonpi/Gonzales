@@ -97,8 +97,7 @@ HEADERS  += user/UserInfo.h \
 FORMS    += ui/dialogs/logindialog.ui \
     ui/dialogs/dialogcreateaccount.ui \
     ui/dialogs/dialogqaimporterselector.ui \
-    ui/mainwindow.ui \
-    ui/dialogs/dialogqaimporterselector.ui \
+    ui/mainwindow.ui
 
 RESOURCES += \
     icons.qrc

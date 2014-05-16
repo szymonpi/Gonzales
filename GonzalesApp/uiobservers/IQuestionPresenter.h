@@ -1,5 +1,4 @@
-#ifndef IQUESTION_H
-#define IQUESTION_H
+#pragma once
 
 #include "../qa/Question.h"
 
@@ -10,5 +9,3 @@ public:
     virtual void clear() = 0;
     virtual ~IQuestionPresenter(){}
 };
-
-#endif // IQUESTION_H

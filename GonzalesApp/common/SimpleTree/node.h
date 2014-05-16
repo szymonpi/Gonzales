@@ -1,5 +1,4 @@
-#ifndef NODE_H
-#define NODE_H
+#pragma once
 #include <vector>
 #include <memory>
 #include <QString>
@@ -111,5 +110,3 @@ private:
 };
 
 }
-
-#endif // NODE_H

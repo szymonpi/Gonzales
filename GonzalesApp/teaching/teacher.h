@@ -1,5 +1,4 @@
-#ifndef TEACHER_H
-#define TEACHER_H
+#pragma once
 
 #include <iostream>
 #include <queue>
@@ -43,4 +42,3 @@ private:
     QAQueue m_qAsToLearn;
 };
 
-#endif // TEACHER_H

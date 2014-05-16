@@ -1,5 +1,4 @@
-#ifndef IEXCEPTIONHANDLER_H
-#define IEXCEPTIONHANDLER_H
+#pragma once
 
 #include <QString>
 
@@ -9,5 +8,3 @@ public:
     virtual void handleException(const QString &message, const QString &errorName) const = 0;
     virtual ~IExceptionHandler(){}
 };
-
-#endif // IEXCEPTIONHANDLER_H

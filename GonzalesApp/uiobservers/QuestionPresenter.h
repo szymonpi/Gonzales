@@ -1,5 +1,4 @@
-#ifndef QUESTIONPRESENTER_H
-#define QUESTIONPRESENTER_H
+#pragma once
 #include "IQuestionPresenter.h"
 #include <QTextEdit>
 
@@ -13,5 +12,3 @@ public:
 private:
     QTextEdit& m_textEdit;
 };
-
-#endif // QUESTIONPRESENTER_H

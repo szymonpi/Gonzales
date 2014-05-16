@@ -1,5 +1,4 @@
-#ifndef QADESTINATIONSELECTOR_H
-#define QADESTINATIONSELECTOR_H
+#pragma once
 #include <QMap>
 #include <QStringList>
 
@@ -11,5 +10,3 @@ public:
     virtual QString getGroup() const = 0;
     virtual ~QAsDestinationSelector(){}
 };
-
-#endif // QADESTINATIONSELECTOR_H

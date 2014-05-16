@@ -1,5 +1,4 @@
-#ifndef COMMON_H
-#define COMMON_H
+#pragma once
 
 #include <QDir>
 
@@ -19,5 +18,3 @@ enum QAFileVersion
     QAUnsupportedFileVersion = 0,
     QAFileVersion1 = 1
 };
-
-#endif // COMMON_H

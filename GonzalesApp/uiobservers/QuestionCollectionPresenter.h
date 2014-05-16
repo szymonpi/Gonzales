@@ -1,5 +1,4 @@
-#ifndef QUESTIONCOLLECTIONPRESENTER_H
-#define QUESTIONCOLLECTIONPRESENTER_H
+#pragma once
 #include "IQuestionCollectionPresenter.h"
 #include <QTreeWidget>
 
@@ -20,5 +19,3 @@ public:
 private:
     QTreeWidget &m_widget;
 };
-
-#endif // QUESTIONCOLLECTIONPRESENTER_H

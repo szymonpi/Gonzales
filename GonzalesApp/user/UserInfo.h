@@ -1,5 +1,4 @@
-#ifndef USERINFO_H
-#define USERINFO_H
+#pragma once
 #include <QDir>
 #include "../Common/common.h"
 
@@ -50,4 +49,3 @@ public:
     }
 };
 
-#endif // USERINFO_H

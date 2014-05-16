@@ -1,5 +1,4 @@
-#ifndef FILEDESERIALIZERFACTORY_H
-#define FILEDESERIALIZERFACTORY_H
+#pragma once
 
 #include "filedeserializer.h"
 #include "file.h"
@@ -20,5 +19,3 @@ public:
         return std::shared_ptr<CanDeserializeData>(new FileDeserializer(device));
     }
 };
-
-#endif // FILEDESERIALIZERFACTORY_H

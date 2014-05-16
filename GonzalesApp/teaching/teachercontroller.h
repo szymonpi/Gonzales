@@ -1,5 +1,4 @@
-#ifndef TEACHERCONTROLLER_H
-#define TEACHERCONTROLLER_H
+#pragma once
 
 #include "../uiobservers/IExceptionHandler.h"
 #include "../qa/IQARepository.h"
@@ -35,4 +34,3 @@ private:
 
 };
 
-#endif // TEACHERCONTROLLER_H

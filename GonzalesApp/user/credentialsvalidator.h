@@ -1,5 +1,4 @@
-#ifndef CREDENTIALSVALIDATOR_H
-#define CREDENTIALSVALIDATOR_H
+#pragma once
 #include <QString>
 #include "icredentialsvalidator.h"
 
@@ -33,5 +32,3 @@ private:
     void checkLogin(const QString &login) const;
     void checkPassword(const QString &password) const;
 };
-
-#endif // CREDENTIALSVALIDATOR_H

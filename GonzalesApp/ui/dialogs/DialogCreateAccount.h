@@ -1,5 +1,4 @@
-#ifndef DIALOGCREATEACCOUNT_H
-#define DIALOGCREATEACCOUNT_H
+#pragma once
 
 #include <QDialog>
 
@@ -26,5 +25,3 @@ private:
     Ui::DialogCreateAccount *ui;
     QString m_createdAccountName;
 };
-
-#endif // DIALOGCREATEACCOUNT_H

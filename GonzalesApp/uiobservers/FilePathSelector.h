@@ -1,5 +1,4 @@
-#ifndef FILEPATHSELECTOR_H
-#define FILEPATHSELECTOR_H
+#pragma once
 #include <QString>
 class FilePathSelector
 {
@@ -8,5 +7,3 @@ public:
     virtual QString getSelected() const = 0;
     virtual ~FilePathSelector(){}
 };
-
-#endif // FILEPATHSELECTOR_H

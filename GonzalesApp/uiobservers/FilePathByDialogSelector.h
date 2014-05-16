@@ -1,5 +1,4 @@
-#ifndef FILEPATHBYDIALOGSELECTOR_H
-#define FILEPATHBYDIALOGSELECTOR_H
+#pragma once
 #include "filepathselector.h"
 #include <QFileDialog>
 
@@ -24,4 +23,3 @@ private:
     QString m_selected;
 };
 
-#endif // FILEPATHBYDIALOGSELECTOR_H

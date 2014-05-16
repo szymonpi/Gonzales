@@ -1,5 +1,4 @@
-#ifndef IAPPLICATIONSETTINGS_H
-#define IAPPLICATIONSETTINGS_H
+#pragma once
 
 #include <QSettings>
 #include <QVariant>
@@ -18,6 +17,3 @@ public:
     virtual QStringList allKeys() const = 0;
     virtual QStringList childGroups() const = 0;
 };
-
-
-#endif // IAPPLICATIONSETTINGS_H

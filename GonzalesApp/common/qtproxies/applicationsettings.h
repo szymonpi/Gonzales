@@ -1,6 +1,4 @@
-#ifndef APPLICATIONSETTINGS_H
-#define APPLICATIONSETTINGS_H
-
+#pragma once
 #include <QSettings>
 #include <QVariant>
 #include <QStringList>
@@ -63,5 +61,3 @@ public:
 private:
     QSettings settings;
 };
-
-#endif // APPLICATIONSETTINGS_H

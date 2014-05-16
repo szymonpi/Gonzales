@@ -1,5 +1,4 @@
-#ifndef CREDENTIALSVALIDATORFACTORY_H
-#define CREDENTIALSVALIDATORFACTORY_H
+#pragma once
 
 #include "memory"
 #include "credentialsvalidator.h"
@@ -20,5 +19,3 @@ public:
     }
 
 };
-
-#endif // CREDENTIALSVALIDATORFACTORY_H

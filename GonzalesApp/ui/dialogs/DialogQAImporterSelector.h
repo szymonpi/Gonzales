@@ -1,5 +1,4 @@
-#ifndef DIALOGQAIMPORTERSELECTOR_H
-#define DIALOGQAIMPORTERSELECTOR_H
+#pragma once
 
 #include <QDialog>
 #include <QMap>
@@ -62,5 +61,3 @@ private:
     QString m_subject;
     QString m_group;
 };
-
-#endif // DIALOGQAIMPORTERSELECTOR_H

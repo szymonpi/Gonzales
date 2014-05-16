@@ -1,5 +1,4 @@
-#ifndef FILEDESERIALIZER_H
-#define FILEDESERIALIZER_H
+#pragma once
 
 #include <QDataStream>
 
@@ -119,5 +118,3 @@ private:
     QDataStream stream;
 
 };
-
-#endif // FILEDESERIALIZER_H

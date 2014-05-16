@@ -1,5 +1,4 @@
-#ifndef FILESERIALIZER_H
-#define FILESERIALIZER_H
+#pragma once
 
 #include <QDataStream>
 #include <QString>
@@ -108,5 +107,3 @@ private:
     QDataStream stream;
 
 };
-
-#endif // FILESERIALIZER_H

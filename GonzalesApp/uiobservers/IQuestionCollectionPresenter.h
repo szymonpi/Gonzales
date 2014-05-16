@@ -1,6 +1,4 @@
-#ifndef IQUESTIONCOLLECTIONPRESENTER_H
-#define IQUESTIONCOLLECTIONPRESENTER_H
-
+#pragma once
 #include "../Common/SimpleTree/Node.h"
 #include "../qa/QAContainer.h"
 
@@ -14,4 +12,3 @@ public:
     virtual ~IQuestionCollectionPresenter(){}
 };
 
-#endif // IQUESTIONCOLLECTIONPRESENTER_H

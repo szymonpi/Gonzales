@@ -1,5 +1,4 @@
-#ifndef FILEFACTORY_H
-#define FILEFACTORY_H
+#pragma once
 
 #include "File.h"
 
@@ -19,5 +18,3 @@ public:
         return std::make_shared<File>(filePath);
     }
 };
-
-#endif // FILEFACTORY_H

@@ -1,5 +1,4 @@
-#ifndef ACCOUNTCREATOR_H
-#define ACCOUNTCREATOR_H
+#pragma once
 #include <stdexcept>
 #include <memory>
 #include "../common/qtproxies/ApplicationSettings.h"
@@ -22,5 +21,3 @@ private:
     std::shared_ptr<IApplicationSettings> settings;
     std::shared_ptr<ICredentialsValidatorFactory> m_validatorFactory;
 };
-
-#endif // ACCOUNTCREATOR_H

@@ -1,5 +1,4 @@
-#ifndef UTILS_H
-#define UTILS_H
+#pragma once
 #include "Node.h"
 
 
@@ -85,5 +84,3 @@ inline quint8 concludeNodeType(const Node<T> &node)
 }
 
 }
-
-#endif // UTILS_H

@@ -1,5 +1,4 @@
-#ifndef ITEACHER_H
-#define ITEACHER_H
+#pragma once
 
 #include <vector>
 #include "../qa/qacontainer.h"
@@ -13,4 +12,3 @@ public:
     virtual void showNextQuestion() = 0;
 };
 
-#endif // ITEACHER_H

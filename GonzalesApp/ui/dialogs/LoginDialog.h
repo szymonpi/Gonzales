@@ -1,5 +1,4 @@
-#ifndef LOGINDIALOG_H
-#define LOGINDIALOG_H
+#pragma once
 
 #include <QDialog>
 #include "User/AccountsProvider.h"
@@ -34,5 +33,3 @@ private:
     AccountsProvider m_provider;
     UserInfo m_info;
 };
-
-#endif // LOGINDIALOG_H

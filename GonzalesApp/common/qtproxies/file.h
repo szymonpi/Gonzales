@@ -1,5 +1,4 @@
-#ifndef FILE_H
-#define FILE_H
+#pragma once
 
 #include <QFile>
 #include <QDataStream>
@@ -72,5 +71,3 @@ public:
 private:
     QFile file;
 };
-
-#endif // FILE_H

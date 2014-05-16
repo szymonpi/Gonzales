@@ -1,5 +1,4 @@
-#ifndef AUTHORIZER_H
-#define AUTHORIZER_H
+#pragma once
 
 #include "string"
 #include "credentialsvalidator.h"
@@ -30,5 +29,3 @@ public:
 private:
     std::shared_ptr<IApplicationSettings> m_settings;
 };
-
-#endif // AUTHORIZER_H
