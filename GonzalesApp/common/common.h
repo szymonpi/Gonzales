@@ -18,3 +18,8 @@ enum QAFileVersion
     QAUnsupportedFileVersion = 0,
     QAFileVersion1 = 1
 };
+
+enum NodeInfoRole
+{
+    NODE_INFO_ROLE_CHECKED = 1
+};

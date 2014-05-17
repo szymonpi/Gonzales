@@ -3,13 +3,6 @@
 #include "../../GonzalesApp/qa/IQARepository.h"
 #include "../gmock.h"
 
-class QAsProviderMock: public QAsProvider
-{
-public:
-    MOCK_METHOD0(getQAs, SimpleTree::Node<QA> &());
-    MOCK_CONST_METHOD0(getQAs, SimpleTree::Node<QA>&());
-};
-
 class QAsRepositoryMock: public IQARepository
 {
 public:

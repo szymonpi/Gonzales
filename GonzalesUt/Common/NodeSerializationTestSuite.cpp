@@ -8,6 +8,8 @@
 #include "../CommonUtUtilities/PrintTo.h"
 #include "../CommonUtUtilities/CommonMocks.h"
 #include <QString>
+#include <QVariant>
+#include "../../GonzalesApp/common/Common.h"
 
 using namespace testing;
 using namespace SimpleTree;
@@ -39,6 +41,35 @@ public:
 TEST_F(SerializationTestSuite, serializeOneNodeWithValue)
 {
     EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(numOfChildrenNotContaining)));
+    EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(NodeType_WithValue)));
+    EXPECT_CALL(*nodeValue, serialize(_));
+    serializer.serialize(serializerMock, nodeWithValue);
+}
+
+TEST_F(SerializationTestSuite, serializeOneNodeWithValueAndInfos)
+{
+    nodeWithValue.setInfo(NODE_INFO_ROLE_CHECKED, true);
+    nodeWithValue.setInfo(99, 45);
+    nodeWithValue.setInfo(100, QString("testing string"));
+    nodeWithValue.setInfo(101, 4.56);
+    EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(numOfChildrenNotContaining)));
+
+    EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(NODE_INFO_ROLE_CHECKED)));
+    EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(QVariant::Bool)));
+    EXPECT_CALL(serializerMock, serialize(TypedEq<bool>(true)));
+
+    EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(99)));
+    EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(QVariant::Int)));
+    EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(45)));
+
+    EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(100)));
+    EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(QVariant::String)));
+    EXPECT_CALL(serializerMock, serialize(TypedEq<const QString &>(QString("testing string"))));
+
+    EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(101)));
+    EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(QVariant::Double)));
+    EXPECT_CALL(serializerMock, serialize(TypedEq<double>(4.56)));
+
     EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(NodeType_WithValue)));
     EXPECT_CALL(*nodeValue, serialize(_));
     serializer.serialize(serializerMock, nodeWithValue);

@@ -2,6 +2,8 @@
 #include <vector>
 #include <memory>
 #include <QString>
+#include <QVariant>
+#include <QMap>
 #include "../qtproxies/fileserializer.h"
 #include "../qtproxies/filedeserializer.h"
 
@@ -102,9 +104,25 @@ public:
         return true;
     }
 
+    QVariant getInfo(quint8 role) const
+    {
+        return data[role];
+    }
+
+    void setInfo(unsigned role, const QVariant &value)
+    {
+        data[role] = value;
+    }
+
+    QMap<quint8, QVariant> getInfos() const
+    {
+        return data;
+    }
+
 
 private:
     QString m_name;
+    QMap<quint8, QVariant> data;
     std::shared_ptr<T> m_value;
     std::vector<SimpleTree::Node<T> > m_nodes;
 };

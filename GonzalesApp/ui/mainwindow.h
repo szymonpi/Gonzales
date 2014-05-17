@@ -52,7 +52,6 @@ private:
 
     QPair<QString,QString> currentQA;
     QStateMachine stateMachine;
-    std::shared_ptr<IQARepository> qARepository;
 
     QState stateIdle;
     QState stateLearn;
@@ -61,7 +60,8 @@ private:
         QState stateAnswerVerified;
 
     UserInfo m_userInfo;
-    std::shared_ptr<TeacherController> teacher;
+    std::shared_ptr<IQARepository> qARepository;
+    std::shared_ptr<TeacherController> teacherController;
     std::shared_ptr<ImportHandler> importHandler;
 
     void setupStateMachine();

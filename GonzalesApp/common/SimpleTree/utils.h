@@ -53,6 +53,42 @@ void serialize(CanSerializeData &serializer, const Node<T> &node)
 {
     quint8 nodeType = concludeNodeType(node);
     serializer.serialize(nodeType);
+    auto infos = node.getInfos();
+    for(auto it = infos.begin(); it != infos.end(); ++it)
+    {
+        QVariant &v = *it;
+        serializer.serialize(it.key());
+        unsigned type = unsigned(v.type());
+        serializer.serialize(type);
+        switch(v.type())
+        {
+            case QVariant::Bool:
+                serializer.serialize(v.value<bool>());
+                break;
+            case QVariant::UInt:
+                serializer.serialize(v.value<unsigned>());
+                break;
+            case QVariant::Int:
+                serializer.serialize(v.value<unsigned>());
+                break;
+            case QVariant::LongLong:
+                serializer.serialize(v.value<long long int>());
+                break;
+            case QVariant::ULongLong:
+                serializer.serialize(v.value<unsigned long long int>());
+                break;
+            case QVariant::Double:
+                serializer.serialize(v.value<double>());
+                break;
+            case QVariant::String:
+                serializer.serialize(v.value<QString>());
+                break;
+            default:
+                throw std::logic_error("not supported type in info map");
+                break;
+        }
+    }
+
     serializer.serialize(node.size());
     if(node.size()==0)
         node.getNodeValue()->serialize(serializer);

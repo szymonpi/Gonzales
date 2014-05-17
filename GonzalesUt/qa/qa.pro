@@ -5,6 +5,9 @@
 #-------------------------------------------------
 
 TEMPLATE = app
+QT       += core gui
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += console
 CONFIG -= app_bundle
@@ -32,7 +35,9 @@ HEADERS += ../gtest.h \
     QAsDestinationSelectorMock.h \
     QAsRepositoryMock.h \
     QALoaderMock.h \
-    ../../GonzalesApp/qa/QAsToLearnProvider.h
+    ../../GonzalesApp/qa/QAsToLearnProvider.h \
+    ../../GonzalesApp/qa/QAsToLearnSelector.h \
+    QAsProviderMock.h
 
 SOURCES += \
     AllTests.cpp \
@@ -46,7 +51,9 @@ SOURCES += \
     FilePathSelectorTestSuite.cpp \
     QAsAppenderTestSuite.cpp \
     QAsToLearnProviderTestSuite.cpp \
-    ../../GonzalesApp/qa/QAsToLearnProvider.cpp
+    ../../GonzalesApp/qa/QAsToLearnProvider.cpp \
+    ../../GonzalesApp/qa/QAsTolearnSelector.cpp \
+    QAsToLearnSelectorTestSuite.cpp
 
 LIBPATH += C:/gtest/lib
 LIBPATH += C:/gmock/lib

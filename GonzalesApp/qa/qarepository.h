@@ -8,6 +8,10 @@
 #include "../uiobservers/IExceptionHandler.h"
 #include "../uiobservers/IQuestionCollectionPresenter.h"
 
+
+///@todo move load to loadhandler
+///@todo move onQAsUpdate to apropriateUiObserver
+
 class QARepository: public IQARepository
 {
 public:

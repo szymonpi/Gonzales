@@ -1,6 +1,10 @@
 #include "ui/mainwindow.h"
 #include <QApplication>
 
+///@todo: move factories there from mainwindow
+///@todo add algorithm to Node for iterating!
+
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

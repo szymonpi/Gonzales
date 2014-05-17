@@ -24,6 +24,7 @@
 #include "../TeacherControllerFactory.h"
 #include "../ImportHandlerFactory.h"
 #include "../QARepositoryFactory.h"
+#include "../qa/QAsToLearnSelector.h"
 
 void MainWindow::loadUserData()
 {
@@ -33,7 +34,6 @@ void MainWindow::loadUserData()
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    qARepository(),
     stateIdle(),
     stateLearn(),
     stateQuestionQiven(&stateLearn),
@@ -73,7 +73,7 @@ void MainWindow::setupControllers()
     TeacherControllerFactory teacherControllerFactory(qARepository, *ui->textEditQuestion, *ui->textEditAnswer);
     ImportHandlerFactory importFactory(qARepository);
 
-    teacher = teacherControllerFactory.create();
+    teacherController = teacherControllerFactory.create();
     importHandler = importFactory.create();
 }
 
@@ -113,30 +113,30 @@ MainWindow::~MainWindow()
 
 void MainWindow::showNextQuestion()
 {
-    teacher->showNextQuestion();
+    teacherController->showNextQuestion();
 }
 
 void MainWindow::on_pushButtonKnowIt_clicked()
 {
-    teacher->markAsKnownAndShowNextQuestion();
+    teacherController->markAsKnownAndShowNextQuestion();
     emit questionGiven();
 }
 
 void MainWindow::on_pushButtonDontKnowIt_clicked()
 {
-    teacher->markAsUnknownAndShowNextQuestion();
+    teacherController->markAsUnknownAndShowNextQuestion();
     emit questionGiven();
 }
 
 void MainWindow::on_pushButtonShowAnswer_clicked()
 {
-    teacher->showCorrectAnswer();
+    teacherController->showCorrectAnswer();
     emit showAnswer();
 }
 
 void MainWindow::on_actionStart_triggered()
 {
-    teacher->startTeaching();
+    teacherController->startTeaching();
     emit startLearn();
 }
 
@@ -149,6 +149,6 @@ void MainWindow::on_treeWidgetQuestions_itemChanged(QTreeWidgetItem *item, int c
 {
     if(column != 2)
         return;
-    //should give 2x string - subject and group to qastolearnsetter
-
+    QAsToLearnSelector selector(qARepository);
+    selector.select(*item);
 }
