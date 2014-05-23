@@ -23,9 +23,11 @@ public:
     DataDeserializerMock deserializerMock;
     std::shared_ptr<StrictMock<InfosSerializerMock>> infosDeserializer = std::make_shared<StrictMock<InfosSerializerMock>>();
     std::shared_ptr<NodeValueStub> value = std::make_shared<NodeValueStub>();
-    quint8 nodeTypeEmpty = NodeType_Empty;
-    quint8 nodeTypeWithValue = NodeType_WithValue;
-    quint8 nodeTypeWithChildren = NodeType_WithChildren;
+    quint8 m_nodeType_Empty = NodeType_Empty;
+    quint8 m_nodeType_WithValue = NodeType_WithValue;
+    quint8 m_nodeType_WithChildren = NodeType_WithChildren;
+    QMap<quint8, QVariant> m_infos;
+    unsigned numOfChildren_0 = 0;
     NodeSerializer serializer;
 
 };
@@ -38,7 +40,7 @@ TEST_F(DeserializationTestSuite, DeserializeOneEmptyNode)
 {
     Node<NodeValueStub> node;
 
-    EXPECT_CALL(deserializerMock, deserialize(An<quint8 &>())).WillOnce(SetArgReferee<0>(nodeTypeEmpty));
+    EXPECT_CALL(deserializerMock, deserialize(An<quint8 &>())).WillOnce(SetArgReferee<0>(m_nodeType_Empty));
     EXPECT_THROW(serializer.deserialize(deserializerMock, node), std::logic_error);
 }
 
@@ -50,12 +52,9 @@ TEST_F(DeserializationTestSuite, DeserializeOneNodeWithValue)
 {
     Node<NodeValueStub> node;
 
-    unsigned numOfChildren = 0;
-    EXPECT_CALL(deserializerMock, deserialize(An<quint8 &>())).WillOnce(SetArgReferee<0>(nodeTypeWithValue));
-    EXPECT_CALL(deserializerMock, deserialize(An<unsigned &>())).WillOnce(SetArgReferee<0>(numOfChildren));
-
-    QMap<quint8, QVariant> infos;
-    EXPECT_CALL(*infosDeserializer, deserialize(_,_)).WillOnce(SetArgReferee<1>(infos));
+    EXPECT_CALL(deserializerMock, deserialize(An<quint8 &>())).WillOnce(SetArgReferee<0>(m_nodeType_WithValue));
+    EXPECT_CALL(deserializerMock, deserialize(An<unsigned &>())).WillOnce(SetArgReferee<0>(numOfChildren_0));
+    EXPECT_CALL(*infosDeserializer, deserialize(_,_)).WillOnce(SetArgReferee<1>(m_infos));
 
     serializer.deserialize(deserializerMock, node);
 
@@ -70,10 +69,8 @@ TEST_F(DeserializationTestSuite, DeserializeOneNodeWithValueAndInfo)
 {
     Node<NodeValueStub> node;
 
-    unsigned numOfChildren = 0;
-
-    EXPECT_CALL(deserializerMock, deserialize(An<quint8 &>())).WillOnce(SetArgReferee<0>(nodeTypeWithValue));
-    EXPECT_CALL(deserializerMock, deserialize(An<unsigned &>())).WillOnce(SetArgReferee<0>(numOfChildren));
+    EXPECT_CALL(deserializerMock, deserialize(An<quint8 &>())).WillOnce(SetArgReferee<0>(m_nodeType_WithValue));
+    EXPECT_CALL(deserializerMock, deserialize(An<unsigned &>())).WillOnce(SetArgReferee<0>(numOfChildren_0));
 
     QMap<quint8, QVariant> infos;
     infos[NODE_INFO_ROLE_CHECKED] = true;
@@ -104,12 +101,12 @@ TEST_F(DeserializationTestSuite, DeserializeOneNodeWithOneChild)
     QMap<quint8, QVariant> infos;
     EXPECT_CALL(*infosDeserializer, deserialize(_,_)).Times(2).WillRepeatedly(SetArgReferee<1>(infos));
     EXPECT_CALL(deserializerMock, deserialize(An<quint8 &>()))
-        .WillOnce(SetArgReferee<0>(nodeTypeWithChildren))
-        .WillOnce(SetArgReferee<0>(nodeTypeWithValue));
+        .WillOnce(SetArgReferee<0>(m_nodeType_WithChildren))
+        .WillOnce(SetArgReferee<0>(m_nodeType_WithValue));
 
     EXPECT_CALL(deserializerMock, deserialize(An<unsigned &>()))
             .WillOnce(SetArgReferee<0>(numOfChildrenNodeWithChild))
-            .WillOnce(SetArgReferee<0>(numOfChildren));
+            .WillOnce(SetArgReferee<0>(numOfChildren_0));
 
     EXPECT_CALL(deserializerMock, deserialize(An<QString &>())).WillOnce(SetArgReferee<0>(mainNodeName));
 
@@ -139,10 +136,10 @@ TEST_F(DeserializationTestSuite, DeserializeOneNodeWithThreeChild)
     QMap<quint8, QVariant> infos;
     EXPECT_CALL(*infosDeserializer, deserialize(_,_)).Times(4).WillRepeatedly(SetArgReferee<1>(infos));
     EXPECT_CALL(deserializerMock, deserialize(An<quint8 &>()))
-        .WillOnce(SetArgReferee<0>(nodeTypeWithChildren))
-        .WillOnce(SetArgReferee<0>(nodeTypeWithValue))
-        .WillOnce(SetArgReferee<0>(nodeTypeWithValue))
-        .WillOnce(SetArgReferee<0>(nodeTypeWithValue));
+        .WillOnce(SetArgReferee<0>(m_nodeType_WithChildren))
+        .WillOnce(SetArgReferee<0>(m_nodeType_WithValue))
+        .WillOnce(SetArgReferee<0>(m_nodeType_WithValue))
+        .WillOnce(SetArgReferee<0>(m_nodeType_WithValue));
 
     EXPECT_CALL(deserializerMock, deserialize(An<unsigned &>()))
             .WillOnce(SetArgReferee<0>(numOfChildrenNodeWithChild))
@@ -186,15 +183,15 @@ TEST_F(DeserializationTestSuite, DeserializeOneNodeWithTwoChildrenWithThreeNodeI
     QMap<quint8, QVariant> infos;
     EXPECT_CALL(*infosDeserializer, deserialize(_,_)).Times(9).WillRepeatedly(SetArgReferee<1>(infos));
     EXPECT_CALL(deserializerMock, deserialize(An<quint8 &>()))
-        .WillOnce(SetArgReferee<0>(nodeTypeWithChildren))
-        .WillOnce(SetArgReferee<0>(nodeTypeWithChildren))
-        .WillOnce(SetArgReferee<0>(nodeTypeWithValue))
-        .WillOnce(SetArgReferee<0>(nodeTypeWithValue))
-        .WillOnce(SetArgReferee<0>(nodeTypeWithValue))
-        .WillOnce(SetArgReferee<0>(nodeTypeWithChildren))
-        .WillOnce(SetArgReferee<0>(nodeTypeWithValue))
-        .WillOnce(SetArgReferee<0>(nodeTypeWithValue))
-        .WillOnce(SetArgReferee<0>(nodeTypeWithValue));
+        .WillOnce(SetArgReferee<0>(m_nodeType_WithChildren))
+        .WillOnce(SetArgReferee<0>(m_nodeType_WithChildren))
+        .WillOnce(SetArgReferee<0>(m_nodeType_WithValue))
+        .WillOnce(SetArgReferee<0>(m_nodeType_WithValue))
+        .WillOnce(SetArgReferee<0>(m_nodeType_WithValue))
+        .WillOnce(SetArgReferee<0>(m_nodeType_WithChildren))
+        .WillOnce(SetArgReferee<0>(m_nodeType_WithValue))
+        .WillOnce(SetArgReferee<0>(m_nodeType_WithValue))
+        .WillOnce(SetArgReferee<0>(m_nodeType_WithValue));
 
     EXPECT_CALL(deserializerMock, deserialize(An<unsigned &>()))
         .WillOnce(SetArgReferee<0>(numOfChildrenNodeWithChild2))

@@ -108,7 +108,7 @@ public:
                 case QVariant::Int:
                     serializer.serialize(it.key());
                     serializer.serialize(type);
-                    serializer.serialize(v.value<unsigned>());
+                    serializer.serialize(v.value<int>());
                     break;
                 case QVariant::LongLong:
                     serializer.serialize(it.key());

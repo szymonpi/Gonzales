@@ -27,7 +27,9 @@ HEADERS += ../gtest.h \
 SOURCES += main.cpp \
     SimpleTreeTestSuite.cpp \
     NodeDeserializationTestSuite.cpp \
-    NodeSerializationTestSuite.cpp
+    NodeSerializationTestSuite.cpp \
+    InfosSerializationTestSuite.cpp \
+    InfosDeserializationTestSuite.cpp
 
 
 LIBPATH += C:/gtest/lib
