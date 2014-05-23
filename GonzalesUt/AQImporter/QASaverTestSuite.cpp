@@ -8,8 +8,8 @@
 
 #include "../../GonzalesApp/qa/qasaver.h"
 #include "../../GonzalesApp/qa/qaloader.h"
-#include "FileSerializerMock.h"
-#include "FileSerializerFactoryMock.h"
+#include "DataSerializerMock.h"
+#include "DataSerializerFactoryMock.h"
 #include "QASerializerMock.h"
 #include "../../GonzalesApp/common/SimpleTree/Node.h"
 
@@ -23,10 +23,10 @@ protected:
     QASaveTestSuite():
         m_fileMock(std::make_shared<FileMock>()),
         m_fileFactoryMock(std::make_shared<FileFactoryMock>()),
-        m_fileSerializerMock(std::make_shared<FileSerializerMock>()),
-        m_fileSerializerFactoryMock(std::make_shared<FileSerializerFactoryMock>()),
+        m_DataSerializerMock(std::make_shared<DataSerializerMock>()),
+        m_DataSerializerFactoryMock(std::make_shared<DataSerializerFactoryMock>()),
         m_qaSerializerMock(std::make_shared<QASerializerMock>()),
-        m_saver(m_fileFactoryMock, m_qaSerializerMock, m_fileSerializerFactoryMock)
+        m_saver(m_fileFactoryMock, m_qaSerializerMock, m_DataSerializerFactoryMock)
     {
     }
 
@@ -60,7 +60,7 @@ protected:
 
     void expectSerializeQaVersion()
     {
-        EXPECT_CALL(*m_fileSerializerMock, serialize(fileVersionMatcher(QAFileVersion1)));
+        EXPECT_CALL(*m_DataSerializerMock, serialize(fileVersionMatcher(QAFileVersion1)));
     }
 
     void expectSerializeQA()
@@ -70,18 +70,18 @@ protected:
 
     void expectDataStreamStatusOk()
     {
-        EXPECT_CALL(*m_fileSerializerMock, status()).WillOnce(Return(QDataStream::Ok));
+        EXPECT_CALL(*m_DataSerializerMock, status()).WillOnce(Return(QDataStream::Ok));
     }
 
     void expectDataStreamStatusNotOk()
     {
-        EXPECT_CALL(*m_fileSerializerMock, status()).WillOnce(Return(QDataStream::WriteFailed));
+        EXPECT_CALL(*m_DataSerializerMock, status()).WillOnce(Return(QDataStream::WriteFailed));
     }
 
     void expectFileIsReadyToWrite()
     {
         QFile file;
-        EXPECT_CALL(*m_fileSerializerFactoryMock, create(_)).WillOnce(Return(m_fileSerializerMock));
+        EXPECT_CALL(*m_DataSerializerFactoryMock, create(_)).WillOnce(Return(m_DataSerializerMock));
         EXPECT_CALL(*m_fileMock, getIODevice()).WillOnce(Return(&file));
         expectFileIsOpen(true);
     }
@@ -95,8 +95,8 @@ protected:
 
     std::shared_ptr<FileMock> m_fileMock;
     std::shared_ptr<FileFactoryMock> m_fileFactoryMock;
-    std::shared_ptr<FileSerializerMock> m_fileSerializerMock;
-    std::shared_ptr<FileSerializerFactoryMock> m_fileSerializerFactoryMock;
+    std::shared_ptr<DataSerializerMock> m_DataSerializerMock;
+    std::shared_ptr<DataSerializerFactoryMock> m_DataSerializerFactoryMock;
     std::shared_ptr<QASerializerMock> m_qaSerializerMock = std::make_shared<QASerializerMock>();
     QASaver m_saver;
     SimpleTree::Node<QA> m_oneQAs;

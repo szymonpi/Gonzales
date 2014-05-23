@@ -10,9 +10,8 @@ QAsToLearnSelector::QAsToLearnSelector(std::shared_ptr<QAsProvider> qAsProvider)
 
 void QAsToLearnSelector::selectQAs(std::vector<SimpleTree::Node<QA>> &nodes, bool set)
 {
-    for(auto it = nodes.begin(); it!= nodes.end(); ++it)
+    for(auto &node: nodes)
     {
-        SimpleTree::Node<QA> node = *it;
         node.getNodeValue()->m_toLearn = set;
     }
 }
@@ -29,9 +28,8 @@ std::vector<SimpleTree::Node<QA>>& QAsToLearnSelector::getGroups(const QTreeWidg
 {
     QString subjectName = getSubjectName(item);
     std::vector<SimpleTree::Node<QA>> &subjects = getSubjects();
-    for(auto it = subjects.begin(); it!= subjects.end(); ++it)
+    for(auto &node: subjects)
     {
-        SimpleTree::Node<QA> &node = *it;
         if(node.getName() == subjectName)
         {
             return node.getNodes();
@@ -58,9 +56,8 @@ QString QAsToLearnSelector::getSubjectName(const QTreeWidgetItem &item) const
 void QAsToLearnSelector::selectQAsForGroup(bool set, const QTreeWidgetItem &item, std::vector<SimpleTree::Node<QA> > subjectNodes)
 {
     QString group = item.text(0);
-    for(auto it = subjectNodes.begin(); it!= subjectNodes.end(); ++it)
+    for(auto &groupNode: subjectNodes)
     {
-        SimpleTree::Node<QA> groupNode = *it;
         if(groupNode.getName()==group)
         {
             std::vector<SimpleTree::Node<QA>> &nodes = groupNode.getNodes();
@@ -71,9 +68,9 @@ void QAsToLearnSelector::selectQAsForGroup(bool set, const QTreeWidgetItem &item
 
 void QAsToLearnSelector::selectQAsForSubject(bool set, std::vector<SimpleTree::Node<QA>> subjectNodes)
 {
-    for(auto it = subjectNodes.begin(); it!= subjectNodes.end(); ++it)
+    for(auto &node: subjectNodes)
     {
-        std::vector<SimpleTree::Node<QA>> &QAs = (*it).getNodes();
+        std::vector<SimpleTree::Node<QA>> &QAs = node.getNodes();
         selectQAs(QAs, set);
     }
 }

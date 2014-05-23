@@ -14,8 +14,8 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/IUIAdapters.h \
     ../../GonzalesApp/teaching/Teacher.h \
     PresentersMock.h \
-    ../../GonzalesApp/common/qtproxies/FileDeserializerFactory.h \
-    ../../GonzalesApp/common/qtproxies/FileDeserializer.h \
+    ../../GonzalesApp/common/qtproxies/DataDeserializerFactory.h \
+    ../../GonzalesApp/common/qtproxies/DataDeserializer.h \
     ../../GonzalesApp/common/SimpleTree/Node.h \
     QAsToLearnProviderMock.h
 

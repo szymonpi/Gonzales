@@ -78,7 +78,9 @@ TEST_F(QAsToLearnSelectorTestSuite, wrongSubjectNameGivenShouldThrow)
     wrongSubjectName.addChild(&group1);
 
     EXPECT_CALL(*qAsProvider, getQAs()).WillOnce(ReturnRef(rootNode));
-    ASSERT_THROW(checker.select(wrongSubjectName), std::logic_error);
+    EXPECT_THROW(checker.select(wrongSubjectName), std::logic_error);
+    int i = 5;
+    i = i*i;
 }
 
 TEST_F(QAsToLearnSelectorTestSuite, subjectItemGivenShouldSelectOneQA)

@@ -1,8 +1,8 @@
 #pragma once
 
 #include <string>
-#include "../common/qtproxies/fileserializer.h"
-#include "../common/qtproxies/filedeserializer.h"
+#include "../common/qtproxies/DataSerializer.h"
+#include "../common/qtproxies/DataDeserializer.h"
 
 class Answer
 {
@@ -23,12 +23,12 @@ public:
         return !answer.compare(a2.answer);
     }
 
-    void serialize(CanSerializeData &serializer) const
+    void serialize(IDataSerializer &serializer) const
     {
         serializer.serialize(answer.c_str());
     }
 
-    void deserialize(CanDeserializeData &deserializer)
+    void deserialize(IDataDeserializer&deserializer)
     {
         char *chars;
 

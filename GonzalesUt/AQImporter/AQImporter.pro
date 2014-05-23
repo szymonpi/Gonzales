@@ -11,9 +11,9 @@ CONFIG += warn_off
 HEADERS += ../gtest.h \
            ../gmock.h \
     FileMock.h \
-    FileSerializerFactoryMock.h \
-    FileDeserializerMock.h \
-    FileDeserializerFactoryMock.h \
+    DataSerializerFactoryMock.h \
+    DataDeserializerMock.h \
+    DataDeserializerFactoryMock.h \
     ../../GonzalesApp/qa/Question.h \
     ../../GonzalesApp/qa/QASaver.h \
     ../../GonzalesApp/qa/QALoader.h \
@@ -22,16 +22,20 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/qa/Answer.h \
     ../../GonzalesApp/common/qtproxies/IFile.h \
     ../../GonzalesApp/common/qtproxies/FileFerializerFactory.h \
-    ../../GonzalesApp/common/qtproxies/FileSerializer.h \
+    ../../GonzalesApp/common/qtproxies/DataSerializer.h \
     ../../GonzalesApp/common/qtproxies/FileFactory.h \
     ../../GonzalesApp/common/qtproxies/FiledeFerializerFactory.h \
-    ../../GonzalesApp/common/qtproxies/FileDeserializer.h \
+    ../../GonzalesApp/common/qtproxies/DataDeserializer.h \
     ../../GonzalesApp/common/qtproxies/File.h \
-    FileSerializerMock.h \
+    DataSerializerMock.h \
     ../../GonzalesApp/common/SimpleTree/Node.h \
     ../../GonzalesApp/common/SimpleTree/Utils.h \
     QASerializerMock.h \
-    ../../GonzalesApp/common/FileException.h
+    ../../GonzalesApp/common/FileException.h \
+    DataSerializerFactoryMock.h \
+    DataSerializerMock.h \
+    DataDeserializerFactoryMock.h \
+    DataDeserializerMock.h
 
 SOURCES += \
     QAImporterTestSuite.cpp \

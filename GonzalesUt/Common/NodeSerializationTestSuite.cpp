@@ -1,15 +1,15 @@
 
 #include "../gtest.h"
 #include "../gmock.h"
-#include "../../GonzalesApp/common/SimpleTree/Node.h"
-#include "../../GonzalesApp/common/SimpleTree/Utils.h"
-#include "../AQImporter/FileDeserializerMock.h"
-#include "../AQImporter/FileSerializerMock.h"
+#include "../../GonzalesApp/common/SimpleTree/NodeSerializer.h"
+#include "../AQImporter/DataDeserializerMock.h"
+#include "../AQImporter/DataSerializerMock.h"
 #include "../CommonUtUtilities/PrintTo.h"
 #include "../CommonUtUtilities/CommonMocks.h"
 #include <QString>
 #include <QVariant>
 #include "../../GonzalesApp/common/Common.h"
+#include "InfosDeserializerMock.h"
 
 using namespace testing;
 using namespace SimpleTree;
@@ -18,12 +18,13 @@ using namespace SimpleTree::Utils;
 class SerializationTestSuite: public testing::Test
 {
 public:
-    SerializationTestSuite()
+    SerializationTestSuite():
+        serializer(infosSerializer)
     {
         nodeWithValue.appendNodeValue(nodeValue);
     }
 
-    FileSerializerMock serializerMock;
+    StrictMock<DataSerializerMock> serializerMock;
     unsigned numOfChildrenContaining2Nodes = 2;
     unsigned numOfChildrenContaining3Nodes = 3;
     unsigned numOfChildrenNotContaining = 0;
@@ -33,7 +34,7 @@ public:
     std::shared_ptr<NodeValueMock> nodeValue4 = std::make_shared<NodeValueMock>();
     std::shared_ptr<NodeValueMock> nodeValue5 = std::make_shared<NodeValueMock>();
     std::shared_ptr<NodeValueMock> nodeValue6 = std::make_shared<NodeValueMock>();
-
+    std::shared_ptr<StrictMock<InfosSerializerMock>> infosSerializer = std::make_shared<StrictMock<InfosSerializerMock>>();
     Node<NodeValueMock> nodeWithValue;
     NodeSerializer serializer;
 };
@@ -42,6 +43,7 @@ TEST_F(SerializationTestSuite, serializeOneNodeWithValue)
 {
     EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(numOfChildrenNotContaining)));
     EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(NodeType_WithValue)));
+    EXPECT_CALL(*infosSerializer, serialize(_,_));
     EXPECT_CALL(*nodeValue, serialize(_));
     serializer.serialize(serializerMock, nodeWithValue);
 }
@@ -53,26 +55,19 @@ TEST_F(SerializationTestSuite, serializeOneNodeWithValueAndInfos)
     nodeWithValue.setInfo(100, QString("testing string"));
     nodeWithValue.setInfo(101, 4.56);
     EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(numOfChildrenNotContaining)));
-
-    EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(NODE_INFO_ROLE_CHECKED)));
-    EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(QVariant::Bool)));
-    EXPECT_CALL(serializerMock, serialize(TypedEq<bool>(true)));
-
-    EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(99)));
-    EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(QVariant::Int)));
-    EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(45)));
-
-    EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(100)));
-    EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(QVariant::String)));
-    EXPECT_CALL(serializerMock, serialize(TypedEq<const QString &>(QString("testing string"))));
-
-    EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(101)));
-    EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(QVariant::Double)));
-    EXPECT_CALL(serializerMock, serialize(TypedEq<double>(4.56)));
+    EXPECT_CALL(*infosSerializer, serialize(_,_));
 
     EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(NodeType_WithValue)));
     EXPECT_CALL(*nodeValue, serialize(_));
     serializer.serialize(serializerMock, nodeWithValue);
+}
+
+TEST_F(SerializationTestSuite, serializeOneNodeWithValueAndUnsupportedInfoTypeShouldThrow)
+{
+
+    EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(NodeType_WithValue)));
+    EXPECT_CALL(*infosSerializer, serialize(_,_)).WillOnce(Throw(std::logic_error("")));
+    ASSERT_THROW(serializer.serialize(serializerMock, nodeWithValue), std::logic_error);
 }
 
 TEST_F(SerializationTestSuite, serializeTwoItemsInOneNode)
@@ -86,7 +81,7 @@ TEST_F(SerializationTestSuite, serializeTwoItemsInOneNode)
     mainNode.appendNode(node1);
     mainNode.appendNode(node2);
 
-
+    EXPECT_CALL(*infosSerializer, serialize(_,_)).Times(3);
     EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(NodeType_WithChildren)));
     EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(numOfChildrenContaining2Nodes)));
     EXPECT_CALL(serializerMock, serialize(TypedEq<const QString &>(nodeName)));
@@ -130,8 +125,11 @@ TEST_F(SerializationTestSuite, serializeSixItemsInThreeNodes)
     mainNode.appendNode(continingNode2);
     mainNode.appendNode(continingNode3);
 
+
+    EXPECT_CALL(*infosSerializer, serialize(_,_)).Times(10);
     EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(NodeType_WithChildren))).Times(4);
     EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(NodeType_WithValue))).Times(6);
+
 
     EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(numOfChildrenNotContaining))).Times(6);
     EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(numOfChildrenContaining3Nodes)));

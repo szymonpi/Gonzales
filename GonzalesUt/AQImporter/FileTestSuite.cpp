@@ -4,8 +4,8 @@
 #include <QQueue>
 #include <QStringList>
 
-#include "../../GonzalesApp/common/qtproxies/fileserializer.h"
-#include "../../GonzalesApp/common/qtproxies/filedeserializer.h"
+#include "../../GonzalesApp/common/qtproxies/DataSerializer.h"
+#include "../../GonzalesApp/common/qtproxies/DataDeserializer.h"
 #include "../../GonzalesApp/common/qtproxies/file.h"
 
 using namespace testing;
@@ -81,7 +81,7 @@ TEST_F(FileTestSuite, saveDataInFile)
     File fileToWrite("C:/projects/Gonzales/GonzalesUt/AQImporter/fileToWrite.txt");
     fileToWrite.open(QFile::WriteOnly);
     QIODevice *deviceToWrite = fileToWrite.getIODevice();
-    std::unique_ptr<CanSerializeData> serializer(new FileSerializer(deviceToWrite));
+    std::unique_ptr<IDataSerializer> serializer(new DataSerializer(deviceToWrite));
     std::string str="testing string";
     int a = 64;
     float b = 56.45;
@@ -97,7 +97,7 @@ TEST_F(FileTestSuite, loadDataFromFile)
     File fileToRead("C:/projects/Gonzales/GonzalesUt/AQImporter/fileToWrite.txt");
     fileToRead.open(QFile::ReadOnly);
     QIODevice *deviceToWrite = fileToRead.getIODevice();
-    std::unique_ptr<CanDeserializeData> deserializer(new FileDeserializer(deviceToWrite));
+    std::unique_ptr<IDataDeserializer> deserializer(new DataDeserializer(deviceToWrite));
     char *str;
     int a = 0;
     float b = 0;
@@ -119,7 +119,7 @@ TEST_F(FileTestSuite, loadToNotEnoughDataFromFile)
     File fileToRead("C:/projects/Gonzales/GonzalesUt/AQImporter/fileToWrite.txt");
     fileToRead.open(QFile::ReadOnly);
     QIODevice *deviceToWrite = fileToRead.getIODevice();
-    std::unique_ptr<CanDeserializeData> deserializer(new FileDeserializer(deviceToWrite));
+    std::unique_ptr<IDataDeserializer> deserializer(new DataDeserializer(deviceToWrite));
     char *str;
     int a = 0;
     float b = 0;

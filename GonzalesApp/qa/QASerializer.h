@@ -1,30 +1,30 @@
 #pragma once
-#include "../Common/SimpleTree/Utils.h"
-#include "../Common/qtproxies/fileserializer.h"
-#include "../Common/qtproxies/filedeserializer.h"
-#include "../Common/qtproxies/fileserializer.h"
+#include "../Common/SimpleTree/NodeSerializer.h"
+#include "../Common/qtproxies/DataSerializer.h"
+#include "../Common/qtproxies/DataDeserializer.h"
 #include "IQASerializer.h"
 
 class IQADeserializer
 {
 public:
-    virtual void deserialize(CanDeserializeData &deserializer, SimpleTree::Node<QA> &node) = 0;
+    virtual void deserialize(IDataDeserializer &deserializer, SimpleTree::Node<QA> &node) = 0;
     virtual ~IQADeserializer(){}
 };
 
 class QASerializer: public IQASerializer, public IQADeserializer
 {
 public:
-    void serialize(CanSerializeData& fileSerializer, const SimpleTree::Node<QA> &node)
+    QASerializer():
+        serializer{std::make_shared<SimpleTree::Utils::InfosSerializer>()}
+    {}
+    void serialize(IDataSerializer& DataSerializer, const SimpleTree::Node<QA> &node)
     {
-
-        serializer.serialize(fileSerializer, node);
+        serializer.serialize(DataSerializer, node);
     }
 
-    void deserialize(CanDeserializeData &fileDeserializer, SimpleTree::Node<QA> &node)
+    void deserialize(IDataDeserializer &DataDeserializer, SimpleTree::Node<QA> &node)
     {
-        SimpleTree::Utils::NodeSerializer serializer;
-        serializer.deserialize(fileDeserializer, node);
+        serializer.deserialize(DataDeserializer, node);
     }
 
 private:

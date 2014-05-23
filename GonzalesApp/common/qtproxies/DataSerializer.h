@@ -2,31 +2,13 @@
 
 #include <QDataStream>
 #include <QString>
+#include "IDataSerializer.h"
 
-class CanSerializeData{
-public:
-    virtual void serialize(bool i)=0;
-    virtual void serialize(qint8 i)=0;
-    virtual void serialize(quint8 i)=0;
-    virtual void serialize(quint16 i)=0;
-    virtual void serialize(qint16 i)=0;
-    virtual void serialize(qint32 i)=0;
-    virtual void serialize(quint32 i)=0;
-    virtual void serialize(qint64 i)=0;
-    virtual void serialize(quint64 i)=0;
-    virtual void serialize(float i)=0;
-    virtual void serialize(double i)=0;
-    virtual void serialize(const char *i)=0;
-    virtual void serialize(const QString &str)=0;
-    virtual QDataStream::Status status()=0;
-    ~CanSerializeData(){}
-};
-
-class FileSerializer : public CanSerializeData
+class DataSerializer : public IDataSerializer
 {
 public:
 
-    FileSerializer(QIODevice *device):
+    DataSerializer(QIODevice *device):
         stream(device)
     {
         stream.setVersion(QDataStream::Qt_5_1);

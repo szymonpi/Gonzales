@@ -14,12 +14,15 @@ CONFIG += warn_off
 
 HEADERS += ../gtest.h \
            ../gmock.h \
-    ../AQImporter/FileSerializerMock.h \
-    ../AQImporter/FileDeserializerMock.h \
+    ../AQImporter/DataSerializerMock.h \
+    ../AQImporter/DataDeserializerMock.h \
     ../CommonUtUtilities/PrintTo.h \
     ../CommonUtUtilities/CommonMocks.h \
     ../../GonzalesApp/common/SimpleTree/Node.h \
-    ../../GonzalesApp/common/SimpleTree/Utils.h
+    ../../GonzalesApp/common/SimpleTree/Utils.h \
+    InfosDeserializerMock.h \
+    ../../GonzalesApp/common/qtproxies/IDataSerializer.h \
+    ../../GonzalesApp/common/qtproxies/IDataDeserializer.h
 
 SOURCES += main.cpp \
     SimpleTreeTestSuite.cpp \

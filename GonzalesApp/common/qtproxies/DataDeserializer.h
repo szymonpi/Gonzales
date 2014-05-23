@@ -1,35 +1,13 @@
 #pragma once
 
 #include <QDataStream>
+#include "IDataDeserializer.h"
 
-class CanDeserializeData
+class DataDeserializer: public IDataDeserializer
 {
 public:
 
-    virtual void deserialize(bool &i)=0;
-    virtual void deserialize(qint8 &i)=0;
-    virtual void deserialize(quint8 &i)=0;
-    virtual void deserialize(quint16 &i)=0;
-    virtual void deserialize(qint16 &i)=0;
-    virtual void deserialize(qint32 &i)=0;
-    virtual void deserialize(quint32 &i)=0;
-    virtual void deserialize(qint64 &i)=0;
-    virtual void deserialize(quint64 &i)=0;
-    virtual void deserialize(float &i)=0;
-    virtual void deserialize(double &i)=0;
-    virtual void deserialize(char *&i)=0;
-    virtual void deserialize(QString &str)=0;
-    virtual QDataStream::Status status()=0;
-    virtual bool atEnd()=0;
-
-    ~CanDeserializeData(){}
-};
-
-class FileDeserializer: public CanDeserializeData
-{
-public:
-
-    FileDeserializer(QIODevice *device):
+    DataDeserializer(QIODevice *device):
         stream(device)
     {
         stream.setVersion(QDataStream::Qt_5_1);

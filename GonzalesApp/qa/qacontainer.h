@@ -14,14 +14,14 @@ struct QA
 
     QA(){}
 
-    void serialize(CanSerializeData &serializer) const
+    void serialize(IDataSerializer &serializer) const
     {
         question.serialize(serializer);
         answer.serialize(serializer);
         serializer.serialize(m_toLearn);
     }
 
-    void deserialize(CanDeserializeData &deserializer)
+    void deserialize(IDataDeserializer&deserializer)
     {
         question.deserialize(deserializer);
         if(deserializer.status()==QDataStream::ReadPastEnd)

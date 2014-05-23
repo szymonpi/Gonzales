@@ -55,11 +55,7 @@ HEADERS  += user/UserInfo.h \
     qa/Question.h \
     common/qtproxies/ApplicationSettings.h \
     common/qtproxies/File.h \
-    common/qtproxies/FileDeserializer.h \
-    common/qtproxies/FileDeserializerFactory.h \
     common/qtproxies/FileFactory.h \
-    common/qtproxies/FileSerializer.h \
-    common/qtproxies/FileSerializerFactory.h \
     common/qtproxies/IApplicationSettings.h \
     common/qtproxies/IFile.h \
     common/SimpleTree/Node.h \
@@ -99,7 +95,16 @@ HEADERS  += user/UserInfo.h \
     ImportHandlerFactory.h \
     QARepositoryFactory.h \
     qa/QAsToLearnSelector.h \
-    qa/QAsProvider.h
+    qa/QAsProvider.h \
+    common/SimpleTree/NodeSerializer.h \
+    common/SimpleTree/InfosSerializer.h \
+    common/SimpleTree/IInfosSerializer.h \
+    common/qtproxies/IDataDeserializer.h \
+    common/qtproxies/DataDeserializer.h \
+    common/qtproxies/DataDeserializerFactory.h \
+    common/qtproxies/DataSerializerFactory.h \
+    common/qtproxies/DataSerializer.h \
+    common/qtproxies/IDataSerializer.h
 
 FORMS    += ui/dialogs/logindialog.ui \
     ui/dialogs/dialogcreateaccount.ui \

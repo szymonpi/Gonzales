@@ -7,10 +7,10 @@
 
 QASaver::QASaver(std::shared_ptr<IFileFactory> fileFactory,
                  std::shared_ptr<IQASerializer> qASerializer,
-                 std::shared_ptr<IFileSerializerFactory> fileSerializerFactory):
+                 std::shared_ptr<IDataSerializerFactory> dataSerializerFactory):
     fileFactory(fileFactory),
     qASerializer(qASerializer),
-    fileSerializerFactory(fileSerializerFactory)
+    dataSerializerFactory(dataSerializerFactory)
 {
 }
 
@@ -20,7 +20,7 @@ void QASaver::openFile(IFile &file)
         throw FileException("File isn't open");
 }
 
-void QASaver::serializeFileVersion(CanSerializeData &serializer)
+void QASaver::serializeFileVersion(IDataSerializer &serializer)
 {
     serializer.serialize(static_cast<quint16>(QAFileVersion1));
 }
@@ -29,7 +29,7 @@ void QASaver::save(const SimpleTree::Node<QA> &questionAnswers, const QString &f
 {
     std::shared_ptr<IFile> file = fileFactory->create(filePath);
     openFile(*file);
-    std::shared_ptr<CanSerializeData> serializer = fileSerializerFactory->create(file->getIODevice());
+    std::shared_ptr<IDataSerializer> serializer = dataSerializerFactory->create(file->getIODevice());
     serializeFileVersion(*serializer);
 
     qASerializer->serialize(*serializer, questionAnswers);

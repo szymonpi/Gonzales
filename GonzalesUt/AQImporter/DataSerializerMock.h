@@ -1,10 +1,10 @@
-#ifndef FILESERIALIZERMOCK_H
-#define FILESERIALIZERMOCK_H
+#ifndef DataSerializerMOCK_H
+#define DataSerializerMOCK_H
 
 #include "../gmock.h"
-#include "../../GonzalesApp/common/qtproxies/fileserializer.h"
+#include "../../GonzalesApp/common/qtproxies/IDataSerializer.h"
 
-class FileSerializerMock : public CanSerializeData
+class DataSerializerMock : public IDataSerializer
 {
 public:
     MOCK_METHOD1(serialize, void(bool i));

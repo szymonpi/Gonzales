@@ -1,10 +1,10 @@
-#ifndef FILEDESERIALIZERMOCK_H
-#define FILEDESERIALIZERMOCK_H
+#ifndef DataDeserializerMOCK_H
+#define DataDeserializerMOCK_H
 
 #include "../gmock.h"
-#include "../../GonzalesApp/common/qtproxies/filedeserializer.h"
+#include "../../GonzalesApp/common/qtproxies/DataDeserializer.h"
 
-class FileDeserializerMock : public CanDeserializeData
+class DataDeserializerMock : public IDataDeserializer
 {
 public:
     MOCK_METHOD1(deserialize, void(bool &i));
@@ -25,4 +25,4 @@ public:
 
 };
 
-#endif // FILEDESERIALIZERMOCK_H
+#endif // DataDeserializerMOCK_H

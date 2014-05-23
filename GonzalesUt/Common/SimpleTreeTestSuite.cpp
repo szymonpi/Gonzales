@@ -1,8 +1,8 @@
 #include "../gtest.h"
 #include "../gmock.h"
 #include "../../GonzalesApp/common/SimpleTree/Node.h"
-#include "../AQImporter/FileDeserializerMock.h"
-#include "../AQImporter/FileSerializerMock.h"
+#include "../AQImporter/DataDeserializerMock.h"
+#include "../AQImporter/DataSerializerMock.h"
 #include <QString>
 
 using namespace testing;

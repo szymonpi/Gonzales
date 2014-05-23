@@ -3,15 +3,15 @@
 #include "../Common/SimpleTree/Utils.h"
 
 QALoader::QALoader(std::shared_ptr<IFileFactory> fileFactory,
-                   std::shared_ptr<IQADeserializer> qADeserializer,
-                   std::shared_ptr<IFileDeserializerFactory> fileDeserializerFactory):
+                   std::shared_ptr<IQADeserializer> qASerializer,
+                   std::shared_ptr<IDataDeserializerFactory> DataDeserializerFactory):
     m_fileFactory(fileFactory),
-    m_qADeserializer(qADeserializer),
-    m_fileDeserializerFactory(fileDeserializerFactory)
+    m_qADeserializer(qASerializer),
+    m_DataDeserializerFactory(DataDeserializerFactory)
 {
 }
 
-void QALoader::checkFileVersion(CanDeserializeData &deserializer)
+void QALoader::checkFileVersion(IDataDeserializer &deserializer)
 {
     quint16 fileVersion=0;
     deserializer.deserialize(fileVersion);
@@ -20,7 +20,7 @@ void QALoader::checkFileVersion(CanDeserializeData &deserializer)
         throw FileException("unsupported file version");
 }
 
-void QALoader::validateDeserializerStatus(CanDeserializeData &deserializer)
+void QALoader::validateDeserializerStatus(IDataDeserializer &deserializer)
 {
 
     if(deserializer.status()==QDataStream::ReadCorruptData)
@@ -34,7 +34,7 @@ SimpleTree::Node<QA> QALoader::load(const QString &filePath)
     if(!file->open(QFile::ReadOnly))
         throw FileException("Can't open file");
 
-    std::shared_ptr<CanDeserializeData> deserializer = m_fileDeserializerFactory->create(file->getIODevice());
+    std::shared_ptr<IDataDeserializer> deserializer = m_DataDeserializerFactory->create(file->getIODevice());
     checkFileVersion(*deserializer);
 
     SimpleTree::Node<QA> qAs;

@@ -1,11 +1,12 @@
 
 #include "../gtest.h"
 #include "../gmock.h"
-#include "../../GonzalesApp/common/SimpleTree/Node.h"
-#include "../../GonzalesApp/common/SimpleTree/Utils.h"
-#include "../AQImporter/FileDeserializerMock.h"
+#include "../../GonzalesApp/common/SimpleTree/NodeSerializer.h"
+#include "../AQImporter/DataDeserializerMock.h"
 #include "../CommonUtUtilities/CommonMocks.h"
 #include "../CommonUtUtilities/PrintTo.h"
+#include "../../GonzalesApp/common/Common.h"
+#include "InfosDeserializerMock.h"
 #include <QString>
 
 using namespace testing;
@@ -15,10 +16,12 @@ using namespace SimpleTree::Utils;
 class DeserializationTestSuite: public testing::Test
 {
 public:
-    DeserializationTestSuite()
+    DeserializationTestSuite():
+        serializer(infosDeserializer)
     {
     }
-    FileDeserializerMock deserializerMock;
+    DataDeserializerMock deserializerMock;
+    std::shared_ptr<StrictMock<InfosSerializerMock>> infosDeserializer = std::make_shared<StrictMock<InfosSerializerMock>>();
     std::shared_ptr<NodeValueStub> value = std::make_shared<NodeValueStub>();
     quint8 nodeTypeEmpty = NodeType_Empty;
     quint8 nodeTypeWithValue = NodeType_WithValue;
@@ -48,13 +51,38 @@ TEST_F(DeserializationTestSuite, DeserializeOneNodeWithValue)
     Node<NodeValueStub> node;
 
     unsigned numOfChildren = 0;
-
     EXPECT_CALL(deserializerMock, deserialize(An<quint8 &>())).WillOnce(SetArgReferee<0>(nodeTypeWithValue));
     EXPECT_CALL(deserializerMock, deserialize(An<unsigned &>())).WillOnce(SetArgReferee<0>(numOfChildren));
+
+    QMap<quint8, QVariant> infos;
+    EXPECT_CALL(*infosDeserializer, deserialize(_,_)).WillOnce(SetArgReferee<1>(infos));
 
     serializer.deserialize(deserializerMock, node);
 
     ASSERT_TRUE(node.getNodeValue().get());
+}
+
+//___
+//|o|
+//--- *
+
+TEST_F(DeserializationTestSuite, DeserializeOneNodeWithValueAndInfo)
+{
+    Node<NodeValueStub> node;
+
+    unsigned numOfChildren = 0;
+
+    EXPECT_CALL(deserializerMock, deserialize(An<quint8 &>())).WillOnce(SetArgReferee<0>(nodeTypeWithValue));
+    EXPECT_CALL(deserializerMock, deserialize(An<unsigned &>())).WillOnce(SetArgReferee<0>(numOfChildren));
+
+    QMap<quint8, QVariant> infos;
+    infos[NODE_INFO_ROLE_CHECKED] = true;
+    EXPECT_CALL(*infosDeserializer, deserialize(_,_)).WillOnce(SetArgReferee<1>(infos));
+
+    serializer.deserialize(deserializerMock, node);
+
+    ASSERT_TRUE(node.getNodeValue().get());
+    ASSERT_TRUE(node.getInfo(NODE_INFO_ROLE_CHECKED).toBool());
 }
 
 //___
@@ -73,6 +101,8 @@ TEST_F(DeserializationTestSuite, DeserializeOneNodeWithOneChild)
 
     QString mainNodeName = "mainNode";
 
+    QMap<quint8, QVariant> infos;
+    EXPECT_CALL(*infosDeserializer, deserialize(_,_)).Times(2).WillRepeatedly(SetArgReferee<1>(infos));
     EXPECT_CALL(deserializerMock, deserialize(An<quint8 &>()))
         .WillOnce(SetArgReferee<0>(nodeTypeWithChildren))
         .WillOnce(SetArgReferee<0>(nodeTypeWithValue));
@@ -106,6 +136,8 @@ TEST_F(DeserializationTestSuite, DeserializeOneNodeWithThreeChild)
 
     QString mainNodeName = "mainNode";
 
+    QMap<quint8, QVariant> infos;
+    EXPECT_CALL(*infosDeserializer, deserialize(_,_)).Times(4).WillRepeatedly(SetArgReferee<1>(infos));
     EXPECT_CALL(deserializerMock, deserialize(An<quint8 &>()))
         .WillOnce(SetArgReferee<0>(nodeTypeWithChildren))
         .WillOnce(SetArgReferee<0>(nodeTypeWithValue))
@@ -151,6 +183,8 @@ TEST_F(DeserializationTestSuite, DeserializeOneNodeWithTwoChildrenWithThreeNodeI
     QString nodeFirstWithChildrenName = "firstNodeWithChildren";
     QString nodeSecondWithChildrenName = "secondNodeWithChildren";
 
+    QMap<quint8, QVariant> infos;
+    EXPECT_CALL(*infosDeserializer, deserialize(_,_)).Times(9).WillRepeatedly(SetArgReferee<1>(infos));
     EXPECT_CALL(deserializerMock, deserialize(An<quint8 &>()))
         .WillOnce(SetArgReferee<0>(nodeTypeWithChildren))
         .WillOnce(SetArgReferee<0>(nodeTypeWithChildren))
@@ -183,6 +217,8 @@ TEST_F(DeserializationTestSuite, DeserializeOneNodeWithTwoChildrenWithThreeNodeI
     EXPECT_EQ(mainNodeName, nodeWithChildren.getName());
     EXPECT_EQ(nodeFirstWithChildrenName, nodeWithChildren.getNode(0).getName());
     EXPECT_EQ(nodeSecondWithChildrenName, nodeWithChildren.getNode(1).getName());
+
+
     ASSERT_EQ(2, nodeWithChildren.size());
     ASSERT_EQ(3, nodeWithChildren.getNode(0).size());
     ASSERT_EQ(3, nodeWithChildren.getNode(1).size());

@@ -4,8 +4,8 @@
 
 using namespace testing;
 
-TEST(FilePathSelectorTestSuite, __s)
-{
+//TEST(FilePathSelectorTestSuite, __s)
+//{
 //todo implement when QFileDialog will be mocked.
-}
+//}
 

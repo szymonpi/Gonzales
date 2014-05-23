@@ -1,23 +1,23 @@
-#ifndef COMMONMOCKS_H
-#define COMMONMOCKS_H
-
+#pragma once
+#include "../../GonzalesApp/common/qtproxies/IDataDeserializer.h"
+#include "../../GonzalesApp/common/qtproxies/IDataSerializer.h"
 
 class NodeValue
 {
 public:
-    virtual void serialize(CanSerializeData &serializer) = 0;
-    virtual void deserialize(CanDeserializeData &deserializer) = 0;
+    virtual void serialize(IDataSerializer &serializer) = 0;
+    virtual void deserialize(IDataDeserializer &deserializer) = 0;
 };
 
 class NodeValueStub: public NodeValue
 {
 public:
-    virtual void serialize(CanSerializeData &serializer)
+    virtual void serialize(IDataSerializer &serializer)
     {
 
     }
 
-    virtual void deserialize(CanDeserializeData &deserializer)
+    virtual void deserialize(IDataDeserializer &deserializer)
     {
 
     }
@@ -26,8 +26,7 @@ public:
 class NodeValueMock: public NodeValue
 {
 public:
-    MOCK_METHOD1(serialize, void(CanSerializeData &));
-    MOCK_METHOD1(deserialize, void(CanDeserializeData &));
+    MOCK_METHOD1(serialize, void(IDataSerializer &));
+    MOCK_METHOD1(deserialize, void(IDataDeserializer &));
 };
 
-#endif // COMMONMOCKS_H
