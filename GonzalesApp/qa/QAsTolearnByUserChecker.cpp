@@ -1,19 +1,19 @@
-#include "QAsToLearnSelector.h"
+#include "QAsToLearnByUserChecker.h"
 #include "../Common/Common.h"
 
 
-QAsToLearnSelector::QAsToLearnSelector(std::shared_ptr<IQARepository> qAsProvider):
+QAsToLearnByUserChecker::QAsToLearnByUserChecker(std::shared_ptr<IQARepository> qAsProvider):
     m_qARepository(qAsProvider)
 {
 
 }
 
-bool QAsToLearnSelector::ItsSubject(const QTreeWidgetItem &item) const
+bool QAsToLearnByUserChecker::ItsSubject(const QTreeWidgetItem &item) const
 {
     return !item.parent();
 }
 
-void QAsToLearnSelector::select(const QTreeWidgetItem &item)
+void QAsToLearnByUserChecker::select(const QTreeWidgetItem &item)
 {
     bool select = item.data(2, Qt::CheckStateRole) == Qt::Checked;
     if(item.childCount() == 0)

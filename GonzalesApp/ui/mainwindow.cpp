@@ -24,7 +24,7 @@
 #include "../TeacherControllerFactory.h"
 #include "../ImportHandlerFactory.h"
 #include "../QARepositoryFactory.h"
-#include "../qa/QAsToLearnSelector.h"
+#include "../qa/QAsToLearnByUserChecker.h"
 
 void MainWindow::loadUserData()
 {
@@ -149,6 +149,6 @@ void MainWindow::on_treeWidgetQuestions_itemChanged(QTreeWidgetItem *item, int c
 {
     if(column != 2)
         return;
-    QAsToLearnSelector selector(qARepository);
+    QAsToLearnByUserChecker selector(qARepository);
     selector.select(*item);
 }

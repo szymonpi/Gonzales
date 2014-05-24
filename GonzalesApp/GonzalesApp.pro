@@ -38,7 +38,7 @@ SOURCES += main.cpp\
     uiobservers/AnswerPresenter.cpp \
     uiobservers/questioncollectionpresenter.cpp \
     QARepositoryFactory.cpp \
-    qa/QAsTolearnSelector.cpp
+    qa/QAsToLearnByUserChecker.cpp
 
 HEADERS  += user/UserInfo.h \
     qa/QAFilePathSelector.h \
@@ -94,7 +94,6 @@ HEADERS  += user/UserInfo.h \
     TeacherControllerFactory.h \
     ImportHandlerFactory.h \
     QARepositoryFactory.h \
-    qa/QAsToLearnSelector.h \
     qa/QAsProvider.h \
     common/SimpleTree/NodeSerializer.h \
     common/SimpleTree/InfosSerializer.h \
@@ -104,7 +103,8 @@ HEADERS  += user/UserInfo.h \
     common/qtproxies/DataDeserializerFactory.h \
     common/qtproxies/DataSerializerFactory.h \
     common/qtproxies/DataSerializer.h \
-    common/qtproxies/IDataSerializer.h
+    common/qtproxies/IDataSerializer.h \
+    qa/QAsToLearnByUserChecker.h
 
 FORMS    += ui/dialogs/logindialog.ui \
     ui/dialogs/dialogcreateaccount.ui \

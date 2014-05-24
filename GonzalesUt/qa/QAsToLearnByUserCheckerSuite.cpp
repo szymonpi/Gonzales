@@ -2,17 +2,17 @@
 #include <memory>
 #include "../gtest.h"
 #include "../gmock.h"
-#include "../../GonzalesApp/qa/QAsToLearnSelector.h"
+#include "../../GonzalesApp/qa/QAsToLearnByUserChecker.h"
 #include "../../GonzalesApp/common/SimpleTree/Node.h"
 #include "QAsRepositoryMock.h"
 #include "../../GonzalesApp/common/Common.h"
 
 using namespace testing;
 
-class QAsToLearnSelectorTestSuite: public testing::Test
+class QAsToLearnByUserSelector: public testing::Test
 {
 protected:
-    QAsToLearnSelectorTestSuite():
+    QAsToLearnByUserSelector():
         qAsRepositoryMock(std::make_shared<QAsRepositoryMock>()),
         checker(qAsRepositoryMock)
     {
@@ -24,7 +24,7 @@ protected:
 
     }
     std::shared_ptr<QAsRepositoryMock> qAsRepositoryMock;
-    QAsToLearnSelector checker;
+    QAsToLearnByUserChecker checker;
     QTreeWidgetItem emptyItem;
     QTreeWidgetItem subject;
     QTreeWidgetItem group;
@@ -32,12 +32,12 @@ protected:
 
 };
 
-TEST_F(QAsToLearnSelectorTestSuite, emptyItemGivenShouldSelectNothing)
+TEST_F(QAsToLearnByUserSelector, emptyItemGivenShouldSelectNothing)
 {
     checker.select(emptyItem);
 }
 
-TEST_F(QAsToLearnSelectorTestSuite, groupItemGivenShouldSelectOneGroup)
+TEST_F(QAsToLearnByUserSelector, groupItemGivenShouldSelectOneGroup)
 {
     //qas
     SimpleTree::Node<QA> rootNode;
@@ -62,7 +62,7 @@ TEST_F(QAsToLearnSelectorTestSuite, groupItemGivenShouldSelectOneGroup)
     ASSERT_EQ(true, groupNodeSet.getNodes().at(0).getInfo(NODE_INFO_ROLE_CHECKED));
 }
 
-TEST_F(QAsToLearnSelectorTestSuite, wrongSubjectNameGivenShouldThrow)
+TEST_F(QAsToLearnByUserSelector, wrongSubjectNameGivenShouldThrow)
 {
     //qas
     SimpleTree::Node<QA> rootNode;
@@ -85,7 +85,7 @@ TEST_F(QAsToLearnSelectorTestSuite, wrongSubjectNameGivenShouldThrow)
     EXPECT_THROW(checker.select(wrongSubjectName), std::logic_error);
 }
 
-TEST_F(QAsToLearnSelectorTestSuite, wrongGroupNameGivenShouldThrow)
+TEST_F(QAsToLearnByUserSelector, wrongGroupNameGivenShouldThrow)
 {
     //qas
     SimpleTree::Node<QA> rootNode;
@@ -105,7 +105,7 @@ TEST_F(QAsToLearnSelectorTestSuite, wrongGroupNameGivenShouldThrow)
     EXPECT_THROW(checker.select(group), std::logic_error);
 }
 
-TEST_F(QAsToLearnSelectorTestSuite, subjectItemGivenShouldSelectGroups)
+TEST_F(QAsToLearnByUserSelector, subjectItemGivenShouldSelectGroups)
 {
     //qas
     SimpleTree::Node<QA> rootNode;

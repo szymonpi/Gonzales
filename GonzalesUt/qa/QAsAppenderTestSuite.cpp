@@ -49,7 +49,7 @@ TEST_F(QAsAppenderTestSuite, shouldAppendOneImportedQAToExistingGroup)
     EXPECT_CALL(*destinationSelectorMock, select(groupMap, QStringList() << "question")).WillOnce(Return(true));
     EXPECT_CALL(*destinationSelectorMock, getSubject()).WillOnce(Return("subject"));
     EXPECT_CALL(*destinationSelectorMock, getGroup()).WillOnce(Return("group"));
-    EXPECT_CALL(*repositoryMock, onQAsUpdate());
+    EXPECT_CALL(*repositoryMock, onQAsImport());
     appender.append(importedNodes);
     ASSERT_GT(rootNode.size(), 0);
     ASSERT_FALSE(rootNode.getNode(0).getNodes().empty());
@@ -77,7 +77,7 @@ TEST_F(QAsAppenderTestSuite, shouldAppendOneImportedQAToNotExistingGroup)
     EXPECT_CALL(*destinationSelectorMock, select(groupMap, QStringList() << "question")).WillOnce(Return(true));
     EXPECT_CALL(*destinationSelectorMock, getSubject()).WillOnce(Return("subject"));
     EXPECT_CALL(*destinationSelectorMock, getGroup()).WillOnce(Return("different_group"));
-    EXPECT_CALL(*repositoryMock, onQAsUpdate());
+    EXPECT_CALL(*repositoryMock, onQAsImport());
     appender.append(importedNodes);
     ASSERT_GT(rootNode.size(), 0);
     ASSERT_FALSE(rootNode.getNode(0).getNodes().empty());
@@ -107,7 +107,7 @@ TEST_F(QAsAppenderTestSuite, shouldAppendOneImportedQAToNotExistingSubjectAndGro
     EXPECT_CALL(*destinationSelectorMock, select(groupMap, QStringList() << "question")).WillOnce(Return(true));
     EXPECT_CALL(*destinationSelectorMock, getSubject()).WillOnce(Return("different_subject"));
     EXPECT_CALL(*destinationSelectorMock, getGroup()).WillOnce(Return("different_group"));
-    EXPECT_CALL(*repositoryMock, onQAsUpdate());
+    EXPECT_CALL(*repositoryMock, onQAsImport());
     appender.append(importedQAs);
     ASSERT_GT(rootNode.size(), 0);
     ASSERT_FALSE(rootNode.getNode(1).getNodes().empty());

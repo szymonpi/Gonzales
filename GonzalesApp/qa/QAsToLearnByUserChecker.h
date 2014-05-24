@@ -2,10 +2,10 @@
 #include <QTreeWidget>
 #include "IQARepository.h"
 
-class QAsToLearnSelector
+class QAsToLearnByUserChecker
 {
 public:
-    QAsToLearnSelector(std::shared_ptr<IQARepository> qAsProvider);
+    QAsToLearnByUserChecker(std::shared_ptr<IQARepository> qAsProvider);
 
     void select(const QTreeWidgetItem &item);
 
