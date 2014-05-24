@@ -1,6 +1,7 @@
 #include "QAsToLearnProvider.h"
 #include "../Common/SimpleTree/Node.h"
 #include <memory>
+#include "../Common/Common.h"
 
 QAsToLearnProvider::QAsToLearnProvider(std::shared_ptr<QAsProvider> qasProvider):
     m_qasProvider(qasProvider)
@@ -27,7 +28,7 @@ void QAsToLearnProvider::fillQAsToLearn(QQueue<std::shared_ptr<QA> > &qasToLearn
                     const SimpleTree::Node<QA> &node) const
 {
     if(node.getNodeValue().get())
-        if(node.getNodeValue()->toLearn() == true)
+        if(node.getInfo(NODE_INFO_ROLE_CHECKED) == true && node.getNodeValue().get())
             qasToLearn.push_back(node.getNodeValue());
     foreach(const SimpleTree::Node<QA> node, node.getNodes())
     {

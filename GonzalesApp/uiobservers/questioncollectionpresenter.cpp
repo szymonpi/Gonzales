@@ -1,4 +1,5 @@
 #include "questioncollectionpresenter.h"
+#include "../Common/Common.h"
 
 void QuestionCollectionPresenter::buildWidgetTree(const SimpleTree::Node<QA> &node, QTreeWidgetItem *parent)
 {
@@ -6,7 +7,7 @@ void QuestionCollectionPresenter::buildWidgetTree(const SimpleTree::Node<QA> &no
     {
         QTreeWidgetItem *item = new QTreeWidgetItem(parent, TREE_WIDGET_TYPE_GROUP);
         item->setFlags(Qt::ItemIsUserCheckable);
-        item->setData(2, Qt::CheckStateRole, Qt::Checked);
+        item->setData(2, Qt::CheckStateRole, node.getInfo(NODE_INFO_ROLE_CHECKED).toBool()?Qt::Checked:Qt::Unchecked);
         item->setText(0, node.getName());
         item->setDisabled(false);
         if(parent)

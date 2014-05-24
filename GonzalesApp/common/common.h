@@ -7,12 +7,6 @@ static const QString g_Project = "Gonzales";
 static const QString g_Users = "Users";
 static const QString file_qAs = ".qas";
 
-enum DataRole
-{
-    DATA_ROLE_QA_POINTER = 1
-};
-
-
 enum QAFileVersion
 {
     QAUnsupportedFileVersion = 0,

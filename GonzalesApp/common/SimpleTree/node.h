@@ -23,11 +23,11 @@ public:
     {
         m_nodes.insert(m_nodes.end(), nodes.begin(), nodes.end());
     }
-    void appendNode(const Node<T> node)
+    void appendNode(const Node<T> &node)
     {
         m_nodes.push_back(node);
     }
-    void removeNode(const T& index)
+    void removeNode(const int& index)
     {
         typename std::vector<SimpleTree::Node<T> >::iterator it = m_nodes.begin()+index;
         m_nodes.erase(it);

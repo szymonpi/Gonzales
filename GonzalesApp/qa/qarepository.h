@@ -22,6 +22,7 @@ public:
 
     SimpleTree::Node<QA> &getQAs();
     const SimpleTree::Node<QA> &getQAs() const;
+    void onQAsImport();
     void onQAsUpdate();
     void load();
 

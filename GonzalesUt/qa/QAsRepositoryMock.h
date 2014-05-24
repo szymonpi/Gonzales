@@ -9,6 +9,7 @@ public:
     MOCK_METHOD0(getQAs, SimpleTree::Node<QA> &());
     MOCK_CONST_METHOD0(getQAs, SimpleTree::Node<QA>&());
     MOCK_METHOD0(load, void());
+    MOCK_METHOD0(onQAsImport, void());
     MOCK_METHOD0(onQAsUpdate, void());
 };
 #endif // QASREPOSITORYMOCK_H

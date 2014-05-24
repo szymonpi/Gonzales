@@ -7,9 +7,15 @@ const SimpleTree::Node<QA> &QARepository::getQAs() const
     return m_questionsTree;
 }
 
-void QARepository::onQAsUpdate()
+void QARepository::onQAsImport()
 {
     m_questionsPresnter->presentQuestions(m_questionsTree);
+    QASaver saver;
+    saver.save(m_questionsTree, m_userQAsFilePath);
+}
+
+void QARepository::onQAsUpdate()
+{
     QASaver saver;
     saver.save(m_questionsTree, m_userQAsFilePath);
 }

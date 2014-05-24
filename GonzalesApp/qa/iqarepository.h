@@ -9,5 +9,6 @@ class IQARepository: public QAsProvider
 {
 public:
     virtual void load() = 0;
+    virtual void onQAsImport() = 0;
     virtual void onQAsUpdate() = 0;
 };

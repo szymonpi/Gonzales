@@ -10,7 +10,7 @@ void QAsAppender::append(std::vector<std::shared_ptr<QA> > importedQAs)
     if(m_destinationSelector->select(createGroupsMap(mainNode), createStringQuestionsList(importedQAs)))
     {
         appendNewNodes(newNodes, mainNode);
-        m_qAsRepository->onQAsUpdate();
+        m_qAsRepository->onQAsImport();
     }
 }
 
