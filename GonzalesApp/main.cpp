@@ -3,6 +3,7 @@
 
 ///@todo: move factories there from mainwindow
 ///@todo add algorithm to Node for iterating!
+///@todo remove unnecessary files from repository
 
 
 int main(int argc, char *argv[])

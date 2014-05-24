@@ -37,42 +37,42 @@ public:
                 }
                 case QVariant::UInt:
                 {
-                    bool value;
+                    unsigned value;
                     deserializer.deserialize(value);
                     valueVariant.setValue(value);
                     break;
                 }
                 case QVariant::Int:
                 {
-                    bool value;
+                    int value;
                     deserializer.deserialize(value);
                     valueVariant.setValue(value);
                     break;
                 }
                 case QVariant::LongLong:
                 {
-                    bool value;
+                    long long value;
                     deserializer.deserialize(value);
                     valueVariant.setValue(value);
                     break;
                 }
                 case QVariant::ULongLong:
                 {
-                    bool value;
+                    unsigned long long value;
                     deserializer.deserialize(value);
                     valueVariant.setValue(value);
                     break;
                 }
                 case QVariant::Double:
                 {
-                    bool value;
+                    double value;
                     deserializer.deserialize(value);
                     valueVariant.setValue(value);
                     break;
                 }
                 case QVariant::String:
                 {
-                    bool value;
+                    QString value;
                     deserializer.deserialize(value);
                     valueVariant.setValue(value);
                     break;
