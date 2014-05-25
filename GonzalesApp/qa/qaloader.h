@@ -4,7 +4,7 @@
 
 #include<QQueue>
 
-#include "qacontainer.h"
+#include "QA.h"
 #include "../common/qtproxies/file.h"
 #include "../common/qtproxies/DataDeserializerfactory.h"
 #include "../common/qtproxies/filefactory.h"
@@ -18,7 +18,7 @@ class QALoader: public IQALoader
 public:
     QALoader(std::shared_ptr<IFileFactory> fileFactory = std::make_shared<FileFactory>(),
              std::shared_ptr<IQADeserializer> qASerializer = std::make_shared<QASerializer>(),
-             std::shared_ptr<IDataDeserializerFactory> DataDeserializerFactory
+             std::shared_ptr<IDataDeserializerFactory> dataDeserializerFactory
                 = std::make_shared<DataDeserializerFactory>());
 
     SimpleTree::Node<QA> load(const QString &userName);

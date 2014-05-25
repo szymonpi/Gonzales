@@ -47,4 +47,8 @@ void QARepository::load()
     {
         m_exceptionHandler->handleException(e.what(), "Loader error");
     }
+    catch(std::logic_error &e)
+    {
+        m_exceptionHandler->handleException(e.what(), "Loader error");
+    }
 }

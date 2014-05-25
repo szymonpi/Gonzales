@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 
-#include "qacontainer.h"
+#include "QA.h"
 #include "../common/qtproxies/file.h"
 #include "../common/qtproxies/filefactory.h"
 #include "../common/qtproxies/DataSerializerFactory.h"

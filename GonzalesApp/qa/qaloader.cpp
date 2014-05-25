@@ -4,10 +4,10 @@
 
 QALoader::QALoader(std::shared_ptr<IFileFactory> fileFactory,
                    std::shared_ptr<IQADeserializer> qASerializer,
-                   std::shared_ptr<IDataDeserializerFactory> DataDeserializerFactory):
+                   std::shared_ptr<IDataDeserializerFactory> dataDeserializerFactory):
     m_fileFactory(fileFactory),
     m_qADeserializer(qASerializer),
-    m_DataDeserializerFactory(DataDeserializerFactory)
+    m_DataDeserializerFactory(dataDeserializerFactory)
 {
 }
 

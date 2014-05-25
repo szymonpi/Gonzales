@@ -41,7 +41,7 @@ private slots:
 
 signals:
     void startLearn();
-    void emptyQAContainer();
+    void emptyQA();
     void questionGiven();
     void showAnswer();
     void answerVerified();

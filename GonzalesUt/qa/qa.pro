@@ -37,7 +37,10 @@ HEADERS += ../gtest.h \
     QALoaderMock.h \
     ../../GonzalesApp/qa/QAsToLearnProvider.h \
     ../../GonzalesApp/qa/QAsToLearnByUserChecker.h \
-    QAsProviderMock.h
+    QAsProviderMock.h \
+    ../../GonzalesApp/qa/QAsToLearnCheckedByUserProvider.h \
+    ../../GonzalesApp/qa/IQAsToLearnCheckedByUserProvider.h \
+    QAsToLearnCheckedByUserProviderMock.h
 
 SOURCES += \
     AllTests.cpp \
@@ -53,7 +56,9 @@ SOURCES += \
     QAsToLearnProviderTestSuite.cpp \
     ../../GonzalesApp/qa/QAsToLearnProvider.cpp \
     ../../GonzalesApp/qa/QAsTolearnByUserChecker.cpp \
-    QAsToLearnByUserCheckerSuite.cpp
+    QAsToLearnByUserCheckerSuite.cpp \
+    QAsToLearnCheckedByUserProviderTestSuite.cpp \
+    ../../GonzalesApp/qa/QAsToLearnCheckedByUserProvider.cpp
 
 LIBPATH += C:/gtest/lib
 LIBPATH += C:/gmock/lib

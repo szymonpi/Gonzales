@@ -38,14 +38,14 @@ SOURCES += main.cpp\
     uiobservers/AnswerPresenter.cpp \
     uiobservers/questioncollectionpresenter.cpp \
     QARepositoryFactory.cpp \
-    qa/QAsToLearnByUserChecker.cpp
+    qa/QAsToLearnByUserChecker.cpp \
+    qa/QAsToLearnCheckedByUserProvider.cpp
 
 HEADERS  += user/UserInfo.h \
     qa/QAFilePathSelector.h \
     qa/ImportHandler.h \
     qa/QASerializer.h \
     qa/QASaver.h \
-    qa/QAContainer.h \
     qa/QALoader.h \
     qa/QARepository.h \
     qa/QAImporter.h \
@@ -104,7 +104,9 @@ HEADERS  += user/UserInfo.h \
     common/qtproxies/DataSerializerFactory.h \
     common/qtproxies/DataSerializer.h \
     common/qtproxies/IDataSerializer.h \
-    qa/QAsToLearnByUserChecker.h
+    qa/QAsToLearnByUserChecker.h \
+    qa/QAsToLearnCheckedByUserProvider.h \
+    qa/QA.h
 
 FORMS    += ui/dialogs/logindialog.ui \
     ui/dialogs/dialogcreateaccount.ui \

@@ -1,6 +1,6 @@
 #pragma once
 #include "../Common/SimpleTree/Node.h"
-#include "../qa/QAContainer.h"
+#include "../qa/QA.h"
 
 class Answer;
 class Question;

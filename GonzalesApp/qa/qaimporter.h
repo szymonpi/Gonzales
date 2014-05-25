@@ -8,7 +8,7 @@
 #include <QRegExp>
 #include <QDebug>
 
-#include "qacontainer.h"
+#include "QA.h"
 #include "../common/qtproxies/filefactory.h"
 #include "../common/qtproxies/file.h"
 #include "../Common/SimpleTree/Node.h"

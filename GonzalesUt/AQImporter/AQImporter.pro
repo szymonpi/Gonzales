@@ -18,7 +18,7 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/qa/QASaver.h \
     ../../GonzalesApp/qa/QALoader.h \
     ../../GonzalesApp/qa/QAImporter.h \
-    ../../GonzalesApp/qa/QAContainer.h \
+    ../../GonzalesApp/qa/QA.h \
     ../../GonzalesApp/qa/Answer.h \
     ../../GonzalesApp/common/qtproxies/IFile.h \
     ../../GonzalesApp/common/qtproxies/FileFerializerFactory.h \

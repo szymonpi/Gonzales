@@ -82,7 +82,7 @@ void MainWindow::setupStateMachine()
     stateLearn.setInitialState(&stateQuestionQiven);
     stateIdle.addTransition(this, SIGNAL(startLearn()), &stateLearn);
 
-    stateLearn.addTransition(this, SIGNAL(emptyQAContainer()), &stateIdle);
+    stateLearn.addTransition(this, SIGNAL(emptyQA()), &stateIdle);
     stateLearn.addTransition(this, SIGNAL(stopLearn()), &stateIdle);
     stateQuestionQiven.addTransition(this, SIGNAL(showAnswer()), &stateShowAnswer);
     stateShowAnswer.addTransition(this, SIGNAL(questionGiven()), &stateQuestionQiven);

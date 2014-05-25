@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>resources/icons/question.jpg</file>
+        <file>resources/icons/import.jpg</file>
+        <file>resources/icons/learn.jpg</file>
+        <file>resources/icons/book.jpg</file>
+        <file>resources/icons/learning.jpg</file>
     </qresource>
 </RCC>

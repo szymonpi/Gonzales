@@ -6,7 +6,7 @@
 #include <memory>
 #include <stack>
 #include <vector>
-#include "../qa/qacontainer.h"
+#include "../qa/QA.h"
 #include "../uiobservers/IQuestionPresenter.h"
 #include "../uiobservers/IAnswerPresenter.h"
 #include "../qa/QAsToLearnProvider.h"

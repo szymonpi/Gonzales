@@ -31,7 +31,7 @@ class IPathCreator
 class PathCreator
 {
 public:
-    QString createQAsFilePath(const QString& userName)
+QString createQAsFilePath(const QString& userName)
     {
         QDir homeDirectory = QDir::homePath();
         if(!homeDirectory.cd(g_Company))

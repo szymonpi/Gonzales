@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "../qa/qacontainer.h"
+#include "../qa/QA.h"
 
 class ITeacher
 {

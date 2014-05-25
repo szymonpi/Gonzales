@@ -18,7 +18,6 @@ struct QA
     {
         question.serialize(serializer);
         answer.serialize(serializer);
-        serializer.serialize(m_toLearn);
     }
 
     void deserialize(IDataDeserializer&deserializer)
@@ -27,7 +26,6 @@ struct QA
         if(deserializer.status()==QDataStream::ReadPastEnd)
             throw FileException("empty file or can't read answer");
         answer.deserialize(deserializer);
-        deserializer.deserialize(m_toLearn);
     }
 
     bool operator ==(const QA &qA) const
@@ -35,12 +33,6 @@ struct QA
         return (qA.question == question) && (qA.answer == answer);
     }
 
-    bool toLearn() const
-    {
-        return m_toLearn;
-    }
-
     Question question;
     Answer answer;
-    bool m_toLearn;
 };

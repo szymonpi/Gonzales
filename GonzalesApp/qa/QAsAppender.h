@@ -1,6 +1,6 @@
 #pragma once
 #include "../Common/SimpleTree/Node.h"
-#include "../qa/qacontainer.h"
+#include "../qa/QA.h"
 #include "IQAsAppender.h"
 #include <QStringList>
 #include "IQARepository.h"
