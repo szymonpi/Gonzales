@@ -1,6 +1,7 @@
 #include "qarepositoryfactory.h"
 #include "qa/QALoader.h"
-#include "user/UserInfo.h"
+#include "qa/QASaver.h"
+#include "qa/QAsFilePathProvider.h"
 #include <QTreeWidget>
 #include "uiobservers/ExceptionHandler.h"
 #include "uiobservers/QuestionCollectionPresenter.h"
@@ -9,9 +10,11 @@
 
 
 QARepositoryFactory::QARepositoryFactory(QTreeWidget &widget,
-                                         const QString &userName):
+                                         std::shared_ptr<IQAsFilePathProvider> filePathProvider,
+                                         std::shared_ptr<IQALoader> loader):
     m_widget(widget),
-    m_userName(userName)
+    m_qasFilePathProvider(filePathProvider),
+    m_loader(loader)
 {
 
 }
@@ -19,12 +22,12 @@ QARepositoryFactory::QARepositoryFactory(QTreeWidget &widget,
 std::shared_ptr<QARepository> QARepositoryFactory::create()
 {
     std::shared_ptr<IExceptionHandler> l_exceptionHandler = std::make_shared<ExceptionHandler>();
-    PathCreator pathCreator;
     std::shared_ptr<IQuestionCollectionPresenter> l_questionCollectionPresenter(
                                 new QuestionCollectionPresenter(m_widget));
-    std::shared_ptr<QALoader> loader = std::make_shared<QALoader>();
-    return std::make_shared<QARepository>(pathCreator.createQAsFilePath(m_userName),
+    std::shared_ptr<QASaver> saver = std::make_shared<QASaver>(m_qasFilePathProvider);
+    return std::make_shared<QARepository>(m_qasFilePathProvider->getPath(),
                                                   l_exceptionHandler,
                                                   l_questionCollectionPresenter,
-                                                  loader);
+                                                  m_loader,
+                                                  saver);
 }

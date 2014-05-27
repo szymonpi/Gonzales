@@ -40,7 +40,8 @@ HEADERS += ../gtest.h \
     QAsProviderMock.h \
     ../../GonzalesApp/qa/QAsToLearnCheckedByUserProvider.h \
     ../../GonzalesApp/qa/IQAsToLearnCheckedByUserProvider.h \
-    QAsToLearnCheckedByUserProviderMock.h
+    QAsToLearnCheckedByUserProviderMock.h \
+    QASaverMock.h
 
 SOURCES += \
     AllTests.cpp \

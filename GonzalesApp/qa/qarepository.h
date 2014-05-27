@@ -7,6 +7,7 @@
 #include "../Common/SimpleTree/Node.h"
 #include "../uiobservers/IExceptionHandler.h"
 #include "../uiobservers/IQuestionCollectionPresenter.h"
+#include "IQASaver.h"
 
 
 ///@todo move load to loadhandler
@@ -18,13 +19,15 @@ public:
     QARepository(const QString &userFilePath,
                  std::shared_ptr<IExceptionHandler> exceptionHandler,
                  std::shared_ptr<IQuestionCollectionPresenter> questionsPresenter,
-                 std::shared_ptr<IQALoader> qAsLoader);
+                 std::shared_ptr<IQALoader> qAsLoader,
+                 std::shared_ptr<IQASaver> qAsSaver);
 
     SimpleTree::Node<QA> &getQAs();
     const SimpleTree::Node<QA> &getQAs() const;
     void onQAsImport();
     void onQAsUpdate();
     void load();
+    void registerQuestionCollectionPresenter(std::shared_ptr<IQuestionCollectionPresenter> presenter);
 
 private:
     SimpleTree::Node<QA> m_questionsTree;
@@ -32,4 +35,5 @@ private:
     std::shared_ptr<IExceptionHandler> m_exceptionHandler;
     std::shared_ptr<IQuestionCollectionPresenter> m_questionsPresnter;
     std::shared_ptr<IQALoader> m_qAsLoader;
+    std::shared_ptr<IQASaver> m_qAsSaver;
 };

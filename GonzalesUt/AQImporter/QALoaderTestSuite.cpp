@@ -12,6 +12,7 @@
 #include "DataDeserializerFactoryMock.h"
 #include "FileMock.h"
 #include "QASerializerMock.h"
+#include "QAsFilePathProviderMock.h"
 
 using namespace testing;
 
@@ -19,13 +20,15 @@ class QALoadTestSuite : public testing::Test
 {
 protected:
     QALoadTestSuite():
+        filePathProviderMock(std::make_shared<QAsFilePathProviderMock>()),
         fileMock(std::make_shared<FileMock>()),
         fileFactoryMock(std::make_shared<FileFactoryMock>()),
         dataDeserializerMock(std::make_shared<DataDeserializerMock>()),
         dataDeserializerFactoryMock(std::make_shared<DataDeserializerFactoryMock>()),
-        loader(fileFactoryMock, m_qaDeserializerMock, dataDeserializerFactoryMock),
+        loader(filePathProviderMock, fileFactoryMock, m_qaDeserializerMock, dataDeserializerFactoryMock),
         qa(Question("question"), Answer("answer"))
     {
+        EXPECT_CALL(*filePathProviderMock, getPath()).WillOnce(Return(path));
     }
 
     void SetUp()
@@ -69,6 +72,7 @@ protected:
     }
 
     QString path = "path";
+    std::shared_ptr<QAsFilePathProviderMock> filePathProviderMock;
     std::shared_ptr<FileMock> fileMock;
     std::shared_ptr<FileFactoryMock> fileFactoryMock;
     std::shared_ptr<DataDeserializerMock> dataDeserializerMock;
@@ -83,7 +87,7 @@ protected:
 TEST_F(QALoadTestSuite, shouldntLoadFile_FileIsntOpen)
 {
     expectOpenFile(false);
-    ASSERT_THROW(loader.load(path), FileException);
+    ASSERT_THROW(loader.load(), FileException);
 }
 
 TEST_F(QALoadTestSuite, shouldntLoadAnyQA_FileVersionIsUnsupported)
@@ -91,7 +95,7 @@ TEST_F(QALoadTestSuite, shouldntLoadAnyQA_FileVersionIsUnsupported)
     expectFileIsReadyToRead();
     expectCreateDeserializer();
     expectDeserializeFileVersion(QAUnsupportedFileVersion);
-    EXPECT_THROW(loader.load(path), FileException);
+    EXPECT_THROW(loader.load(), FileException);
 }
 
 TEST_F(QALoadTestSuite, shouldntImportAnyQA_DataCorupted)
@@ -102,7 +106,7 @@ TEST_F(QALoadTestSuite, shouldntImportAnyQA_DataCorupted)
     expectDeserializeQAs();
     expectDeserializedDataWillBeCorupted();
 
-    EXPECT_THROW(loader.load(path), FileException);
+    EXPECT_THROW(loader.load(), FileException);
 }
 
 TEST_F(QALoadTestSuite, shouldLoadQAsFromFile)
@@ -116,6 +120,6 @@ TEST_F(QALoadTestSuite, shouldLoadQAsFromFile)
     EXPECT_CALL(*m_qaDeserializerMock, deserialize(_,_)).WillOnce(SetArgReferee<1>(rootNodeToSet));
     EXPECT_CALL(*dataDeserializerMock, status()).WillOnce(Return(QDataStream::Ok));
 
-    SimpleTree::Node<QA> rootNode = loader.load(path);
+    SimpleTree::Node<QA> rootNode = loader.load();
     EXPECT_EQ(rootNode, rootNodeToSet);
 }

@@ -25,15 +25,18 @@
 #include "../ImportHandlerFactory.h"
 #include "../QARepositoryFactory.h"
 #include "../qa/QAsToLearnByUserChecker.h"
+#include "../qa/QAsFilePathProvider.h"
+#include "../qa/QANullLoader.h"
 
 void MainWindow::loadUserData()
 {
     qARepository->load();
 }
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(const UserInfo &userInfo, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
+    m_userInfo(userInfo),
     stateIdle(),
     stateLearn(),
     stateQuestionQiven(&stateLearn),
@@ -41,21 +44,10 @@ MainWindow::MainWindow(QWidget *parent) :
     stateAnswerVerified(&stateLearn)
 {
     ui->setupUi(this);
-    authorize();
     setupWindowUI();
     setupControllers();
     loadUserData();
 
-}
-
-void MainWindow::authorize()
-{
-    LoginDialog loginDialog;
-    loginDialog.setModal(true);
-    loginDialog.exec();
-    if(!loginDialog.isAuthorized())
-        exit(0);
-    m_userInfo = loginDialog.getUserInfo();
 }
 
 void MainWindow::setupWindowUI()
@@ -66,8 +58,18 @@ void MainWindow::setupWindowUI()
 
 void MainWindow::setupControllers()
 {
-    QARepositoryFactory qARepositoryFactory(*ui->treeWidgetQuestions,
-                                            m_userInfo.login);
+    std::shared_ptr<QAsFilePathProvider> qasFilePathProvider = std::make_shared<QAsFilePathProvider>(m_userInfo);
+    std::shared_ptr<IQALoader> loader;
+    if(qasFilePathProvider->isCreateFilePathNeeded())
+    {
+        qasFilePathProvider->createQAsFilePath();
+        loader = std::make_shared<QANullLoader>();
+    }
+    else
+    {
+        loader = std::make_shared<QALoader>(qasFilePathProvider);
+    }
+    QARepositoryFactory qARepositoryFactory(*ui->treeWidgetQuestions, qasFilePathProvider, loader);
     qARepository = qARepositoryFactory.create();
 
     TeacherControllerFactory teacherControllerFactory(qARepository, *ui->textEditQuestion, *ui->textEditAnswer);

@@ -7,7 +7,7 @@
 class QALoaderMock: public IQALoader
 {
 public:
-    MOCK_METHOD1(load, SimpleTree::Node<QA>(const QString &userName));
+    MOCK_METHOD0(load, SimpleTree::Node<QA>());
 };
 
 #endif // QALOADERMOCK_H

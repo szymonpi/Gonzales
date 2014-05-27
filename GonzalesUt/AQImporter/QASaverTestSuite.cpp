@@ -12,7 +12,7 @@
 #include "DataSerializerFactoryMock.h"
 #include "QASerializerMock.h"
 #include "../../GonzalesApp/common/SimpleTree/Node.h"
-
+#include "QAsFilePathProviderMock.h"
 #include "FileMock.h"
 
 using namespace testing;
@@ -21,12 +21,13 @@ class QASaveTestSuite : public testing::Test
 {
 protected:
     QASaveTestSuite():
+        m_filePathProviderMock(std::make_shared<QAsFilePathProviderMock>()),
         m_fileMock(std::make_shared<FileMock>()),
         m_fileFactoryMock(std::make_shared<FileFactoryMock>()),
         m_DataSerializerMock(std::make_shared<DataSerializerMock>()),
         m_DataSerializerFactoryMock(std::make_shared<DataSerializerFactoryMock>()),
         m_qaSerializerMock(std::make_shared<QASerializerMock>()),
-        m_saver(m_fileFactoryMock, m_qaSerializerMock, m_DataSerializerFactoryMock)
+        m_saver(m_filePathProviderMock, m_fileFactoryMock, m_qaSerializerMock, m_DataSerializerFactoryMock)
     {
     }
 
@@ -36,6 +37,7 @@ protected:
 
         m_path = "path";
         EXPECT_CALL(*m_fileFactoryMock, create(m_path)).WillOnce(Return(m_fileMock));
+        EXPECT_CALL(*m_filePathProviderMock, getPath()).WillOnce(Return(m_path));
     }
 
     Matcher<const char *> questionMatcher(Question qa)
@@ -55,7 +57,7 @@ protected:
 
     void saveWillThrow(SimpleTree::Node<QA> &qAs)
     {
-        EXPECT_THROW(m_saver.save(qAs, m_path), FileException);
+        EXPECT_THROW(m_saver.save(qAs), FileException);
     }
 
     void expectSerializeQaVersion()
@@ -92,7 +94,7 @@ protected:
     }
 
 
-
+    std::shared_ptr<QAsFilePathProviderMock> m_filePathProviderMock;
     std::shared_ptr<FileMock> m_fileMock;
     std::shared_ptr<FileFactoryMock> m_fileFactoryMock;
     std::shared_ptr<DataSerializerMock> m_DataSerializerMock;
@@ -110,7 +112,7 @@ TEST_F(QASaveTestSuite, shouldSaveOneQA)
     expectSerializeQaVersion();
     expectSerializeQA();
     expectDataStreamStatusOk();
-    ASSERT_NO_THROW(m_saver.save(m_oneQAs, m_path));
+    ASSERT_NO_THROW(m_saver.save(m_oneQAs));
 }
 
 TEST_F(QASaveTestSuite, shouldSaveTwoQA)
@@ -119,7 +121,7 @@ TEST_F(QASaveTestSuite, shouldSaveTwoQA)
     expectSerializeQaVersion();
     expectSerializeQA();
     expectDataStreamStatusOk();
-    ASSERT_NO_THROW(m_saver.save(m_oneQAs, m_path));
+    ASSERT_NO_THROW(m_saver.save(m_oneQAs));
 }
 
 TEST_F(QASaveTestSuite, shouldntSaveFile_FileIsntOpen)

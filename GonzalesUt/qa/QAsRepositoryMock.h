@@ -11,5 +11,7 @@ public:
     MOCK_METHOD0(load, void());
     MOCK_METHOD0(onQAsImport, void());
     MOCK_METHOD0(onQAsUpdate, void());
+    MOCK_METHOD1(registerQuestionCollectionPresenter, void(std::shared_ptr<IQuestionCollectionPresenter>));
+
 };
 #endif // QASREPOSITORYMOCK_H

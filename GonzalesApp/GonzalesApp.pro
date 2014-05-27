@@ -106,7 +106,11 @@ HEADERS  += user/UserInfo.h \
     common/qtproxies/IDataSerializer.h \
     qa/QAsToLearnByUserChecker.h \
     qa/QAsToLearnCheckedByUserProvider.h \
-    qa/QA.h
+    qa/QA.h \
+    qa/QAsFilePathProvider.h \
+    qa/IQAsFilePathProvider.h \
+    qa/IQASaver.h \
+    qa/QANullLoader.h
 
 FORMS    += ui/dialogs/logindialog.ui \
     ui/dialogs/dialogcreateaccount.ui \

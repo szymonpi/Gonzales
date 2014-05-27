@@ -5,9 +5,11 @@
 #include "../Common/SimpleTree/Utils.h"
 
 
-QASaver::QASaver(std::shared_ptr<IFileFactory> fileFactory,
+QASaver::QASaver(std::shared_ptr<IQAsFilePathProvider> filePathProvider,
+                 std::shared_ptr<IFileFactory> fileFactory,
                  std::shared_ptr<IQASerializer> qASerializer,
                  std::shared_ptr<IDataSerializerFactory> dataSerializerFactory):
+    m_filePathProvider(filePathProvider),
     fileFactory(fileFactory),
     qASerializer(qASerializer),
     dataSerializerFactory(dataSerializerFactory)
@@ -25,9 +27,9 @@ void QASaver::serializeFileVersion(IDataSerializer &serializer)
     serializer.serialize(static_cast<quint16>(QAFileVersion1));
 }
 
-void QASaver::save(const SimpleTree::Node<QA> &questionAnswers, const QString &filePath)
+void QASaver::save(const SimpleTree::Node<QA> &questionAnswers)
 {
-    std::shared_ptr<IFile> file = fileFactory->create(filePath);
+    std::shared_ptr<IFile> file = fileFactory->create(m_filePathProvider->getPath());
     openFile(*file);
     std::shared_ptr<IDataSerializer> serializer = dataSerializerFactory->create(file->getIODevice());
     serializeFileVersion(*serializer);

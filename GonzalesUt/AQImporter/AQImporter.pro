@@ -35,7 +35,8 @@ HEADERS += ../gtest.h \
     DataSerializerFactoryMock.h \
     DataSerializerMock.h \
     DataDeserializerFactoryMock.h \
-    DataDeserializerMock.h
+    DataDeserializerMock.h \
+    QAsFilePathProviderMock.h
 
 SOURCES += \
     QAImporterTestSuite.cpp \

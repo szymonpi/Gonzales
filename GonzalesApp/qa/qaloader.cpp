@@ -2,9 +2,11 @@
 #include <memory>
 #include "../Common/SimpleTree/Utils.h"
 
-QALoader::QALoader(std::shared_ptr<IFileFactory> fileFactory,
+QALoader::QALoader(std::shared_ptr<IQAsFilePathProvider> filePathProvider,
+                   std::shared_ptr<IFileFactory> fileFactory,
                    std::shared_ptr<IQADeserializer> qASerializer,
                    std::shared_ptr<IDataDeserializerFactory> dataDeserializerFactory):
+    m_filePathProvider(filePathProvider),
     m_fileFactory(fileFactory),
     m_qADeserializer(qASerializer),
     m_DataDeserializerFactory(dataDeserializerFactory)
@@ -28,9 +30,9 @@ void QALoader::validateDeserializerStatus(IDataDeserializer &deserializer)
 
 }
 
-SimpleTree::Node<QA> QALoader::load(const QString &filePath)
+SimpleTree::Node<QA> QALoader::load()
 {
-    std::shared_ptr<IFile> file = m_fileFactory->create(filePath);
+    std::shared_ptr<IFile> file = m_fileFactory->create(m_filePathProvider->getPath());
     if(!file->open(QFile::ReadOnly))
         throw FileException("Can't open file");
 
