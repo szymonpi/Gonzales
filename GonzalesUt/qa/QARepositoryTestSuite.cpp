@@ -18,7 +18,7 @@ TEST(QARepositoryTestSuite, loadQAsWillThrow)
     QString filePath = "filePath";
     EXPECT_CALL(*l_loaderMock, load()).WillOnce(Throw(FileException()));
     EXPECT_CALL(*l_exceptionHandlerMock, handleException(_,_));
-    QARepository repository(filePath, l_exceptionHandlerMock, l_presenter, l_loaderMock, l_saverMock);
+    QARepository repository(filePath, l_exceptionHandlerMock, l_loaderMock, l_saverMock, l_presenter);
     EXPECT_NO_THROW(repository.load());
 }
 
@@ -32,7 +32,7 @@ TEST(QARepositoryTestSuite, LoadQAsWillLoadQAProperly)
     SimpleTree::Node<QA> rootNode;
     EXPECT_CALL(*l_loaderMock, load()).WillOnce(Return(rootNode));
     EXPECT_CALL(*l_presenter, presentQuestions(rootNode));
-    QARepository repository(filePath, l_exceptionHandlerMock, l_presenter, l_loaderMock, l_saverMock);
+    QARepository repository(filePath, l_exceptionHandlerMock, l_loaderMock, l_saverMock, l_presenter);
     EXPECT_NO_THROW(repository.load());
     EXPECT_EQ(rootNode, repository.getQAs());
 }

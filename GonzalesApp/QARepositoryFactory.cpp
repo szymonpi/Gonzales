@@ -9,10 +9,8 @@
 
 
 
-QARepositoryFactory::QARepositoryFactory(QTreeWidget &widget,
-                                         std::shared_ptr<IQAsFilePathProvider> filePathProvider,
+QARepositoryFactory::QARepositoryFactory(std::shared_ptr<IQAsFilePathProvider> filePathProvider,
                                          std::shared_ptr<IQALoader> loader):
-    m_widget(widget),
     m_qasFilePathProvider(filePathProvider),
     m_loader(loader)
 {
@@ -22,12 +20,9 @@ QARepositoryFactory::QARepositoryFactory(QTreeWidget &widget,
 std::shared_ptr<QARepository> QARepositoryFactory::create()
 {
     std::shared_ptr<IExceptionHandler> l_exceptionHandler = std::make_shared<ExceptionHandler>();
-    std::shared_ptr<IQuestionCollectionPresenter> l_questionCollectionPresenter(
-                                new QuestionCollectionPresenter(m_widget));
     std::shared_ptr<QASaver> saver = std::make_shared<QASaver>(m_qasFilePathProvider);
     return std::make_shared<QARepository>(m_qasFilePathProvider->getPath(),
                                                   l_exceptionHandler,
-                                                  l_questionCollectionPresenter,
                                                   m_loader,
                                                   saver);
 }

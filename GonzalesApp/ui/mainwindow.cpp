@@ -69,8 +69,12 @@ void MainWindow::setupControllers()
     {
         loader = std::make_shared<QALoader>(qasFilePathProvider);
     }
-    QARepositoryFactory qARepositoryFactory(*ui->treeWidgetQuestions, qasFilePathProvider, loader);
+    std::shared_ptr<IQuestionCollectionPresenter> l_questionCollectionPresenter(
+                                new QuestionCollectionPresenter(*ui->treeWidgetQuestions));
+
+    QARepositoryFactory qARepositoryFactory(qasFilePathProvider, loader);
     qARepository = qARepositoryFactory.create();
+    qARepository->registerQuestionCollectionPresenter(l_questionCollectionPresenter);
 
     TeacherControllerFactory teacherControllerFactory(qARepository, *ui->textEditQuestion, *ui->textEditAnswer);
     ImportHandlerFactory importFactory(qARepository);
