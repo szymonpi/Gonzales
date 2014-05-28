@@ -41,7 +41,7 @@ MainWindow::MainWindow(const UserInfo &userInfo, std::shared_ptr<IQARepository> 
 
 void MainWindow::setupWindowUI()
 {
-    setWindowTitle(m_userInfo.login);
+    setWindowTitle("Logged as "+m_userInfo.login);
     setupStateMachine();
 }
 

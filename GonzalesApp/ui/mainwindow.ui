@@ -173,6 +173,12 @@ p, li { white-space: pre-wrap; }
               <property name="enabled">
                <bool>false</bool>
               </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>32</height>
+               </size>
+              </property>
               <property name="text">
                <string>I don't know</string>
               </property>
