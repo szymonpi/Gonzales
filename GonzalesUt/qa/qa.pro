@@ -43,7 +43,8 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/qa/QAsSelection/QAsToLearnByUserChecker.h \
     ../../GonzalesApp/qa/QAsSelection/QAsProvider.h \
     ../../GonzalesApp/qa/QAsSelection/IQAsToLearnProvider.h \
-    ../../GonzalesApp/qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h
+    ../../GonzalesApp/qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h \
+    ../../GonzalesApp/qa/QAsSelection/IQAsSelector.h
 
 SOURCES += \
     AllTests.cpp \
@@ -61,7 +62,9 @@ SOURCES += \
     QAsToLearnCheckedByUserProviderTestSuite.cpp \
     ../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.cpp \
     ../../GonzalesApp/qa/QAsSelection/QAsToLearnCheckedByUserProvider.cpp \
-    ../../GonzalesApp/qa/QAsSelection/QAsTolearnByUserChecker.cpp
+    ../../GonzalesApp/qa/QAsSelection/QAsTolearnByUserChecker.cpp \
+    ../../GonzalesApp/qa/QAsSelection/QAsSelector.cpp \
+    QAsSelectorTestSuite.cpp
 
 LIBPATH += C:/gtest/lib
 LIBPATH += C:/gmock/lib
