@@ -2,7 +2,7 @@
 #define QASTOLEARNPROVIDERMOCK_H
 
 #include "../gmock.h"
-#include "../../GonzalesApp/qa/QAsToLearnProvider.h"
+#include "../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.h"
 
 class QAsToLearnProviderMock: public IQAsToLearnProvider
 {

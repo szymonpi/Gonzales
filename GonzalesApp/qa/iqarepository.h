@@ -3,7 +3,7 @@
 #include <QString>
 #include "../Common/SimpleTree/Node.h"
 #include "QA.h"
-#include "QAsProvider.h"
+#include "QAsSelection/QAsProvider.h"
 #include "../uiobservers/IQuestionCollectionPresenter.h"
 
 class IQARepository: public QAsProvider

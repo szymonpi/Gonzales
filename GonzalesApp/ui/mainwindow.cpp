@@ -12,7 +12,7 @@
 #include "../uiobservers/AnswerPresenter.h"
 #include "../uiobservers/QuestionPresenter.h"
 #include "../uiobservers/QuestionCollectionPresenter.h"
-#include "../qa/QAsToLearnByUserChecker.h"
+#include "../qa/QAsSelection/QAsToLearnByUserChecker.h"
 
 void MainWindow::loadUserData()
 {

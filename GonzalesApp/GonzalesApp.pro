@@ -19,7 +19,6 @@ SOURCES += main.cpp\
     qa/QARepository.cpp \
     qa/QAimporter.cpp \
     qa/QALoader.cpp \
-    qa/QAsToLearnProvider.cpp \
     qa/QAsAppender.cpp \
     teaching/Teacher.cpp \
     teaching/TeacherController.cpp \
@@ -38,8 +37,9 @@ SOURCES += main.cpp\
     uiobservers/AnswerPresenter.cpp \
     uiobservers/questioncollectionpresenter.cpp \
     QARepositoryFactory.cpp \
-    qa/QAsToLearnByUserChecker.cpp \
-    qa/QAsToLearnCheckedByUserProvider.cpp
+    qa/QAsSelection/QAsToLearnProvider.cpp \
+    qa/QAsSelection/QAsToLearnCheckedByUserProvider.cpp \
+    qa/QAsSelection/QAsTolearnByUserChecker.cpp
 
 HEADERS  += user/UserInfo.h \
     qa/QAFilePathSelector.h \
@@ -50,7 +50,6 @@ HEADERS  += user/UserInfo.h \
     qa/QARepository.h \
     qa/QAImporter.h \
     qa/IQARepository.h \
-    qa/QAsToLearnProvider.h \
     qa/Answer.h \
     qa/Question.h \
     common/qtproxies/ApplicationSettings.h \
@@ -75,7 +74,6 @@ HEADERS  += user/UserInfo.h \
     qa/IQAFilePathSelector.h \
     qa/IQALoader.h \
     qa/IQASerializer.h \
-    qa/IQAsToLearnProvider.h \
     uiobservers/QAsDestinationSelector.h \
     uiobservers/IExceptionHandler.h \
     uiobservers/FilePathSelector.h \
@@ -94,7 +92,6 @@ HEADERS  += user/UserInfo.h \
     TeacherControllerFactory.h \
     ImportHandlerFactory.h \
     QARepositoryFactory.h \
-    qa/QAsProvider.h \
     common/SimpleTree/NodeSerializer.h \
     common/SimpleTree/InfosSerializer.h \
     common/SimpleTree/IInfosSerializer.h \
@@ -104,13 +101,17 @@ HEADERS  += user/UserInfo.h \
     common/qtproxies/DataSerializerFactory.h \
     common/qtproxies/DataSerializer.h \
     common/qtproxies/IDataSerializer.h \
-    qa/QAsToLearnByUserChecker.h \
-    qa/QAsToLearnCheckedByUserProvider.h \
     qa/QA.h \
     qa/QAsFilePathProvider.h \
     qa/IQAsFilePathProvider.h \
     qa/IQASaver.h \
-    qa/QANullLoader.h
+    qa/QANullLoader.h \
+    qa/QAsSelection/QAsToLearnProvider.h \
+    qa/QAsSelection/QAsToLearnCheckedByUserProvider.h \
+    qa/QAsSelection/QAsToLearnByUserChecker.h \
+    qa/QAsSelection/QAsProvider.h \
+    qa/QAsSelection/IQAsToLearnProvider.h \
+    qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h
 
 FORMS    += ui/dialogs/logindialog.ui \
     ui/dialogs/dialogcreateaccount.ui \

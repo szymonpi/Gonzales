@@ -2,7 +2,7 @@
 #include <memory>
 #include "../gtest.h"
 #include "../gmock.h"
-#include "../../GonzalesApp/qa/QAsToLearnByUserChecker.h"
+#include "../../GonzalesApp/qa/QAsSelection/QAsToLearnByUserChecker.h"
 #include "../../GonzalesApp/common/SimpleTree/Node.h"
 #include "QAsRepositoryMock.h"
 #include "../../GonzalesApp/common/Common.h"

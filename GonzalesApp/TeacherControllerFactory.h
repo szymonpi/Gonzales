@@ -3,7 +3,7 @@
 
 #include <QTextEdit>
 #include "teaching/teachercontroller.h"
-#include "qa/QAsToLearnCheckedByUserProvider.h"
+#include "qa/QAsSelection/QAsToLearnCheckedByUserProvider.h"
 
 class TeacherControllerFactory{
 

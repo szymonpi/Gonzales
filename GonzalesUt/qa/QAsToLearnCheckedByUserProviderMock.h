@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../GonzalesApp/qa/IQAsToLearnCheckedByUserProvider.h"
+#include "../../GonzalesApp/qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h"
 #include "../gmock.h"
 
 class QAsToLearnCheckedByUserProviderMock: public IQAsToLearnCheckedByUserProvider

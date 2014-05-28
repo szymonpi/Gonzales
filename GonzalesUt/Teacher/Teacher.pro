@@ -7,6 +7,7 @@ CONFIG += warn_off
 
 SOURCES += \
     ../../GonzalesApp/teaching/teacher.cpp \
+    "../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.h" \
     TeacherTestSuite.cpp
 
 HEADERS += ../gtest.h \
@@ -15,6 +16,7 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/teaching/Teacher.h \
     PresentersMock.h \
     ../../GonzalesApp/common/qtproxies/DataDeserializerFactory.h \
+    ../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.cpp \
     ../../GonzalesApp/common/qtproxies/DataDeserializer.h \
     ../../GonzalesApp/common/SimpleTree/Node.h \
     QAsToLearnProviderMock.h

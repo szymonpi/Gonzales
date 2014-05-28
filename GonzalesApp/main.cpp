@@ -7,9 +7,7 @@
 #include "ImportHandlerFactory.h"
 #include "TeacherControllerFactory.h"
 
-///@todo: move factories there from mainwindow
 ///@todo add algorithm to Node for iterating!
-///@todo remove unnecessary files from repository
 ///@todo add validation in appendQA dialog
 
 int main(int argc, char *argv[])

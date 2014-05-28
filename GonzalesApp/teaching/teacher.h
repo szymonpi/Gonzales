@@ -9,7 +9,7 @@
 #include "../qa/QA.h"
 #include "../uiobservers/IQuestionPresenter.h"
 #include "../uiobservers/IAnswerPresenter.h"
-#include "../qa/QAsToLearnProvider.h"
+#include "../qa/QAsSelection/QAsToLearnProvider.h"
 
 class Teacher
 {

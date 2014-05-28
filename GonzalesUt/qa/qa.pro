@@ -35,13 +35,15 @@ HEADERS += ../gtest.h \
     QAsDestinationSelectorMock.h \
     QAsRepositoryMock.h \
     QALoaderMock.h \
-    ../../GonzalesApp/qa/QAsToLearnProvider.h \
-    ../../GonzalesApp/qa/QAsToLearnByUserChecker.h \
     QAsProviderMock.h \
-    ../../GonzalesApp/qa/QAsToLearnCheckedByUserProvider.h \
-    ../../GonzalesApp/qa/IQAsToLearnCheckedByUserProvider.h \
     QAsToLearnCheckedByUserProviderMock.h \
-    QASaverMock.h
+    QASaverMock.h \
+    ../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.h \
+    ../../GonzalesApp/qa/QAsSelection/QAsToLearnCheckedByUserProvider.h \
+    ../../GonzalesApp/qa/QAsSelection/QAsToLearnByUserChecker.h \
+    ../../GonzalesApp/qa/QAsSelection/QAsProvider.h \
+    ../../GonzalesApp/qa/QAsSelection/IQAsToLearnProvider.h \
+    ../../GonzalesApp/qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h
 
 SOURCES += \
     AllTests.cpp \
@@ -55,11 +57,11 @@ SOURCES += \
     FilePathSelectorTestSuite.cpp \
     QAsAppenderTestSuite.cpp \
     QAsToLearnProviderTestSuite.cpp \
-    ../../GonzalesApp/qa/QAsToLearnProvider.cpp \
-    ../../GonzalesApp/qa/QAsTolearnByUserChecker.cpp \
     QAsToLearnByUserCheckerSuite.cpp \
     QAsToLearnCheckedByUserProviderTestSuite.cpp \
-    ../../GonzalesApp/qa/QAsToLearnCheckedByUserProvider.cpp
+    ../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.cpp \
+    ../../GonzalesApp/qa/QAsSelection/QAsToLearnCheckedByUserProvider.cpp \
+    ../../GonzalesApp/qa/QAsSelection/QAsTolearnByUserChecker.cpp
 
 LIBPATH += C:/gtest/lib
 LIBPATH += C:/gmock/lib
