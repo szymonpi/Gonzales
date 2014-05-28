@@ -1,19 +1,18 @@
 #pragma once
 #include <memory>
 #include <QString>
+
+class UserInfo;
 class QTreeWidget;
 class IExceptionHandler;
 class IQALoader;
-class QARepository;
+class IQARepository;
 class IQAsFilePathProvider;
 
 class QARepositoryFactory
 {
 public:
-
-    QARepositoryFactory(std::shared_ptr<IQAsFilePathProvider> filePathProvider,
-                        std::shared_ptr<IQALoader> loader);
-    std::shared_ptr<QARepository> create();
+    std::shared_ptr<IQARepository> create(const UserInfo &userInfo);
 
 private:
     std::shared_ptr<IQAsFilePathProvider> m_qasFilePathProvider;

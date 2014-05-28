@@ -3,6 +3,9 @@
 
 #include "User/UserInfo.h"
 #include "ui/dialogs/LoginDialog.h"
+#include "QARepositoryFactory.h"
+#include "ImportHandlerFactory.h"
+#include "TeacherControllerFactory.h"
 
 ///@todo: move factories there from mainwindow
 ///@todo add algorithm to Node for iterating!
@@ -16,11 +19,19 @@ int main(int argc, char *argv[])
     LoginDialog loginDialog;
     loginDialog.setModal(true);
     loginDialog.exec();
-    if(!loginDialog.isAuthorized()) // <- move to main.cpp
+    if(!loginDialog.isAuthorized())
         exit(0);
     UserInfo m_userInfo = loginDialog.getUserInfo();
 
-    MainWindow w{m_userInfo};
+    QARepositoryFactory qARepositoryFactory;
+    auto repository = qARepositoryFactory.create(m_userInfo);
+    ImportHandlerFactory importFactory(repository);
+    TeacherControllerFactory teacherControllerFactory(repository);
+
+    MainWindow w{m_userInfo,
+                 repository,
+                 importFactory.create(),
+                 teacherControllerFactory.create()};
     w.show();
 
     return a.exec();

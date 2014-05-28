@@ -20,7 +20,11 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(const UserInfo &m_userInfo, QWidget *parent = 0);
+    explicit MainWindow(const UserInfo &m_userInfo,
+                        std::shared_ptr<IQARepository> qARepository,
+                        std::shared_ptr<ImportHandler> importHandler,
+                        std::shared_ptr<TeacherController> teacherController,
+                        QWidget *parent = 0);
     ~MainWindow();
 
     void updateQuestion();
@@ -50,6 +54,9 @@ signals:
 private:
     Ui::MainWindow *ui;
     UserInfo m_userInfo;
+    std::shared_ptr<IQARepository> qARepository;
+    std::shared_ptr<ImportHandler> importHandler;
+    std::shared_ptr<TeacherController> teacherController;
 
     QPair<QString,QString> currentQA;
     QStateMachine stateMachine;
@@ -60,9 +67,6 @@ private:
         QState stateShowAnswer;
         QState stateAnswerVerified;
 
-    std::shared_ptr<IQARepository> qARepository;
-    std::shared_ptr<TeacherController> teacherController;
-    std::shared_ptr<ImportHandler> importHandler;
 
     void setupStateMachine();
 };

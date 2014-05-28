@@ -5,7 +5,7 @@
 class QAsFilePathProvider: public IQAsFilePathProvider
 {
 public:
-    QAsFilePathProvider(UserInfo &userInfo):
+    QAsFilePathProvider(const UserInfo &userInfo):
         m_userInfo(userInfo)
     {
         QDir homeDirectory = QDir::homePath();
@@ -43,5 +43,5 @@ QString getPath() const
 
 private:
     QString m_path;
-    UserInfo &m_userInfo;
+    const UserInfo &m_userInfo;
 };

@@ -5,6 +5,7 @@
 #include "qa/QAImporter.h"
 #include "qa/QAsAppender.h"
 #include "qa/ImportHandler.h"
+#include "ui/dialogs/DialogQAImporterSelector.h"
 
 class ImportHandlerFactory{
 public:
