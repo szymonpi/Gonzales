@@ -76,10 +76,14 @@ void MainWindow::setupControllers()
     qARepository = qARepositoryFactory.create();
     qARepository->registerQuestionCollectionPresenter(l_questionCollectionPresenter);
 
-    TeacherControllerFactory teacherControllerFactory(qARepository, *ui->textEditQuestion, *ui->textEditAnswer);
+    TeacherControllerFactory teacherControllerFactory(qARepository);
     ImportHandlerFactory importFactory(qARepository);
 
+    std::shared_ptr<IQuestionPresenter> l_questionPresenter(new QuestionPresenter(*ui->textEditQuestion));
+    std::shared_ptr<IAnswerPresenter> l_answerPresenter(new AnswerPresenter(*ui->textEditAnswer));
+
     teacherController = teacherControllerFactory.create();
+    teacherController->registerQuestionAndAnswerPresenter(l_questionPresenter, l_answerPresenter);
     importHandler = importFactory.create();
 }
 

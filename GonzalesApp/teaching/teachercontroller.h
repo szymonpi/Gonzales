@@ -9,12 +9,10 @@
 class TeacherController
 {
 public:
-    TeacherController(std::shared_ptr<IQuestionPresenter> questionPresenter,
-                      std::shared_ptr<IAnswerPresenter> answerPresenter,
-                      std::shared_ptr<IQAsToLearnProvider> qARepository,
+    TeacherController(std::shared_ptr<IQAsToLearnProvider> qARepository,
                       std::shared_ptr<IExceptionHandler> &exceptionHandler):
-        m_questionPresenter(std::move(questionPresenter)),
-        m_answerPresenter(std::move(answerPresenter)),
+        m_questionPresenter(std::shared_ptr<IQuestionPresenter>()),
+        m_answerPresenter(std::shared_ptr<IAnswerPresenter>()),
         m_qAsToLearnProvider(qARepository),
         m_exceptionHandler(exceptionHandler)
     {}
@@ -25,10 +23,12 @@ public:
     void markAsKnownAndShowNextQuestion();
     void markAsUnknownAndShowNextQuestion();
     void startTeaching();
+    void registerQuestionAndAnswerPresenter(std::shared_ptr<IQuestionPresenter> questionProvider,
+                                            std::shared_ptr<IAnswerPresenter> answerProvider);
 
 private:
-    std::shared_ptr<IQuestionPresenter> m_questionPresenter; //change to factory and then to unique_ptr
-    std::shared_ptr<IAnswerPresenter> m_answerPresenter; //change to factory and then to unique ptr
+    std::shared_ptr<IQuestionPresenter> m_questionPresenter;
+    std::shared_ptr<IAnswerPresenter> m_answerPresenter;
     std::shared_ptr<IQAsToLearnProvider> m_qAsToLearnProvider;
     std::unique_ptr<Teacher> m_teacher;
     std::shared_ptr<IExceptionHandler> m_exceptionHandler;

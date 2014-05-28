@@ -60,3 +60,10 @@ void TeacherController::startTeaching()
     }
     showNextQuestion();
 }
+
+void TeacherController::registerQuestionAndAnswerPresenter(std::shared_ptr<IQuestionPresenter> questionProvider,
+                                                           std::shared_ptr<IAnswerPresenter> answerProvider)
+{
+    m_questionPresenter = questionProvider;
+    m_answerPresenter = answerProvider;
+}
