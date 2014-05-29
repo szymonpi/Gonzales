@@ -53,6 +53,7 @@ TEST_F(QAsToLearnByUserSelector, groupItemGivenShouldSelectOneGroup)
     subjectNode.appendNode(groupNode);
     rootNode.appendNode(subjectNode);
 
+    EXPECT_CALL(*qAsRepositoryMock, onQAsUpdate());
     EXPECT_CALL(*qAsRepositoryMock, getQAs()).WillOnce(ReturnPointee(&rootNode));
     checker.select(group);
     auto subjectNodeSet = rootNode.getNodes().at(0);
@@ -76,13 +77,10 @@ TEST_F(QAsToLearnByUserSelector, wrongSubjectNameGivenShouldThrow)
     subjectNode.appendNode(groupNode);
     rootNode.appendNode(subjectNode);
 
-    QTreeWidgetItem group1;
-    QTreeWidgetItem wrongSubjectName;
-    wrongSubjectName.setText(0, "unsupported");
-    wrongSubjectName.addChild(&group1);
+    subject.setText(0, "unsupported");
 
     EXPECT_CALL(*qAsRepositoryMock, getQAs()).WillOnce(ReturnRef(rootNode));
-    EXPECT_THROW(checker.select(wrongSubjectName), std::logic_error);
+    EXPECT_THROW(checker.select(subject), std::logic_error);
 }
 
 TEST_F(QAsToLearnByUserSelector, wrongGroupNameGivenShouldThrow)
@@ -122,6 +120,7 @@ TEST_F(QAsToLearnByUserSelector, subjectItemGivenShouldSelectGroups)
     subjectNode.appendNode(groupNode);
     rootNode.appendNode(subjectNode);
 
+    EXPECT_CALL(*qAsRepositoryMock, onQAsUpdate());
     EXPECT_CALL(*qAsRepositoryMock, getQAs()).WillOnce(ReturnRef(rootNode));
     checker.select(subject);
 

@@ -8,12 +8,12 @@ class Question
 
 public:
     Question(){}
-    Question(std::string question)
+    Question(const QString &question)
     {
         this->question = question;
     }
 
-    std::string getAsString() const
+    QString getAsString() const
     {
         return question;
     }
@@ -25,18 +25,16 @@ public:
 
     void serialize(IDataSerializer &serializer) const
     {
-        serializer.serialize(question.c_str());
+        serializer.serialize(question);
     }
 
     void deserialize(IDataDeserializer&deserializer)
     {
-        char *chars;
-
-        deserializer.deserialize(chars);
-        question = chars;
-        delete chars;
+        QString str;
+        deserializer.deserialize(str);
+        question = str;
     }
 
 private:
-    std::string question;
+    QString question;
 };

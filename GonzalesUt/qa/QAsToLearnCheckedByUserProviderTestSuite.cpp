@@ -13,12 +13,12 @@ class QAsToLearnCheckedByUserProviderTestSuite: public testing::Test
 {
 protected:
     QAsToLearnCheckedByUserProviderTestSuite():
-        m_qasProvider(std::make_shared<QAsProviderMock>()),
+        m_qasProvider(std::make_shared<StrictMock<QAsProviderMock>>()),
         m_qasToLearnProvider(m_qasProvider)
     {
 
     }
-    std::shared_ptr<QAsProviderMock> m_qasProvider;
+    std::shared_ptr<StrictMock<QAsProviderMock>> m_qasProvider;
     QAsToLearnCheckedByUserProvider m_qasToLearnProvider;
     std::shared_ptr<QA> m_qa = std::make_shared<QA>(Question("question"), Answer("answer"));
 };

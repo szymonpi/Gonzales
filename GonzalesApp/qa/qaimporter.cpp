@@ -25,7 +25,7 @@ void QAFromTextFileImporter::appendQa(std::vector<std::shared_ptr<QA> > &qAs, QS
 {
     QString question = splittedLine.takeFirst();
     QString answer = splittedLine.takeFirst();
-    qAs.push_back(std::make_shared<QA>(Question(question.toStdString()), Answer(answer.toStdString())));
+    qAs.push_back(std::make_shared<QA>(Question(question), Answer(answer)));
 }
 
 std::vector<std::shared_ptr<QA> > QAFromTextFileImporter::import(const QString &filePath)

@@ -8,12 +8,12 @@ class Answer
 {
 public:
     Answer(){}
-    Answer(std::string answer)
+    Answer(const QString& answer)
     {
         this->answer = answer;
     }
 
-    std::string getAsString() const
+    QString getAsString() const
     {
         return answer;
     }
@@ -25,19 +25,17 @@ public:
 
     void serialize(IDataSerializer &serializer) const
     {
-        serializer.serialize(answer.c_str());
+        serializer.serialize(answer);
     }
 
     void deserialize(IDataDeserializer&deserializer)
     {
-        char *chars;
-
-        deserializer.deserialize(chars);
-        answer = chars;
-        delete chars;
+        QString str;
+        deserializer.deserialize(str);
+        answer = str;
     }
 
 private:
-    std::string answer;
+    QString answer;
 
 };

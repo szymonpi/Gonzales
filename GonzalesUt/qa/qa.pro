@@ -64,7 +64,8 @@ SOURCES += \
     ../../GonzalesApp/qa/QAsSelection/QAsToLearnCheckedByUserProvider.cpp \
     ../../GonzalesApp/qa/QAsSelection/QAsTolearnByUserChecker.cpp \
     ../../GonzalesApp/qa/QAsSelection/QAsSelector.cpp \
-    QAsSelectorTestSuite.cpp
+    QAsSelectorTestSuite.cpp \
+    QATestSuite.cpp
 
 LIBPATH += C:/gtest/lib
 LIBPATH += C:/gmock/lib

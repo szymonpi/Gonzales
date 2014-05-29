@@ -42,12 +42,12 @@ protected:
 
     Matcher<const char *> questionMatcher(Question qa)
     {
-        return Matcher<const char*>(StrEq(qa.getAsString()));
+        return Matcher<const char*>(StrEq(qa.getAsString().toStdString()));
     }
 
     Matcher<const char *> answerMatcher(Answer qa)
     {
-        return Matcher<const char*>(StrEq(qa.getAsString()));
+        return Matcher<const char*>(StrEq(qa.getAsString().toStdString()));
     }
 
     Matcher<quint16> fileVersionMatcher(QAFileVersion fv)
