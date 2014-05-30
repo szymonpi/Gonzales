@@ -25,7 +25,7 @@ void Teacher::markAsKnown()
 
 void Teacher::showCorrectAnswer() const
 {
-    m_answerPresenter->presentAnswer(lastAskedQuestion->answer);
+    m_answerPresenter->presentAnswer(lastAskedQuestion->getAnswer());
 }
 
 int Teacher::questionsToLearnNum() const
@@ -38,7 +38,7 @@ void Teacher::showNextQuestion()
     checkIsQaQueueEmpty();
     moveCurrentQuestionToAsked();
     m_answerPresenter->clear();
-    m_questionPresenter->presentQuestion(lastAskedQuestion->question);
+    m_questionPresenter->presentQuestion(lastAskedQuestion->getQuestion());
 }
 
 void Teacher::removeCurrentAskedQA()

@@ -28,7 +28,7 @@ public:
         serializer.serialize(answer);
     }
 
-    void deserialize(IDataDeserializer&deserializer)
+    void deserialize(IDataDeserializer& deserializer)
     {
         QString str;
         deserializer.deserialize(str);

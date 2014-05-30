@@ -4,11 +4,18 @@
 #include "answer.h"
 #include "stdexcept"
 #include "../Common/FileException.h"
-#include <QMap>
-#include <QDate>
+#include <QMultiMap>
+#include <QDateTime>
 
-struct QA
+class QA
 {
+public:
+    enum class AnswerRating
+    {
+        Correct,
+        Incorrect
+    };
+
     QA(Question question, Answer answer):
         question(question),
         answer(answer)
@@ -20,37 +27,41 @@ struct QA
     {
         question.serialize(serializer);
         answer.serialize(serializer);
-        serializer.serialize(answeredHistory.size());
-        for(auto it = answeredHistory.begin(); it != answeredHistory.end(); ++it)
+        serializer.serialize(answersHistory.size());
+        for(auto it = answersHistory.begin(); it != answersHistory.end(); ++it)
         {
-            serializer.serialize(it.value());
-            QDate date = it.key();
-            serializer.serialize(date.day());
-            serializer.serialize(date.month());
-            serializer.serialize(date.year());
+            serializer.serialize(unsigned(it.value()));
+            QDateTime date = it.key();
+            serializer.serialize(date.date().day());
+            serializer.serialize(date.date().month());
+            serializer.serialize(date.date().year());
+            serializer.serialize(date.time().hour());
+            serializer.serialize(date.time().minute());
         }
     }
 
     void deserialize(IDataDeserializer& deserializer)
     {
         question.deserialize(deserializer);
-        if(deserializer.status()==QDataStream::ReadPastEnd)
-            throw FileException("empty file or can't read answer");
         answer.deserialize(deserializer);
         int historySize = 0;
         deserializer.deserialize(historySize);
         for(int i = 0; i<historySize; ++i)
         {
-            bool value = 0;
+            unsigned value = 0;
             deserializer.deserialize(value);
             int day = 0;
             int month = 0;
             int year = 0;
+            int hour = 0;
+            int minute = 0;
             deserializer.deserialize(day);
             deserializer.deserialize(month);
             deserializer.deserialize(year);
-            QDate date(year, month, day);
-            answeredHistory.insert(date, value);
+            deserializer.deserialize(hour);
+            deserializer.deserialize(minute);
+            QDateTime date(QDate(year, month, day));
+            answersHistory.insert(date, QA::AnswerRating(value));
         }
     }
 
@@ -59,7 +70,28 @@ struct QA
         return (qA.question == question) && (qA.answer == answer);
     }
 
+    Question getQuestion()
+    {
+        return question;
+    }
+
+    Answer getAnswer()
+    {
+        return answer;
+    }
+
+    void addHistoryEntry(const QDateTime &dateTime, AnswerRating questionResult)
+    {
+        answersHistory[dateTime] = questionResult;
+    }
+
+    QMultiMap<QDateTime, AnswerRating> getAnswersHistory()
+    {
+        return answersHistory;
+    }
+
+private:
     Question question;
     Answer answer;
-    QMap<QDate, bool> answeredHistory;
+    QMap<QDateTime, AnswerRating> answersHistory;
 };
