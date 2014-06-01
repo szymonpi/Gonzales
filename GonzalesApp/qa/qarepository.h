@@ -16,11 +16,9 @@
 class QARepository: public IQARepository
 {
 public:
-    QARepository(const QString &userFilePath,
-                 std::shared_ptr<IExceptionHandler> exceptionHandler,
+    QARepository(std::shared_ptr<IExceptionHandler> exceptionHandler,
                  std::shared_ptr<IQALoader> qAsLoader,
-                 std::shared_ptr<IQASaver> qAsSaver,
-                 std::shared_ptr<IQuestionCollectionPresenter> questionCollectionPresenter = std::shared_ptr<IQuestionCollectionPresenter>());
+                 std::shared_ptr<IQASaver> qAsSaver);
 
     SimpleTree::Node<QA> &getQAs();
     const SimpleTree::Node<QA> &getQAs() const;
@@ -31,7 +29,6 @@ public:
 
 private:
     SimpleTree::Node<QA> m_questionsTree;
-    const QString m_userQAsFilePath;
     std::shared_ptr<IExceptionHandler> m_exceptionHandler;
     std::shared_ptr<IQuestionCollectionPresenter> m_questionsPresnter;
     std::shared_ptr<IQALoader> m_qAsLoader;

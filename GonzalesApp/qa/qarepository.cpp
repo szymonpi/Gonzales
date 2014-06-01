@@ -18,14 +18,10 @@ void QARepository::onQAsUpdate()
     m_qAsSaver->save(m_questionsTree);
 }
 
-QARepository::QARepository(const QString &userFilePath,
-                           std::shared_ptr<IExceptionHandler> exceptionHandler,
+QARepository::QARepository(std::shared_ptr<IExceptionHandler> exceptionHandler,
                            std::shared_ptr<IQALoader> qAsLoader,
-                           std::shared_ptr<IQASaver> qAsSaver,
-                           std::shared_ptr<IQuestionCollectionPresenter> questionCollectionPresenter):
-    m_userQAsFilePath(userFilePath),
+                           std::shared_ptr<IQASaver> qAsSaver):
     m_exceptionHandler(exceptionHandler),
-    m_questionsPresnter(questionCollectionPresenter),
     m_qAsLoader(qAsLoader),
     m_qAsSaver(qAsSaver)
 {

@@ -20,8 +20,19 @@ bool isCreateFilePathNeeded()
         return false;
     }
 
+bool isQAsFileExist()
+    {
+        QDir homeDirectory = QDir::homePath();
+        QFile file(QDir::homePath()+"/"+g_Company+"/"+g_Project+"/"+m_userInfo.login+qAsFileExtension);
+        if(!file.exists())
+            return false;
+        return true;
+    }
+
 void createQAsFilePath()
     {
+    if(!isCreateFilePathNeeded())
+        return;
         QDir homeDirectory = QDir::homePath();
         if(!homeDirectory.cd(g_Company))
         {

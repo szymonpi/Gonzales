@@ -51,7 +51,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="iconSize">
        <size>
@@ -129,6 +129,15 @@ p, li { white-space: pre-wrap; }
            <widget class="QGroupBox" name="groupBox">
             <property name="title">
              <string>Answer</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="flat">
+             <bool>false</bool>
+            </property>
+            <property name="checkable">
+             <bool>false</bool>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_2">
              <item>

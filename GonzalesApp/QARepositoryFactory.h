@@ -14,7 +14,4 @@ class QARepositoryFactory
 public:
     std::shared_ptr<IQARepository> create(const UserInfo &userInfo);
 
-private:
-    std::shared_ptr<IQAsFilePathProvider> m_qasFilePathProvider;
-    std::shared_ptr<IQALoader> m_loader;
 };

@@ -15,7 +15,7 @@ std::shared_ptr<IQARepository> QARepositoryFactory::create(const UserInfo &userI
 {
     std::shared_ptr<QAsFilePathProvider> qasFilePathProvider = std::make_shared<QAsFilePathProvider>(userInfo);
     std::shared_ptr<IQALoader> loader;
-    if(qasFilePathProvider->isCreateFilePathNeeded())
+    if(!qasFilePathProvider->isQAsFileExist())
     {
         qasFilePathProvider->createQAsFilePath();
         loader = std::make_shared<QANullLoader>();
@@ -26,9 +26,8 @@ std::shared_ptr<IQARepository> QARepositoryFactory::create(const UserInfo &userI
     }
 
     std::shared_ptr<IExceptionHandler> l_exceptionHandler = std::make_shared<ExceptionHandler>();
-    std::shared_ptr<QASaver> saver = std::make_shared<QASaver>(m_qasFilePathProvider);
-    return std::make_shared<QARepository>(qasFilePathProvider->getPath(),
-                                                  l_exceptionHandler,
+    std::shared_ptr<QASaver> saver = std::make_shared<QASaver>(qasFilePathProvider);
+    return std::make_shared<QARepository>(l_exceptionHandler,
                                                   loader,
                                                   saver);
 }
