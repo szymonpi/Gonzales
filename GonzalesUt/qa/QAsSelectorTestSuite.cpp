@@ -28,13 +28,14 @@ TEST_F(QAsSelectorTestSuite, _10NewQuestionsGiven_10QuestionShouldBeSelected)
     EXPECT_EQ(10, selectedQAs.size());
 }
 
-TEST_F(QAsSelectorTestSuite, _5New_5Old_Max10_selected10_new6_old4_ShouldBeSelected)
+TEST_F(QAsSelectorTestSuite, _11New_Max10__ShouldSelect10)
 {
     QVector<std::shared_ptr<QA>> qas{std::make_shared<QA>(), std::make_shared<QA>(),
                                      std::make_shared<QA>(), std::make_shared<QA>(),
                                      std::make_shared<QA>(), std::make_shared<QA>(),
                                      std::make_shared<QA>(), std::make_shared<QA>(),
-                                     std::make_shared<QA>(), std::make_shared<QA>()};
+                                     std::make_shared<QA>(), std::make_shared<QA>(),
+                                     std::make_shared<QA>()};
     auto selectedQAs = selector.select(qas);
     EXPECT_EQ(10, selectedQAs.size());
 }

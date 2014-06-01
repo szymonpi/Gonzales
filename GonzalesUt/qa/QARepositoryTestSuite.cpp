@@ -19,6 +19,7 @@ TEST(QARepositoryTestSuite, loadQAsWillThrow)
     EXPECT_CALL(*l_loaderMock, load()).WillOnce(Throw(FileException()));
     EXPECT_CALL(*l_exceptionHandlerMock, handleException(_,_));
     QARepository repository(l_exceptionHandlerMock, l_loaderMock, l_saverMock);
+    repository.registerQuestionCollectionPresenter(l_presenter);
     EXPECT_NO_THROW(repository.load());
 }
 
@@ -33,6 +34,7 @@ TEST(QARepositoryTestSuite, LoadQAsWillLoadQAProperly)
     EXPECT_CALL(*l_loaderMock, load()).WillOnce(Return(rootNode));
     EXPECT_CALL(*l_presenter, presentQuestions(rootNode));
     QARepository repository(l_exceptionHandlerMock, l_loaderMock, l_saverMock);
+    repository.registerQuestionCollectionPresenter(l_presenter);
     EXPECT_NO_THROW(repository.load());
     EXPECT_EQ(rootNode, repository.getQAs());
 }
