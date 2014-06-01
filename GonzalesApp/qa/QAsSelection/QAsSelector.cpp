@@ -8,7 +8,7 @@ QAsSelector::QAsSelector(const double &newQuestionPercent, const unsigned &maxQu
 
 }
 
-QVector<std::shared_ptr<QA>> QAsSelector::select(QVector<std::shared_ptr<QA>> qas)
+std::vector<std::shared_ptr<QA>> QAsSelector::select(std::vector<std::shared_ptr<QA>> qas)
 {
-    return qas;
+
 }

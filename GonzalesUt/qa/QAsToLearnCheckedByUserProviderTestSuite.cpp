@@ -35,7 +35,7 @@ TEST_F(QAsToLearnCheckedByUserProviderTestSuite, OneQANodeWithQAGivenFromQARepos
     SimpleTree::Node<QA> node(m_qa);
     node.setInfo(NODE_INFO_ROLE_CHECKED, false);
     EXPECT_CALL(*m_qasProvider, getQAs()).WillOnce(ReturnRef(node));
-    QVector<std::shared_ptr<QA>> qas = m_qasToLearnProvider.getQAs();
+    std::vector<std::shared_ptr<QA>> qas = m_qasToLearnProvider.getQAs();
     EXPECT_EQ(0, qas.size());
 }
 
@@ -51,7 +51,7 @@ TEST_F(QAsToLearnCheckedByUserProviderTestSuite, OneQANodeWithQAGivenFromQARepos
     SimpleTree::Node<QA> node(m_qa);
     node.setInfo(NODE_INFO_ROLE_CHECKED, true);
     EXPECT_CALL(*m_qasProvider, getQAs()).WillOnce(ReturnRef(node));
-    QVector<std::shared_ptr<QA>> qas = m_qasToLearnProvider.getQAs();
+    std::vector<std::shared_ptr<QA>> qas = m_qasToLearnProvider.getQAs();
     EXPECT_EQ(1, qas.size());
 }
 
@@ -72,7 +72,7 @@ TEST_F(QAsToLearnCheckedByUserProviderTestSuite, ThreeQANodeWithQAGivenFromQARep
     rootNode.appendNode(node3);
 
     EXPECT_CALL(*m_qasProvider, getQAs()).WillOnce(ReturnRef(rootNode));
-    QVector<std::shared_ptr<QA>> qas = m_qasToLearnProvider.getQAs();
+    std::vector<std::shared_ptr<QA>> qas = m_qasToLearnProvider.getQAs();
     EXPECT_EQ(3, qas.size());
 }
 

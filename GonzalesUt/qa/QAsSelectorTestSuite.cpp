@@ -13,13 +13,13 @@ protected:
 
 TEST_F(QAsSelectorTestSuite, NoQuestionGiven_SelectorShouldSelectNothing)
 {
-    auto selectedQAs = selector.select(QVector<std::shared_ptr<QA>>());
+    auto selectedQAs = selector.select(std::vector<std::shared_ptr<QA>>());
     EXPECT_EQ(0, selectedQAs.size());
 }
 
 TEST_F(QAsSelectorTestSuite, _10NewQuestionsGiven_10QuestionShouldBeSelected)
 {
-    QVector<std::shared_ptr<QA>> qas{std::make_shared<QA>(), std::make_shared<QA>(),
+    std::vector<std::shared_ptr<QA>> qas{std::make_shared<QA>(), std::make_shared<QA>(),
                                      std::make_shared<QA>(), std::make_shared<QA>(),
                                      std::make_shared<QA>(), std::make_shared<QA>(),
                                      std::make_shared<QA>(), std::make_shared<QA>(),
@@ -30,7 +30,7 @@ TEST_F(QAsSelectorTestSuite, _10NewQuestionsGiven_10QuestionShouldBeSelected)
 
 TEST_F(QAsSelectorTestSuite, _11New_Max10__ShouldSelect10)
 {
-    QVector<std::shared_ptr<QA>> qas{std::make_shared<QA>(), std::make_shared<QA>(),
+    std::vector<std::shared_ptr<QA>> qas{std::make_shared<QA>(), std::make_shared<QA>(),
                                      std::make_shared<QA>(), std::make_shared<QA>(),
                                      std::make_shared<QA>(), std::make_shared<QA>(),
                                      std::make_shared<QA>(), std::make_shared<QA>(),

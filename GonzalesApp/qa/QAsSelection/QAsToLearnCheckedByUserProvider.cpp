@@ -11,18 +11,18 @@ bool QAsToLearnCheckedByUserProvider::canBeThereSomethingToLearn(const SimpleTre
     return rootNode.size() != 0 || rootNode.getNodeValue().get();
 }
 
-QVector<std::shared_ptr<QA> > QAsToLearnCheckedByUserProvider::getQAs()
+std::vector<std::shared_ptr<QA> > QAsToLearnCheckedByUserProvider::getQAs()
 {
     SimpleTree::Node<QA> &rootNode= m_qasProvider->getQAs();
     if(!canBeThereSomethingToLearn(rootNode))
         throw std::logic_error("No QA to learn in repository");
 
-    QVector<std::shared_ptr<QA> > qas;
+    std::vector<std::shared_ptr<QA> > qas;
     fillQAsToLearn(qas, rootNode);
     return qas;
 }
 
-void QAsToLearnCheckedByUserProvider::fillQAsToLearn(QVector<std::shared_ptr<QA> > &qasToLearn,
+void QAsToLearnCheckedByUserProvider::fillQAsToLearn(std::vector<std::shared_ptr<QA> > &qasToLearn,
                     const SimpleTree::Node<QA> &node) const
 {
     if(node.getNodeValue().get())

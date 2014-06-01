@@ -12,10 +12,10 @@ class QAsToLearnCheckedByUserProvider: public IQAsToLearnCheckedByUserProvider
 public:
 
     QAsToLearnCheckedByUserProvider(std::shared_ptr<QAsProvider> qasProvider);
-    QVector<std::shared_ptr<QA> > getQAs() override;
+    std::vector<std::shared_ptr<QA> > getQAs() override;
 
 private:
-    void fillQAsToLearn(QVector<std::shared_ptr<QA> > &qasToLearn,
+    void fillQAsToLearn(std::vector<std::shared_ptr<QA> > &qasToLearn,
                                             const SimpleTree::Node<QA> &node) const;
     bool canBeThereSomethingToLearn(const SimpleTree::Node<QA> &rootNode) const;
     std::shared_ptr<QAsProvider> m_qasProvider;

@@ -6,5 +6,5 @@
 class QAsToLearnCheckedByUserProviderMock: public IQAsToLearnCheckedByUserProvider
 {
 public:
-    MOCK_METHOD0(getQAs, QVector<std::shared_ptr<QA>>());
+    MOCK_METHOD0(getQAs, std::vector<std::shared_ptr<QA>>());
 };

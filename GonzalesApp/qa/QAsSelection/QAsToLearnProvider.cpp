@@ -11,7 +11,7 @@ QAsToLearnProvider::QAsToLearnProvider(std::shared_ptr<IQAsToLearnCheckedByUserP
 
 QQueue<std::shared_ptr<QA> > QAsToLearnProvider::getQAs()
 {
-    QVector<std::shared_ptr<QA>> userCheckedQAs = m_qAsCheckedByUserProvider->getQAs();
+    std::vector<std::shared_ptr<QA>> userCheckedQAs = m_qAsCheckedByUserProvider->getQAs();
 
     QQueue<std::shared_ptr<QA>> qas;
     for(const std::shared_ptr<QA> &elem: userCheckedQAs)
