@@ -19,6 +19,11 @@ int TeacherController::questionsToLearnNum()
 
 void TeacherController::showNextQuestion()
 {
+    if(m_teacher->questionsToLearnNum() <= 0)
+    {
+        emit stopLearn();
+        return;
+    }
     try
     {
         m_teacher->showNextQuestion();

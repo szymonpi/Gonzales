@@ -44,7 +44,8 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/qa/QAsSelection/QAsProvider.h \
     ../../GonzalesApp/qa/QAsSelection/IQAsToLearnProvider.h \
     ../../GonzalesApp/qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h \
-    ../../GonzalesApp/qa/QAsSelection/IQAsSelector.h
+    ../../GonzalesApp/qa/QAsSelection/IQAsSelector.h \
+    QAsSelectorMock.h
 
 SOURCES += \
     AllTests.cpp \

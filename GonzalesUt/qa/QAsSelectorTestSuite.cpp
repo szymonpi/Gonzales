@@ -13,7 +13,8 @@ protected:
 
 TEST_F(QAsSelectorTestSuite, NoQuestionGiven_SelectorShouldSelectNothing)
 {
-    auto selectedQAs = selector.select(std::vector<std::shared_ptr<QA>>());
+    auto emptyVec = std::vector<std::shared_ptr<QA>>();
+    auto selectedQAs = selector.select(emptyVec);
     EXPECT_EQ(0, selectedQAs.size());
 }
 
@@ -25,7 +26,7 @@ TEST_F(QAsSelectorTestSuite, _10NewQuestionsGiven_10QuestionShouldBeSelected)
                                      std::make_shared<QA>(), std::make_shared<QA>(),
                                      std::make_shared<QA>(), std::make_shared<QA>()};
     auto selectedQAs = selector.select(qas);
-    EXPECT_EQ(10, selectedQAs.size());
+    EXPECT_EQ(6, selectedQAs.size());
 }
 
 
@@ -54,7 +55,7 @@ TEST_F(QAsSelectorTestSuite, _11New_Max10__ShouldSelect10)
                                      std::make_shared<QA>(), std::make_shared<QA>(),
                                      std::make_shared<QA>()};
     auto selectedQAs = selector.select(qas);
-    EXPECT_EQ(10, selectedQAs.size());
+    EXPECT_EQ(6, selectedQAs.size());
 }
 
 bool isOldQA(const std::shared_ptr<QA>& qa)

@@ -54,7 +54,7 @@ void MainWindow::setupControllers()
 
     qARepository->registerQuestionCollectionPresenter(l_questionCollectionPresenter);
     teacherController->registerQuestionAndAnswerPresenter(l_questionPresenter, l_answerPresenter);
-
+    connect(teacherController.get(), SIGNAL(stopLearn()), this, SIGNAL(stopLearn()));
 }
 
 void MainWindow::setupStateMachine()
