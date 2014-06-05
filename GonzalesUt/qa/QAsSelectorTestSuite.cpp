@@ -9,6 +9,7 @@ class QAsSelectorTestSuite: public testing::Test
 {
 protected:
     QAsSelector selector = QAsSelector(0.60, 10);
+    std::shared_ptr<QA> newQAs = std::make_shared<QA>();
 };
 
 TEST_F(QAsSelectorTestSuite, NoQuestionGiven_SelectorShouldSelectNothing)
@@ -20,11 +21,11 @@ TEST_F(QAsSelectorTestSuite, NoQuestionGiven_SelectorShouldSelectNothing)
 
 TEST_F(QAsSelectorTestSuite, _10NewQuestionsGiven_10QuestionShouldBeSelected)
 {
-    std::vector<std::shared_ptr<QA>> qas{std::make_shared<QA>(), std::make_shared<QA>(),
-                                     std::make_shared<QA>(), std::make_shared<QA>(),
-                                     std::make_shared<QA>(), std::make_shared<QA>(),
-                                     std::make_shared<QA>(), std::make_shared<QA>(),
-                                     std::make_shared<QA>(), std::make_shared<QA>()};
+    std::vector<std::shared_ptr<QA>> qas{newQAs, newQAs,
+                                     newQAs, newQAs,
+                                     newQAs, newQAs,
+                                     newQAs, newQAs,
+                                     newQAs, newQAs};
     auto selectedQAs = selector.select(qas);
     EXPECT_EQ(6, selectedQAs.size());
 }
@@ -33,7 +34,7 @@ TEST_F(QAsSelectorTestSuite, _10NewQuestionsGiven_10QuestionShouldBeSelected)
 TEST_F(QAsSelectorTestSuite, _2New_Max2__ShouldSelect2)
 {
     QAsSelector selector = QAsSelector(0.60, 2);
-    std::vector<std::shared_ptr<QA>> qas{std::make_shared<QA>(), std::make_shared<QA>()};
+    std::vector<std::shared_ptr<QA>> qas{newQAs, newQAs};
     auto selectedQAs = selector.select(qas);
     EXPECT_EQ(2, selectedQAs.size());
 }
@@ -41,19 +42,19 @@ TEST_F(QAsSelectorTestSuite, _2New_Max2__ShouldSelect2)
 TEST_F(QAsSelectorTestSuite, _2New_Max5__ShouldSelect2)
 {
     QAsSelector selector = QAsSelector(0.60, 2);
-    std::vector<std::shared_ptr<QA>> qas{std::make_shared<QA>(), std::make_shared<QA>(), std::make_shared<QA>(), std::make_shared<QA>(), std::make_shared<QA>()};
+    std::vector<std::shared_ptr<QA>> qas{newQAs, newQAs, newQAs, newQAs, newQAs};
     auto selectedQAs = selector.select(qas);
     EXPECT_EQ(2, selectedQAs.size());
 }
 
 TEST_F(QAsSelectorTestSuite, _11New_Max10__ShouldSelect10)
 {
-    std::vector<std::shared_ptr<QA>> qas{std::make_shared<QA>(), std::make_shared<QA>(),
-                                     std::make_shared<QA>(), std::make_shared<QA>(),
-                                     std::make_shared<QA>(), std::make_shared<QA>(),
-                                     std::make_shared<QA>(), std::make_shared<QA>(),
-                                     std::make_shared<QA>(), std::make_shared<QA>(),
-                                     std::make_shared<QA>()};
+    std::vector<std::shared_ptr<QA>> qas{newQAs, newQAs,
+                                         newQAs, newQAs,
+                                         newQAs, newQAs,
+                                         newQAs, newQAs,
+                                         newQAs, newQAs,
+                                         newQAs};
     auto selectedQAs = selector.select(qas);
     EXPECT_EQ(6, selectedQAs.size());
 }
@@ -69,7 +70,6 @@ TEST_F(QAsSelectorTestSuite, _10New_10Old_Max10_NewFactor06__ShouldSelect6new4ol
     std::shared_ptr<QA> oldQa = std::make_shared<QA>();
     oldQa->addHistoryEntry(dateTime, QA::AnswerRating::Correct);
 
-
     std::shared_ptr<QA> newQa = std::make_shared<QA>();
 
     std::vector<std::shared_ptr<QA>> qas{oldQa, oldQa, oldQa, oldQa, oldQa, oldQa, oldQa, oldQa, oldQa, oldQa,
@@ -81,5 +81,4 @@ TEST_F(QAsSelectorTestSuite, _10New_10Old_Max10_NewFactor06__ShouldSelect6new4ol
     auto bound = std::partition(selectedQAs.begin(), selectedQAs.end(), isOldQA);
     EXPECT_EQ(4, std::distance(selectedQAs.begin(), bound));
     EXPECT_EQ(6, std::distance(bound, selectedQAs.end()));
-
 }

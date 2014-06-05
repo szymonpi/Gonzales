@@ -19,7 +19,9 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.cpp \
     ../../GonzalesApp/common/qtproxies/DataDeserializer.h \
     ../../GonzalesApp/common/SimpleTree/Node.h \
-    QAsToLearnProviderMock.h
+    QAsToLearnProviderMock.h \
+    QAMarkerMock.h \
+    ../../GonzalesApp/qa/IQAmarker.h
 
 LIBPATH += C:/gtest/lib
 LIBPATH += C:/gmock/lib

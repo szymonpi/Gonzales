@@ -50,7 +50,10 @@ void TeacherController::startTeaching()
 {
     try
     {
-        m_teacher.reset(new Teacher(m_questionPresenter, m_answerPresenter, m_qAsToLearnProvider));
+        m_teacher.reset(new Teacher(m_questionPresenter,
+                                    m_answerPresenter,
+                                    m_qAsToLearnProvider,
+                                    m_qaMarker));
     }
     catch(std::logic_error &e)
     {

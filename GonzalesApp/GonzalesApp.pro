@@ -40,7 +40,8 @@ SOURCES += main.cpp\
     qa/QAsSelection/QAsToLearnProvider.cpp \
     qa/QAsSelection/QAsToLearnCheckedByUserProvider.cpp \
     qa/QAsSelection/QAsTolearnByUserChecker.cpp \
-    qa/QAsSelection/QAsSelector.cpp
+    qa/QAsSelection/QAsSelector.cpp \
+    qa/QAMarker.cpp
 
 HEADERS  += user/UserInfo.h \
     qa/QAFilePathSelector.h \
@@ -114,7 +115,9 @@ HEADERS  += user/UserInfo.h \
     qa/QAsSelection/IQAsToLearnProvider.h \
     qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h \
     qa/QAsSelection/IQAsSelector.h \
-    qa/QAsSelection/QAsSelector.h
+    qa/QAsSelection/QAsSelector.h \
+    qa/IQAmarker.h \
+    qa/QAMarker.h
 
 FORMS    += ui/dialogs/logindialog.ui \
     ui/dialogs/dialogcreateaccount.ui \

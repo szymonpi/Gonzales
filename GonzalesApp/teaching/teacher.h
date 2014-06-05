@@ -10,6 +10,7 @@
 #include "../uiobservers/IQuestionPresenter.h"
 #include "../uiobservers/IAnswerPresenter.h"
 #include "../qa/QAsSelection/QAsToLearnProvider.h"
+#include "../qa/IQAmarker.h"
 
 class Teacher
 {
@@ -19,7 +20,8 @@ public:
 
     Teacher(std::shared_ptr<IQuestionPresenter> questionPresenter,
             std::shared_ptr<IAnswerPresenter> answerPresenter,
-            std::shared_ptr<IQAsToLearnProvider> qAsProvider);
+            std::shared_ptr<IQAsToLearnProvider> qAsProvider,
+            std::shared_ptr<IQAMarker> qaMarker);
 
     void markAsUnknown();
     void markAsKnown();
@@ -39,6 +41,7 @@ private:
     std::shared_ptr<QA> lastAskedQuestion;
     std::shared_ptr<IQuestionPresenter> m_questionPresenter;
     std::shared_ptr<IAnswerPresenter> m_answerPresenter;
+    std::shared_ptr<IQAMarker> m_qaMarker;
     QAQueue m_qAsToLearn;
 };
 

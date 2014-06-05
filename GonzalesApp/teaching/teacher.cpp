@@ -3,10 +3,12 @@
 
 Teacher::Teacher(std::shared_ptr<IQuestionPresenter> questionPresenter,
                  std::shared_ptr<IAnswerPresenter> answerPresenter,
-                 std::shared_ptr<IQAsToLearnProvider> qAsToLearnProvider):
+                 std::shared_ptr<IQAsToLearnProvider> qAsToLearnProvider,
+                 std::shared_ptr<IQAMarker> qaMarker):
     lastAskedQuestion(),
     m_questionPresenter(questionPresenter),
     m_answerPresenter(answerPresenter),
+    m_qaMarker(qaMarker),
     m_qAsToLearn(qAsToLearnProvider->getQAs())
 {
     if(m_qAsToLearn.empty())
@@ -15,11 +17,13 @@ Teacher::Teacher(std::shared_ptr<IQuestionPresenter> questionPresenter,
 
 void Teacher::markAsUnknown()
 {
+    m_qaMarker->markAsUnknown(*lastAskedQuestion);
     addWrongAnsweredQAToQueue();
 }
 
 void Teacher::markAsKnown()
 {
+    m_qaMarker->markAsKnown(*lastAskedQuestion);
     removeCurrentAskedQA();
 }
 

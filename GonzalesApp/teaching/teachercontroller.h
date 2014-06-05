@@ -5,6 +5,7 @@
 #include "teacher.h"
 #include <memory>
 #include <QObject>
+#include "../qa/QAMarker.h"
 
 
 class TeacherController: public QObject
@@ -36,6 +37,7 @@ private:
     std::shared_ptr<IQAsToLearnProvider> m_qAsToLearnProvider;
     std::unique_ptr<Teacher> m_teacher;
     std::shared_ptr<IExceptionHandler> m_exceptionHandler;
+    std::shared_ptr<IQAMarker> m_qaMarker = std::make_shared<QAMarker>();
 signals:
     void stopLearn();
 
