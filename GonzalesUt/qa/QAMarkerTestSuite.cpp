@@ -35,8 +35,8 @@ TEST_F(QAMarkerSuite, QuestionGiven_ShouldMarkAsKnown)
 
     auto history = qa.getAnswersHistory();
     ASSERT_EQ(1, history.size());
-    EXPECT_GE(history.begin().key(), currentDateTime);
-    EXPECT_EQ(history.begin().value(), QA::AnswerRating::Correct);
+    EXPECT_GE(history.begin()->first, currentDateTime);
+    EXPECT_EQ(history.begin()->second, QA::AnswerRating::Correct);
 }
 
 TEST_F(QAMarkerSuite, QuestionGiven_ShouldMarkAsUnknown)
@@ -48,6 +48,6 @@ TEST_F(QAMarkerSuite, QuestionGiven_ShouldMarkAsUnknown)
 
     auto history = qa.getAnswersHistory();
     ASSERT_EQ(1, history.size());
-    EXPECT_GE(history.begin().key(), currentDateTime);
-    EXPECT_EQ(history.begin().value(), QA::AnswerRating::Incorrect);
+    EXPECT_GE(history.begin()->first, currentDateTime);
+    EXPECT_EQ(history.begin()->second, QA::AnswerRating::Incorrect);
 }

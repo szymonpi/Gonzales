@@ -82,3 +82,40 @@ TEST_F(QAsSelectorTestSuite, _10New_10Old_Max10_NewFactor06__ShouldSelect6new4ol
     EXPECT_EQ(4, std::distance(selectedQAs.begin(), bound));
     EXPECT_EQ(6, std::distance(bound, selectedQAs.end()));
 }
+
+TEST_F(QAsSelectorTestSuite, _10New_10Old_Max10_NewFactor06__ShouldSelect6new4oldWrongAnswered)
+{
+    QDateTime dateTime(QDate::currentDate(), QTime::currentTime());
+    std::shared_ptr<QA> oldQaCorrectAnswered = std::make_shared<QA>();
+    oldQaCorrectAnswered->addHistoryEntry(dateTime, QA::AnswerRating::Correct);
+
+    std::shared_ptr<QA> oldQaWrongAnswered = std::make_shared<QA>();
+    oldQaCorrectAnswered->addHistoryEntry(dateTime, QA::AnswerRating::Incorrect);
+
+
+    std::shared_ptr<QA> newQa = std::make_shared<QA>();
+
+    std::vector<std::shared_ptr<QA>> qas{oldQaCorrectAnswered, oldQaCorrectAnswered,
+                                         oldQaCorrectAnswered, oldQaWrongAnswered,
+                                         oldQaWrongAnswered, oldQaWrongAnswered,
+                                         oldQaCorrectAnswered, oldQaCorrectAnswered,
+                                         oldQaCorrectAnswered, oldQaWrongAnswered,
+                                         newQa, newQa, newQa, newQa, newQa,
+                                         newQa, newQa, newQa, newQa, newQa};
+
+    auto selectedQAs = selector.select(qas);
+
+    int allQAs = 10;
+    int newQAs = 6;
+    int oldQAs = 4;
+
+    EXPECT_EQ(allQAs, selectedQAs.size());
+    auto oldQAsBound = std::partition(selectedQAs.begin(), selectedQAs.end(), isOldQA);
+    EXPECT_EQ(oldQAs, std::distance(selectedQAs.begin(), oldQAsBound));
+    EXPECT_EQ(newQAs, std::distance(oldQAsBound, selectedQAs.end()));
+
+    auto goodAnsweredBound = std::find_if(selectedQAs.begin(), oldQAsBound,
+                                     [](const std::shared_ptr<QA>& qa)
+                                       {return !qa->wasWrongAnswered();});
+    EXPECT_EQ(oldQAsBound, goodAnsweredBound);
+}

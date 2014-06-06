@@ -6,6 +6,7 @@
 #include "../AQImporter/DataSerializerMock.h"
 #include "../AQImporter/DataDeserializerMock.h"
 #include "../CommonUtUtilities/PrintTo.h"
+#include <map>
 
 using namespace testing;
 
@@ -19,11 +20,30 @@ protected:
     QA qa{Question{question}, Answer{answer}};
 };
 
+
+TEST_F(QATestSuite, noAnswersHistoryShouldReturnFalse)
+{
+    EXPECT_FALSE(qa.wasWrongAnswered());
+}
+
+TEST_F(QATestSuite, noWrongAnsweredShouldReturnFalse)
+{
+    qa.addHistoryEntry(QDateTime::currentDateTime(), QA::AnswerRating::Correct);
+    EXPECT_FALSE(qa.wasWrongAnswered());
+}
+
+TEST_F(QATestSuite, noWrongAnsweredShouldReturnTrue)
+{
+    qa.addHistoryEntry(QDateTime::currentDateTime(), QA::AnswerRating::Correct);
+    qa.addHistoryEntry(QDateTime::currentDateTime(), QA::AnswerRating::Incorrect);
+    EXPECT_TRUE(qa.wasWrongAnswered());
+}
+
 TEST_F(QATestSuite, shouldSerializeQAWithoutAnswerHistory)
 {
     EXPECT_CALL(serializerMock, serialize(TypedEq<const QString&>(question)));
     EXPECT_CALL(serializerMock, serialize(TypedEq<const QString&>(answer)));
-    EXPECT_CALL(serializerMock, serialize(TypedEq<int>(0)));
+    EXPECT_CALL(serializerMock, serialize(TypedEq<std::size_t>(0)));
     qa.serialize(serializerMock);
 }
 
@@ -38,7 +58,7 @@ TEST_F(QATestSuite, shouldSerializeQAWithAnswerHistory)
 
     EXPECT_CALL(serializerMock, serialize(TypedEq<const QString&>(question)));
     EXPECT_CALL(serializerMock, serialize(TypedEq<const QString&>(answer)));
-    EXPECT_CALL(serializerMock, serialize(TypedEq<int>(expectedAnswerHistorySize)));
+    EXPECT_CALL(serializerMock, serialize(TypedEq<std::size_t>(expectedAnswerHistorySize)));
 
     EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(ExpectedAnswerRating)));
     EXPECT_CALL(serializerMock, serialize(TypedEq<int>(dateTime.date().day())));
@@ -54,7 +74,7 @@ TEST_F(QATestSuite, shouldDeserializeQAWithoutAnswerHistory)
 {
     QString question = "question";
     QString answer = "answer";
-    int answerHistorySize = 0;
+    std::size_t answerHistorySize = 0;
 
     EXPECT_CALL(deserializerMock, deserialize(An<QString&>()))
             .WillOnce(SetArgReferee<0>(question))
@@ -68,7 +88,7 @@ TEST_F(QATestSuite, shouldDeserializeQAWithAnswerHistory)
 {
     QString question = "question";
     QString answer = "answer";
-    int answerHistorySize = 1;
+    std::size_t answerHistorySize = 1;
     unsigned answerRating = unsigned(QA::AnswerRating::Correct);
     int day = 5;
     int month = 6;

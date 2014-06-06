@@ -28,10 +28,10 @@ public:
         question.serialize(serializer);
         answer.serialize(serializer);
         serializer.serialize(answersHistory.size());
-        for(auto it = answersHistory.begin(); it != answersHistory.end(); ++it)
+        for(auto &kv: answersHistory)
         {
-            serializer.serialize(unsigned(it.value()));
-            QDateTime date = it.key();
+            serializer.serialize(unsigned(kv.second));
+            QDateTime date = kv.first;
             serializer.serialize(date.date().day());
             serializer.serialize(date.date().month());
             serializer.serialize(date.date().year());
@@ -61,7 +61,7 @@ public:
             deserializer.deserialize(hour);
             deserializer.deserialize(minute);
             QDateTime date(QDate(year, month, day));
-            answersHistory.insert(date, QA::AnswerRating(value));
+            answersHistory.emplace(date, QA::AnswerRating(value));
         }
     }
 
@@ -85,13 +85,20 @@ public:
         answersHistory[dateTime] = questionResult;
     }
 
-    QMultiMap<QDateTime, AnswerRating> getAnswersHistory()
+    std::map<QDateTime, AnswerRating> getAnswersHistory()
     {
         return answersHistory;
+    }
+
+    bool wasWrongAnswered()
+    {
+        return answersHistory.end() != std::find_if(answersHistory.begin(), answersHistory.end(),
+                            [](const std::pair<QDateTime, AnswerRating> &answer) -> bool
+                              { return answer.second == AnswerRating::Incorrect; });
     }
 
 private:
     Question question;
     Answer answer;
-    QMap<QDateTime, AnswerRating> answersHistory;
+    std::map<QDateTime, AnswerRating> answersHistory;
 };

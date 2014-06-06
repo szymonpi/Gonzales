@@ -48,6 +48,7 @@ QAsSelector::QAsIter QAsSelector::getMaxNewQasIterEnd(std::vector<std::shared_pt
 QAsSelector::QAsIter QAsSelector::getMaxOldQasIterEnd(std::vector<std::shared_ptr<QA> > &qas, QAsSelector::QAsIter newBoundBegin)
 {
     int maxNew = getMaxNewQasValue();
+    std::partition(begin(qas), end(qas), [](const std::shared_ptr<QA> &qa){ return qa->wasWrongAnswered();});
     return std::distance(newBoundBegin, qas.end()) > maxNew ? newBoundBegin + maxNew : qas.end();
 }
 
