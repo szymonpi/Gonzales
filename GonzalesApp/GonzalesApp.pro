@@ -41,7 +41,8 @@ SOURCES += main.cpp\
     qa/QAsSelection/QAsToLearnCheckedByUserProvider.cpp \
     qa/QAsSelection/QAsTolearnByUserChecker.cpp \
     qa/QAsSelection/QAsSelector.cpp \
-    qa/QAMarker.cpp
+    qa/QAMarker.cpp \
+    qa/LineSplitter.cpp
 
 HEADERS  += user/UserInfo.h \
     qa/QAFilePathSelector.h \
@@ -117,7 +118,9 @@ HEADERS  += user/UserInfo.h \
     qa/QAsSelection/IQAsSelector.h \
     qa/QAsSelection/QAsSelector.h \
     qa/IQAmarker.h \
-    qa/QAMarker.h
+    qa/QAMarker.h \
+    qa/LineSplitter.h \
+    qa/ILineSplitter.h
 
 FORMS    += ui/dialogs/logindialog.ui \
     ui/dialogs/dialogcreateaccount.ui \

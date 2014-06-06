@@ -69,7 +69,8 @@ SOURCES += \
     QAsSelectorTestSuite.cpp \
     QATestSuite.cpp \
     QAMarkerTestSuite.cpp \
-    ../../GonzalesApp/qa/QAMarker.cpp
+    ../../GonzalesApp/qa/QAMarker.cpp \
+    LineSplitterTestSuite.cpp
 
 LIBPATH += C:/gtest/lib
 LIBPATH += C:/gmock/lib
