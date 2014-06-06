@@ -85,10 +85,7 @@ public:
 
     void deserialize(QString &str)
     {
-        char *chars;
-        stream >> chars;
-        str = QString::fromLocal8Bit(chars, -1);
-        delete chars;
+        stream >> str;
     }
 
 

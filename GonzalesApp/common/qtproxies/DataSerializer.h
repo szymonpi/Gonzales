@@ -82,7 +82,7 @@ public:
 
     virtual void serialize(const QString &str)
     {
-        stream << str.toStdString().c_str();
+        stream << str;
     }
 
 private:
