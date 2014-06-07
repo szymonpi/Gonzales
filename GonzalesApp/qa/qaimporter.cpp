@@ -1,4 +1,5 @@
 #include "qaimporter.h"
+#include "LineSplitter.h"
 
 QStringList QAFromTextFileImporter::getLinesFromFile(IFile &file)
 {
@@ -36,8 +37,18 @@ std::vector<std::shared_ptr<QA> > QAFromTextFileImporter::import(const QString &
     QStringList lines = getLinesFromFile(*file);
 
     std::vector<std::shared_ptr<QA> > qAqueue;
+    LineSplitter splitter;
     foreach (QString line, lines) {
-        QStringList splittedLine = getSplittedCleanedLine(line);
+        QStringList splittedLine;
+        try
+        {
+            splittedLine = splitter.splitLine(line);
+        }
+        catch(const std::logic_error &)
+        {
+            continue;
+        }
+
         if(splittedLine.size()==2)
             appendQa(qAqueue, splittedLine);
     }
