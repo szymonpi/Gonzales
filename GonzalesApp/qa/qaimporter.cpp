@@ -37,20 +37,18 @@ std::vector<std::shared_ptr<QA> > QAFromTextFileImporter::import(const QString &
     QStringList lines = getLinesFromFile(*file);
 
     std::vector<std::shared_ptr<QA> > qAqueue;
-    LineSplitter splitter;
     foreach (QString line, lines) {
         QStringList splittedLine;
         try
         {
-            splittedLine = splitter.splitLine(line);
+            splittedLine = m_lineSplitter->splitLine(line);
         }
         catch(const std::logic_error &)
         {
             continue;
         }
 
-        if(splittedLine.size()==2)
-            appendQa(qAqueue, splittedLine);
+        appendQa(qAqueue, splittedLine);
     }
 
     if(qAqueue.empty())

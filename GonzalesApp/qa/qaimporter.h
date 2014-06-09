@@ -12,6 +12,7 @@
 #include "../common/qtproxies/filefactory.h"
 #include "../common/qtproxies/file.h"
 #include "../Common/SimpleTree/Node.h"
+#include "../qa/LineSplitter.h"
 
 class QAsImporter
 {
@@ -23,15 +24,18 @@ public:
 class QAFromTextFileImporter: public QAsImporter
 {
 public:
-    QAFromTextFileImporter(std::shared_ptr<IFileFactory> fileFactory = std::make_shared<FileFactory>()):
+    QAFromTextFileImporter(std::shared_ptr<ILineSplitter> lineSplitter = std::make_shared<LineSplitter>(),
+                           std::shared_ptr<IFileFactory> fileFactory = std::make_shared<FileFactory>()):
+        m_lineSplitter(lineSplitter),
         m_fileFactory(fileFactory)
     {}
     std::vector<std::shared_ptr<QA> > import(const QString &filePath);
 
 private:
-    std::shared_ptr<IFileFactory> m_fileFactory;
+    void appendQa(std::vector<std::shared_ptr<QA> > &qAs, QStringList &splittedLine);
     QStringList getLinesFromFile(IFile &file);
     QStringList getSplittedCleanedLine(QString line);
     QString getQuestionFromSplittedLine(QStringList &splittedLine);
-    void appendQa(std::vector<std::shared_ptr<QA> > &qAs, QStringList &splittedLine);
+    std::shared_ptr<ILineSplitter> m_lineSplitter;
+    std::shared_ptr<IFileFactory> m_fileFactory;
 };

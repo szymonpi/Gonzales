@@ -117,6 +117,7 @@ void MainWindow::on_pushButtonShowAnswer_clicked()
 void MainWindow::on_actionStart_triggered()
 {
     teacherController->startTeaching();
+    ui->MainTab->setCurrentIndex(0);
     emit startLearn();
 }
 

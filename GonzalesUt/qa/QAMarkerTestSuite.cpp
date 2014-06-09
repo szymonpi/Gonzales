@@ -5,6 +5,7 @@
 #include "QAsDestinationSelectorMock.h"
 #include "QAsRepositoryMock.h"
 #include <ostream>
+#include <QAsRepositoryMock.h>
 
 using namespace testing;
 
@@ -23,14 +24,17 @@ void PrintTo(const QA::AnswerRating &answerRating, std::ostream* os)
 
 class QAMarkerSuite: public testing::Test
 {
-
+public:
+    std::shared_ptr<StrictMock<QAsRepositoryMock>> m_qaRepositoryMock =
+                std::make_shared<StrictMock<QAsRepositoryMock>>();
 };
 
 TEST_F(QAMarkerSuite, QuestionGiven_ShouldMarkAsKnown)
 {
     QA qa;
-    QAMarker marker;
+    QAMarker marker(m_qaRepositoryMock);
     QDateTime currentDateTime = QDateTime::currentDateTime();
+    EXPECT_CALL(*m_qaRepositoryMock, onQAsUpdate());
     marker.markAsKnown(qa);
 
     auto history = qa.getAnswersHistory();
@@ -42,8 +46,9 @@ TEST_F(QAMarkerSuite, QuestionGiven_ShouldMarkAsKnown)
 TEST_F(QAMarkerSuite, QuestionGiven_ShouldMarkAsUnknown)
 {
     QA qa;
-    QAMarker marker;
+    QAMarker marker(m_qaRepositoryMock);
     QDateTime currentDateTime = QDateTime::currentDateTime();
+    EXPECT_CALL(*m_qaRepositoryMock, onQAsUpdate());
     marker.markAsUnknown(qa);
 
     auto history = qa.getAnswersHistory();

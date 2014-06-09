@@ -377,7 +377,7 @@ p, li { white-space: pre-wrap; }
     <string>import QA</string>
    </property>
    <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Import your Questions and answers!&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt; File line should have format:&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;Q&amp;lt;spacebar&amp;gt;A &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;Q&amp;lt;spacebar&amp;gt;A&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;Q A&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;for example:&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;I'm Ja &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Import your Questions and answers!&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;File line should have format:&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;Q: your question A: your answer&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;or&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;your question - your answer&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;Import and Enjoy!&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </action>
  </widget>
