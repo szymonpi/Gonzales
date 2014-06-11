@@ -6,9 +6,9 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "../qa/iqarepository.h"
+#include "../qa/IQARepository.h"
 #include "../user/UserInfo.h"
-#include "../common/common.h"
+#include "../common/Common.h"
 #include "../uiobservers/AnswerPresenter.h"
 #include "../uiobservers/QuestionPresenter.h"
 #include "../uiobservers/QuestionCollectionPresenter.h"

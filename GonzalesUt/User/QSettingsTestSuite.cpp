@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <QString>
 #include "../gtest.h"
-#include "../../GonzalesApp/user/accountcreator.h"
+#include "../../GonzalesApp/user/AccountCreator.h"
 #include "applicationsettingsmock.h"
 #include "../../GonzalesApp/common/qtproxies/IApplicationSettings.h"
 #include <QStringList>

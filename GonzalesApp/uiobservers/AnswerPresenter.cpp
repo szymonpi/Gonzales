@@ -1,4 +1,4 @@
-#include "answerpresenter.h"
+#include "AnswerPresenter.h"
 
 
 AnswerPresenter::AnswerPresenter(QTextEdit &textEdit):

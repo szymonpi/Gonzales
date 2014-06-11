@@ -1,5 +1,5 @@
 #include "../gtest.h"
-#include "../../GonzalesApp/user/accountsprovider.h"
+#include "../../GonzalesApp/user/AccountsProvider.h"
 #include "applicationsettingsmock.h"
 #include <QStringList>
 

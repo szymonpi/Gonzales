@@ -1,13 +1,13 @@
-#include "qarepositoryfactory.h"
+#include "QARepositoryFactory.h"
 #include "qa/QALoader.h"
 #include "qa/QASaver.h"
 #include "qa/QAsFilePathProvider.h"
 #include <QTreeWidget>
 #include "uiobservers/ExceptionHandler.h"
 #include "uiobservers/QuestionCollectionPresenter.h"
-#include "qa/qarepository.h"
+#include "qa/QARepository.h"
 #include "qa/QANullLoader.h"
-#include "User/UserInfo.h"
+#include "user/UserInfo.h"
 
 
 

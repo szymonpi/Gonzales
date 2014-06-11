@@ -1,1 +1,1 @@
-#include "linesplitter.h"
+#include "LineSplitter.h"

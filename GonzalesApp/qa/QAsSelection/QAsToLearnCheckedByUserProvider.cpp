@@ -1,4 +1,4 @@
-#include "qastolearncheckedbyuserprovider.h"
+#include "QAsToLearnCheckedByUserProvider.h"
 #include "../../common/Common.h"
 
 QAsToLearnCheckedByUserProvider::QAsToLearnCheckedByUserProvider(std::shared_ptr<QAsProvider> qasProvider):

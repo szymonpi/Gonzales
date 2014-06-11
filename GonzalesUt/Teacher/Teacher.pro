@@ -6,7 +6,7 @@ CONFIG += qt
 CONFIG += warn_off
 
 SOURCES += \
-    ../../GonzalesApp/teaching/teacher.cpp \
+    ../../GonzalesApp/teaching/Teacher.cpp \
     "../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.h" \
     TeacherTestSuite.cpp
 
@@ -23,8 +23,15 @@ HEADERS += ../gtest.h \
     QAMarkerMock.h \
     ../../GonzalesApp/qa/IQAmarker.h
 
-LIBPATH += C:/gtest/lib
-LIBPATH += C:/gmock/lib
+unix
+{
+    LIBS += -pthread
+}
+win32
+{
+    LIBPATH += C:/gtest/lib
+    LIBPATH += C:/gmock/lib
+}
 
 LIBS += -lgtest
 LIBS += -lgmock

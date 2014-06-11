@@ -2,7 +2,7 @@
 #define DataSerializerFACTORYMOCK_H
 
 #include "../gmock.h"
-#include "../../GonzalesApp/common/qtproxies/DataSerializerfactory.h"
+#include "../../GonzalesApp/common/qtproxies/DataSerializerFactory.h"
 
 class DataSerializerFactoryMock : public IDataSerializerFactory
 {

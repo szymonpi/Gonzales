@@ -1,5 +1,5 @@
 #include "QAsToLearnByUserChecker.h"
-#include "../../Common/Common.h"
+#include "../../common/Common.h"
 
 
 QAsToLearnByUserChecker::QAsToLearnByUserChecker(std::shared_ptr<IQARepository> qAsProvider):

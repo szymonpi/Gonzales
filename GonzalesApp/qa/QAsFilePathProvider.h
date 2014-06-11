@@ -1,6 +1,6 @@
 #pragma once
 #include "IQAsFilePathProvider.h"
-#include "../User/UserInfo.h"
+#include "../user/UserInfo.h"
 
 class QAsFilePathProvider: public IQAsFilePathProvider
 {

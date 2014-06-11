@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../gmock.h"
-#include "../../GonzalesApp/common/qtproxies/DataDeserializerfactory.h"
+#include "../../GonzalesApp/common/qtproxies/DataDeserializerFactory.h"
 
 class DataDeserializerFactoryMock : public IDataDeserializerFactory
 {

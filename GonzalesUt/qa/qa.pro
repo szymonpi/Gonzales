@@ -72,9 +72,15 @@ SOURCES += \
     ../../GonzalesApp/qa/QAMarker.cpp \
     LineSplitterTestSuite.cpp
 
-LIBPATH += C:/gtest/lib
-LIBPATH += C:/gmock/lib
+unix
+{
+    LIBS += -pthread
+}
+win32
+{
+    LIBPATH += C:/gtest/lib
+    LIBPATH += C:/gmock/lib
+}
 
 LIBS += -lgtest
 LIBS += -lgmock
-

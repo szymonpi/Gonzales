@@ -3,9 +3,9 @@
 #include <QMainWindow>
 #include <QStateMachine>
 #include <memory>
-#include "qa/qaimporter.h"
+#include "qa/QAImporter.h"
 #include "user/UserInfo.h"
-#include "teaching/teachercontroller.h"
+#include "teaching/TeacherController.h"
 #include "qa/ImportHandler.h"
 #include <QTreeWidgetItem>
 

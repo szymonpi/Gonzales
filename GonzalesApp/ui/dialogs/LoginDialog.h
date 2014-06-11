@@ -1,9 +1,9 @@
 #pragma once
 
 #include <QDialog>
-#include "User/AccountsProvider.h"
-#include "dialogcreateaccount.h"
-#include "User/Authorizer.h"
+#include "../../user/AccountsProvider.h"
+#include "DialogCreateAccount.h"
+#include "user/Authorizer.h"
 
 namespace Ui {
 class LoginDialog;

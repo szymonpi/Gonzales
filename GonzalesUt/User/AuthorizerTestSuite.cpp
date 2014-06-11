@@ -1,6 +1,6 @@
 
 #include "../gtest.h"
-#include "../../GonzalesApp/user/authorizer.h"
+#include "../../GonzalesApp/user/Authorizer.h"
 #include "applicationsettingsmock.h"
 
 using namespace testing;

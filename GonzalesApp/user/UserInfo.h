@@ -1,6 +1,6 @@
 #pragma once
 #include <QDir>
-#include "../Common/common.h"
+#include "../common/Common.h"
 
 struct UserInfo
 {

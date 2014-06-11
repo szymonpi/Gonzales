@@ -6,7 +6,7 @@
 
 #include "../../GonzalesApp/common/qtproxies/DataSerializer.h"
 #include "../../GonzalesApp/common/qtproxies/DataDeserializer.h"
-#include "../../GonzalesApp/common/qtproxies/file.h"
+#include "../../GonzalesApp/common/qtproxies/File.h"
 
 using namespace testing;
 

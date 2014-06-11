@@ -1,4 +1,4 @@
-#include "exceptionhandler.h"
+#include "ExceptionHandler.h"
 
 
 void ExceptionHandler::handleException(const QString &message, const QString &errorName) const

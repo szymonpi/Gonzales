@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../uiobservers/filepathselector.h"
-#include "qaimporter.h"
+#include "../uiobservers/FilePathSelector.h"
+#include "QAImporter.h"
 #include "QAsAppender.h"
 #include "../uiobservers/IExceptionHandler.h"
 #include <memory>

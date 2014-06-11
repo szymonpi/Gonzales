@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-#include "../Common/SimpleTree/Node.h"
+#include "../common/SimpleTree/Node.h"
 
 
 class IQASaver

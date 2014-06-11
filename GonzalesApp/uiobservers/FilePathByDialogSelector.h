@@ -1,5 +1,5 @@
 #pragma once
-#include "filepathselector.h"
+#include "FilePathSelector.h"
 #include <QFileDialog>
 
 class FilePathByDialogSelector: public FilePathSelector

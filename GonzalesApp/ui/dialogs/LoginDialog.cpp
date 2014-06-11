@@ -1,7 +1,7 @@
-#include "logindialog.h"
+#include "LoginDialog.h"
 #include "ui_logindialog.h"
-#include "dialogcreateaccount.h"
-#include "../../user/accountsprovider.h"
+#include "DialogCreateAccount.h"
+#include "../../user/AccountsProvider.h"
 
 LoginDialog::LoginDialog(QWidget *parent) :
     QDialog(parent),

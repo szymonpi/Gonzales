@@ -1,5 +1,5 @@
 #include "../gtest.h"
-#include "../../GonzalesApp/user/credentialsvalidator.h"
+#include "../../GonzalesApp/user/CredentialsValidator.h"
 #include "applicationsettingsmock.h"
 #include <QStringList>
 

@@ -1,6 +1,6 @@
-#include "dialogcreateaccount.h"
+#include "DialogCreateAccount.h"
 #include "ui_dialogcreateaccount.h"
-#include "user/accountcreator.h"
+#include "user/AccountCreator.h"
 #include <QMessageBox>
 
 DialogCreateAccount::DialogCreateAccount(QWidget *parent) :

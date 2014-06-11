@@ -3,7 +3,7 @@
 
 #include "../gmock.h"
 #include "../../GonzalesApp/common/qtproxies/IFile.h"
-#include "../../GonzalesApp/common/qtproxies/filefactory.h"
+#include "../../GonzalesApp/common/qtproxies/FileFactory.h"
 
 class FileFactoryMock : public IFileFactory
 {

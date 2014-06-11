@@ -1,9 +1,9 @@
 #pragma once
 
-#include "question.h"
-#include "answer.h"
+#include "Question.h"
+#include "Answer.h"
 #include "stdexcept"
-#include "../Common/FileException.h"
+#include "../common/FileException.h"
 #include <QMultiMap>
 #include <QDateTime>
 

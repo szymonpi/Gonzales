@@ -6,8 +6,8 @@
 
 #include <QQueue>
 
-#include "../../GonzalesApp/qa/qasaver.h"
-#include "../../GonzalesApp/qa/qaloader.h"
+#include "../../GonzalesApp/qa/QASaver.h"
+#include "../../GonzalesApp/qa/QALoader.h"
 #include "DataSerializerMock.h"
 #include "DataSerializerFactoryMock.h"
 #include "QASerializerMock.h"

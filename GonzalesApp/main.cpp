@@ -1,7 +1,7 @@
 #include "ui/mainwindow.h"
 #include <QApplication>
 
-#include "User/UserInfo.h"
+#include "user/UserInfo.h"
 #include "ui/dialogs/LoginDialog.h"
 #include "QARepositoryFactory.h"
 #include "ImportHandlerFactory.h"

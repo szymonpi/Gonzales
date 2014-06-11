@@ -2,7 +2,7 @@
 #define TEACHERCONTROLLERFACTORY_H
 
 #include <QTextEdit>
-#include "teaching/teachercontroller.h"
+#include "teaching/TeacherController.h"
 #include "qa/QAsSelection/QAsToLearnCheckedByUserProvider.h"
 #include "qa/QAsSelection/QAsSelector.h"
 #include "qa/IQARepository.h"

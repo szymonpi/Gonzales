@@ -1,4 +1,4 @@
-#include "dialogqaimporterselector.h"
+#include "DialogQAImporterSelector.h"
 #include "ui_dialogqaimporterselector.h"
 #include <QInputDialog>
 

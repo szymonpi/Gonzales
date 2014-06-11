@@ -1,7 +1,7 @@
 #include "QAsToLearnProvider.h"
-#include "../../Common/SimpleTree/Node.h"
+#include "../../common/SimpleTree/Node.h"
 #include <memory>
-#include "../../Common/Common.h"
+#include "../../common/Common.h"
 #include <QVector>
 
 QAsToLearnProvider::QAsToLearnProvider(std::shared_ptr<IQAsToLearnCheckedByUserProvider> qasToLearnProvider,

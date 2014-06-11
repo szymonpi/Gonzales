@@ -1,5 +1,5 @@
 #pragma once
-#include "../Common/SimpleTree/Node.h"
+#include "../common/SimpleTree/Node.h"
 #include "QA.h"
 
 class IQAsAppender
