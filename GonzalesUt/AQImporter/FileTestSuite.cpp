@@ -26,17 +26,17 @@ protected:
     File toImportWithOneEmpty;
 };
 
-TEST_F(FileTestSuite, testFileOpen)
+TEST_F(FileTestSuite, DISABLED_testFileOpen)
 {
     ASSERT_TRUE(ExistingFile.open(QFile::ReadOnly));
 }
 
-TEST_F(FileTestSuite, testCantOpenFile)
+TEST_F(FileTestSuite, DISABLED_testCantOpenFile)
 {
     ASSERT_FALSE(NotExistingFile.open(QFile::ReadOnly));
 }
 
-TEST_F(FileTestSuite, readOneLineFromFile)
+TEST_F(FileTestSuite, DISABLED_readOneLineFromFile)
 {
     ExistingFile.open(QFile::ReadOnly);
 
@@ -44,7 +44,7 @@ TEST_F(FileTestSuite, readOneLineFromFile)
     EXPECT_TRUE(!line.isEmpty());
 }
 
-TEST_F(FileTestSuite, readTwoLineFromFile)
+TEST_F(FileTestSuite, DISABLED_readTwoLineFromFile)
 {
     ExistingFile.open(QFile::ReadOnly);
 
@@ -60,7 +60,7 @@ TEST_F(FileTestSuite, readTwoLineFromFile)
     EXPECT_EQ(2, lines.size());
 }
 
-TEST_F(FileTestSuite, readTwoLinewsWhenOneBetweenIsEmpty)
+TEST_F(FileTestSuite, DISABLED_readTwoLinewsWhenOneBetweenIsEmpty)
 {
     toImportWithOneEmpty.open(QFile::ReadOnly);
 
@@ -76,7 +76,7 @@ TEST_F(FileTestSuite, readTwoLinewsWhenOneBetweenIsEmpty)
     EXPECT_EQ(3, lines.size());
 }
 
-TEST_F(FileTestSuite, saveDataInFile)
+TEST_F(FileTestSuite, DISABLED_saveDataInFile)
 {
     File fileToWrite("C:/projects/Gonzales/GonzalesUt/AQImporter/fileToWrite.txt");
     fileToWrite.open(QFile::WriteOnly);
@@ -92,7 +92,7 @@ TEST_F(FileTestSuite, saveDataInFile)
     ASSERT_TRUE(serializer->status()== QDataStream::Ok);
 }
 
-TEST_F(FileTestSuite, loadDataFromFile)
+TEST_F(FileTestSuite, DISABLED_loadDataFromFile)
 {
     File fileToRead("C:/projects/Gonzales/GonzalesUt/AQImporter/fileToWrite.txt");
     fileToRead.open(QFile::ReadOnly);
@@ -114,7 +114,7 @@ TEST_F(FileTestSuite, loadDataFromFile)
     ASSERT_TRUE(deserializer->status()== QDataStream::Ok);
 }
 
-TEST_F(FileTestSuite, loadToNotEnoughDataFromFile)
+TEST_F(FileTestSuite, DISABLED_loadToNotEnoughDataFromFile)
 {
     File fileToRead("C:/projects/Gonzales/GonzalesUt/AQImporter/fileToWrite.txt");
     fileToRead.open(QFile::ReadOnly);

@@ -15,7 +15,7 @@ SOURCES += \
     AccountCreatorTestSuite.cpp \
     accountsprovidetestsuite.cpp \
     QSettingsTestSuite.cpp \
-    ../../GonzalesApp/user/credentialsvalidator.cpp \
+    ../../GonzalesApp/user/CredentialsValidator.cpp \
     CredentialsValidatorTestSuite.cpp \
     AuthorizerTestSuite.cpp \
     ../../GonzalesApp/user/Authorizer.cpp
