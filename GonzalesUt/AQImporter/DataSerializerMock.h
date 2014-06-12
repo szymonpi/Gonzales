@@ -20,6 +20,7 @@ public:
     MOCK_METHOD1(serialize, void(double i));
     MOCK_METHOD1(serialize, void(const char *i));
     MOCK_METHOD1(serialize, void(const QString &));
+    MOCK_METHOD1(serialize, void(const QDateTime &));
     MOCK_METHOD0(status, QDataStream::Status());
 
 };

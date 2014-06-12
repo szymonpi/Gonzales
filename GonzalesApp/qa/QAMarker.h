@@ -11,13 +11,15 @@ public:
 
     void markAsKnown(QA &qa) override
     {
-        qa.addHistoryEntry(QDateTime::currentDateTime(), QA::AnswerRating::Correct);
+        QDateTime dateTime = QDateTime::currentDateTime();
+        qa.addHistoryEntry(dateTime, QA::AnswerRating::Correct);
         m_repository->onQAsUpdate();
     }
 
     void markAsUnknown(QA &qa) override
     {
-        qa.addHistoryEntry(QDateTime::currentDateTime(), QA::AnswerRating::Incorrect);
+        QDateTime dateTime = QDateTime::currentDateTime();
+        qa.addHistoryEntry(dateTime, QA::AnswerRating::Incorrect);
         m_repository->onQAsUpdate();
     }
 private:

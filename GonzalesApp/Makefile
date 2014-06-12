@@ -71,6 +71,14 @@ SOURCES       = main.cpp \
 		uiobservers/QuestionCollectionPresenter.cpp \
 		uiobservers/QuestionPresenter.cpp \
 		uiobservers/UIAdapters.cpp \
+		/ \
+		user/AccountCreator.cpp \
+		/ \
+		user/AccountsProvider.cpp \
+		/ \
+		user/Authorizer.cpp \
+		/ \
+		user/CredentialsValidator.cpp \
 		user/AccountCreator.cpp \
 		user/AccountsProvider.cpp \
 		user/Authorizer.cpp \
@@ -106,6 +114,14 @@ OBJECTS       = main.o \
 		QuestionCollectionPresenter.o \
 		QuestionPresenter.o \
 		UIAdapters.o \
+		.o \
+		AccountCreator.o \
+		.o \
+		AccountsProvider.o \
+		.o \
+		Authorizer.o \
+		.o \
+		CredentialsValidator.o \
 		AccountCreator.o \
 		AccountsProvider.o \
 		Authorizer.o \
@@ -356,7 +372,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/GonzalesApp1.0.0 || mkdir -p .tmp/GonzalesApp1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/GonzalesApp1.0.0/ && $(COPY_FILE) --parents icons.qrc .tmp/GonzalesApp1.0.0/ && $(COPY_FILE) --parents common/qtproxies/ApplicationSettings.h common/qtproxies/DataDeserializerFactory.h common/qtproxies/DataDeserializer.h common/qtproxies/DataSerializerFactory.h common/qtproxies/DataSerializer.h common/qtproxies/FileFactory.h common/qtproxies/IApplicationSettings.h common/qtproxies/IDataDeserializer.h common/qtproxies/IDataSerializer.h common/qtproxies/IFile.h common/SimpleTree/IInfosSerializer.h common/SimpleTree/InfosSerializer.h common/SimpleTree/NodeSerializer.h ImportHandlerFactory.h qa/ILineSplitter.h qa/ImportHandler.h qa/IQAFilePathSelector.h qa/IQALoader.h qa/IQAmarker.h qa/IQAsAppender.h qa/IQASaver.h qa/IQASerializer.h qa/IQAsFilePathProvider.h qa/LineSplitter.h qa/QAFilePathSelector.h qa/QA.h qa/QAMarker.h qa/QANullLoader.h qa/QAsAppender.h qa/QASaver.h qa/QASerializer.h qa/QAsFilePathProvider.h qa/QAsSelection/IQAsSelector.h qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h qa/QAsSelection/IQAsToLearnProvider.h qa/QAsSelection/QAsProvider.h qa/QAsSelection/QAsSelector.h qa/QAsSelection/QAsToLearnByUserChecker.h qa/QAsSelection/QAsToLearnCheckedByUserProvider.h qa/QAsSelection/QAsToLearnProvider.h QARepositoryFactory.h teaching/ITeacher.h teaching/TeacherControllerFactory.h teaching/TeacherController.h teaching/Teacher.h ui/dialogs/DialogCreateAccount.h ui/dialogs/DialogQAImporterSelector.h ui/dialogs/LoginDialog.h ui/mainwindow.h uiobservers/AnswerPresenter.h uiobservers/ExceptionHandler.h uiobservers/FilePathByDialogSelector.h uiobservers/FilePathSelector.h uiobservers/IAnswerPresenter.h uiobservers/IExceptionHandler.h uiobservers/IQuestionCollectionPresenter.h uiobservers/IQuestionPresenter.h uiobservers/QAsDestinationSelector.h uiobservers/QuestionCollectionPresenter.h uiobservers/QuestionPresenter.h user/AccountCreator.h user/AccountCreator.h user/CredentialsValidatorFactory.h user/AccountsProvider.h user/Authorizer.h user/CredentialsValidator.h user/ICredentialsValidator.h user/UserInfo.h qa/QAImporter.h user/UserInfo.h .tmp/GonzalesApp1.0.0/ && $(COPY_FILE) --parents main.cpp qa/LineSplitter.cpp qa/QAImporter.cpp qa/QALoader.cpp qa/QAMarker.cpp qa/QARepository.cpp qa/QAsAppender.cpp qa/QASaver.cpp qa/QAsSelection/QAsSelector.cpp qa/QAsSelection/QAsTolearnByUserChecker.cpp qa/QAsSelection/QAsToLearnCheckedByUserProvider.cpp qa/QAsSelection/QAsToLearnProvider.cpp QARepositoryFactory.cpp teaching/TeacherController.cpp teaching/Teacher.cpp ui/dialogs/DialogCreateAccount.cpp ui/dialogs/DialogQAImporterSelector.cpp ui/dialogs/LoginDialog.cpp ui/mainwindow.cpp uiobservers/AnswerPresenter.cpp uiobservers/ExceptionHandler.cpp uiobservers/FilePathByDialogSelector.cpp uiobservers/FilePathSelector.cpp uiobservers/QuestionCollectionPresenter.cpp uiobservers/QuestionPresenter.cpp uiobservers/UIAdapters.cpp user/AccountCreator.cpp user/AccountsProvider.cpp user/Authorizer.cpp user/CredentialsValidator.cpp .tmp/GonzalesApp1.0.0/ && $(COPY_FILE) --parents ui/dialogs/logindialog.ui ui/dialogs/dialogcreateaccount.ui ui/dialogs/dialogqaimporterselector.ui ui/mainwindow.ui .tmp/GonzalesApp1.0.0/ && (cd `dirname .tmp/GonzalesApp1.0.0` && $(TAR) GonzalesApp1.0.0.tar GonzalesApp1.0.0 && $(COMPRESS) GonzalesApp1.0.0.tar) && $(MOVE) `dirname .tmp/GonzalesApp1.0.0`/GonzalesApp1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/GonzalesApp1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/GonzalesApp1.0.0/ && $(COPY_FILE) --parents icons.qrc .tmp/GonzalesApp1.0.0/ && $(COPY_FILE) --parents common/qtproxies/ApplicationSettings.h common/qtproxies/DataDeserializerFactory.h common/qtproxies/DataDeserializer.h common/qtproxies/DataSerializerFactory.h common/qtproxies/DataSerializer.h common/qtproxies/FileFactory.h common/qtproxies/IApplicationSettings.h common/qtproxies/IDataDeserializer.h common/qtproxies/IDataSerializer.h common/qtproxies/IFile.h common/SimpleTree/IInfosSerializer.h common/SimpleTree/InfosSerializer.h common/SimpleTree/NodeSerializer.h ImportHandlerFactory.h qa/ILineSplitter.h qa/ImportHandler.h qa/IQAFilePathSelector.h qa/IQALoader.h qa/IQAmarker.h qa/IQAsAppender.h qa/IQASaver.h qa/IQASerializer.h qa/IQAsFilePathProvider.h qa/LineSplitter.h qa/QAFilePathSelector.h qa/QA.h qa/QAMarker.h qa/QANullLoader.h qa/QAsAppender.h qa/QASaver.h qa/QASerializer.h qa/QAsFilePathProvider.h qa/QAsSelection/IQAsSelector.h qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h qa/QAsSelection/IQAsToLearnProvider.h qa/QAsSelection/QAsProvider.h qa/QAsSelection/QAsSelector.h qa/QAsSelection/QAsToLearnByUserChecker.h qa/QAsSelection/QAsToLearnCheckedByUserProvider.h qa/QAsSelection/QAsToLearnProvider.h QARepositoryFactory.h teaching/ITeacher.h teaching/TeacherControllerFactory.h teaching/TeacherController.h teaching/Teacher.h ui/dialogs/DialogCreateAccount.h ui/dialogs/DialogQAImporterSelector.h ui/dialogs/LoginDialog.h ui/mainwindow.h uiobservers/AnswerPresenter.h uiobservers/ExceptionHandler.h uiobservers/FilePathByDialogSelector.h uiobservers/FilePathSelector.h uiobservers/IAnswerPresenter.h uiobservers/IExceptionHandler.h uiobservers/IQuestionCollectionPresenter.h uiobservers/IQuestionPresenter.h uiobservers/QAsDestinationSelector.h uiobservers/QuestionCollectionPresenter.h uiobservers/QuestionPresenter.h user/AccountCreator.h user/AccountCreator.h user/CredentialsValidatorFactory.h user/AccountsProvider.h user/Authorizer.h user/CredentialsValidator.h user/ICredentialsValidator.h user/UserInfo.h qa/QAImporter.h user/UserInfo.h .tmp/GonzalesApp1.0.0/ && $(COPY_FILE) --parents main.cpp qa/LineSplitter.cpp qa/QAImporter.cpp qa/QALoader.cpp qa/QAMarker.cpp qa/QARepository.cpp qa/QAsAppender.cpp qa/QASaver.cpp qa/QAsSelection/QAsSelector.cpp qa/QAsSelection/QAsTolearnByUserChecker.cpp qa/QAsSelection/QAsToLearnCheckedByUserProvider.cpp qa/QAsSelection/QAsToLearnProvider.cpp QARepositoryFactory.cpp teaching/TeacherController.cpp teaching/Teacher.cpp ui/dialogs/DialogCreateAccount.cpp ui/dialogs/DialogQAImporterSelector.cpp ui/dialogs/LoginDialog.cpp ui/mainwindow.cpp uiobservers/AnswerPresenter.cpp uiobservers/ExceptionHandler.cpp uiobservers/FilePathByDialogSelector.cpp uiobservers/FilePathSelector.cpp uiobservers/QuestionCollectionPresenter.cpp uiobservers/QuestionPresenter.cpp uiobservers/UIAdapters.cpp / user/AccountCreator.cpp / user/AccountsProvider.cpp / user/Authorizer.cpp / user/CredentialsValidator.cpp user/AccountCreator.cpp user/AccountsProvider.cpp user/Authorizer.cpp user/CredentialsValidator.cpp .tmp/GonzalesApp1.0.0/ && $(COPY_FILE) --parents ui/dialogs/logindialog.ui ui/dialogs/dialogcreateaccount.ui ui/dialogs/dialogqaimporterselector.ui ui/mainwindow.ui .tmp/GonzalesApp1.0.0/ && (cd `dirname .tmp/GonzalesApp1.0.0` && $(TAR) GonzalesApp1.0.0.tar GonzalesApp1.0.0 && $(COMPRESS) GonzalesApp1.0.0.tar) && $(MOVE) `dirname .tmp/GonzalesApp1.0.0`/GonzalesApp1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/GonzalesApp1.0.0
 
 
 clean:compiler_clean 
@@ -381,11 +397,11 @@ compiler_rcc_make_all: qrc_icons.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) qrc_icons.cpp
 qrc_icons.cpp: icons.qrc \
-		resources/icons/question.jpg \
-		resources/icons/learn.jpg \
 		resources/icons/book.jpg \
+		resources/icons/learning.jpg \
 		resources/icons/import.jpg \
-		resources/icons/learning.jpg
+		resources/icons/learn.jpg \
+		resources/icons/question.jpg
 	/usr/lib/i386-linux-gnu/qt5/bin/rcc -name icons icons.qrc -o qrc_icons.cpp
 
 compiler_moc_header_make_all: moc_TeacherController.cpp moc_DialogCreateAccount.cpp moc_DialogQAImporterSelector.cpp moc_LoginDialog.cpp moc_mainwindow.cpp
@@ -3039,11 +3055,57 @@ DialogCreateAccount.o: ui/dialogs/DialogCreateAccount.cpp ui/dialogs/DialogCreat
 		/usr/include/qt5/QtGui/qvector2d.h \
 		/usr/include/qt5/QtGui/qtouchdevice.h \
 		ui_dialogcreateaccount.h \
+		/usr/include/qt5/QtCore/QVariant \
+		/usr/include/qt5/QtWidgets/QAction \
+		/usr/include/qt5/QtWidgets/qaction.h \
+		/usr/include/qt5/QtGui/qicon.h \
+		/usr/include/qt5/QtWidgets/qactiongroup.h \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
+		/usr/include/qt5/QtWidgets/QButtonGroup \
+		/usr/include/qt5/QtWidgets/qbuttongroup.h \
+		/usr/include/qt5/QtWidgets/QHBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtWidgets/QHeaderView \
+		/usr/include/qt5/QtWidgets/qheaderview.h \
+		/usr/include/qt5/QtWidgets/qabstractitemview.h \
+		/usr/include/qt5/QtWidgets/qabstractscrollarea.h \
+		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtCore/qabstractitemmodel.h \
+		/usr/include/qt5/QtCore/qitemselectionmodel.h \
+		/usr/include/qt5/QtWidgets/qabstractitemdelegate.h \
+		/usr/include/qt5/QtWidgets/qstyleoption.h \
+		/usr/include/qt5/QtWidgets/qabstractspinbox.h \
+		/usr/include/qt5/QtGui/qvalidator.h \
+		/usr/include/qt5/QtCore/qregularexpression.h \
+		/usr/include/qt5/QtWidgets/qslider.h \
+		/usr/include/qt5/QtWidgets/qabstractslider.h \
+		/usr/include/qt5/QtWidgets/qstyle.h \
+		/usr/include/qt5/QtWidgets/qtabbar.h \
+		/usr/include/qt5/QtWidgets/qtabwidget.h \
+		/usr/include/qt5/QtWidgets/qrubberband.h \
+		/usr/include/qt5/QtWidgets/QLineEdit \
+		/usr/include/qt5/QtWidgets/qlineedit.h \
+		/usr/include/qt5/QtGui/qtextcursor.h \
+		/usr/include/qt5/QtGui/qtextformat.h \
+		/usr/include/qt5/QtGui/qpen.h \
+		/usr/include/qt5/QtGui/qtextoption.h \
+		/usr/include/qt5/QtWidgets/QPushButton \
+		/usr/include/qt5/QtWidgets/qpushbutton.h \
+		/usr/include/qt5/QtWidgets/qabstractbutton.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
 		user/AccountCreator.h \
 		common/qtproxies/ApplicationSettings.h \
 		/usr/include/qt5/QtCore/QSettings \
 		/usr/include/qt5/QtCore/qsettings.h \
-		/usr/include/qt5/QtCore/QVariant \
 		/usr/include/qt5/QtCore/QStringList \
 		common/Common.h \
 		/usr/include/qt5/QtCore/QDir \
@@ -3172,10 +3234,59 @@ DialogQAImporterSelector.o: ui/dialogs/DialogQAImporterSelector.cpp ui/dialogs/D
 		uiobservers/QAsDestinationSelector.h \
 		/usr/include/qt5/QtCore/QStringList \
 		ui_dialogqaimporterselector.h \
+		/usr/include/qt5/QtCore/QVariant \
+		/usr/include/qt5/QtWidgets/QAction \
+		/usr/include/qt5/QtWidgets/qaction.h \
+		/usr/include/qt5/QtGui/qicon.h \
+		/usr/include/qt5/QtWidgets/qactiongroup.h \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
+		/usr/include/qt5/QtWidgets/QButtonGroup \
+		/usr/include/qt5/QtWidgets/qbuttongroup.h \
+		/usr/include/qt5/QtWidgets/QComboBox \
+		/usr/include/qt5/QtWidgets/qcombobox.h \
+		/usr/include/qt5/QtWidgets/qabstractitemdelegate.h \
+		/usr/include/qt5/QtWidgets/qstyleoption.h \
+		/usr/include/qt5/QtWidgets/qabstractspinbox.h \
+		/usr/include/qt5/QtGui/qvalidator.h \
+		/usr/include/qt5/QtCore/qregularexpression.h \
+		/usr/include/qt5/QtWidgets/qslider.h \
+		/usr/include/qt5/QtWidgets/qabstractslider.h \
+		/usr/include/qt5/QtWidgets/qstyle.h \
+		/usr/include/qt5/QtWidgets/qtabbar.h \
+		/usr/include/qt5/QtWidgets/qtabwidget.h \
+		/usr/include/qt5/QtWidgets/qrubberband.h \
+		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtCore/qabstractitemmodel.h \
+		/usr/include/qt5/QtWidgets/QDialogButtonBox \
+		/usr/include/qt5/QtWidgets/qdialogbuttonbox.h \
+		/usr/include/qt5/QtWidgets/QGroupBox \
+		/usr/include/qt5/QtWidgets/qgroupbox.h \
+		/usr/include/qt5/QtWidgets/QHBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtWidgets/QHeaderView \
+		/usr/include/qt5/QtWidgets/qheaderview.h \
+		/usr/include/qt5/QtWidgets/qabstractitemview.h \
+		/usr/include/qt5/QtWidgets/qabstractscrollarea.h \
+		/usr/include/qt5/QtCore/qitemselectionmodel.h \
+		/usr/include/qt5/QtWidgets/QListWidget \
+		/usr/include/qt5/QtWidgets/qlistwidget.h \
+		/usr/include/qt5/QtWidgets/qlistview.h \
+		/usr/include/qt5/QtWidgets/QToolButton \
+		/usr/include/qt5/QtWidgets/qtoolbutton.h \
+		/usr/include/qt5/QtWidgets/qabstractbutton.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
 		/usr/include/qt5/QtWidgets/QInputDialog \
 		/usr/include/qt5/QtWidgets/qinputdialog.h \
 		/usr/include/qt5/QtWidgets/qlineedit.h \
-		/usr/include/qt5/QtWidgets/qframe.h \
 		/usr/include/qt5/QtGui/qtextcursor.h \
 		/usr/include/qt5/QtGui/qtextformat.h \
 		/usr/include/qt5/QtGui/qpen.h \
@@ -3309,7 +3420,59 @@ LoginDialog.o: ui/dialogs/LoginDialog.cpp ui/dialogs/LoginDialog.h \
 		/usr/include/qt5/QtCore/QString \
 		user/ICredentialsValidator.h \
 		user/UserInfo.h \
-		ui_logindialog.h
+		ui_logindialog.h \
+		/usr/include/qt5/QtWidgets/QAction \
+		/usr/include/qt5/QtWidgets/qaction.h \
+		/usr/include/qt5/QtGui/qicon.h \
+		/usr/include/qt5/QtWidgets/qactiongroup.h \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
+		/usr/include/qt5/QtWidgets/QButtonGroup \
+		/usr/include/qt5/QtWidgets/qbuttongroup.h \
+		/usr/include/qt5/QtWidgets/QComboBox \
+		/usr/include/qt5/QtWidgets/qcombobox.h \
+		/usr/include/qt5/QtWidgets/qabstractitemdelegate.h \
+		/usr/include/qt5/QtWidgets/qstyleoption.h \
+		/usr/include/qt5/QtWidgets/qabstractspinbox.h \
+		/usr/include/qt5/QtGui/qvalidator.h \
+		/usr/include/qt5/QtCore/qregularexpression.h \
+		/usr/include/qt5/QtWidgets/qslider.h \
+		/usr/include/qt5/QtWidgets/qabstractslider.h \
+		/usr/include/qt5/QtWidgets/qstyle.h \
+		/usr/include/qt5/QtWidgets/qtabbar.h \
+		/usr/include/qt5/QtWidgets/qtabwidget.h \
+		/usr/include/qt5/QtWidgets/qrubberband.h \
+		/usr/include/qt5/QtWidgets/qframe.h \
+		/usr/include/qt5/QtCore/qabstractitemmodel.h \
+		/usr/include/qt5/QtWidgets/QGroupBox \
+		/usr/include/qt5/QtWidgets/qgroupbox.h \
+		/usr/include/qt5/QtWidgets/QHBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtWidgets/QHeaderView \
+		/usr/include/qt5/QtWidgets/qheaderview.h \
+		/usr/include/qt5/QtWidgets/qabstractitemview.h \
+		/usr/include/qt5/QtWidgets/qabstractscrollarea.h \
+		/usr/include/qt5/QtCore/qitemselectionmodel.h \
+		/usr/include/qt5/QtWidgets/QLineEdit \
+		/usr/include/qt5/QtWidgets/qlineedit.h \
+		/usr/include/qt5/QtGui/qtextcursor.h \
+		/usr/include/qt5/QtGui/qtextformat.h \
+		/usr/include/qt5/QtGui/qpen.h \
+		/usr/include/qt5/QtGui/qtextoption.h \
+		/usr/include/qt5/QtWidgets/QPushButton \
+		/usr/include/qt5/QtWidgets/qpushbutton.h \
+		/usr/include/qt5/QtWidgets/qabstractbutton.h \
+		/usr/include/qt5/QtWidgets/QToolButton \
+		/usr/include/qt5/QtWidgets/qtoolbutton.h \
+		/usr/include/qt5/QtWidgets/QVBoxLayout
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o LoginDialog.o ui/dialogs/LoginDialog.cpp
 
 mainwindow.o: ui/mainwindow.cpp /usr/include/qt5/QtCore/QStringList \
@@ -3511,7 +3674,34 @@ mainwindow.o: ui/mainwindow.cpp /usr/include/qt5/QtCore/QStringList \
 		/usr/include/qt5/QtWidgets/qtreeview.h \
 		/usr/include/qt5/QtWidgets/qtreewidgetitemiterator.h \
 		ui_mainwindow.h \
-		uiobservers/AnswerPresenter.h \
+		/usr/include/qt5/QtWidgets/QAction \
+		/usr/include/qt5/QtWidgets/qaction.h \
+		/usr/include/qt5/QtWidgets/qactiongroup.h \
+		/usr/include/qt5/QtWidgets/QApplication \
+		/usr/include/qt5/QtWidgets/qapplication.h \
+		/usr/include/qt5/QtCore/qcoreapplication.h \
+		/usr/include/qt5/QtCore/qeventloop.h \
+		/usr/include/qt5/QtWidgets/qdesktopwidget.h \
+		/usr/include/qt5/QtGui/qguiapplication.h \
+		/usr/include/qt5/QtGui/qinputmethod.h \
+		/usr/include/qt5/QtWidgets/QButtonGroup \
+		/usr/include/qt5/QtWidgets/qbuttongroup.h \
+		/usr/include/qt5/QtWidgets/QGroupBox \
+		/usr/include/qt5/QtWidgets/qgroupbox.h \
+		/usr/include/qt5/QtWidgets/QHBoxLayout \
+		/usr/include/qt5/QtWidgets/qboxlayout.h \
+		/usr/include/qt5/QtWidgets/qlayout.h \
+		/usr/include/qt5/QtWidgets/qlayoutitem.h \
+		/usr/include/qt5/QtWidgets/qgridlayout.h \
+		/usr/include/qt5/QtWidgets/QMenuBar \
+		/usr/include/qt5/QtWidgets/qmenubar.h \
+		/usr/include/qt5/QtWidgets/qmenu.h \
+		/usr/include/qt5/QtWidgets/QPushButton \
+		/usr/include/qt5/QtWidgets/qpushbutton.h \
+		/usr/include/qt5/QtWidgets/qabstractbutton.h \
+		/usr/include/qt5/QtWidgets/QStatusBar \
+		/usr/include/qt5/QtWidgets/qstatusbar.h \
+		/usr/include/qt5/QtWidgets/QTabWidget \
 		/usr/include/qt5/QtWidgets/QTextEdit \
 		/usr/include/qt5/QtWidgets/qtextedit.h \
 		/usr/include/qt5/QtGui/qtextdocument.h \
@@ -3519,9 +3709,14 @@ mainwindow.o: ui/mainwindow.cpp /usr/include/qt5/QtCore/QStringList \
 		/usr/include/qt5/QtGui/qtextcursor.h \
 		/usr/include/qt5/QtGui/qtextformat.h \
 		/usr/include/qt5/QtGui/qpen.h \
+		/usr/include/qt5/QtWidgets/QToolBar \
+		/usr/include/qt5/QtWidgets/qtoolbar.h \
+		/usr/include/qt5/QtWidgets/QTreeWidget \
+		/usr/include/qt5/QtWidgets/QVBoxLayout \
+		/usr/include/qt5/QtWidgets/QWidget \
+		uiobservers/AnswerPresenter.h \
 		uiobservers/QuestionPresenter.h \
 		uiobservers/QuestionCollectionPresenter.h \
-		/usr/include/qt5/QtWidgets/QTreeWidget \
 		qa/QAsSelection/QAsToLearnByUserChecker.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ui/mainwindow.cpp
 
@@ -4212,6 +4407,341 @@ QuestionPresenter.o: uiobservers/QuestionPresenter.cpp uiobservers/QuestionPrese
 
 UIAdapters.o: uiobservers/UIAdapters.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o UIAdapters.o uiobservers/UIAdapters.cpp
+
+.o: / 
+	$(CC) -c $(CFLAGS) $(INCPATH) -o .o /
+
+AccountCreator.o: user/AccountCreator.cpp user/AccountCreator.h \
+		common/qtproxies/ApplicationSettings.h \
+		/usr/include/qt5/QtCore/QSettings \
+		/usr/include/qt5/QtCore/qsettings.h \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/QVariant \
+		/usr/include/qt5/QtCore/QStringList \
+		common/Common.h \
+		/usr/include/qt5/QtCore/QDir \
+		/usr/include/qt5/QtCore/qdir.h \
+		/usr/include/qt5/QtCore/qfileinfo.h \
+		/usr/include/qt5/QtCore/qfile.h \
+		/usr/include/qt5/QtCore/qfiledevice.h \
+		common/qtproxies/IApplicationSettings.h \
+		user/CredentialsValidator.h \
+		/usr/include/qt5/QtCore/QString \
+		user/ICredentialsValidator.h \
+		user/CredentialsValidatorFactory.h \
+		/usr/include/qt5/QtCore/QRegExp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o AccountCreator.o user/AccountCreator.cpp
+
+.o: / 
+	$(CC) -c $(CFLAGS) $(INCPATH) -o .o /
+
+AccountsProvider.o: user/AccountsProvider.cpp user/AccountsProvider.h \
+		common/qtproxies/ApplicationSettings.h \
+		/usr/include/qt5/QtCore/QSettings \
+		/usr/include/qt5/QtCore/qsettings.h \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/QVariant \
+		/usr/include/qt5/QtCore/QStringList \
+		common/Common.h \
+		/usr/include/qt5/QtCore/QDir \
+		/usr/include/qt5/QtCore/qdir.h \
+		/usr/include/qt5/QtCore/qfileinfo.h \
+		/usr/include/qt5/QtCore/qfile.h \
+		/usr/include/qt5/QtCore/qfiledevice.h \
+		common/qtproxies/IApplicationSettings.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o AccountsProvider.o user/AccountsProvider.cpp
+
+.o: / 
+	$(CC) -c $(CFLAGS) $(INCPATH) -o .o /
+
+Authorizer.o: user/Authorizer.cpp user/Authorizer.h \
+		user/CredentialsValidator.h \
+		/usr/include/qt5/QtCore/QString \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		user/ICredentialsValidator.h \
+		common/qtproxies/ApplicationSettings.h \
+		/usr/include/qt5/QtCore/QSettings \
+		/usr/include/qt5/QtCore/qsettings.h \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/QVariant \
+		/usr/include/qt5/QtCore/QStringList \
+		common/Common.h \
+		/usr/include/qt5/QtCore/QDir \
+		/usr/include/qt5/QtCore/qdir.h \
+		/usr/include/qt5/QtCore/qfileinfo.h \
+		/usr/include/qt5/QtCore/qfile.h \
+		/usr/include/qt5/QtCore/qfiledevice.h \
+		common/qtproxies/IApplicationSettings.h \
+		user/UserInfo.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Authorizer.o user/Authorizer.cpp
+
+.o: / 
+	$(CC) -c $(CFLAGS) $(INCPATH) -o .o /
+
+CredentialsValidator.o: user/CredentialsValidator.cpp user/CredentialsValidator.h \
+		/usr/include/qt5/QtCore/QString \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		user/ICredentialsValidator.h \
+		/usr/include/qt5/QtCore/QRegExp \
+		/usr/include/qt5/QtCore/qregexp.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CredentialsValidator.o user/CredentialsValidator.cpp
 
 AccountCreator.o: user/AccountCreator.cpp user/AccountCreator.h \
 		common/qtproxies/ApplicationSettings.h \

@@ -32,11 +32,7 @@ public:
         {
             serializer.serialize(unsigned(kv.second));
             QDateTime date = kv.first;
-            serializer.serialize(date.date().day());
-            serializer.serialize(date.date().month());
-            serializer.serialize(date.date().year());
-            serializer.serialize(date.time().hour());
-            serializer.serialize(date.time().minute());
+            serializer.serialize(date);
         }
     }
 
@@ -50,18 +46,9 @@ public:
         {
             unsigned value = 0;
             deserializer.deserialize(value);
-            int day = 0;
-            int month = 0;
-            int year = 0;
-            int hour = 0;
-            int minute = 0;
-            deserializer.deserialize(day);
-            deserializer.deserialize(month);
-            deserializer.deserialize(year);
-            deserializer.deserialize(hour);
-            deserializer.deserialize(minute);
-            QDateTime date(QDate(year, month, day));
-            answersHistory.emplace(date, QA::AnswerRating(value));
+            QDateTime dateTime;
+            deserializer.deserialize(dateTime);
+            answersHistory.emplace(dateTime, QA::AnswerRating(value));
         }
     }
 

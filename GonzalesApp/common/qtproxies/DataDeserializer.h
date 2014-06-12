@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QDataStream>
+#include <QDateTime>
 #include "IDataDeserializer.h"
 
 class DataDeserializer: public IDataDeserializer
@@ -86,6 +87,11 @@ public:
     void deserialize(QString &str)
     {
         stream >> str;
+    }
+
+    void deserialize(QDateTime &dateTime)
+    {
+        stream >> dateTime;
     }
 
 

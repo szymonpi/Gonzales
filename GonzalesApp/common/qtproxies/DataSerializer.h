@@ -2,6 +2,7 @@
 
 #include <QDataStream>
 #include <QString>
+#include <QDateTime>
 #include "IDataSerializer.h"
 
 class DataSerializer : public IDataSerializer
@@ -14,75 +15,80 @@ public:
         stream.setVersion(QDataStream::Qt_5_1);
     }
 
-    QDataStream::Status status()
+    QDataStream::Status status() override
     {
         return stream.status();
     }
 
 
-    void serialize(bool i)
+    void serialize(bool i) override
     {
         stream << i;
     }
 
-    void serialize(qint8 i)
+    void serialize(qint8 i) override
     {
         stream << i;
     }
 
-    void serialize(quint8 i)
+    void serialize(quint8 i) override
     {
         stream << i;
     }
 
-    void serialize(quint16 i)
+    void serialize(quint16 i) override
     {
         stream << i;
     }
 
-    void serialize(qint16 i)
+    void serialize(qint16 i) override
     {
         stream << i;
     }
 
-    void serialize(qint32 i)
+    void serialize(qint32 i) override
     {
         stream << i;
     }
 
-    void serialize(quint32 i)
+    void serialize(quint32 i) override
     {
         stream << i;
     }
 
-    void serialize(qint64 i)
+    void serialize(qint64 i) override
     {
         stream << i;
     }
 
-    void serialize(quint64 i)
+    void serialize(quint64 i) override
     {
         stream << i;
     }
 
-    void serialize(float i)
+    void serialize(float i) override
     {
         stream << i;
     }
 
-    void serialize(double i)
+    void serialize(double i) override
     {
         stream << i;
     }
 
-    void serialize(const char *i)
+    void serialize(const char *i) override
     {
         stream << i;
     }
 
-    virtual void serialize(const QString &str)
+    void serialize(const QString &str) override
     {
         stream << str;
+    }
+
+    void serialize(const QDateTime& dateTime) override
+    {
+        stream << dateTime;
     }
 
 private:

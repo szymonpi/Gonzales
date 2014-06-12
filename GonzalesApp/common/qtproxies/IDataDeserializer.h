@@ -17,6 +17,7 @@ public:
     virtual void deserialize(double &i)=0;
     virtual void deserialize(char *&i)=0;
     virtual void deserialize(QString &str)=0;
+    virtual void deserialize(QDateTime &str)=0;
     virtual QDataStream::Status status()=0;
     virtual bool atEnd()=0;
 
