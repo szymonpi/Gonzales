@@ -28,14 +28,14 @@ TEST_F(QATestSuite, noAnswersHistoryShouldReturnFalse)
 
 TEST_F(QATestSuite, noWrongAnsweredShouldReturnFalse)
 {
-    qa.addHistoryEntry(QDateTime::currentDateTime(), QA::AnswerRating::Correct);
+    qa.addHistoryEntry(QDate::currentDate(), QA::AnswerRating::Correct);
     EXPECT_FALSE(qa.wasWrongAnswered());
 }
 
 TEST_F(QATestSuite, noWrongAnsweredShouldReturnTrue)
 {
-    qa.addHistoryEntry(QDateTime::currentDateTime(), QA::AnswerRating::Correct);
-    qa.addHistoryEntry(QDateTime::currentDateTime(), QA::AnswerRating::Incorrect);
+    qa.addHistoryEntry(QDate::currentDate(), QA::AnswerRating::Correct);
+    qa.addHistoryEntry(QDate::currentDate(), QA::AnswerRating::Incorrect);
     EXPECT_TRUE(qa.wasWrongAnswered());
 }
 
@@ -51,7 +51,7 @@ TEST_F(QATestSuite, shouldSerializeQAWithAnswerHistory)
 {
     unsigned ExpectedAnswerRating = unsigned(QA::AnswerRating::Correct);
     int expectedAnswerHistorySize = 1;
-    QDateTime dateTime(QDate(2014, 5, 6), QTime(20, 32));
+    QDate dateTime(2014, 5, 6);
 
 
     qa.addHistoryEntry(dateTime, QA::AnswerRating(ExpectedAnswerRating));
@@ -61,7 +61,7 @@ TEST_F(QATestSuite, shouldSerializeQAWithAnswerHistory)
     EXPECT_CALL(serializerMock, serialize(TypedEq<std::size_t>(expectedAnswerHistorySize)));
 
     EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(ExpectedAnswerRating)));
-    EXPECT_CALL(serializerMock, serialize(TypedEq<const QDateTime &>(dateTime)));
+    EXPECT_CALL(serializerMock, serialize(TypedEq<const QDate &>(dateTime)));
 
     qa.serialize(serializerMock);
 }
@@ -86,7 +86,7 @@ TEST_F(QATestSuite, shouldDeserializeQAWithAnswerHistory)
     QString answer = "answer";
     std::size_t answerHistorySize = 1;
     unsigned answerRating = unsigned(QA::AnswerRating::Correct);
-    QDateTime dateTime;
+    QDate m_date;
 
     EXPECT_CALL(deserializerMock, deserialize(An<QString&>()))
             .WillOnce(SetArgReferee<0>(question))
@@ -94,7 +94,7 @@ TEST_F(QATestSuite, shouldDeserializeQAWithAnswerHistory)
 
     EXPECT_CALL(deserializerMock, deserialize(An<unsigned&>())).WillOnce(SetArgReferee<0>(answerRating));
     EXPECT_CALL(deserializerMock, deserialize(An<int&>())).WillOnce(SetArgReferee<0>(answerHistorySize));
-    EXPECT_CALL(deserializerMock, deserialize(An<QDateTime&>())).WillOnce(SetArgReferee<0>(dateTime));
+    EXPECT_CALL(deserializerMock, deserialize(An<QDate&>())).WillOnce(SetArgReferee<0>(m_date));
 
     qa.deserialize(deserializerMock);
 }

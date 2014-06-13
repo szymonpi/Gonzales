@@ -31,7 +31,7 @@ public:
         for(auto &kv: answersHistory)
         {
             serializer.serialize(unsigned(kv.second));
-            QDateTime date = kv.first;
+            QDate date = kv.first;
             serializer.serialize(date);
         }
     }
@@ -46,9 +46,9 @@ public:
         {
             unsigned value = 0;
             deserializer.deserialize(value);
-            QDateTime dateTime;
-            deserializer.deserialize(dateTime);
-            answersHistory.emplace(dateTime, QA::AnswerRating(value));
+            QDate date;
+            deserializer.deserialize(date);
+            answersHistory.emplace(date, QA::AnswerRating(value));
         }
     }
 
@@ -67,12 +67,12 @@ public:
         return answer;
     }
 
-    void addHistoryEntry(const QDateTime &dateTime, AnswerRating questionResult)
+    void addHistoryEntry(const QDate &dateTime, AnswerRating questionResult)
     {
         answersHistory[dateTime] = questionResult;
     }
 
-    std::map<QDateTime, AnswerRating> getAnswersHistory()
+    std::map<QDate, AnswerRating> getAnswersHistory()
     {
         return answersHistory;
     }
@@ -80,12 +80,12 @@ public:
     bool wasWrongAnswered()
     {
         return answersHistory.end() != std::find_if(answersHistory.begin(), answersHistory.end(),
-                            [](const std::pair<QDateTime, AnswerRating> &answer) -> bool
+                            [](const std::pair<QDate, AnswerRating> &answer) -> bool
                               { return answer.second == AnswerRating::Incorrect; });
     }
 
 private:
     Question question;
     Answer answer;
-    std::map<QDateTime, AnswerRating> answersHistory;
+    std::map<QDate, AnswerRating> answersHistory;
 };

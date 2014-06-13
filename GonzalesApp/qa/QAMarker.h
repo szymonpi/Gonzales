@@ -11,14 +11,20 @@ public:
 
     void markAsKnown(QA &qa) override
     {
-        QDateTime dateTime = QDateTime::currentDateTime();
-        qa.addHistoryEntry(dateTime, QA::AnswerRating::Correct);
+        QDate date = QDate::currentDate();
+        QA::AnswerRating answerRating = QA::AnswerRating::Correct;
+        auto answerHistory = qa.getAnswersHistory();
+        if(answerHistory.find(date) != answerHistory.end())
+            if(answerHistory[date] == QA::AnswerRating::Incorrect)
+                answerRating = QA::AnswerRating::Incorrect;
+
+        qa.addHistoryEntry(date, answerRating);
         m_repository->onQAsUpdate();
     }
 
     void markAsUnknown(QA &qa) override
     {
-        QDateTime dateTime = QDateTime::currentDateTime();
+        QDate dateTime = QDate::currentDate();
         qa.addHistoryEntry(dateTime, QA::AnswerRating::Incorrect);
         m_repository->onQAsUpdate();
     }

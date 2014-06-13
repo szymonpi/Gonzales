@@ -94,6 +94,11 @@ public:
         stream >> dateTime;
     }
 
+    void deserialize(QDate &dateTime)
+    {
+        stream >> dateTime;
+    }
+
 
 private:
     QDataStream stream;

@@ -16,6 +16,7 @@ public:
     virtual void serialize(const char *i)=0;
     virtual void serialize(const QString &str)=0;
     virtual void serialize(const QDateTime& dateTime)=0;
+    virtual void serialize(const QDate& dateTime)=0;
 
     virtual QDataStream::Status status()=0;
     ~IDataSerializer(){}

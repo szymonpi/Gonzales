@@ -8,7 +8,8 @@ CONFIG += warn_off
 SOURCES += \
     ../../GonzalesApp/teaching/Teacher.cpp \
     "../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.h" \
-    TeacherTestSuite.cpp
+    TeacherTestSuite.cpp \
+    QAMemorizeCheckerForTeacher.cpp
 
 HEADERS += ../gtest.h \
         ../gmock.h \

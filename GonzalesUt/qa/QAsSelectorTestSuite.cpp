@@ -11,8 +11,8 @@ class QAsSelectorTestSuite: public testing::Test
 protected:
     QAsSelectorTestSuite()
     {
-        m_oldQA_One_Incorrect_HistoryEntry->addHistoryEntry(QDateTime::currentDateTime(), QA::AnswerRating::Incorrect);
-        m_oldQA_One_Correct_HistoryEntry->addHistoryEntry(QDateTime::currentDateTime(), QA::AnswerRating::Correct);
+        m_oldQA_One_Incorrect_HistoryEntry->addHistoryEntry(QDate::currentDate(), QA::AnswerRating::Incorrect);
+        m_oldQA_One_Correct_HistoryEntry->addHistoryEntry(QDate::currentDate(), QA::AnswerRating::Correct);
     }
 
     QAsSelector selector = QAsSelector(0.60, 10);
@@ -110,44 +110,4 @@ TEST_F(QAsSelectorTestSuite, _10New_10Old_Max10_NewFactor06__ShouldSelect6new4ol
 
     EXPECT_EQ(oldQAs, std::distance(oldQasBegin, oldQAsEnd));
     EXPECT_EQ(m_newQA, std::distance(newQAsBegin, newQAsEnd));
-
-    auto wrongAnsweredBegin = selectedQAs.begin();
-    auto wrongAnsweredEnd = std::find_if(wrongAnsweredBegin, oldQAsEnd,
-                                     [](const std::shared_ptr<QA>& qa)
-                                       {return !qa->wasWrongAnswered();});
-    EXPECT_EQ(oldQAsEnd, wrongAnsweredEnd);
-}
-
-TEST_F(QAsSelectorTestSuite, _10New_10Old_Max10_NewFactor06_oldShouldByWrongAnsweredDate__ShouldSelect6new4oldWrongAnswered)
-{
-
-    std::vector<std::shared_ptr<QA>> qas{m_oldQA_One_Correct_HistoryEntry, m_oldQA_One_Correct_HistoryEntry,
-                                         m_oldQA_One_Correct_HistoryEntry, m_oldQA_One_Incorrect_HistoryEntry,
-                                         m_oldQA_One_Incorrect_HistoryEntry, m_oldQA_One_Incorrect_HistoryEntry,
-                                         m_oldQA_One_Correct_HistoryEntry, m_oldQA_One_Correct_HistoryEntry,
-                                         m_oldQA_One_Correct_HistoryEntry, m_oldQA_One_Incorrect_HistoryEntry,
-                                         m_newQA, m_newQA, m_newQA, m_newQA, m_newQA,
-                                         m_newQA, m_newQA, m_newQA, m_newQA, m_newQA};
-
-    auto selectedQAs = selector.select(qas);
-
-    int allQAs = 10;
-    int m_newQA = 6;
-    int oldQAs = 4;
-
-    EXPECT_EQ(allQAs, selectedQAs.size());
-
-    auto oldQasBegin = selectedQAs.begin();
-    auto oldQAsEnd = std::partition(selectedQAs.begin(), selectedQAs.end(), m_isOldQA);
-    auto newQAsBegin = oldQAsEnd;
-    auto newQAsEnd = selectedQAs.end();
-
-    EXPECT_EQ(oldQAs, std::distance(oldQasBegin, oldQAsEnd));
-    EXPECT_EQ(m_newQA, std::distance(newQAsBegin, newQAsEnd));
-
-    auto wrongAnsweredBegin = selectedQAs.begin();
-    auto wrongAnsweredEnd = std::find_if(wrongAnsweredBegin, oldQAsEnd,
-                                     [](const std::shared_ptr<QA>& qa)
-                                       {return !qa->wasWrongAnswered();});
-    EXPECT_EQ(oldQAsEnd, wrongAnsweredEnd);
 }

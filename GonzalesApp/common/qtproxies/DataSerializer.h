@@ -91,6 +91,11 @@ public:
         stream << dateTime;
     }
 
+    void serialize(const QDate& dateTime) override
+    {
+        stream << dateTime;
+    }
+
 private:
     QDataStream stream;
 
