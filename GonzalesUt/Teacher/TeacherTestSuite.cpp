@@ -49,7 +49,7 @@ TEST_F(TeacherTestSuite, QAsToLearnProviderReturnOne_ShouldPresentQuestion)
     EXPECT_CALL(*m_qasProvider, getQAs()).WillOnce(Return(qas));
     teacher = std::make_shared<Teacher>(m_questionPresenterMock, m_answerPresenterMock, m_qasProvider, m_qaMarker);
 
-    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.first()->getQuestion()));
+    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.first()->question));
     EXPECT_CALL(*m_answerPresenterMock, clear());
     ASSERT_EQ(1, teacher->questionsToLearnNum());
     EXPECT_NO_THROW(teacher->showNextQuestion());
@@ -63,7 +63,7 @@ TEST_F(TeacherTestSuite, QAsToLearnProviderReturnOne_ShouldPresentQuestionAndThr
     EXPECT_CALL(*m_qasProvider, getQAs()).WillOnce(Return(qas));
     teacher = std::make_shared<Teacher>(m_questionPresenterMock, m_answerPresenterMock, m_qasProvider, m_qaMarker);
 
-    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.first()->getQuestion()));
+    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.first()->question));
     EXPECT_CALL(*m_answerPresenterMock, clear());
     ASSERT_EQ(1, teacher->questionsToLearnNum());
     EXPECT_NO_THROW(teacher->showNextQuestion());
@@ -79,7 +79,7 @@ TEST_F(TeacherTestSuite, QAsToLearnProviderReturnOne_ShouldPresentTwoQuestionAnd
     EXPECT_CALL(*m_qasProvider, getQAs()).WillOnce(Return(qas));
     teacher = std::make_shared<Teacher>(m_questionPresenterMock, m_answerPresenterMock, m_qasProvider, m_qaMarker);
 
-    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.first()->getQuestion()));
+    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.first()->question));
     EXPECT_CALL(*m_answerPresenterMock, clear());
     ASSERT_EQ(2, teacher->questionsToLearnNum());
     EXPECT_NO_THROW(teacher->showNextQuestion());
@@ -89,7 +89,7 @@ TEST_F(TeacherTestSuite, QAsToLearnProviderReturnOne_ShouldPresentTwoQuestionAnd
     teacher->markAsKnown();
 
 
-    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.at(1)->getQuestion()));
+    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.at(1)->question));
     EXPECT_CALL(*m_answerPresenterMock, clear());
     ASSERT_EQ(1, teacher->questionsToLearnNum());
     EXPECT_NO_THROW(teacher->showNextQuestion());
@@ -104,7 +104,7 @@ TEST_F(TeacherTestSuite, QAsToLearnProviderReturnOne_ShouldPresentTwoQuestionAnd
     EXPECT_CALL(*m_qasProvider, getQAs()).WillOnce(Return(qas));
     teacher = std::make_shared<Teacher>(m_questionPresenterMock, m_answerPresenterMock, m_qasProvider, m_qaMarker);
 
-    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.first()->getQuestion()));
+    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.first()->question));
     EXPECT_CALL(*m_answerPresenterMock, clear());
     ASSERT_EQ(2, teacher->questionsToLearnNum());
     EXPECT_NO_THROW(teacher->showNextQuestion());
@@ -113,7 +113,7 @@ TEST_F(TeacherTestSuite, QAsToLearnProviderReturnOne_ShouldPresentTwoQuestionAnd
     EXPECT_CALL(*m_qaMarker, markAsUnknown(*qas.first()));
     teacher->markAsUnknown();
 
-    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.at(1)->getQuestion()));
+    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.at(1)->question));
     EXPECT_CALL(*m_answerPresenterMock, clear());
     ASSERT_EQ(2, teacher->questionsToLearnNum());
     EXPECT_NO_THROW(teacher->showNextQuestion());

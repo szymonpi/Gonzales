@@ -60,7 +60,7 @@ TEST_F(QAMarkerSuite, QuestionGiven_ShouldMarkAsUnknown)
 TEST_F(QAMarkerSuite, QuestionGivenWithOneIncorrectMarkedToday_ShouldMarkAsUnknown)
 {
     QA qa;
-    qa.addHistoryEntry(QDate::currentDate(), QA::AnswerRating::Incorrect);
+    qa.answersHistory.emplace(QDate::currentDate(), QA::AnswerRating::Incorrect);
     QAMarker marker(m_qaRepositoryMock);
     QDate currentDateTime = QDate::currentDate();
     EXPECT_CALL(*m_qaRepositoryMock, onQAsUpdate());
@@ -75,7 +75,7 @@ TEST_F(QAMarkerSuite, QuestionGivenWithOneIncorrectMarkedToday_ShouldMarkAsUnkno
 TEST_F(QAMarkerSuite, QuestionGivenWithOneCorrectMarkedToday_MarkAsUnknownShuldMarkAsUnknown)
 {
     QA qa;
-    qa.addHistoryEntry(QDate::currentDate(), QA::AnswerRating::Correct);
+    qa.answersHistory.emplace(QDate::currentDate(), QA::AnswerRating::Correct);
     QAMarker marker(m_qaRepositoryMock);
     QDate currentDateTime = QDate::currentDate();
     EXPECT_CALL(*m_qaRepositoryMock, onQAsUpdate());
@@ -90,7 +90,7 @@ TEST_F(QAMarkerSuite, QuestionGivenWithOneCorrectMarkedToday_MarkAsUnknownShuldM
 TEST_F(QAMarkerSuite, QuestionGivenWithOneIncorrectMarkedToday_MarkAsKnownShuldMarkAsUnknown)
 {
     QA qa;
-    qa.addHistoryEntry(QDate::currentDate(), QA::AnswerRating::Incorrect);
+    qa.answersHistory.emplace(QDate::currentDate(), QA::AnswerRating::Incorrect);
     QAMarker marker(m_qaRepositoryMock);
     QDate currentDateTime = QDate::currentDate();
     EXPECT_CALL(*m_qaRepositoryMock, onQAsUpdate());
@@ -105,7 +105,7 @@ TEST_F(QAMarkerSuite, QuestionGivenWithOneIncorrectMarkedToday_MarkAsKnownShuldM
 TEST_F(QAMarkerSuite, QuestionGivenWithOneCorrectMarkedToday_MarkAsKnownShuldAddOneNewEntry)
 {
     QA qa;
-    qa.addHistoryEntry(QDate(2010, 10, 4), QA::AnswerRating::Incorrect);
+    qa.answersHistory.emplace(QDate(2010, 10, 4), QA::AnswerRating::Incorrect);
     QAMarker marker(m_qaRepositoryMock);
     EXPECT_CALL(*m_qaRepositoryMock, onQAsUpdate());
     QDate currentDateTime = QDate::currentDate();

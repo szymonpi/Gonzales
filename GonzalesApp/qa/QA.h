@@ -57,34 +57,34 @@ public:
         return (qA.question == question) && (qA.answer == answer);
     }
 
-    Question getQuestion()
-    {
-        return question;
-    }
-
-    Answer getAnswer()
-    {
-        return answer;
-    }
-
     void addHistoryEntry(const QDate &dateTime, AnswerRating questionResult)
     {
         answersHistory[dateTime] = questionResult;
     }
 
-    std::map<QDate, AnswerRating> getAnswersHistory()
+    std::map<QDate, AnswerRating> getAnswersHistory() const
     {
         return answersHistory;
     }
 
-    bool wasWrongAnswered()
+    bool wasWrongAnswered() const
     {
         return answersHistory.end() != std::find_if(answersHistory.begin(), answersHistory.end(),
                             [](const std::pair<QDate, AnswerRating> &answer) -> bool
                               { return answer.second == AnswerRating::Incorrect; });
     }
 
-private:
+    bool wasLastWrongAnswered() const
+    {
+        return (--answersHistory.end())->second == QA::AnswerRating::Incorrect;
+    }
+
+    size_t answerHistorySize() const
+    {
+        return answersHistory.size();
+    }
+
+public:
     Question question;
     Answer answer;
     std::map<QDate, AnswerRating> answersHistory;

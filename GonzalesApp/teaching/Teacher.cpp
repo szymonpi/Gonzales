@@ -29,7 +29,7 @@ void Teacher::markAsKnown()
 
 void Teacher::showCorrectAnswer() const
 {
-    m_answerPresenter->presentAnswer(lastAskedQuestion->getAnswer());
+    m_answerPresenter->presentAnswer(lastAskedQuestion->answer);
 }
 
 int Teacher::questionsToLearnNum() const
@@ -42,7 +42,7 @@ void Teacher::showNextQuestion()
     checkIsQaQueueEmpty();
     moveCurrentQuestionToAsked();
     m_answerPresenter->clear();
-    m_questionPresenter->presentQuestion(lastAskedQuestion->getQuestion());
+    m_questionPresenter->presentQuestion(lastAskedQuestion->question);
 }
 
 void Teacher::removeCurrentAskedQA()

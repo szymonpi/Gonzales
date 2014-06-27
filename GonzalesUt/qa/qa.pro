@@ -46,7 +46,8 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h \
     ../../GonzalesApp/qa/QAsSelection/IQAsSelector.h \
     QAsSelectorMock.h \
-    ../../GonzalesApp/qa/QAMarker.h
+    ../../GonzalesApp/qa/QAMarker.h \
+    ../../GonzalesApp/qa/QALearnedChecker.h
 
 SOURCES += \
     AllTests.cpp \
@@ -70,7 +71,10 @@ SOURCES += \
     QATestSuite.cpp \
     QAMarkerTestSuite.cpp \
     ../../GonzalesApp/qa/QAMarker.cpp \
-    LineSplitterTestSuite.cpp
+    LineSplitterTestSuite.cpp \
+    QALearnedCheckerTestSuite.cpp \
+    ../../GonzalesApp/qa/QALearnedChecker.cpp \
+    QAsForRepeatSelectorTestSuite.cpp
 
 unix
 {

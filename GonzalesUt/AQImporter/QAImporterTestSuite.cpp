@@ -64,8 +64,8 @@ TEST_F(QATextFileImporterTestSuite, shouldImportOneQA)
     std::vector<std::shared_ptr<QA> > importedQas = importer.import(filePath);
     ASSERT_FALSE(importedQas.empty());
     std::shared_ptr<QA> importedQa = importedQas[0];
-    EXPECT_EQ(Question("question"), importedQa->getQuestion());
-    EXPECT_EQ(Answer("answer"), importedQa->getAnswer());
+    EXPECT_EQ(Question("question"), importedQa->question);
+    EXPECT_EQ(Answer("answer"), importedQa->answer);
 }
 
 TEST_F(QATextFileImporterTestSuite, shouldntImportImproperQA)
