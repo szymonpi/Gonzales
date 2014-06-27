@@ -32,7 +32,9 @@ HEADERS += $$files(common/*.h) \
            $$files(qa/QAsSelection/*.h) \
            ImportHandlerFactory.h \
            QARepositoryFactory.h \
-           TeacherControllerFactory.h
+           TeacherControllerFactory.h \
+    qa/QAView.h \
+    qa/QASimpleView.h
 
 FORMS    += ui/dialogs/logindialog.ui \
     ui/dialogs/dialogcreateaccount.ui \

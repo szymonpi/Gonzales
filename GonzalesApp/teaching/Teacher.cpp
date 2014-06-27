@@ -1,5 +1,6 @@
 #include "Teacher.h"
 #include <algorithm>
+#include "../qa/QASimpleView.h"
 
 Teacher::Teacher(std::shared_ptr<IQuestionPresenter> questionPresenter,
                  std::shared_ptr<IAnswerPresenter> answerPresenter,
@@ -13,6 +14,10 @@ Teacher::Teacher(std::shared_ptr<IQuestionPresenter> questionPresenter,
 {
     if(m_qAsToLearn.empty())
         throw std::logic_error("Are you check what you want to learn?");
+
+    std::for_each(m_qAsToLearn.begin(), m_qAsToLearn.end(),
+                  [=](std::shared_ptr<QA> &qa)
+    { m_qAViewsToLearn.push_back(std::make_shared<QASimpleView>(m_questionPresenter, m_answerPresenter, m_qaMarker, qa)); });
 }
 
 void Teacher::markAsUnknown()

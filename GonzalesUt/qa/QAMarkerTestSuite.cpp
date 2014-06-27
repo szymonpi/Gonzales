@@ -75,7 +75,7 @@ TEST_F(QAMarkerSuite, QuestionGivenWithOneIncorrectMarkedToday_ShouldMarkAsUnkno
 TEST_F(QAMarkerSuite, QuestionGivenWithOneCorrectMarkedToday_MarkAsUnknownShuldMarkAsUnknown)
 {
     QA qa;
-    qa.answersHistory.emplace(QDate::currentDate(), QA::AnswerRating::Correct);
+    qa.answersHistory[QDate::currentDate()] = QA::AnswerRating::Correct;
     QAMarker marker(m_qaRepositoryMock);
     QDate currentDateTime = QDate::currentDate();
     EXPECT_CALL(*m_qaRepositoryMock, onQAsUpdate());

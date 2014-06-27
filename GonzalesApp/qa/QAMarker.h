@@ -18,14 +18,14 @@ public:
             if(answerHistory[date] == QA::AnswerRating::Incorrect)
                 answerRating = QA::AnswerRating::Incorrect;
 
-        qa.answersHistory.emplace(date, answerRating);
+        qa.answersHistory[date] = answerRating;
         m_repository->onQAsUpdate();
     }
 
     void markAsUnknown(QA &qa) override
     {
         QDate dateTime = QDate::currentDate();
-        qa.answersHistory.emplace(dateTime, QA::AnswerRating::Incorrect);
+        qa.answersHistory[dateTime] =  QA::AnswerRating::Incorrect;
         m_repository->onQAsUpdate();
     }
 private:

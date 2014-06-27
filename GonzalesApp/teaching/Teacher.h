@@ -11,6 +11,7 @@
 #include "../uiobservers/IAnswerPresenter.h"
 #include "../qa/QAsSelection/QAsToLearnProvider.h"
 #include "../qa/IQAmarker.h"
+#include "../qa/QAView.h"
 
 class Teacher
 {
@@ -43,5 +44,6 @@ private:
     std::shared_ptr<IAnswerPresenter> m_answerPresenter;
     std::shared_ptr<IQAMarker> m_qaMarker;
     QAQueue m_qAsToLearn;
+    QQueue<std::shared_ptr<QAView> > m_qAViewsToLearn;
 };
 

@@ -31,7 +31,7 @@ TEST_F(QAsForRepeatSelectorTestSuite, OneQAsGivenWithOneIncorrectHistoryItem_Sho
     ASSERT_EQ(1, selector.select(qas).size());
 }
 
-TEST_F(QAsForRepeatSelectorTestSuite, OneQAsGivenWithOneCorrectHistoryItemInRepeatPeriod_ShouldSelectOneItem)
+TEST_F(QAsForRepeatSelectorTestSuite, DISABLED_OneQAsGivenWithOneCorrectHistoryItemInRepeatPeriod_ShouldSelectOneItem)
 {
     std::vector<std::shared_ptr<QA>> qas;
     std::shared_ptr<QA> qa = std::make_shared<QA>();

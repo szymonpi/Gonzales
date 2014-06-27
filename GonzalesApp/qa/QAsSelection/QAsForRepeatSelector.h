@@ -17,7 +17,11 @@ public:
         auto qaToRepeatEnd = std::stable_partition(qas.begin(), qas.end(), [](const std::shared_ptr<QA>& qa){ return qa->answerHistorySize() > 0; });
         auto qaToRepeatBegin = qas.begin();
 
-        auto notLearnedEnd = std::stable_partition(qaToRepeatBegin, qaToRepeatEnd, [](const std::shared_ptr<QA>& qa){ return qa->wasLastWrongAnswered(); });
+        auto notLearnedEnd = std::stable_partition(qaToRepeatBegin, qaToRepeatEnd, [](const std::shared_ptr<QA>& qa)
+        {
+            auto answersHistory = qa->getAnswersHistory();
+            return (--answersHistory.end())->second == QA::AnswerRating::Incorrect;
+        });
         auto notLearnedBegin = qas.begin();
 
         return std::vector<std::shared_ptr<QA>>{notLearnedBegin, notLearnedEnd};
