@@ -39,11 +39,10 @@ private:
     void checkIsQaQueueEmpty();
     void moveCurrentQuestionToAsked();
 
-    std::shared_ptr<QA> lastAskedQuestion;
+    std::shared_ptr<QAView> lastAskedQuestion;
     std::shared_ptr<IQuestionPresenter> m_questionPresenter;
     std::shared_ptr<IAnswerPresenter> m_answerPresenter;
     std::shared_ptr<IQAMarker> m_qaMarker;
-    QAQueue m_qAsToLearn;
     QQueue<std::shared_ptr<QAView> > m_qAViewsToLearn;
 };
 
