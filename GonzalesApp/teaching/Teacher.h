@@ -19,10 +19,7 @@ public:
     typedef QA QAPair;
     typedef QQueue<std::shared_ptr<QA> > QAQueue;
 
-    Teacher(std::shared_ptr<IQuestionPresenter> questionPresenter,
-            std::shared_ptr<IAnswerPresenter> answerPresenter,
-            std::shared_ptr<IQAsToLearnProvider> qAsProvider,
-            std::shared_ptr<IQAMarker> qaMarker);
+    Teacher(std::shared_ptr<IQAsToLearnProvider> qAsProvider);
 
     void markAsUnknown();
     void markAsKnown();
@@ -40,9 +37,6 @@ private:
     void moveCurrentQuestionToAsked();
 
     std::shared_ptr<QAView> lastAskedQuestion;
-    std::shared_ptr<IQuestionPresenter> m_questionPresenter;
-    std::shared_ptr<IAnswerPresenter> m_answerPresenter;
-    std::shared_ptr<IQAMarker> m_qaMarker;
     QQueue<std::shared_ptr<QAView> > m_qAViewsToLearn;
 };
 

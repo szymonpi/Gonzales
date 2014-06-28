@@ -6,6 +6,7 @@
 #include "QAsToLearnCheckedByUserProviderMock.h"
 #include "../../GonzalesApp/common/Common.h"
 #include "QAsSelectorMock.h"
+#include "QAViewFactoryMock.h"
 
 using namespace testing;
 
@@ -15,7 +16,7 @@ protected:
     QAsToLearnProviderTestSuite():
         m_qasCheckedByUserProvider(std::make_shared<QAsToLearnCheckedByUserProviderMock>()),
         m_qasSelectorMock(std::make_shared<QAsSelectorMock>()),
-        m_qasToLearnProvider(m_qasCheckedByUserProvider, m_qasSelectorMock)
+        m_qasToLearnProvider(m_qasCheckedByUserProvider, m_qasSelectorMock, m_qaViewFactory)
     {
 
     }
@@ -23,6 +24,7 @@ protected:
     std::shared_ptr<QAsToLearnCheckedByUserProviderMock> m_qasCheckedByUserProvider;
     QAsToLearnProvider m_qasToLearnProvider;
     std::shared_ptr<QA> m_qa = std::make_shared<QA>(Question("question"), Answer("answer"));
+    std::shared_ptr<StrictMock<QAViewFactoryMock>> m_qaViewFactory = std::make_shared<StrictMock<QAViewFactoryMock>>();
 };
 
 

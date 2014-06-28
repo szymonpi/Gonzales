@@ -47,7 +47,8 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/qa/QAsSelection/IQAsSelector.h \
     QAsSelectorMock.h \
     ../../GonzalesApp/qa/QAMarker.h \
-    ../../GonzalesApp/qa/QALearnedChecker.h
+    ../../GonzalesApp/qa/QALearnedChecker.h \
+    QAViewFactoryMock.h
 
 SOURCES += \
     AllTests.cpp \

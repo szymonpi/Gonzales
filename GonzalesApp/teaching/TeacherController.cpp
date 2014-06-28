@@ -50,10 +50,7 @@ void TeacherController::startTeaching()
 {
     try
     {
-        m_teacher.reset(new Teacher(m_questionPresenter,
-                                    m_answerPresenter,
-                                    m_qAsToLearnProvider,
-                                    m_qaMarker));
+        m_teacher.reset(new Teacher(m_qAsToLearnProvider));
     }
     catch(std::logic_error &e)
     {
@@ -63,15 +60,8 @@ void TeacherController::startTeaching()
 
     if(m_teacher->questionsToLearnNum()==0)
     {
-        m_exceptionHandler->handleException("You finished learning, there is no items left", "Info");
+        m_exceptionHandler->handleException("You has just finished learning, there is no Question left", "Info");
         return;
     }
     showNextQuestion();
-}
-
-void TeacherController::registerQuestionAndAnswerPresenter(std::shared_ptr<IQuestionPresenter> questionProvider,
-                                                           std::shared_ptr<IAnswerPresenter> answerProvider)
-{
-    m_questionPresenter = questionProvider;
-    m_answerPresenter = answerProvider;
 }

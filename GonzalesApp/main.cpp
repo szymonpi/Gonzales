@@ -25,12 +25,10 @@ int main(int argc, char *argv[])
     QARepositoryFactory qARepositoryFactory;
     auto repository = qARepositoryFactory.create(m_userInfo);
     ImportHandlerFactory importFactory(repository);
-    TeacherControllerFactory teacherControllerFactory(repository);
 
     MainWindow w{m_userInfo,
                  repository,
-                 importFactory.create(),
-                 teacherControllerFactory.create()};
+                 importFactory.create()};
     w.show();
 
     return a.exec();

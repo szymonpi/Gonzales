@@ -36,6 +36,7 @@ public:
     void presentQuestion() const override
     {
         auto qa = m_qaData.lock();
+        m_answerPresenter->clear();
         m_questionPresenter->presentQuestion(qa->question);
     }
     void presentAnswer() const override

@@ -5,9 +5,11 @@
 #include <QVector>
 
 QAsToLearnProvider::QAsToLearnProvider(std::shared_ptr<IQAsToLearnCheckedByUserProvider> qasToLearnProvider,
-                                       std::shared_ptr<IQAsSelector> qasSelector):
+                                       std::shared_ptr<IQAsSelector> qasSelector,
+                                       std::shared_ptr<QAViewFactory> qaViewFactory):
     m_qAsCheckedByUserProvider(qasToLearnProvider),
-    m_selector(qasSelector)
+    m_selector(qasSelector),
+    m_qaViewFactory(qaViewFactory)
 {
 }
 

@@ -2,14 +2,8 @@
 #include <algorithm>
 #include "../qa/QASimpleView.h"
 
-Teacher::Teacher(std::shared_ptr<IQuestionPresenter> questionPresenter,
-                 std::shared_ptr<IAnswerPresenter> answerPresenter,
-                 std::shared_ptr<IQAsToLearnProvider> qAsToLearnProvider,
-                 std::shared_ptr<IQAMarker> qaMarker):
-    lastAskedQuestion(),
-    m_questionPresenter(questionPresenter),
-    m_answerPresenter(answerPresenter),
-    m_qaMarker(qaMarker)
+Teacher::Teacher(std::shared_ptr<IQAsToLearnProvider> qAsToLearnProvider):
+    lastAskedQuestion()
 {
     m_qAViewsToLearn = qAsToLearnProvider->getQAs();
 
@@ -44,7 +38,6 @@ void Teacher::showNextQuestion()
 {
     checkIsQaQueueEmpty();
     moveCurrentQuestionToAsked();
-    m_answerPresenter->clear();
     lastAskedQuestion->presentQuestion();
 }
 

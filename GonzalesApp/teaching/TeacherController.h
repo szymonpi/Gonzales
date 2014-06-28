@@ -14,14 +14,10 @@ class TeacherController: public QObject
 public:
     TeacherController(std::shared_ptr<IQAsToLearnProvider> qARepository,
                       std::shared_ptr<IExceptionHandler> &exceptionHandler,
-                      std::shared_ptr<IQAMarker> qaMarker,
                       QObject *parent = 0):
         QObject(parent),
-        m_questionPresenter(std::shared_ptr<IQuestionPresenter>()),
-        m_answerPresenter(std::shared_ptr<IAnswerPresenter>()),
         m_qAsToLearnProvider(qARepository),
-        m_exceptionHandler(exceptionHandler),
-        m_qaMarker(qaMarker)
+        m_exceptionHandler(exceptionHandler)
     {}
 
     void showCorrectAnswer();

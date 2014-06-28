@@ -23,7 +23,6 @@ public:
     explicit MainWindow(const UserInfo &m_userInfo,
                         std::shared_ptr<IQARepository> qARepository,
                         std::shared_ptr<ImportHandler> importHandler,
-                        std::shared_ptr<TeacherController> teacherController,
                         QWidget *parent = 0);
     ~MainWindow();
 

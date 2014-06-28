@@ -13,19 +13,22 @@
 #include "../uiobservers/QuestionPresenter.h"
 #include "../uiobservers/QuestionCollectionPresenter.h"
 #include "../qa/QAsSelection/QAsToLearnByUserChecker.h"
+#include "TeacherControllerFactory.h"
 
 void MainWindow::loadUserData()
 {
     qARepository->load();
 }
 
-MainWindow::MainWindow(const UserInfo &userInfo, std::shared_ptr<IQARepository> qARepository, std::shared_ptr<ImportHandler> importHandler, std::shared_ptr<TeacherController> teacherController, QWidget *parent) :
+MainWindow::MainWindow(const UserInfo &userInfo,
+                       std::shared_ptr<IQARepository> qARepository,
+                       std::shared_ptr<ImportHandler> importHandler,
+                       QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     m_userInfo(userInfo),
     qARepository(qARepository),
     importHandler(importHandler),
-    teacherController(teacherController),
     stateIdle(),
     stateLearn(),
     stateQuestionQiven(&stateLearn),
@@ -53,7 +56,8 @@ void MainWindow::setupControllers()
     std::shared_ptr<IAnswerPresenter> l_answerPresenter(new AnswerPresenter(*ui->textEditAnswer));
 
     qARepository->registerQuestionCollectionPresenter(l_questionCollectionPresenter);
-    teacherController->registerQuestionAndAnswerPresenter(l_questionPresenter, l_answerPresenter);
+    TeacherControllerFactory teacherControllerFactory(qARepository);
+    teacherController = teacherControllerFactory.create(l_questionPresenter, l_answerPresenter);
     connect(teacherController.get(), SIGNAL(stopLearn()), this, SIGNAL(stopLearn()));
 }
 

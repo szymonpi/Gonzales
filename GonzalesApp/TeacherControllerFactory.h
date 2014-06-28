@@ -6,6 +6,8 @@
 #include "qa/QAsSelection/QAsToLearnCheckedByUserProvider.h"
 #include "qa/QAsSelection/QAsSelector.h"
 #include "qa/IQARepository.h"
+#include "uiobservers/ExceptionHandler.h"
+#include "qa/QASimpleViewFactory.h"
 
 class TeacherControllerFactory{
 
@@ -16,19 +18,20 @@ public:
 
     }
 
-    std::shared_ptr<TeacherController> create()
+    std::shared_ptr<TeacherController> create(std::shared_ptr<IQuestionPresenter> questionProvider,
+                                              std::shared_ptr<IAnswerPresenter> answerProvider)
     {
         std::shared_ptr<IExceptionHandler> l_exceptionHandler = std::make_shared<ExceptionHandler>();
         std::shared_ptr<IQAsToLearnCheckedByUserProvider> l_qasCheckedByuserProvider(
                     std::make_shared<QAsToLearnCheckedByUserProvider>(m_qasProvider));
         std::shared_ptr<IQAsSelector> selector = std::make_shared<QAsSelector>(0.6, 10);
         std::shared_ptr<IQAMarker> qaMarker = std::make_shared<QAMarker>(m_qasProvider);
+        std::shared_ptr<QAViewFactory> qaViewFactory = std::make_shared<QASimpleViewFactory>(questionProvider, answerProvider, qaMarker);
         std::shared_ptr<QAsToLearnProvider> qasToLearnProvider =
-                std::make_shared<QAsToLearnProvider>(l_qasCheckedByuserProvider, selector);
+                std::make_shared<QAsToLearnProvider>(l_qasCheckedByuserProvider, selector, qaViewFactory);
 
         return std::make_shared<TeacherController>(qasToLearnProvider,
-                                                   l_exceptionHandler,
-                                                   qaMarker);
+                                                   l_exceptionHandler);
     }
 
 private:
