@@ -22,7 +22,8 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/common/SimpleTree/Node.h \
     QAsToLearnProviderMock.h \
     QAMarkerMock.h \
-    ../../GonzalesApp/qa/IQAmarker.h
+    ../../GonzalesApp/qa/IQAmarker.h \
+    QAViewMock.h
 
 unix
 {

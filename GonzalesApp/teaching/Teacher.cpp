@@ -11,10 +11,7 @@ Teacher::Teacher(std::shared_ptr<IQuestionPresenter> questionPresenter,
     m_answerPresenter(answerPresenter),
     m_qaMarker(qaMarker)
 {
-    auto qasData = qAsToLearnProvider->getQAs();
-    std::for_each(qasData.begin(), qasData.end(),
-                  [=](std::shared_ptr<QA> &qa)
-    { m_qAViewsToLearn.push_back(std::make_shared<QASimpleView>(m_questionPresenter, m_answerPresenter, m_qaMarker, qa)); });
+    m_qAViewsToLearn = qAsToLearnProvider->getQAs();
 
     if(m_qAViewsToLearn.empty())
         throw std::logic_error("Are you check what you want to learn?");

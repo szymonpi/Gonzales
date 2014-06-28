@@ -8,6 +8,7 @@
 #include "../qa/QAsRepositoryMock.h"
 #include "QAsToLearnProviderMock.h"
 #include "QAMarkerMock.h"
+#include "QAViewMock.h"
 
 using namespace testing;
 
@@ -37,19 +38,20 @@ protected:
 TEST_F(TeacherTestSuite, QAsToLearnProviderReturnNoItem_ShouldThrow)
 {
 
-    EXPECT_CALL(*m_qasProvider, getQAs()).WillOnce(Return(QQueue<std::shared_ptr<QA>>()));
+    EXPECT_CALL(*m_qasProvider, getQAs()).WillOnce(Return(QQueue<std::shared_ptr<QAView>>()));
     EXPECT_THROW(std::make_shared<Teacher>(m_questionPresenterMock, m_answerPresenterMock, m_qasProvider, m_qaMarker), std::logic_error);
 }
 
 
 TEST_F(TeacherTestSuite, QAsToLearnProviderReturnOne_ShouldPresentQuestion)
 {
-    QQueue<std::shared_ptr<QA>> qas;
-    qas.push_back(std::make_shared<QA>(Question("question"), Answer("answer")));
+    QQueue<std::shared_ptr<QAView>> qas;
+    auto qaView  = std::make_shared<StrictMock<QAViewMock>>();
+    qas.push_back(qaView);
     EXPECT_CALL(*m_qasProvider, getQAs()).WillOnce(Return(qas));
     teacher = std::make_shared<Teacher>(m_questionPresenterMock, m_answerPresenterMock, m_qasProvider, m_qaMarker);
 
-    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.first()->question));
+    EXPECT_CALL(*qaView, presentQuestion());
     EXPECT_CALL(*m_answerPresenterMock, clear());
     ASSERT_EQ(1, teacher->questionsToLearnNum());
     EXPECT_NO_THROW(teacher->showNextQuestion());
@@ -58,12 +60,13 @@ TEST_F(TeacherTestSuite, QAsToLearnProviderReturnOne_ShouldPresentQuestion)
 
 TEST_F(TeacherTestSuite, QAsToLearnProviderReturnOne_ShouldPresentQuestionAndThrowWhilePresentNext)
 {
-    QQueue<std::shared_ptr<QA>> qas;
-    qas.push_back(std::make_shared<QA>(Question("question"), Answer("answer")));
+    QQueue<std::shared_ptr<QAView>> qas;
+    auto qaView  = std::make_shared<StrictMock<QAViewMock>>();
+    qas.push_back(qaView);
     EXPECT_CALL(*m_qasProvider, getQAs()).WillOnce(Return(qas));
     teacher = std::make_shared<Teacher>(m_questionPresenterMock, m_answerPresenterMock, m_qasProvider, m_qaMarker);
 
-    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.first()->question));
+    EXPECT_CALL(*qaView, presentQuestion());
     EXPECT_CALL(*m_answerPresenterMock, clear());
     ASSERT_EQ(1, teacher->questionsToLearnNum());
     EXPECT_NO_THROW(teacher->showNextQuestion());
@@ -73,23 +76,25 @@ TEST_F(TeacherTestSuite, QAsToLearnProviderReturnOne_ShouldPresentQuestionAndThr
 
 TEST_F(TeacherTestSuite, QAsToLearnProviderReturnOne_ShouldPresentTwoQuestionAndMarkAsKnown)
 {
-    QQueue<std::shared_ptr<QA>> qas;
-    qas.push_back(std::make_shared<QA>(Question("question"), Answer("answer")));
-    qas.push_back(std::make_shared<QA>(Question("question2"), Answer("answer2")));
+    QQueue<std::shared_ptr<QAView>> qas;
+    auto qaView1  = std::make_shared<StrictMock<QAViewMock>>();
+    auto qaView2  = std::make_shared<StrictMock<QAViewMock>>();
+    qas.push_back(qaView1);
+    qas.push_back(qaView2);
     EXPECT_CALL(*m_qasProvider, getQAs()).WillOnce(Return(qas));
     teacher = std::make_shared<Teacher>(m_questionPresenterMock, m_answerPresenterMock, m_qasProvider, m_qaMarker);
 
-    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.first()->question));
+    EXPECT_CALL(*qaView1, presentQuestion());
     EXPECT_CALL(*m_answerPresenterMock, clear());
     ASSERT_EQ(2, teacher->questionsToLearnNum());
     EXPECT_NO_THROW(teacher->showNextQuestion());
     ASSERT_EQ(1, teacher->questionsToLearnNum());
 
-    EXPECT_CALL(*m_qaMarker, markAsKnown(*qas.first()));
+    EXPECT_CALL(*qaView1, markAsKnown());
     teacher->markAsKnown();
 
 
-    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.at(1)->question));
+    EXPECT_CALL(*qaView2, presentQuestion());
     EXPECT_CALL(*m_answerPresenterMock, clear());
     ASSERT_EQ(1, teacher->questionsToLearnNum());
     EXPECT_NO_THROW(teacher->showNextQuestion());
@@ -98,22 +103,25 @@ TEST_F(TeacherTestSuite, QAsToLearnProviderReturnOne_ShouldPresentTwoQuestionAnd
 
 TEST_F(TeacherTestSuite, QAsToLearnProviderReturnOne_ShouldPresentTwoQuestionAndMarkTwoAsUnknown)
 {
-    QQueue<std::shared_ptr<QA>> qas;
-    qas.push_back(std::make_shared<QA>(Question("question"), Answer("answer")));
-    qas.push_back(std::make_shared<QA>(Question("question2"), Answer("answer2")));
+    QQueue<std::shared_ptr<QAView>> qas;
+    auto qaView1  = std::make_shared<StrictMock<QAViewMock>>();
+    auto qaView2  = std::make_shared<StrictMock<QAViewMock>>();
+
+    qas.push_back(qaView1);
+    qas.push_back(qaView2);
     EXPECT_CALL(*m_qasProvider, getQAs()).WillOnce(Return(qas));
     teacher = std::make_shared<Teacher>(m_questionPresenterMock, m_answerPresenterMock, m_qasProvider, m_qaMarker);
 
-    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.first()->question));
+    EXPECT_CALL(*qaView1, presentQuestion());
     EXPECT_CALL(*m_answerPresenterMock, clear());
     ASSERT_EQ(2, teacher->questionsToLearnNum());
     EXPECT_NO_THROW(teacher->showNextQuestion());
     ASSERT_EQ(1, teacher->questionsToLearnNum());
 
-    EXPECT_CALL(*m_qaMarker, markAsUnknown(*qas.first()));
+    EXPECT_CALL(*qaView1, markAsUnknown());
     teacher->markAsUnknown();
 
-    EXPECT_CALL(*m_questionPresenterMock, presentQuestion(qas.at(1)->question));
+    EXPECT_CALL(*qaView2, presentQuestion());
     EXPECT_CALL(*m_answerPresenterMock, clear());
     ASSERT_EQ(2, teacher->questionsToLearnNum());
     EXPECT_NO_THROW(teacher->showNextQuestion());

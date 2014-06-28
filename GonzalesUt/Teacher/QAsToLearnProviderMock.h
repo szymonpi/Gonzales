@@ -7,7 +7,7 @@
 class QAsToLearnProviderMock: public IQAsToLearnProvider
 {
 public:
-    MOCK_METHOD0(getQAs, QQueue<std::shared_ptr<QA>>());
+    MOCK_METHOD0(getQAs, QQueue<std::shared_ptr<QAView>>());
 };
 
 #endif // QASTOLEARNPROVIDERMOCK_H
