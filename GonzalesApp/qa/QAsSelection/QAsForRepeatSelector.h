@@ -1,32 +1,43 @@
 #pragma once
 #include "IQAsForRepeatSelector.h"
 
-typedef unsigned Days;
+
+
+bool isAnyRepatingPeriodInQA(const std::shared_ptr<QA>& qa)
+{
+    auto itemSinceThereWasntBadAnswer = qa->answersHistory.rbegin();
+
+    for(auto it = qa->answersHistory.rbegin(); it != qa->answersHistory.rend(); ++it)
+    {
+        if(it->second == QA::AnswerRating::Incorrect)
+            break;
+        itemSinceThereWasntBadAnswer = it;
+    }
+    return false;
+}
 
 class QAsForRepeatSelector: public IQAsForRepeatSelector
 {
 public:
-    QAsForRepeatSelector(const std::vector<Days>& repeatPeriods = std::vector<Days>{}):
-       m_repeatPeriods(repeatPeriods)
-    {
-
-    }
 
     virtual std::vector<std::shared_ptr<QA> > select(std::vector<std::shared_ptr<QA> >& qas)
     {
         auto qaToRepeatEnd = std::stable_partition(qas.begin(), qas.end(), [](const std::shared_ptr<QA>& qa){ return qa->answerHistorySize() > 0; });
         auto qaToRepeatBegin = qas.begin();
 
-        auto notLearnedEnd = std::stable_partition(qaToRepeatBegin, qaToRepeatEnd, [](const std::shared_ptr<QA>& qa)
+        auto learnedEnd = std::stable_partition(qaToRepeatBegin, qaToRepeatEnd, [](const std::shared_ptr<QA>& qa)
         {
             auto answersHistory = qa->getAnswersHistory();
-            return (--answersHistory.end())->second == QA::AnswerRating::Incorrect;
+            return (--answersHistory.end())->second == QA::AnswerRating::Correct;
         });
-        auto notLearnedBegin = qas.begin();
+        auto learnedBegin = std::begin(qas);
 
-        return std::vector<std::shared_ptr<QA>>{notLearnedBegin, notLearnedEnd};
+
+        learnedBegin = begin(qas);
+
+        std::vector<std::shared_ptr<QA>> vector{learnedBegin, learnedEnd};
+
+        return vector;
     }
-private:
-    std::vector<Days> m_repeatPeriods;
 
 };

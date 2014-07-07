@@ -48,7 +48,8 @@ HEADERS += ../gtest.h \
     QAsSelectorMock.h \
     ../../GonzalesApp/qa/QAMarker.h \
     ../../GonzalesApp/qa/QALearnedChecker.h \
-    QAViewFactoryMock.h
+    QAViewFactoryMock.h \
+    ../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.h
 
 SOURCES += \
     AllTests.cpp \
@@ -75,7 +76,9 @@ SOURCES += \
     LineSplitterTestSuite.cpp \
     QALearnedCheckerTestSuite.cpp \
     ../../GonzalesApp/qa/QALearnedChecker.cpp \
-    QAsForRepeatSelectorTestSuite.cpp
+    QAsForRepeatSelectorTestSuite.cpp \
+    QARepeatPeriodCheckerTestSuite.cpp \
+    ../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.cpp
 
 unix
 {
