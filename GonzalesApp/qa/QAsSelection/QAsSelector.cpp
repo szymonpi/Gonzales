@@ -1,4 +1,5 @@
 #include "QAsSelector.h"
+#include "QAsForRepeatSelector.h"
 
 
 QAsSelector::QAsSelector(const double &newQuestionPercent, const unsigned &maxQuestion):
@@ -54,11 +55,13 @@ QAsSelector::QAsIter QAsSelector::getMaxOldQasIterEnd(std::vector<std::shared_pt
 std::vector<std::shared_ptr<QA> > QAsSelector::select(std::vector<std::shared_ptr<QA> > &qas)
 {
     auto newBoundBegin = getNewQuestionStartIter(qas);
-    std::vector<std::shared_ptr<QA> > oldQAs(qas.begin(), getMaxNewQasIterEnd(qas, newBoundBegin));
     std::vector<std::shared_ptr<QA> > newQAs(newBoundBegin, getMaxOldQasIterEnd(qas, newBoundBegin));
+    QAsForRepeatSelector selector;
 
-    oldQAs.insert(oldQAs.end(),
-                  std::make_move_iterator(newQAs.begin()),
-                  std::make_move_iterator(newQAs.end()));
-    return oldQAs;
+    std::vector<std::shared_ptr<QA> > toRepeatQAs = selector.select(selector.select(qas));
+
+    std::vector<std::shared_ptr<QA>> allQAs{toRepeatQAs};
+    allQAs.insert(allQAs.end(), newQAs.begin(), newQAs.end());
+
+    return allQAs;
 }

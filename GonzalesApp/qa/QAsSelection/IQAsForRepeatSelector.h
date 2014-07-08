@@ -6,6 +6,6 @@
 class IQAsForRepeatSelector
 {
 public:
-    virtual std::vector<std::shared_ptr<QA>> select(std::vector<std::shared_ptr<QA>>& qas) = 0;
+    virtual std::vector<std::shared_ptr<QA>> select(std::vector<std::shared_ptr<QA>> qas) = 0;
     ~IQAsForRepeatSelector(){}
 };

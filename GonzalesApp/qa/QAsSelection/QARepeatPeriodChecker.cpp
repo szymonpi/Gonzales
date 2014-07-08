@@ -23,7 +23,7 @@ QDate QARepeatPeriodChecker::getDateSinceThereWasNoBadAnswer(const std::map<QDat
     return itemSinceThereWasntBadAnswer->first;
 }
 
-Day QARepeatPeriodChecker::currentPeriod(std::deque<Day> &periodsToCheck)
+Day QARepeatPeriodChecker::currentPeriod(std::deque<Day> &periodsToCheck) const
 {
     Day currentPeriod = periodsToCheck.front();
     periodsToCheck.pop_front();
@@ -31,7 +31,7 @@ Day QARepeatPeriodChecker::currentPeriod(std::deque<Day> &periodsToCheck)
     return currentPeriod;
 }
 
-Day QARepeatPeriodChecker::currentMaxPeriod(std::deque<Day> periodsToCheck, Day currentPeriod)
+Day QARepeatPeriodChecker::currentMaxPeriod(std::deque<Day> periodsToCheck, Day currentPeriod) const
 {
     Day currentMaxPeriod;
     if(periodsToCheck.empty())
@@ -42,14 +42,14 @@ Day QARepeatPeriodChecker::currentMaxPeriod(std::deque<Day> periodsToCheck, Day 
     return currentMaxPeriod;
 }
 
-QDate QARepeatPeriodChecker::currentPeriodDate(const QDate &nBA, Day currentPer)
+QDate QARepeatPeriodChecker::currentPeriodDate(const QDate &nBA, Day currentPer) const
 {
     auto currentPeriodDate = nBA.addDays(currentPer);
 
     return currentPeriodDate;
 }
 
-QDate QARepeatPeriodChecker::currentMaxPeriodDate(const QDate &nBA, Day currentMaxPer, QDate currentDay)
+QDate QARepeatPeriodChecker::currentMaxPeriodDate(const QDate &nBA, Day currentMaxPer, QDate currentDay) const
 {
     auto currentMaxPeriodDate = nBA.addDays(currentMaxPer);
     currentMaxPeriodDate =  currentMaxPeriodDate > currentDay ?
@@ -60,7 +60,7 @@ QDate QARepeatPeriodChecker::currentMaxPeriodDate(const QDate &nBA, Day currentM
 
 bool QARepeatPeriodChecker::isHistoryEntryInRange(QDate currentPerDate,
                                                   QDate currentMaxPerDate,
-                                                  std::map<QDate, QA::AnswerRating> answerHistory)
+                                                  std::map<QDate, QA::AnswerRating> answerHistory) const
 {
     auto lowerBoundHistory = answerHistory.lower_bound(currentPerDate);
     if(lowerBoundHistory == answerHistory.end())
@@ -70,7 +70,7 @@ bool QARepeatPeriodChecker::isHistoryEntryInRange(QDate currentPerDate,
     return true;
 }
 
-bool QARepeatPeriodChecker::ShouldBeRepeated(std::map<QDate, QA::AnswerRating> answerHistory)
+bool QARepeatPeriodChecker::ShouldBeRepeated(const std::map<QDate, QA::AnswerRating> &answerHistory) const
 {
     if(answerHistory.empty())
         return false;

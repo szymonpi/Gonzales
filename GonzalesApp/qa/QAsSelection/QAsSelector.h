@@ -1,6 +1,7 @@
 #pragma once
 #include "IQAsSelector.h"
 
+
 class QAsSelector: public IQAsSelector
 {
 public:
