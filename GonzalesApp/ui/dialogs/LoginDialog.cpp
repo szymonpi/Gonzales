@@ -53,13 +53,15 @@ void LoginDialog::on_toolButtonCreateNewAccount_clicked()
 void LoginDialog::on_pushButtonLogin_clicked()
 {
     Authorizer authorizer;
-    m_info = authorizer.authorize(ui->comboBoxAccounts->currentText(), ui->lineEditPassword->text());
-    if(m_info.isAuthorized)
+    try
     {
+        m_info = authorizer.authorize(ui->comboBoxAccounts->currentText(), ui->lineEditPassword->text());
         close();
-        return;
     }
-    QPalette palette;
-    palette.setColor(QPalette::Text, QColor(255, 0, 0));
-    ui->lineEditPassword->setPalette(palette);
+    catch(std::logic_error &e)
+    {
+        QPalette palette;
+        palette.setColor(QPalette::Text, QColor(0, 0, 0)); //investigate why slots not work?!
+        ui->lineEditPassword->setPalette(palette);
+    }
 }

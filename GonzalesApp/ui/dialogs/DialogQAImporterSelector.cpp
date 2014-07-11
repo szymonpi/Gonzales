@@ -18,8 +18,7 @@ bool DialogQAImporterSelector::select()
     ui->comboBoxGroups->clear();
     ui->comboBoxGroups->addItems(m_groupsMap[ui->comboBoxSubjects->currentText()]);
     exec();
-    return ui->comboBoxSubjects->currentText().size()>0
-           && ui->comboBoxGroups->currentText().size()>0;
+    return ui->comboBoxGroups->currentIndex() != -1 && ui->comboBoxSubjects->currentIndex() != -1;
 }
 
 DialogQAImporterSelector::~DialogQAImporterSelector()
@@ -39,7 +38,11 @@ QString DialogQAImporterSelector::getGroup() const
 
 void DialogQAImporterSelector::on_buttonBox_accepted()
 {
-    close();
+    if(ui->comboBoxGroups->currentIndex() != -1 && ui->comboBoxSubjects->currentIndex() != -1)
+    {
+        setResult(QDialog::Accepted);
+        close();
+    }
 }
 
 void DialogQAImporterSelector::on_toolButtonCreateSubject_clicked()
@@ -50,6 +53,8 @@ void DialogQAImporterSelector::on_toolButtonCreateSubject_clicked()
                                          "", &ok);
     if(ok)
     {
+        if(text.size() == 0)
+            return;
         if(!m_groupsMap.contains(text))
         {
             ui->comboBoxSubjects->addItem(text);
@@ -67,6 +72,8 @@ void DialogQAImporterSelector::on_toolButtonCreateGroup_clicked()
                                          "", &ok);
     if(ok)
     {
+        if(text.size() == 0)
+            return;
         if(!m_groupsMap[ui->comboBoxSubjects->currentText()].contains(text))
         {
             ui->comboBoxGroups->addItem(text);
@@ -80,4 +87,9 @@ void DialogQAImporterSelector::on_comboBoxSubjects_currentIndexChanged(const QSt
 {
     ui->comboBoxGroups->clear();
     ui->comboBoxGroups->addItems(m_groupsMap[arg1]);
+}
+
+void DialogQAImporterSelector::on_buttonBox_rejected()
+{
+    close();
 }

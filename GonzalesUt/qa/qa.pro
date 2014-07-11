@@ -67,7 +67,7 @@ SOURCES += \
     QAsToLearnCheckedByUserProviderTestSuite.cpp \
     ../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.cpp \
     ../../GonzalesApp/qa/QAsSelection/QAsToLearnCheckedByUserProvider.cpp \
-    ../../GonzalesApp/qa/QAsSelection/QAsTolearnByUserChecker.cpp \
+    ../../GonzalesApp/qa/QAsSelection/QAsToLearnByUserChecker.cpp \
     ../../GonzalesApp/qa/QAsSelection/QAsSelector.cpp \
     QAsSelectorTestSuite.cpp \
     QATestSuite.cpp \

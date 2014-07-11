@@ -18,9 +18,9 @@ public:
     {
         m_settings->beginGroup(g_Users);
         if(!m_settings->contains(login+"/password"))
-            return UserInfo(login);
+            throw std::logic_error("Wrong login or password");
         if(m_settings->value(login+"/password","") != password)
-            return UserInfo(login);
+            throw std::logic_error("Wrong password");
 
         UserInfo info(login);
         info.isAuthorized = true;

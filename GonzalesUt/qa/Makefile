@@ -66,7 +66,12 @@ SOURCES       = AllTests.cpp \
 		QATestSuite.cpp \
 		QAMarkerTestSuite.cpp \
 		../../GonzalesApp/qa/QAMarker.cpp \
-		LineSplitterTestSuite.cpp 
+		LineSplitterTestSuite.cpp \
+		QALearnedCheckerTestSuite.cpp \
+		../../GonzalesApp/qa/QALearnedChecker.cpp \
+		QAsForRepeatSelectorTestSuite.cpp \
+		QARepeatPeriodCheckerTestSuite.cpp \
+		../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.cpp 
 OBJECTS       = AllTests.o \
 		QARepositoryTestSuite.o \
 		QASaver.o \
@@ -88,7 +93,12 @@ OBJECTS       = AllTests.o \
 		QATestSuite.o \
 		QAMarkerTestSuite.o \
 		QAMarker.o \
-		LineSplitterTestSuite.o
+		LineSplitterTestSuite.o \
+		QALearnedCheckerTestSuite.o \
+		QALearnedChecker.o \
+		QAsForRepeatSelectorTestSuite.o \
+		QARepeatPeriodCheckerTestSuite.o \
+		QARepeatPeriodChecker.o
 DIST          = /usr/lib/i386-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -326,7 +336,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/qa1.0.0 || mkdir -p .tmp/qa1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/qa1.0.0/ && $(COPY_FILE) --parents ../gtest.h ../gmock.h ../../GonzalesApp/qa/QASaver.h ../../GonzalesApp/qa/QALoader.h ../../GonzalesApp/qa/QAImporter.h ../../GonzalesApp/IExceptionHandler.h ../../GonzalesApp/qa/ImportHandler.h ../../GonzalesApp/qa/QAsAppender.h ../../GonzalesApp/qa/IQAsAppender.h ../../GonzalesApp/QAsDestinationSelector.h ../../GonzalesApp/common/SimpleTree/Utils.h ../../GonzalesApp/common/SimpleTree/Node.h ExceptionHandlerMock.h QuestionsCollectionPresenterMock.h FilePathSelectorMock.h QAsImporterMock.h QAsAppenderMock.h QAsDestinationSelectorMock.h QAsRepositoryMock.h QALoaderMock.h QAsProviderMock.h QAsToLearnCheckedByUserProviderMock.h QASaverMock.h ../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.h ../../GonzalesApp/qa/QAsSelection/QAsToLearnCheckedByUserProvider.h ../../GonzalesApp/qa/QAsSelection/QAsToLearnByUserChecker.h ../../GonzalesApp/qa/QAsSelection/QAsProvider.h ../../GonzalesApp/qa/QAsSelection/IQAsToLearnProvider.h ../../GonzalesApp/qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h ../../GonzalesApp/qa/QAsSelection/IQAsSelector.h QAsSelectorMock.h ../../GonzalesApp/qa/QAMarker.h .tmp/qa1.0.0/ && $(COPY_FILE) --parents AllTests.cpp QARepositoryTestSuite.cpp ../../GonzalesApp/qa/QASaver.cpp ../../GonzalesApp/qa/QALoader.cpp ../../GonzalesApp/qa/QAImporter.cpp ../../GonzalesApp/qa/QARepository.cpp ../../GonzalesApp/qa/QAsAppender.cpp ImportHandlertestSuite.cpp FilePathSelectorTestSuite.cpp QAsAppenderTestSuite.cpp QAsToLearnProviderTestSuite.cpp QAsToLearnByUserCheckerSuite.cpp QAsToLearnCheckedByUserProviderTestSuite.cpp ../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.cpp ../../GonzalesApp/qa/QAsSelection/QAsToLearnCheckedByUserProvider.cpp ../../GonzalesApp/qa/QAsSelection/QAsTolearnByUserChecker.cpp ../../GonzalesApp/qa/QAsSelection/QAsSelector.cpp QAsSelectorTestSuite.cpp QATestSuite.cpp QAMarkerTestSuite.cpp ../../GonzalesApp/qa/QAMarker.cpp LineSplitterTestSuite.cpp .tmp/qa1.0.0/ && (cd `dirname .tmp/qa1.0.0` && $(TAR) qa1.0.0.tar qa1.0.0 && $(COMPRESS) qa1.0.0.tar) && $(MOVE) `dirname .tmp/qa1.0.0`/qa1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/qa1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/qa1.0.0/ && $(COPY_FILE) --parents ../gtest.h ../gmock.h ../../GonzalesApp/qa/QASaver.h ../../GonzalesApp/qa/QALoader.h ../../GonzalesApp/qa/QAImporter.h ../../GonzalesApp/IExceptionHandler.h ../../GonzalesApp/qa/ImportHandler.h ../../GonzalesApp/qa/QAsAppender.h ../../GonzalesApp/qa/IQAsAppender.h ../../GonzalesApp/QAsDestinationSelector.h ../../GonzalesApp/common/SimpleTree/Utils.h ../../GonzalesApp/common/SimpleTree/Node.h ExceptionHandlerMock.h QuestionsCollectionPresenterMock.h FilePathSelectorMock.h QAsImporterMock.h QAsAppenderMock.h QAsDestinationSelectorMock.h QAsRepositoryMock.h QALoaderMock.h QAsProviderMock.h QAsToLearnCheckedByUserProviderMock.h QASaverMock.h ../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.h ../../GonzalesApp/qa/QAsSelection/QAsToLearnCheckedByUserProvider.h ../../GonzalesApp/qa/QAsSelection/QAsToLearnByUserChecker.h ../../GonzalesApp/qa/QAsSelection/QAsProvider.h ../../GonzalesApp/qa/QAsSelection/IQAsToLearnProvider.h ../../GonzalesApp/qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h ../../GonzalesApp/qa/QAsSelection/IQAsSelector.h QAsSelectorMock.h ../../GonzalesApp/qa/QAMarker.h ../../GonzalesApp/qa/QALearnedChecker.h QAViewFactoryMock.h ../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.h .tmp/qa1.0.0/ && $(COPY_FILE) --parents AllTests.cpp QARepositoryTestSuite.cpp ../../GonzalesApp/qa/QASaver.cpp ../../GonzalesApp/qa/QALoader.cpp ../../GonzalesApp/qa/QAImporter.cpp ../../GonzalesApp/qa/QARepository.cpp ../../GonzalesApp/qa/QAsAppender.cpp ImportHandlertestSuite.cpp FilePathSelectorTestSuite.cpp QAsAppenderTestSuite.cpp QAsToLearnProviderTestSuite.cpp QAsToLearnByUserCheckerSuite.cpp QAsToLearnCheckedByUserProviderTestSuite.cpp ../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.cpp ../../GonzalesApp/qa/QAsSelection/QAsToLearnCheckedByUserProvider.cpp ../../GonzalesApp/qa/QAsSelection/QAsTolearnByUserChecker.cpp ../../GonzalesApp/qa/QAsSelection/QAsSelector.cpp QAsSelectorTestSuite.cpp QATestSuite.cpp QAMarkerTestSuite.cpp ../../GonzalesApp/qa/QAMarker.cpp LineSplitterTestSuite.cpp QALearnedCheckerTestSuite.cpp ../../GonzalesApp/qa/QALearnedChecker.cpp QAsForRepeatSelectorTestSuite.cpp QARepeatPeriodCheckerTestSuite.cpp ../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.cpp .tmp/qa1.0.0/ && (cd `dirname .tmp/qa1.0.0` && $(TAR) qa1.0.0.tar qa1.0.0 && $(COMPRESS) qa1.0.0.tar) && $(MOVE) `dirname .tmp/qa1.0.0`/qa1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/qa1.0.0
 
 
 clean:compiler_clean 
@@ -510,6 +520,10 @@ QARepositoryTestSuite.o: QARepositoryTestSuite.cpp ../gtest.h \
 		/usr/include/qt5/QtCore/QMap \
 		../../GonzalesApp/common/qtproxies/DataSerializer.h \
 		/usr/include/qt5/QtCore/QDataStream \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/common/qtproxies/IDataSerializer.h \
 		../../GonzalesApp/common/qtproxies/DataDeserializer.h \
 		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
@@ -518,10 +532,6 @@ QARepositoryTestSuite.o: QARepositoryTestSuite.cpp ../gtest.h \
 		../../GonzalesApp/qa/Answer.h \
 		../../GonzalesApp/common/FileException.h \
 		/usr/include/qt5/QtCore/QMultiMap \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/qa/QAsSelection/QAsProvider.h \
 		../../GonzalesApp/uiobservers/IQuestionCollectionPresenter.h \
 		../../GonzalesApp/qa/QALoader.h \
@@ -631,6 +641,12 @@ QASaver.o: ../../GonzalesApp/qa/QASaver.cpp /usr/include/qt5/QtCore/QQueue \
 		/usr/include/qt5/QtCore/qisenum.h \
 		/usr/include/qt5/QtCore/qobject_impl.h \
 		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
 		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
 		../../GonzalesApp/common/qtproxies/DataSerializer.h \
 		/usr/include/qt5/QtCore/QString \
@@ -640,22 +656,16 @@ QASaver.o: ../../GonzalesApp/qa/QASaver.cpp /usr/include/qt5/QtCore/QQueue \
 		/usr/include/qt5/QtCore/QMultiMap \
 		/usr/include/qt5/QtCore/qmap.h \
 		/usr/include/qt5/QtCore/qdebug.h \
-		/usr/include/qt5/QtCore/qhash.h \
 		/usr/include/qt5/QtCore/qtextstream.h \
 		/usr/include/qt5/QtCore/qlocale.h \
 		/usr/include/qt5/QtCore/qvariant.h \
 		/usr/include/qt5/QtCore/qstringlist.h \
 		/usr/include/qt5/QtCore/qregexp.h \
 		/usr/include/qt5/QtCore/qstringmatcher.h \
-		/usr/include/qt5/QtCore/qshareddata.h \
 		/usr/include/qt5/QtCore/qvector.h \
 		/usr/include/qt5/QtCore/qpoint.h \
 		/usr/include/qt5/QtCore/qset.h \
 		/usr/include/qt5/QtCore/qcontiguouscache.h \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/common/qtproxies/File.h \
 		/usr/include/qt5/QtCore/QFile \
 		/usr/include/qt5/QtCore/qfile.h \
@@ -746,6 +756,12 @@ QALoader.o: ../../GonzalesApp/qa/QALoader.cpp ../../GonzalesApp/qa/QALoader.h \
 		/usr/include/qt5/QtCore/qisenum.h \
 		/usr/include/qt5/QtCore/qobject_impl.h \
 		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
 		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
 		../../GonzalesApp/common/qtproxies/DataSerializer.h \
 		/usr/include/qt5/QtCore/QString \
@@ -755,22 +771,16 @@ QALoader.o: ../../GonzalesApp/qa/QALoader.cpp ../../GonzalesApp/qa/QALoader.h \
 		/usr/include/qt5/QtCore/QMultiMap \
 		/usr/include/qt5/QtCore/qmap.h \
 		/usr/include/qt5/QtCore/qdebug.h \
-		/usr/include/qt5/QtCore/qhash.h \
 		/usr/include/qt5/QtCore/qtextstream.h \
 		/usr/include/qt5/QtCore/qlocale.h \
 		/usr/include/qt5/QtCore/qvariant.h \
 		/usr/include/qt5/QtCore/qstringlist.h \
 		/usr/include/qt5/QtCore/qregexp.h \
 		/usr/include/qt5/QtCore/qstringmatcher.h \
-		/usr/include/qt5/QtCore/qshareddata.h \
 		/usr/include/qt5/QtCore/qvector.h \
 		/usr/include/qt5/QtCore/qpoint.h \
 		/usr/include/qt5/QtCore/qset.h \
 		/usr/include/qt5/QtCore/qcontiguouscache.h \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/common/qtproxies/File.h \
 		/usr/include/qt5/QtCore/QFile \
 		/usr/include/qt5/QtCore/qfile.h \
@@ -881,6 +891,10 @@ QAImporter.o: ../../GonzalesApp/qa/QAImporter.cpp ../../GonzalesApp/qa/QAImporte
 		../../GonzalesApp/qa/Question.h \
 		../../GonzalesApp/common/qtproxies/DataDeserializer.h \
 		/usr/include/qt5/QtCore/QDataStream \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
 		../../GonzalesApp/common/qtproxies/DataSerializer.h \
 		/usr/include/qt5/QtCore/QString \
@@ -888,10 +902,6 @@ QAImporter.o: ../../GonzalesApp/qa/QAImporter.cpp ../../GonzalesApp/qa/QAImporte
 		../../GonzalesApp/qa/Answer.h \
 		../../GonzalesApp/common/FileException.h \
 		/usr/include/qt5/QtCore/QMultiMap \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/common/qtproxies/FileFactory.h \
 		../../GonzalesApp/common/qtproxies/File.h \
 		../../GonzalesApp/common/qtproxies/IFile.h \
@@ -985,6 +995,10 @@ QARepository.o: ../../GonzalesApp/qa/QARepository.cpp ../../GonzalesApp/qa/QARep
 		/usr/include/qt5/QtCore/QMap \
 		../../GonzalesApp/common/qtproxies/DataSerializer.h \
 		/usr/include/qt5/QtCore/QDataStream \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/common/qtproxies/IDataSerializer.h \
 		../../GonzalesApp/common/qtproxies/DataDeserializer.h \
 		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
@@ -993,10 +1007,6 @@ QARepository.o: ../../GonzalesApp/qa/QARepository.cpp ../../GonzalesApp/qa/QARep
 		../../GonzalesApp/qa/Answer.h \
 		../../GonzalesApp/common/FileException.h \
 		/usr/include/qt5/QtCore/QMultiMap \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/qa/QAsSelection/QAsProvider.h \
 		../../GonzalesApp/uiobservers/IQuestionCollectionPresenter.h \
 		../../GonzalesApp/qa/QALoader.h \
@@ -1115,6 +1125,10 @@ QAsAppender.o: ../../GonzalesApp/qa/QAsAppender.cpp ../../GonzalesApp/qa/QAsAppe
 		/usr/include/qt5/QtCore/QMap \
 		../../GonzalesApp/common/qtproxies/DataSerializer.h \
 		/usr/include/qt5/QtCore/QDataStream \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/common/qtproxies/IDataSerializer.h \
 		../../GonzalesApp/common/qtproxies/DataDeserializer.h \
 		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
@@ -1123,10 +1137,6 @@ QAsAppender.o: ../../GonzalesApp/qa/QAsAppender.cpp ../../GonzalesApp/qa/QAsAppe
 		../../GonzalesApp/qa/Answer.h \
 		../../GonzalesApp/common/FileException.h \
 		/usr/include/qt5/QtCore/QMultiMap \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/qa/IQAsAppender.h \
 		/usr/include/qt5/QtCore/QStringList \
 		../../GonzalesApp/qa/IQARepository.h \
@@ -1252,6 +1262,10 @@ ImportHandlertestSuite.o: ImportHandlertestSuite.cpp ../gtest.h \
 		/usr/include/qt5/QtCore/QMap \
 		../../GonzalesApp/common/qtproxies/DataSerializer.h \
 		/usr/include/qt5/QtCore/QDataStream \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/common/qtproxies/IDataSerializer.h \
 		../../GonzalesApp/common/qtproxies/DataDeserializer.h \
 		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
@@ -1260,10 +1274,6 @@ ImportHandlertestSuite.o: ImportHandlertestSuite.cpp ../gtest.h \
 		../../GonzalesApp/qa/Answer.h \
 		../../GonzalesApp/common/FileException.h \
 		/usr/include/qt5/QtCore/QMultiMap \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/qa/IQAsAppender.h \
 		/usr/include/qt5/QtCore/QStringList \
 		../../GonzalesApp/qa/IQARepository.h \
@@ -1434,6 +1444,10 @@ QAsAppenderTestSuite.o: QAsAppenderTestSuite.cpp ../gtest.h \
 		/usr/include/qt5/QtCore/QMap \
 		../../GonzalesApp/common/qtproxies/DataSerializer.h \
 		/usr/include/qt5/QtCore/QDataStream \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/common/qtproxies/IDataSerializer.h \
 		../../GonzalesApp/common/qtproxies/DataDeserializer.h \
 		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
@@ -1442,10 +1456,6 @@ QAsAppenderTestSuite.o: QAsAppenderTestSuite.cpp ../gtest.h \
 		../../GonzalesApp/qa/Answer.h \
 		../../GonzalesApp/common/FileException.h \
 		/usr/include/qt5/QtCore/QMultiMap \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/qa/IQAsAppender.h \
 		/usr/include/qt5/QtCore/QStringList \
 		../../GonzalesApp/qa/IQARepository.h \
@@ -1569,6 +1579,10 @@ QAsToLearnProviderTestSuite.o: QAsToLearnProviderTestSuite.cpp ../gtest.h \
 		/usr/include/qt5/QtCore/QMap \
 		../../GonzalesApp/common/qtproxies/DataSerializer.h \
 		/usr/include/qt5/QtCore/QDataStream \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/common/qtproxies/IDataSerializer.h \
 		../../GonzalesApp/common/qtproxies/DataDeserializer.h \
 		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
@@ -1577,16 +1591,19 @@ QAsToLearnProviderTestSuite.o: QAsToLearnProviderTestSuite.cpp ../gtest.h \
 		../../GonzalesApp/qa/Answer.h \
 		../../GonzalesApp/common/FileException.h \
 		/usr/include/qt5/QtCore/QMultiMap \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/qa/QAsSelection/QAsProvider.h \
 		../../GonzalesApp/uiobservers/IQuestionCollectionPresenter.h \
 		../../GonzalesApp/qa/QAsSelection/IQAsToLearnProvider.h \
 		../../GonzalesApp/qa/QAsSelection/IQAsSelector.h \
 		/usr/include/qt5/QtCore/QVector \
 		../../GonzalesApp/qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h \
+		../../GonzalesApp/qa/QAViewFactory.h \
+		../../GonzalesApp/qa/QASimpleView.h \
+		../../GonzalesApp/qa/QAView.h \
+		../../GonzalesApp/uiobservers/IQuestionPresenter.h \
+		../../GonzalesApp/uiobservers/IAnswerPresenter.h \
+		../../GonzalesApp/qa/QAMarker.h \
+		../../GonzalesApp/qa/IQAmarker.h \
 		/usr/include/qt5/QtCore/QQueue \
 		/usr/include/qt5/QtCore/qqueue.h \
 		QAsToLearnCheckedByUserProviderMock.h \
@@ -1597,7 +1614,8 @@ QAsToLearnProviderTestSuite.o: QAsToLearnProviderTestSuite.cpp ../gtest.h \
 		/usr/include/qt5/QtCore/qfile.h \
 		/usr/include/qt5/QtCore/qfiledevice.h \
 		QAsSelectorMock.h \
-		../../GonzalesApp/qa/QAsSelection/QAsSelector.h
+		../../GonzalesApp/qa/QAsSelection/QAsSelector.h \
+		QAViewFactoryMock.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QAsToLearnProviderTestSuite.o QAsToLearnProviderTestSuite.cpp
 
 QAsToLearnByUserCheckerSuite.o: QAsToLearnByUserCheckerSuite.cpp ../gtest.h \
@@ -1767,6 +1785,8 @@ QAsToLearnByUserCheckerSuite.o: QAsToLearnByUserCheckerSuite.cpp ../gtest.h \
 		/usr/include/qt5/QtCore/QMap \
 		../../GonzalesApp/common/qtproxies/DataSerializer.h \
 		/usr/include/qt5/QtCore/QDataStream \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
 		../../GonzalesApp/common/qtproxies/IDataSerializer.h \
 		../../GonzalesApp/common/qtproxies/DataDeserializer.h \
 		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
@@ -1775,8 +1795,6 @@ QAsToLearnByUserCheckerSuite.o: QAsToLearnByUserCheckerSuite.cpp ../gtest.h \
 		../../GonzalesApp/qa/Answer.h \
 		../../GonzalesApp/common/FileException.h \
 		/usr/include/qt5/QtCore/QMultiMap \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
 		../../GonzalesApp/qa/QAsSelection/QAsProvider.h \
 		../../GonzalesApp/uiobservers/IQuestionCollectionPresenter.h \
 		QAsRepositoryMock.h \
@@ -1898,6 +1916,10 @@ QAsToLearnCheckedByUserProviderTestSuite.o: QAsToLearnCheckedByUserProviderTestS
 		/usr/include/qt5/QtCore/QMap \
 		../../GonzalesApp/common/qtproxies/DataSerializer.h \
 		/usr/include/qt5/QtCore/QDataStream \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/common/qtproxies/IDataSerializer.h \
 		../../GonzalesApp/common/qtproxies/DataDeserializer.h \
 		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
@@ -1906,10 +1928,6 @@ QAsToLearnCheckedByUserProviderTestSuite.o: QAsToLearnCheckedByUserProviderTestS
 		../../GonzalesApp/qa/Answer.h \
 		../../GonzalesApp/common/FileException.h \
 		/usr/include/qt5/QtCore/QMultiMap \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/qa/QAsSelection/QAsProvider.h \
 		../../GonzalesApp/uiobservers/IQuestionCollectionPresenter.h \
 		../../GonzalesApp/qa/QAsSelection/IQAsToLearnProvider.h \
@@ -2005,6 +2023,10 @@ QAsToLearnProvider.o: ../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.cpp .
 		/usr/include/qt5/QtCore/QMap \
 		../../GonzalesApp/common/qtproxies/DataSerializer.h \
 		/usr/include/qt5/QtCore/QDataStream \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/common/qtproxies/IDataSerializer.h \
 		../../GonzalesApp/common/qtproxies/DataDeserializer.h \
 		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
@@ -2013,16 +2035,19 @@ QAsToLearnProvider.o: ../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.cpp .
 		../../GonzalesApp/qa/Answer.h \
 		../../GonzalesApp/common/FileException.h \
 		/usr/include/qt5/QtCore/QMultiMap \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/qa/QAsSelection/QAsProvider.h \
 		../../GonzalesApp/uiobservers/IQuestionCollectionPresenter.h \
 		../../GonzalesApp/qa/QAsSelection/IQAsToLearnProvider.h \
 		../../GonzalesApp/qa/QAsSelection/IQAsSelector.h \
 		/usr/include/qt5/QtCore/QVector \
 		../../GonzalesApp/qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h \
+		../../GonzalesApp/qa/QAViewFactory.h \
+		../../GonzalesApp/qa/QASimpleView.h \
+		../../GonzalesApp/qa/QAView.h \
+		../../GonzalesApp/uiobservers/IQuestionPresenter.h \
+		../../GonzalesApp/uiobservers/IAnswerPresenter.h \
+		../../GonzalesApp/qa/QAMarker.h \
+		../../GonzalesApp/qa/IQAmarker.h \
 		/usr/include/qt5/QtCore/QQueue \
 		/usr/include/qt5/QtCore/qqueue.h \
 		../../GonzalesApp/common/Common.h \
@@ -2114,6 +2139,10 @@ QAsToLearnCheckedByUserProvider.o: ../../GonzalesApp/qa/QAsSelection/QAsToLearnC
 		/usr/include/qt5/QtCore/QMap \
 		../../GonzalesApp/common/qtproxies/DataSerializer.h \
 		/usr/include/qt5/QtCore/QDataStream \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/common/qtproxies/IDataSerializer.h \
 		../../GonzalesApp/common/qtproxies/DataDeserializer.h \
 		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
@@ -2122,10 +2151,6 @@ QAsToLearnCheckedByUserProvider.o: ../../GonzalesApp/qa/QAsSelection/QAsToLearnC
 		../../GonzalesApp/qa/Answer.h \
 		../../GonzalesApp/common/FileException.h \
 		/usr/include/qt5/QtCore/QMultiMap \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/qa/QAsSelection/QAsProvider.h \
 		../../GonzalesApp/uiobservers/IQuestionCollectionPresenter.h \
 		../../GonzalesApp/qa/QAsSelection/IQAsToLearnProvider.h \
@@ -2275,6 +2300,8 @@ QAsTolearnByUserChecker.o: ../../GonzalesApp/qa/QAsSelection/QAsTolearnByUserChe
 		/usr/include/qt5/QtCore/QMap \
 		../../GonzalesApp/common/qtproxies/DataSerializer.h \
 		/usr/include/qt5/QtCore/QDataStream \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
 		../../GonzalesApp/common/qtproxies/IDataSerializer.h \
 		../../GonzalesApp/common/qtproxies/DataDeserializer.h \
 		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
@@ -2283,8 +2310,6 @@ QAsTolearnByUserChecker.o: ../../GonzalesApp/qa/QAsSelection/QAsTolearnByUserChe
 		../../GonzalesApp/qa/Answer.h \
 		../../GonzalesApp/common/FileException.h \
 		/usr/include/qt5/QtCore/QMultiMap \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
 		../../GonzalesApp/qa/QAsSelection/QAsProvider.h \
 		../../GonzalesApp/uiobservers/IQuestionCollectionPresenter.h \
 		../../GonzalesApp/common/Common.h \
@@ -2361,6 +2386,12 @@ QAsSelector.o: ../../GonzalesApp/qa/QAsSelection/QAsSelector.cpp ../../GonzalesA
 		/usr/include/qt5/QtCore/qisenum.h \
 		/usr/include/qt5/QtCore/qobject_impl.h \
 		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
 		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
 		../../GonzalesApp/common/qtproxies/DataSerializer.h \
 		/usr/include/qt5/QtCore/QString \
@@ -2370,20 +2401,17 @@ QAsSelector.o: ../../GonzalesApp/qa/QAsSelection/QAsSelector.cpp ../../GonzalesA
 		/usr/include/qt5/QtCore/QMultiMap \
 		/usr/include/qt5/QtCore/qmap.h \
 		/usr/include/qt5/QtCore/qdebug.h \
-		/usr/include/qt5/QtCore/qhash.h \
 		/usr/include/qt5/QtCore/qtextstream.h \
 		/usr/include/qt5/QtCore/qlocale.h \
 		/usr/include/qt5/QtCore/qvariant.h \
 		/usr/include/qt5/QtCore/qstringlist.h \
 		/usr/include/qt5/QtCore/qregexp.h \
 		/usr/include/qt5/QtCore/qstringmatcher.h \
-		/usr/include/qt5/QtCore/qshareddata.h \
 		/usr/include/qt5/QtCore/qset.h \
 		/usr/include/qt5/QtCore/qcontiguouscache.h \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h
+		../../GonzalesApp/qa/QAsSelection/QAsForRepeatSelector.h \
+		../../GonzalesApp/qa/QAsSelection/IQAsForRepeatSelector.h \
+		../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QAsSelector.o ../../GonzalesApp/qa/QAsSelection/QAsSelector.cpp
 
 QAsSelectorTestSuite.o: QAsSelectorTestSuite.cpp ../gtest.h \
@@ -2485,6 +2513,12 @@ QAsSelectorTestSuite.o: QAsSelectorTestSuite.cpp ../gtest.h \
 		/usr/include/qt5/QtCore/qisenum.h \
 		/usr/include/qt5/QtCore/qobject_impl.h \
 		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
 		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
 		../../GonzalesApp/common/qtproxies/DataSerializer.h \
 		/usr/include/qt5/QtCore/QString \
@@ -2494,20 +2528,14 @@ QAsSelectorTestSuite.o: QAsSelectorTestSuite.cpp ../gtest.h \
 		/usr/include/qt5/QtCore/QMultiMap \
 		/usr/include/qt5/QtCore/qmap.h \
 		/usr/include/qt5/QtCore/qdebug.h \
-		/usr/include/qt5/QtCore/qhash.h \
 		/usr/include/qt5/QtCore/qtextstream.h \
 		/usr/include/qt5/QtCore/qlocale.h \
 		/usr/include/qt5/QtCore/qvariant.h \
 		/usr/include/qt5/QtCore/qstringlist.h \
 		/usr/include/qt5/QtCore/qregexp.h \
 		/usr/include/qt5/QtCore/qstringmatcher.h \
-		/usr/include/qt5/QtCore/qshareddata.h \
 		/usr/include/qt5/QtCore/qset.h \
-		/usr/include/qt5/QtCore/qcontiguouscache.h \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h
+		/usr/include/qt5/QtCore/qcontiguouscache.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QAsSelectorTestSuite.o QAsSelectorTestSuite.cpp
 
 QATestSuite.o: QATestSuite.cpp ../gtest.h \
@@ -2604,6 +2632,12 @@ QATestSuite.o: QATestSuite.cpp ../gtest.h \
 		/usr/include/qt5/QtCore/qisenum.h \
 		/usr/include/qt5/QtCore/qobject_impl.h \
 		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
 		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
 		../../GonzalesApp/common/qtproxies/DataSerializer.h \
 		/usr/include/qt5/QtCore/QString \
@@ -2613,22 +2647,16 @@ QATestSuite.o: QATestSuite.cpp ../gtest.h \
 		/usr/include/qt5/QtCore/QMultiMap \
 		/usr/include/qt5/QtCore/qmap.h \
 		/usr/include/qt5/QtCore/qdebug.h \
-		/usr/include/qt5/QtCore/qhash.h \
 		/usr/include/qt5/QtCore/qtextstream.h \
 		/usr/include/qt5/QtCore/qlocale.h \
 		/usr/include/qt5/QtCore/qvariant.h \
 		/usr/include/qt5/QtCore/qstringlist.h \
 		/usr/include/qt5/QtCore/qregexp.h \
 		/usr/include/qt5/QtCore/qstringmatcher.h \
-		/usr/include/qt5/QtCore/qshareddata.h \
 		/usr/include/qt5/QtCore/qvector.h \
 		/usr/include/qt5/QtCore/qpoint.h \
 		/usr/include/qt5/QtCore/qset.h \
 		/usr/include/qt5/QtCore/qcontiguouscache.h \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../AQImporter/DataSerializerMock.h \
 		../AQImporter/DataDeserializerMock.h \
 		../CommonUtUtilities/PrintTo.h
@@ -2730,6 +2758,12 @@ QAMarkerTestSuite.o: QAMarkerTestSuite.cpp ../gtest.h \
 		/usr/include/qt5/QtCore/qisenum.h \
 		/usr/include/qt5/QtCore/qobject_impl.h \
 		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
 		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
 		../../GonzalesApp/common/qtproxies/DataSerializer.h \
 		/usr/include/qt5/QtCore/QString \
@@ -2739,22 +2773,16 @@ QAMarkerTestSuite.o: QAMarkerTestSuite.cpp ../gtest.h \
 		/usr/include/qt5/QtCore/QMultiMap \
 		/usr/include/qt5/QtCore/qmap.h \
 		/usr/include/qt5/QtCore/qdebug.h \
-		/usr/include/qt5/QtCore/qhash.h \
 		/usr/include/qt5/QtCore/qtextstream.h \
 		/usr/include/qt5/QtCore/qlocale.h \
 		/usr/include/qt5/QtCore/qvariant.h \
 		/usr/include/qt5/QtCore/qstringlist.h \
 		/usr/include/qt5/QtCore/qregexp.h \
 		/usr/include/qt5/QtCore/qstringmatcher.h \
-		/usr/include/qt5/QtCore/qshareddata.h \
 		/usr/include/qt5/QtCore/qvector.h \
 		/usr/include/qt5/QtCore/qpoint.h \
 		/usr/include/qt5/QtCore/qset.h \
 		/usr/include/qt5/QtCore/qcontiguouscache.h \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/qa/IQARepository.h \
 		../../GonzalesApp/common/SimpleTree/Node.h \
 		/usr/include/qt5/QtCore/QVariant \
@@ -2832,6 +2860,12 @@ QAMarker.o: ../../GonzalesApp/qa/QAMarker.cpp ../../GonzalesApp/qa/QAMarker.h \
 		/usr/include/qt5/QtCore/qisenum.h \
 		/usr/include/qt5/QtCore/qobject_impl.h \
 		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
 		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
 		../../GonzalesApp/common/qtproxies/DataSerializer.h \
 		/usr/include/qt5/QtCore/QString \
@@ -2841,22 +2875,16 @@ QAMarker.o: ../../GonzalesApp/qa/QAMarker.cpp ../../GonzalesApp/qa/QAMarker.h \
 		/usr/include/qt5/QtCore/QMultiMap \
 		/usr/include/qt5/QtCore/qmap.h \
 		/usr/include/qt5/QtCore/qdebug.h \
-		/usr/include/qt5/QtCore/qhash.h \
 		/usr/include/qt5/QtCore/qtextstream.h \
 		/usr/include/qt5/QtCore/qlocale.h \
 		/usr/include/qt5/QtCore/qvariant.h \
 		/usr/include/qt5/QtCore/qstringlist.h \
 		/usr/include/qt5/QtCore/qregexp.h \
 		/usr/include/qt5/QtCore/qstringmatcher.h \
-		/usr/include/qt5/QtCore/qshareddata.h \
 		/usr/include/qt5/QtCore/qvector.h \
 		/usr/include/qt5/QtCore/qpoint.h \
 		/usr/include/qt5/QtCore/qset.h \
 		/usr/include/qt5/QtCore/qcontiguouscache.h \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/qa/IQARepository.h \
 		../../GonzalesApp/common/SimpleTree/Node.h \
 		/usr/include/qt5/QtCore/QVariant \
@@ -2976,6 +3004,568 @@ LineSplitterTestSuite.o: LineSplitterTestSuite.cpp ../gtest.h \
 		/usr/include/qt5/QtCore/qcontiguouscache.h \
 		../CommonUtUtilities/PrintTo.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o LineSplitterTestSuite.o LineSplitterTestSuite.cpp
+
+QALearnedCheckerTestSuite.o: QALearnedCheckerTestSuite.cpp ../gtest.h \
+		../gtest/internal/gtest-internal.h \
+		../gtest/internal/gtest-port.h \
+		../gtest/internal/gtest-string.h \
+		../gtest/internal/gtest-filepath.h \
+		../gtest/internal/gtest-type-util.h \
+		../gtest/gtest-death-test.h \
+		../gtest/internal/gtest-death-test-internal.h \
+		../gtest/gtest-message.h \
+		../gtest/gtest-param-test.h \
+		../gtest/internal/gtest-param-util.h \
+		../gtest/internal/gtest-linked_ptr.h \
+		../gtest/gtest-printers.h \
+		../gtest/internal/gtest-param-util-generated.h \
+		../gtest/gtest_prod.h \
+		../gtest/gtest-test-part.h \
+		../gtest/gtest-typed-test.h \
+		../gtest/gtest_pred_impl.h \
+		../gmock.h \
+		../gmock/gmock-actions.h \
+		../gmock/internal/gmock-internal-utils.h \
+		../gmock/internal/gmock-generated-internal-utils.h \
+		../gmock/internal/gmock-port.h \
+		../gmock/gmock-cardinalities.h \
+		../gmock/gmock-generated-actions.h \
+		../gmock/gmock-generated-function-mockers.h \
+		../gmock/gmock-spec-builders.h \
+		../gmock/gmock-matchers.h \
+		../gmock/gmock-generated-matchers.h \
+		../gmock/gmock-more-actions.h \
+		../gmock/gmock-generated-nice-strict.h \
+		../../GonzalesApp/qa/QALearnedChecker.h \
+		../../GonzalesApp/qa/IQALearnedChecker.h \
+		../../GonzalesApp/qa/QA.h \
+		../../GonzalesApp/qa/Question.h \
+		../../GonzalesApp/common/qtproxies/DataDeserializer.h \
+		/usr/include/qt5/QtCore/QDataStream \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
+		../../GonzalesApp/common/qtproxies/DataSerializer.h \
+		/usr/include/qt5/QtCore/QString \
+		../../GonzalesApp/common/qtproxies/IDataSerializer.h \
+		../../GonzalesApp/qa/Answer.h \
+		../../GonzalesApp/common/FileException.h \
+		/usr/include/qt5/QtCore/QMultiMap \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QALearnedCheckerTestSuite.o QALearnedCheckerTestSuite.cpp
+
+QALearnedChecker.o: ../../GonzalesApp/qa/QALearnedChecker.cpp ../../GonzalesApp/qa/QALearnedChecker.h \
+		../../GonzalesApp/qa/IQALearnedChecker.h \
+		../../GonzalesApp/qa/QA.h \
+		../../GonzalesApp/qa/Question.h \
+		../../GonzalesApp/common/qtproxies/DataDeserializer.h \
+		/usr/include/qt5/QtCore/QDataStream \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
+		../../GonzalesApp/common/qtproxies/DataSerializer.h \
+		/usr/include/qt5/QtCore/QString \
+		../../GonzalesApp/common/qtproxies/IDataSerializer.h \
+		../../GonzalesApp/qa/Answer.h \
+		../../GonzalesApp/common/FileException.h \
+		/usr/include/qt5/QtCore/QMultiMap \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QALearnedChecker.o ../../GonzalesApp/qa/QALearnedChecker.cpp
+
+QAsForRepeatSelectorTestSuite.o: QAsForRepeatSelectorTestSuite.cpp ../gtest.h \
+		../gtest/internal/gtest-internal.h \
+		../gtest/internal/gtest-port.h \
+		../gtest/internal/gtest-string.h \
+		../gtest/internal/gtest-filepath.h \
+		../gtest/internal/gtest-type-util.h \
+		../gtest/gtest-death-test.h \
+		../gtest/internal/gtest-death-test-internal.h \
+		../gtest/gtest-message.h \
+		../gtest/gtest-param-test.h \
+		../gtest/internal/gtest-param-util.h \
+		../gtest/internal/gtest-linked_ptr.h \
+		../gtest/gtest-printers.h \
+		../gtest/internal/gtest-param-util-generated.h \
+		../gtest/gtest_prod.h \
+		../gtest/gtest-test-part.h \
+		../gtest/gtest-typed-test.h \
+		../gtest/gtest_pred_impl.h \
+		../gmock.h \
+		../gmock/gmock-actions.h \
+		../gmock/internal/gmock-internal-utils.h \
+		../gmock/internal/gmock-generated-internal-utils.h \
+		../gmock/internal/gmock-port.h \
+		../gmock/gmock-cardinalities.h \
+		../gmock/gmock-generated-actions.h \
+		../gmock/gmock-generated-function-mockers.h \
+		../gmock/gmock-spec-builders.h \
+		../gmock/gmock-matchers.h \
+		../gmock/gmock-generated-matchers.h \
+		../gmock/gmock-more-actions.h \
+		../gmock/gmock-generated-nice-strict.h \
+		../../GonzalesApp/qa/QAsSelection/QAsForRepeatSelector.h \
+		../../GonzalesApp/qa/QAsSelection/IQAsForRepeatSelector.h \
+		../../GonzalesApp/qa/QA.h \
+		../../GonzalesApp/qa/Question.h \
+		../../GonzalesApp/common/qtproxies/DataDeserializer.h \
+		/usr/include/qt5/QtCore/QDataStream \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
+		../../GonzalesApp/common/qtproxies/DataSerializer.h \
+		/usr/include/qt5/QtCore/QString \
+		../../GonzalesApp/common/qtproxies/IDataSerializer.h \
+		../../GonzalesApp/qa/Answer.h \
+		../../GonzalesApp/common/FileException.h \
+		/usr/include/qt5/QtCore/QMultiMap \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.h \
+		QAsDestinationSelectorMock.h \
+		../../GonzalesApp/uiobservers/QAsDestinationSelector.h \
+		/usr/include/qt5/QtCore/QMap \
+		/usr/include/qt5/QtCore/QStringList \
+		QAsRepositoryMock.h \
+		../../GonzalesApp/qa/IQARepository.h \
+		../../GonzalesApp/common/SimpleTree/Node.h \
+		/usr/include/qt5/QtCore/QVariant \
+		../../GonzalesApp/qa/QAsSelection/QAsProvider.h \
+		../../GonzalesApp/uiobservers/IQuestionCollectionPresenter.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QAsForRepeatSelectorTestSuite.o QAsForRepeatSelectorTestSuite.cpp
+
+QARepeatPeriodCheckerTestSuite.o: QARepeatPeriodCheckerTestSuite.cpp ../gtest.h \
+		../gtest/internal/gtest-internal.h \
+		../gtest/internal/gtest-port.h \
+		../gtest/internal/gtest-string.h \
+		../gtest/internal/gtest-filepath.h \
+		../gtest/internal/gtest-type-util.h \
+		../gtest/gtest-death-test.h \
+		../gtest/internal/gtest-death-test-internal.h \
+		../gtest/gtest-message.h \
+		../gtest/gtest-param-test.h \
+		../gtest/internal/gtest-param-util.h \
+		../gtest/internal/gtest-linked_ptr.h \
+		../gtest/gtest-printers.h \
+		../gtest/internal/gtest-param-util-generated.h \
+		../gtest/gtest_prod.h \
+		../gtest/gtest-test-part.h \
+		../gtest/gtest-typed-test.h \
+		../gtest/gtest_pred_impl.h \
+		../gmock.h \
+		../gmock/gmock-actions.h \
+		../gmock/internal/gmock-internal-utils.h \
+		../gmock/internal/gmock-generated-internal-utils.h \
+		../gmock/internal/gmock-port.h \
+		../gmock/gmock-cardinalities.h \
+		../gmock/gmock-generated-actions.h \
+		../gmock/gmock-generated-function-mockers.h \
+		../gmock/gmock-spec-builders.h \
+		../gmock/gmock-matchers.h \
+		../gmock/gmock-generated-matchers.h \
+		../gmock/gmock-more-actions.h \
+		../gmock/gmock-generated-nice-strict.h \
+		../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.h \
+		../../GonzalesApp/qa/QA.h \
+		../../GonzalesApp/qa/Question.h \
+		../../GonzalesApp/common/qtproxies/DataDeserializer.h \
+		/usr/include/qt5/QtCore/QDataStream \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
+		../../GonzalesApp/common/qtproxies/DataSerializer.h \
+		/usr/include/qt5/QtCore/QString \
+		../../GonzalesApp/common/qtproxies/IDataSerializer.h \
+		../../GonzalesApp/qa/Answer.h \
+		../../GonzalesApp/common/FileException.h \
+		/usr/include/qt5/QtCore/QMultiMap \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QARepeatPeriodCheckerTestSuite.o QARepeatPeriodCheckerTestSuite.cpp
+
+QARepeatPeriodChecker.o: ../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.cpp ../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.h \
+		../../GonzalesApp/qa/QA.h \
+		../../GonzalesApp/qa/Question.h \
+		../../GonzalesApp/common/qtproxies/DataDeserializer.h \
+		/usr/include/qt5/QtCore/QDataStream \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
+		../../GonzalesApp/common/qtproxies/DataSerializer.h \
+		/usr/include/qt5/QtCore/QString \
+		../../GonzalesApp/common/qtproxies/IDataSerializer.h \
+		../../GonzalesApp/qa/Answer.h \
+		../../GonzalesApp/common/FileException.h \
+		/usr/include/qt5/QtCore/QMultiMap \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QARepeatPeriodChecker.o ../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.cpp
 
 ####### Install
 

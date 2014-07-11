@@ -7,10 +7,6 @@
 #include "ImportHandlerFactory.h"
 #include "TeacherControllerFactory.h"
 
-///@todo add algorithm to Node for iterating!
-///@todo add validation in appendQA dialog
-///@todo add new import features like "Q: A:" importer xml importer?
-
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

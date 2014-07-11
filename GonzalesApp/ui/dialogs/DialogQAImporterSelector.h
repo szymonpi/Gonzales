@@ -28,6 +28,8 @@ private slots:
 
     void on_comboBoxSubjects_currentIndexChanged(const QString &arg1);
 
+    void on_buttonBox_rejected();
+
 private:
     QMap<QString, QStringList> m_groupsMap;
     QStringList m_importedQAs;

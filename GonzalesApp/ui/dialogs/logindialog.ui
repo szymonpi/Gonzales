@@ -24,6 +24,9 @@
           <string>credentials</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout">
+          <property name="spacing">
+           <number>0</number>
+          </property>
           <item>
            <widget class="QComboBox" name="comboBoxAccounts">
             <property name="editable">
@@ -39,8 +42,11 @@
           </item>
           <item>
            <widget class="QLineEdit" name="lineEditPassword">
+            <property name="text">
+             <string/>
+            </property>
             <property name="echoMode">
-             <enum>QLineEdit::Password</enum>
+             <enum>QLineEdit::Normal</enum>
             </property>
             <property name="placeholderText">
              <string>password</string>

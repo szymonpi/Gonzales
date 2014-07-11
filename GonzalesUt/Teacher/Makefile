@@ -46,9 +46,11 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../../GonzalesApp/teaching/Teacher.cpp \
-		TeacherTestSuite.cpp 
+		TeacherTestSuite.cpp \
+		QAMemorizeCheckerForTeacher.cpp 
 OBJECTS       = Teacher.o \
-		TeacherTestSuite.o
+		TeacherTestSuite.o \
+		QAMemorizeCheckerForTeacher.o
 DIST          = /usr/lib/i386-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
 		/usr/lib/i386-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -281,7 +283,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/Teacher1.0.0 || mkdir -p .tmp/Teacher1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/Teacher1.0.0/ && $(COPY_FILE) --parents ../gtest.h ../gmock.h ../../GonzalesApp/IUIAdapters.h ../../GonzalesApp/teaching/Teacher.h PresentersMock.h ../../GonzalesApp/common/qtproxies/DataDeserializerFactory.h ../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.cpp ../../GonzalesApp/common/qtproxies/DataDeserializer.h ../../GonzalesApp/common/SimpleTree/Node.h QAsToLearnProviderMock.h QAMarkerMock.h ../../GonzalesApp/qa/IQAmarker.h .tmp/Teacher1.0.0/ && $(COPY_FILE) --parents ../../GonzalesApp/teaching/Teacher.cpp TeacherTestSuite.cpp .tmp/Teacher1.0.0/ && (cd `dirname .tmp/Teacher1.0.0` && $(TAR) Teacher1.0.0.tar Teacher1.0.0 && $(COMPRESS) Teacher1.0.0.tar) && $(MOVE) `dirname .tmp/Teacher1.0.0`/Teacher1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/Teacher1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/Teacher1.0.0/ && $(COPY_FILE) --parents ../gtest.h ../gmock.h ../../GonzalesApp/IUIAdapters.h ../../GonzalesApp/teaching/Teacher.h PresentersMock.h ../../GonzalesApp/common/qtproxies/DataDeserializerFactory.h ../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.cpp ../../GonzalesApp/common/qtproxies/DataDeserializer.h ../../GonzalesApp/common/SimpleTree/Node.h QAsToLearnProviderMock.h QAMarkerMock.h ../../GonzalesApp/qa/IQAmarker.h QAViewMock.h .tmp/Teacher1.0.0/ && $(COPY_FILE) --parents ../../GonzalesApp/teaching/Teacher.cpp TeacherTestSuite.cpp QAMemorizeCheckerForTeacher.cpp .tmp/Teacher1.0.0/ && (cd `dirname .tmp/Teacher1.0.0` && $(TAR) Teacher1.0.0.tar Teacher1.0.0 && $(COMPRESS) Teacher1.0.0.tar) && $(MOVE) `dirname .tmp/Teacher1.0.0`/Teacher1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/Teacher1.0.0
 
 
 clean:compiler_clean 
@@ -382,6 +384,12 @@ Teacher.o: ../../GonzalesApp/teaching/Teacher.cpp ../../GonzalesApp/teaching/Tea
 		/usr/include/qt5/QtCore/qisenum.h \
 		/usr/include/qt5/QtCore/qobject_impl.h \
 		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
 		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
 		../../GonzalesApp/common/qtproxies/DataSerializer.h \
 		/usr/include/qt5/QtCore/QString \
@@ -391,22 +399,16 @@ Teacher.o: ../../GonzalesApp/teaching/Teacher.cpp ../../GonzalesApp/teaching/Tea
 		/usr/include/qt5/QtCore/QMultiMap \
 		/usr/include/qt5/QtCore/qmap.h \
 		/usr/include/qt5/QtCore/qdebug.h \
-		/usr/include/qt5/QtCore/qhash.h \
 		/usr/include/qt5/QtCore/qtextstream.h \
 		/usr/include/qt5/QtCore/qlocale.h \
 		/usr/include/qt5/QtCore/qvariant.h \
 		/usr/include/qt5/QtCore/qstringlist.h \
 		/usr/include/qt5/QtCore/qregexp.h \
 		/usr/include/qt5/QtCore/qstringmatcher.h \
-		/usr/include/qt5/QtCore/qshareddata.h \
 		/usr/include/qt5/QtCore/qvector.h \
 		/usr/include/qt5/QtCore/qpoint.h \
 		/usr/include/qt5/QtCore/qset.h \
 		/usr/include/qt5/QtCore/qcontiguouscache.h \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/uiobservers/IQuestionPresenter.h \
 		../../GonzalesApp/uiobservers/IAnswerPresenter.h \
 		../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.h \
@@ -420,9 +422,13 @@ Teacher.o: ../../GonzalesApp/teaching/Teacher.cpp ../../GonzalesApp/teaching/Tea
 		../../GonzalesApp/qa/QAsSelection/IQAsSelector.h \
 		/usr/include/qt5/QtCore/QVector \
 		../../GonzalesApp/qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h \
+		../../GonzalesApp/qa/QAViewFactory.h \
+		../../GonzalesApp/qa/QASimpleView.h \
+		../../GonzalesApp/qa/QAView.h \
+		../../GonzalesApp/qa/QAMarker.h \
+		../../GonzalesApp/qa/IQAmarker.h \
 		/usr/include/qt5/QtCore/QQueue \
-		/usr/include/qt5/QtCore/qqueue.h \
-		../../GonzalesApp/qa/IQAmarker.h
+		/usr/include/qt5/QtCore/qqueue.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Teacher.o ../../GonzalesApp/teaching/Teacher.cpp
 
 TeacherTestSuite.o: TeacherTestSuite.cpp ../gtest.h \
@@ -507,6 +513,12 @@ TeacherTestSuite.o: TeacherTestSuite.cpp ../gtest.h \
 		/usr/include/qt5/QtCore/qisenum.h \
 		/usr/include/qt5/QtCore/qobject_impl.h \
 		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
 		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
 		../../GonzalesApp/common/qtproxies/DataSerializer.h \
 		/usr/include/qt5/QtCore/QString \
@@ -516,22 +528,16 @@ TeacherTestSuite.o: TeacherTestSuite.cpp ../gtest.h \
 		/usr/include/qt5/QtCore/QMultiMap \
 		/usr/include/qt5/QtCore/qmap.h \
 		/usr/include/qt5/QtCore/qdebug.h \
-		/usr/include/qt5/QtCore/qhash.h \
 		/usr/include/qt5/QtCore/qtextstream.h \
 		/usr/include/qt5/QtCore/qlocale.h \
 		/usr/include/qt5/QtCore/qvariant.h \
 		/usr/include/qt5/QtCore/qstringlist.h \
 		/usr/include/qt5/QtCore/qregexp.h \
 		/usr/include/qt5/QtCore/qstringmatcher.h \
-		/usr/include/qt5/QtCore/qshareddata.h \
 		/usr/include/qt5/QtCore/qvector.h \
 		/usr/include/qt5/QtCore/qpoint.h \
 		/usr/include/qt5/QtCore/qset.h \
 		/usr/include/qt5/QtCore/qcontiguouscache.h \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
 		../../GonzalesApp/uiobservers/IQuestionPresenter.h \
 		../../GonzalesApp/uiobservers/IAnswerPresenter.h \
 		../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.h \
@@ -545,9 +551,13 @@ TeacherTestSuite.o: TeacherTestSuite.cpp ../gtest.h \
 		../../GonzalesApp/qa/QAsSelection/IQAsSelector.h \
 		/usr/include/qt5/QtCore/QVector \
 		../../GonzalesApp/qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h \
+		../../GonzalesApp/qa/QAViewFactory.h \
+		../../GonzalesApp/qa/QASimpleView.h \
+		../../GonzalesApp/qa/QAView.h \
+		../../GonzalesApp/qa/QAMarker.h \
+		../../GonzalesApp/qa/IQAmarker.h \
 		/usr/include/qt5/QtCore/QQueue \
 		/usr/include/qt5/QtCore/qqueue.h \
-		../../GonzalesApp/qa/IQAmarker.h \
 		PresentersMock.h \
 		../gmock.h \
 		../gmock/gmock-actions.h \
@@ -565,8 +575,29 @@ TeacherTestSuite.o: TeacherTestSuite.cpp ../gtest.h \
 		../../GonzalesApp/uiobservers/IUIAdapters.h \
 		../qa/QAsRepositoryMock.h \
 		QAsToLearnProviderMock.h \
-		QAMarkerMock.h
+		QAMarkerMock.h \
+		QAViewMock.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TeacherTestSuite.o TeacherTestSuite.cpp
+
+QAMemorizeCheckerForTeacher.o: QAMemorizeCheckerForTeacher.cpp ../gtest.h \
+		../gtest/internal/gtest-internal.h \
+		../gtest/internal/gtest-port.h \
+		../gtest/internal/gtest-string.h \
+		../gtest/internal/gtest-filepath.h \
+		../gtest/internal/gtest-type-util.h \
+		../gtest/gtest-death-test.h \
+		../gtest/internal/gtest-death-test-internal.h \
+		../gtest/gtest-message.h \
+		../gtest/gtest-param-test.h \
+		../gtest/internal/gtest-param-util.h \
+		../gtest/internal/gtest-linked_ptr.h \
+		../gtest/gtest-printers.h \
+		../gtest/internal/gtest-param-util-generated.h \
+		../gtest/gtest_prod.h \
+		../gtest/gtest-test-part.h \
+		../gtest/gtest-typed-test.h \
+		../gtest/gtest_pred_impl.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QAMemorizeCheckerForTeacher.o QAMemorizeCheckerForTeacher.cpp
 
 ####### Install
 

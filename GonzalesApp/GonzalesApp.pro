@@ -19,6 +19,7 @@ SOURCES += $$files(common/*.cpp) \
            $$files(qa/QAsSelection/*.cpp) \
            main.cpp \
            QARepositoryFactory.cpp \
+           ui/dialogs/LoginDialog.h
 
 HEADERS += $$files(common/*.h) \
            $$files(common/qtproxies/*.h) \
@@ -33,6 +34,7 @@ HEADERS += $$files(common/*.h) \
            ImportHandlerFactory.h \
            QARepositoryFactory.h \
            TeacherControllerFactory.h \
+           ui/dialogs/LoginDialog.cpp
 
 FORMS    += ui/dialogs/logindialog.ui \
     ui/dialogs/dialogcreateaccount.ui \
