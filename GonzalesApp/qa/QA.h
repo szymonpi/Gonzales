@@ -68,18 +68,6 @@ public:
         return answersHistory;
     }
 
-    bool wasWrongAnswered() const
-    {
-        return answersHistory.end() != std::find_if(answersHistory.begin(), answersHistory.end(),
-                            [](const std::pair<QDate, AnswerRating> &answer) -> bool
-                              { return answer.second == AnswerRating::Incorrect; });
-    }
-
-    bool wasLastWrongAnswered() const
-    {
-        return (--answersHistory.end())->second == QA::AnswerRating::Incorrect;
-    }
-
     size_t answerHistorySize() const
     {
         return answersHistory.size();

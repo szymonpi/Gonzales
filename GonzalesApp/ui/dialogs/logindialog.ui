@@ -46,7 +46,7 @@
              <string/>
             </property>
             <property name="echoMode">
-             <enum>QLineEdit::Normal</enum>
+             <enum>QLineEdit::Password</enum>
             </property>
             <property name="placeholderText">
              <string>password</string>
