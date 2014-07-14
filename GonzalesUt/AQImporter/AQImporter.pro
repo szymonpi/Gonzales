@@ -21,10 +21,10 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/qa/QA.h \
     ../../GonzalesApp/qa/Answer.h \
     ../../GonzalesApp/common/qtproxies/IFile.h \
-    ../../GonzalesApp/common/qtproxies/FileFerializerFactory.h \
+    ../../GonzalesApp/common/qtproxies/FileSerializerFactory.h \
     ../../GonzalesApp/common/qtproxies/DataSerializer.h \
     ../../GonzalesApp/common/qtproxies/FileFactory.h \
-    ../../GonzalesApp/common/qtproxies/FiledeFerializerFactory.h \
+    ../../GonzalesApp/common/qtproxies/FileDeserializerFactory.h \
     ../../GonzalesApp/common/qtproxies/DataDeserializer.h \
     ../../GonzalesApp/common/qtproxies/File.h \
     DataSerializerMock.h \

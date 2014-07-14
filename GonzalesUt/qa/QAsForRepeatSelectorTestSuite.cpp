@@ -1,23 +1,24 @@
 #include <memory>
 #include "../gtest.h"
 #include "../gmock.h"
-#include "../../GonzalesApp/qa/QAsSelection/QAsForRepeatSelector.h"
+#include "../../GonzalesApp/qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.h"
 #include "QAsDestinationSelectorMock.h"
 #include "QAsRepositoryMock.h"
-#include "../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.h"
+#include "QAToViewConverterMock.h"
+#include "../../GonzalesApp/qa/QAsSelection/Selectors/QAsForRepeatSelector.h"
 
 using namespace testing;
 
 class QAsForRepeatSelectorTestSuite: public testing::Test
 {
 protected:
-
+    std::shared_ptr<QAToViewConverterMock> m_converterMock;
 };
 
 TEST_F(QAsForRepeatSelectorTestSuite, EmptyQAsGiven_ShouldSelectNothing)
 {
     std::vector<std::shared_ptr<QA>> qas;
-    QAsForRepeatSelector selector;
+    QAsForRepeatSelector selector{m_converterMock};
     ASSERT_TRUE(selector.select(qas).empty());
 }
 
@@ -28,7 +29,7 @@ TEST_F(QAsForRepeatSelectorTestSuite, OneQAsGivenWithOneIncorrectHistoryItem_Sho
     qa->answersHistory.emplace(QDate::currentDate(), QA::AnswerRating::Incorrect);
 
     qas.push_back(qa);
-    QAsForRepeatSelector selector;
+    QAsForRepeatSelector selector{m_converterMock};
     ASSERT_EQ(0, selector.select(qas).size());
 }
 
@@ -41,7 +42,7 @@ TEST_F(QAsForRepeatSelectorTestSuite, OneQAsGivenWithOneCorrectHistoryItemInRepe
 
     qas.push_back(qa);
 
-    QAsForRepeatSelector selector{};
+    QAsForRepeatSelector selector{m_converterMock};
     ASSERT_EQ(1, selector.select(qas).size());
 }
 
@@ -54,6 +55,6 @@ TEST_F(QAsForRepeatSelectorTestSuite, DISABLED_OneQAsGiven_WithOneCorrectHistory
 
     qas.push_back(qa);
 
-    QAsForRepeatSelector selector{};
+    QAsForRepeatSelector selector{m_converterMock};
     ASSERT_EQ(0, selector.select(qas).size());
 }

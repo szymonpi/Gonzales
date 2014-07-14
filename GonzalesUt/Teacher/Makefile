@@ -283,7 +283,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/Teacher1.0.0 || mkdir -p .tmp/Teacher1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/Teacher1.0.0/ && $(COPY_FILE) --parents ../gtest.h ../gmock.h ../../GonzalesApp/IUIAdapters.h ../../GonzalesApp/teaching/Teacher.h PresentersMock.h ../../GonzalesApp/common/qtproxies/DataDeserializerFactory.h ../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.cpp ../../GonzalesApp/common/qtproxies/DataDeserializer.h ../../GonzalesApp/common/SimpleTree/Node.h QAsToLearnProviderMock.h QAMarkerMock.h ../../GonzalesApp/qa/IQAmarker.h QAViewMock.h .tmp/Teacher1.0.0/ && $(COPY_FILE) --parents ../../GonzalesApp/teaching/Teacher.cpp TeacherTestSuite.cpp QAMemorizeCheckerForTeacher.cpp .tmp/Teacher1.0.0/ && (cd `dirname .tmp/Teacher1.0.0` && $(TAR) Teacher1.0.0.tar Teacher1.0.0 && $(COMPRESS) Teacher1.0.0.tar) && $(MOVE) `dirname .tmp/Teacher1.0.0`/Teacher1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/Teacher1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/Teacher1.0.0/ && $(COPY_FILE) --parents ../gtest.h ../gmock.h ../../GonzalesApp/IUIAdapters.h ../../GonzalesApp/teaching/Teacher.h PresentersMock.h ../../GonzalesApp/common/qtproxies/DataDeserializerFactory.h ../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.cpp ../../GonzalesApp/common/qtproxies/DataDeserializer.h ../../GonzalesApp/common/SimpleTree/Node.h QAsToLearnProviderMock.h QAMarkerMock.h ../../GonzalesApp/qa/IQAmarker.h QAViewMock.h ../../GonzalesApp/qa/QAsSelection/Selectors/IQAsSelector.h .tmp/Teacher1.0.0/ && $(COPY_FILE) --parents ../../GonzalesApp/teaching/Teacher.cpp TeacherTestSuite.cpp QAMemorizeCheckerForTeacher.cpp .tmp/Teacher1.0.0/ && (cd `dirname .tmp/Teacher1.0.0` && $(TAR) Teacher1.0.0.tar Teacher1.0.0 && $(COMPRESS) Teacher1.0.0.tar) && $(MOVE) `dirname .tmp/Teacher1.0.0`/Teacher1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/Teacher1.0.0
 
 
 clean:compiler_clean 
@@ -419,16 +419,15 @@ Teacher.o: ../../GonzalesApp/teaching/Teacher.cpp ../../GonzalesApp/teaching/Tea
 		../../GonzalesApp/qa/QAsSelection/QAsProvider.h \
 		../../GonzalesApp/uiobservers/IQuestionCollectionPresenter.h \
 		../../GonzalesApp/qa/QAsSelection/IQAsToLearnProvider.h \
-		../../GonzalesApp/qa/QAsSelection/IQAsSelector.h \
+		../../GonzalesApp/qa/QAsSelection/Selectors/IQAsSelector.h \
 		/usr/include/qt5/QtCore/QVector \
 		../../GonzalesApp/qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h \
-		../../GonzalesApp/qa/QAViewFactory.h \
-		../../GonzalesApp/qa/QASimpleView.h \
-		../../GonzalesApp/qa/QAView.h \
-		../../GonzalesApp/qa/QAMarker.h \
-		../../GonzalesApp/qa/IQAmarker.h \
 		/usr/include/qt5/QtCore/QQueue \
-		/usr/include/qt5/QtCore/qqueue.h
+		/usr/include/qt5/QtCore/qqueue.h \
+		../../GonzalesApp/qa/IQAmarker.h \
+		../../GonzalesApp/qa/QAView.h \
+		../../GonzalesApp/qa/QASimpleView.h \
+		../../GonzalesApp/qa/QAMarker.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Teacher.o ../../GonzalesApp/teaching/Teacher.cpp
 
 TeacherTestSuite.o: TeacherTestSuite.cpp ../gtest.h \
@@ -548,16 +547,13 @@ TeacherTestSuite.o: TeacherTestSuite.cpp ../gtest.h \
 		../../GonzalesApp/qa/QAsSelection/QAsProvider.h \
 		../../GonzalesApp/uiobservers/IQuestionCollectionPresenter.h \
 		../../GonzalesApp/qa/QAsSelection/IQAsToLearnProvider.h \
-		../../GonzalesApp/qa/QAsSelection/IQAsSelector.h \
+		../../GonzalesApp/qa/QAsSelection/Selectors/IQAsSelector.h \
 		/usr/include/qt5/QtCore/QVector \
 		../../GonzalesApp/qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h \
-		../../GonzalesApp/qa/QAViewFactory.h \
-		../../GonzalesApp/qa/QASimpleView.h \
-		../../GonzalesApp/qa/QAView.h \
-		../../GonzalesApp/qa/QAMarker.h \
-		../../GonzalesApp/qa/IQAmarker.h \
 		/usr/include/qt5/QtCore/QQueue \
 		/usr/include/qt5/QtCore/qqueue.h \
+		../../GonzalesApp/qa/IQAmarker.h \
+		../../GonzalesApp/qa/QAView.h \
 		PresentersMock.h \
 		../gmock.h \
 		../gmock/gmock-actions.h \

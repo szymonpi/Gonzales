@@ -13,7 +13,7 @@ SOURCES += \
 
 HEADERS += ../gtest.h \
         ../gmock.h \
-    ../../GonzalesApp/IUIAdapters.h \
+    ../../GonzalesApp/uiobservers/IQuestionPresenter.h\
     ../../GonzalesApp/teaching/Teacher.h \
     PresentersMock.h \
     ../../GonzalesApp/common/qtproxies/DataDeserializerFactory.h \
@@ -23,7 +23,8 @@ HEADERS += ../gtest.h \
     QAsToLearnProviderMock.h \
     QAMarkerMock.h \
     ../../GonzalesApp/qa/IQAmarker.h \
-    QAViewMock.h
+    QAViewMock.h \
+    ../../GonzalesApp/qa/QAsSelection/Selectors/IQAsSelector.h
 
 unix
 {

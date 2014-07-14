@@ -21,24 +21,6 @@ protected:
 };
 
 
-TEST_F(QATestSuite, noAnswersHistoryShouldReturnFalse)
-{
-    EXPECT_FALSE(qa.wasWrongAnswered());
-}
-
-TEST_F(QATestSuite, noWrongAnsweredShouldReturnFalse)
-{
-    qa.addHistoryEntry(QDate::currentDate(), QA::AnswerRating::Correct);
-    EXPECT_FALSE(qa.wasWrongAnswered());
-}
-
-TEST_F(QATestSuite, noWrongAnsweredShouldReturnTrue)
-{
-    qa.addHistoryEntry(QDate::currentDate(), QA::AnswerRating::Correct);
-    qa.addHistoryEntry(QDate::currentDate(), QA::AnswerRating::Incorrect);
-    EXPECT_TRUE(qa.wasWrongAnswered());
-}
-
 TEST_F(QATestSuite, shouldSerializeQAWithoutAnswerHistory)
 {
     EXPECT_CALL(serializerMock, serialize(TypedEq<const QString&>(question)));

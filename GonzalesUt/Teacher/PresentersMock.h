@@ -2,7 +2,7 @@
 #define PRESENTERSMOCK_H
 
 #include "../gmock.h"
-#include "../../GonzalesApp/uiobservers/IUIAdapters.h"
+#include "../../GonzalesApp/uiobservers/IQuestionPresenter.h"
 
 
 class QuestionPresenterMock: public IQuestionPresenter

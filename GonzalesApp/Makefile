@@ -69,12 +69,12 @@ SOURCES       = teaching/Teacher.cpp \
 		qa/QARepository.cpp \
 		qa/QAsAppender.cpp \
 		qa/QASaver.cpp \
-		qa/QAsSelection/QARepeatPeriodChecker.cpp \
-		qa/QAsSelection/QAsForRepeatSelector.cpp \
-		qa/QAsSelection/QAsSelector.cpp \
-		qa/QAsSelection/QAsTolearnByUserChecker.cpp \
+		qa/QAsSelection/QAsToLearnByUserChecker.cpp \
 		qa/QAsSelection/QAsToLearnCheckedByUserProvider.cpp \
 		qa/QAsSelection/QAsToLearnProvider.cpp \
+		qa/QAsSelection/Selectors/QAsForRepeatSelector.cpp \
+		qa/QAsSelection/Selectors/QAsSelector.cpp \
+		qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.cpp \
 		main.cpp \
 		QARepositoryFactory.cpp qrc_icons.cpp \
 		moc_TeacherController.cpp \
@@ -106,12 +106,12 @@ OBJECTS       = Teacher.o \
 		QARepository.o \
 		QAsAppender.o \
 		QASaver.o \
-		QARepeatPeriodChecker.o \
-		QAsForRepeatSelector.o \
-		QAsSelector.o \
-		QAsTolearnByUserChecker.o \
+		QAsToLearnByUserChecker.o \
 		QAsToLearnCheckedByUserProvider.o \
 		QAsToLearnProvider.o \
+		QAsForRepeatSelector.o \
+		QAsSelector.o \
+		QARepeatPeriodChecker.o \
 		main.o \
 		QARepositoryFactory.o \
 		qrc_icons.o \
@@ -360,7 +360,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/GonzalesApp1.0.0 || mkdir -p .tmp/GonzalesApp1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/GonzalesApp1.0.0/ && $(COPY_FILE) --parents icons.qrc .tmp/GonzalesApp1.0.0/ && $(COPY_FILE) --parents common/Common.h common/FileException.h common/qtproxies/ApplicationSettings.h common/qtproxies/DataDeserializer.h common/qtproxies/DataDeserializerFactory.h common/qtproxies/DataSerializer.h common/qtproxies/DataSerializerFactory.h common/qtproxies/File.h common/qtproxies/FileFactory.h common/qtproxies/IApplicationSettings.h common/qtproxies/IDataDeserializer.h common/qtproxies/IDataSerializer.h common/qtproxies/IFile.h common/SimpleTree/IInfosSerializer.h common/SimpleTree/InfosSerializer.h common/SimpleTree/Node.h common/SimpleTree/NodeSerializer.h common/SimpleTree/Utils.h teaching/ITeacher.h teaching/Teacher.h teaching/TeacherController.h ui/mainwindow.h ui/dialogs/DialogCreateAccount.h ui/dialogs/DialogQAImporterSelector.h ui/dialogs/LoginDialog.h uiobservers/AnswerPresenter.h uiobservers/ExceptionHandler.h uiobservers/FilePathByDialogSelector.h uiobservers/FilePathSelector.h uiobservers/IAnswerPresenter.h uiobservers/IExceptionHandler.h uiobservers/IQuestionCollectionPresenter.h uiobservers/IQuestionPresenter.h uiobservers/IUIAdapters.h uiobservers/QAsDestinationSelector.h uiobservers/QuestionCollectionPresenter.h uiobservers/QuestionPresenter.h user/AccountCreator.h user/AccountsProvider.h user/Authorizer.h user/CredentialsValidator.h user/CredentialsValidatorFactory.h user/ICredentialsValidator.h user/UserInfo.h qa/Answer.h qa/ILineSplitter.h qa/ImportHandler.h qa/IQAFilePathSelector.h qa/IQALearnedChecker.h qa/IQALoader.h qa/IQAmarker.h qa/IQARepository.h qa/IQAsAppender.h qa/IQASaver.h qa/IQASerializer.h qa/IQAsFilePathProvider.h qa/LineSplitter.h qa/QA.h qa/QAFilePathSelector.h qa/QAImporter.h qa/QALearnedChecker.h qa/QALoader.h qa/QAMarker.h qa/QANullLoader.h qa/QARepository.h qa/QAsAppender.h qa/QASaver.h qa/QASerializer.h qa/QAsFilePathProvider.h qa/QASimpleView.h qa/QASimpleViewFactory.h qa/QAView.h qa/QAViewFactory.h qa/Question.h qa/QAsSelection/IQAsForRepeatSelector.h qa/QAsSelection/IQAsSelector.h qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h qa/QAsSelection/IQAsToLearnProvider.h qa/QAsSelection/QARepeatPeriodChecker.h qa/QAsSelection/QAsForRepeatSelector.h qa/QAsSelection/QAsProvider.h qa/QAsSelection/QAsSelector.h qa/QAsSelection/QAsToLearnByUserChecker.h qa/QAsSelection/QAsToLearnCheckedByUserProvider.h qa/QAsSelection/QAsToLearnProvider.h ImportHandlerFactory.h QARepositoryFactory.h TeacherControllerFactory.h ui/dialogs/LoginDialog.cpp .tmp/GonzalesApp1.0.0/ && $(COPY_FILE) --parents teaching/Teacher.cpp teaching/TeacherController.cpp ui/mainwindow.cpp ui/dialogs/DialogCreateAccount.cpp ui/dialogs/DialogQAImporterSelector.cpp ui/dialogs/LoginDialog.cpp uiobservers/AnswerPresenter.cpp uiobservers/ExceptionHandler.cpp uiobservers/FilePathByDialogSelector.cpp uiobservers/FilePathSelector.cpp uiobservers/QuestionCollectionPresenter.cpp uiobservers/QuestionPresenter.cpp user/AccountCreator.cpp user/AccountsProvider.cpp user/Authorizer.cpp user/CredentialsValidator.cpp qa/LineSplitter.cpp qa/QAImporter.cpp qa/QALearnedChecker.cpp qa/QALoader.cpp qa/QAMarker.cpp qa/QARepository.cpp qa/QAsAppender.cpp qa/QASaver.cpp qa/QAsSelection/QARepeatPeriodChecker.cpp qa/QAsSelection/QAsForRepeatSelector.cpp qa/QAsSelection/QAsSelector.cpp qa/QAsSelection/QAsTolearnByUserChecker.cpp qa/QAsSelection/QAsToLearnCheckedByUserProvider.cpp qa/QAsSelection/QAsToLearnProvider.cpp main.cpp QARepositoryFactory.cpp .tmp/GonzalesApp1.0.0/ && $(COPY_FILE) --parents ui/dialogs/logindialog.ui ui/dialogs/dialogcreateaccount.ui ui/dialogs/dialogqaimporterselector.ui ui/mainwindow.ui .tmp/GonzalesApp1.0.0/ && (cd `dirname .tmp/GonzalesApp1.0.0` && $(TAR) GonzalesApp1.0.0.tar GonzalesApp1.0.0 && $(COMPRESS) GonzalesApp1.0.0.tar) && $(MOVE) `dirname .tmp/GonzalesApp1.0.0`/GonzalesApp1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/GonzalesApp1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/GonzalesApp1.0.0/ && $(COPY_FILE) --parents icons.qrc .tmp/GonzalesApp1.0.0/ && $(COPY_FILE) --parents common/Common.h common/FileException.h common/qtproxies/ApplicationSettings.h common/qtproxies/DataDeserializer.h common/qtproxies/DataDeserializerFactory.h common/qtproxies/DataSerializer.h common/qtproxies/DataSerializerFactory.h common/qtproxies/File.h common/qtproxies/FileFactory.h common/qtproxies/IApplicationSettings.h common/qtproxies/IDataDeserializer.h common/qtproxies/IDataSerializer.h common/qtproxies/IFile.h common/SimpleTree/IInfosSerializer.h common/SimpleTree/InfosSerializer.h common/SimpleTree/Node.h common/SimpleTree/NodeSerializer.h common/SimpleTree/Utils.h teaching/ITeacher.h teaching/Teacher.h teaching/TeacherController.h ui/mainwindow.h ui/dialogs/DialogCreateAccount.h ui/dialogs/DialogQAImporterSelector.h ui/dialogs/LoginDialog.h uiobservers/AnswerPresenter.h uiobservers/ExceptionHandler.h uiobservers/FilePathByDialogSelector.h uiobservers/FilePathSelector.h uiobservers/IAnswerPresenter.h uiobservers/IExceptionHandler.h uiobservers/IQuestionCollectionPresenter.h uiobservers/IQuestionPresenter.h uiobservers/IUIAdapters.h uiobservers/QAsDestinationSelector.h uiobservers/QuestionCollectionPresenter.h uiobservers/QuestionPresenter.h user/AccountCreator.h user/AccountsProvider.h user/Authorizer.h user/CredentialsValidator.h user/CredentialsValidatorFactory.h user/ICredentialsValidator.h user/UserInfo.h qa/Answer.h qa/ILineSplitter.h qa/ImportHandler.h qa/IQAFilePathSelector.h qa/IQALearnedChecker.h qa/IQALoader.h qa/IQAmarker.h qa/IQARepository.h qa/IQAsAppender.h qa/IQASaver.h qa/IQASerializer.h qa/IQAsFilePathProvider.h qa/LineSplitter.h qa/QA.h qa/QAFilePathSelector.h qa/QAImporter.h qa/QALearnedChecker.h qa/QALoader.h qa/QAMarker.h qa/QANullLoader.h qa/QARepetitionMarker.h qa/QARepository.h qa/QAsAppender.h qa/QASaver.h qa/QASerializer.h qa/QAsFilePathProvider.h qa/QASimpleView.h qa/QAToSimpleViewConverter.h qa/QAToViewConverter.h qa/QAView.h qa/Question.h qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h qa/QAsSelection/IQAsToLearnProvider.h qa/QAsSelection/QAsProvider.h qa/QAsSelection/QAsToLearnByUserChecker.h qa/QAsSelection/QAsToLearnCheckedByUserProvider.h qa/QAsSelection/QAsToLearnProvider.h qa/QAsSelection/Selectors/IQAsSelector.h qa/QAsSelection/Selectors/QAsForRepeatSelector.h qa/QAsSelection/Selectors/QAsNewSelector.h qa/QAsSelection/Selectors/QAsNotLearnedSelector.h qa/QAsSelection/Selectors/QAsSelector.h qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.h ImportHandlerFactory.h QARepositoryFactory.h TeacherControllerFactory.h qa/QAsSelection/Selectors/QAsNotLearnedSelector.h qa/QAsSelection/Selectors/QAsNewSelector.h qa/QAToViewConverter.h qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.h .tmp/GonzalesApp1.0.0/ && $(COPY_FILE) --parents teaching/Teacher.cpp teaching/TeacherController.cpp ui/mainwindow.cpp ui/dialogs/DialogCreateAccount.cpp ui/dialogs/DialogQAImporterSelector.cpp ui/dialogs/LoginDialog.cpp uiobservers/AnswerPresenter.cpp uiobservers/ExceptionHandler.cpp uiobservers/FilePathByDialogSelector.cpp uiobservers/FilePathSelector.cpp uiobservers/QuestionCollectionPresenter.cpp uiobservers/QuestionPresenter.cpp user/AccountCreator.cpp user/AccountsProvider.cpp user/Authorizer.cpp user/CredentialsValidator.cpp qa/LineSplitter.cpp qa/QAImporter.cpp qa/QALearnedChecker.cpp qa/QALoader.cpp qa/QAMarker.cpp qa/QARepository.cpp qa/QAsAppender.cpp qa/QASaver.cpp qa/QAsSelection/QAsToLearnByUserChecker.cpp qa/QAsSelection/QAsToLearnCheckedByUserProvider.cpp qa/QAsSelection/QAsToLearnProvider.cpp qa/QAsSelection/Selectors/QAsForRepeatSelector.cpp qa/QAsSelection/Selectors/QAsSelector.cpp qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.cpp main.cpp QARepositoryFactory.cpp .tmp/GonzalesApp1.0.0/ && $(COPY_FILE) --parents ui/dialogs/logindialog.ui ui/dialogs/dialogcreateaccount.ui ui/dialogs/dialogqaimporterselector.ui ui/mainwindow.ui .tmp/GonzalesApp1.0.0/ && (cd `dirname .tmp/GonzalesApp1.0.0` && $(TAR) GonzalesApp1.0.0.tar GonzalesApp1.0.0 && $(COMPRESS) GonzalesApp1.0.0.tar) && $(MOVE) `dirname .tmp/GonzalesApp1.0.0`/GonzalesApp1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/GonzalesApp1.0.0
 
 
 clean:compiler_clean 
@@ -385,11 +385,11 @@ compiler_rcc_make_all: qrc_icons.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) qrc_icons.cpp
 qrc_icons.cpp: icons.qrc \
-		resources/icons/import.jpg \
-		resources/icons/question.jpg \
 		resources/icons/book.jpg \
 		resources/icons/learn.jpg \
-		resources/icons/learning.jpg
+		resources/icons/learning.jpg \
+		resources/icons/question.jpg \
+		resources/icons/import.jpg
 	/usr/lib/i386-linux-gnu/qt5/bin/rcc -name icons icons.qrc -o qrc_icons.cpp
 
 compiler_moc_header_make_all: moc_TeacherController.cpp moc_mainwindow.cpp moc_DialogCreateAccount.cpp moc_DialogQAImporterSelector.cpp moc_LoginDialog.cpp
@@ -495,17 +495,15 @@ moc_TeacherController.cpp: uiobservers/IExceptionHandler.h \
 		uiobservers/IAnswerPresenter.h \
 		qa/QAsSelection/QAsToLearnProvider.h \
 		qa/QAsSelection/IQAsToLearnProvider.h \
-		qa/QAsSelection/IQAsSelector.h \
+		qa/QAsSelection/Selectors/IQAsSelector.h \
 		/usr/include/qt5/QtCore/QVector \
 		qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h \
-		qa/QAViewFactory.h \
-		qa/QASimpleView.h \
-		qa/QAView.h \
-		qa/QAMarker.h \
-		qa/IQAmarker.h \
 		/usr/include/qt5/QtCore/QQueue \
 		/usr/include/qt5/QtCore/qqueue.h \
+		qa/IQAmarker.h \
+		qa/QAView.h \
 		/usr/include/qt5/QtCore/QObject \
+		qa/QAMarker.h \
 		teaching/TeacherController.h
 	/usr/lib/i386-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/i386-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/i686-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/i686-linux-gnu/4.8/include-fixed -I/usr/include/i386-linux-gnu -I/usr/include teaching/TeacherController.h -o moc_TeacherController.cpp
 
@@ -669,15 +667,13 @@ moc_mainwindow.cpp: /usr/include/qt5/QtWidgets/QMainWindow \
 		uiobservers/IAnswerPresenter.h \
 		qa/QAsSelection/QAsToLearnProvider.h \
 		qa/QAsSelection/IQAsToLearnProvider.h \
-		qa/QAsSelection/IQAsSelector.h \
+		qa/QAsSelection/Selectors/IQAsSelector.h \
 		/usr/include/qt5/QtCore/QVector \
 		qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h \
-		qa/QAViewFactory.h \
-		qa/QASimpleView.h \
-		qa/QAView.h \
-		qa/QAMarker.h \
 		qa/IQAmarker.h \
+		qa/QAView.h \
 		/usr/include/qt5/QtCore/QObject \
+		qa/QAMarker.h \
 		qa/ImportHandler.h \
 		uiobservers/FilePathSelector.h \
 		qa/QAsAppender.h \
@@ -1187,16 +1183,15 @@ Teacher.o: teaching/Teacher.cpp teaching/Teacher.h \
 		qa/QAsSelection/QAsProvider.h \
 		uiobservers/IQuestionCollectionPresenter.h \
 		qa/QAsSelection/IQAsToLearnProvider.h \
-		qa/QAsSelection/IQAsSelector.h \
+		qa/QAsSelection/Selectors/IQAsSelector.h \
 		/usr/include/qt5/QtCore/QVector \
 		qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h \
-		qa/QAViewFactory.h \
-		qa/QASimpleView.h \
-		qa/QAView.h \
-		qa/QAMarker.h \
-		qa/IQAmarker.h \
 		/usr/include/qt5/QtCore/QQueue \
-		/usr/include/qt5/QtCore/qqueue.h
+		/usr/include/qt5/QtCore/qqueue.h \
+		qa/IQAmarker.h \
+		qa/QAView.h \
+		qa/QASimpleView.h \
+		qa/QAMarker.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Teacher.o teaching/Teacher.cpp
 
 TeacherController.o: teaching/TeacherController.cpp teaching/TeacherController.h \
@@ -1300,17 +1295,15 @@ TeacherController.o: teaching/TeacherController.cpp teaching/TeacherController.h
 		uiobservers/IAnswerPresenter.h \
 		qa/QAsSelection/QAsToLearnProvider.h \
 		qa/QAsSelection/IQAsToLearnProvider.h \
-		qa/QAsSelection/IQAsSelector.h \
+		qa/QAsSelection/Selectors/IQAsSelector.h \
 		/usr/include/qt5/QtCore/QVector \
 		qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h \
-		qa/QAViewFactory.h \
-		qa/QASimpleView.h \
-		qa/QAView.h \
-		qa/QAMarker.h \
-		qa/IQAmarker.h \
 		/usr/include/qt5/QtCore/QQueue \
 		/usr/include/qt5/QtCore/qqueue.h \
-		/usr/include/qt5/QtCore/QObject
+		qa/IQAmarker.h \
+		qa/QAView.h \
+		/usr/include/qt5/QtCore/QObject \
+		qa/QAMarker.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TeacherController.o teaching/TeacherController.cpp
 
 mainwindow.o: ui/mainwindow.cpp /usr/include/qt5/QtCore/QStringList \
@@ -1495,15 +1488,13 @@ mainwindow.o: ui/mainwindow.cpp /usr/include/qt5/QtCore/QStringList \
 		uiobservers/IAnswerPresenter.h \
 		qa/QAsSelection/QAsToLearnProvider.h \
 		qa/QAsSelection/IQAsToLearnProvider.h \
-		qa/QAsSelection/IQAsSelector.h \
+		qa/QAsSelection/Selectors/IQAsSelector.h \
 		/usr/include/qt5/QtCore/QVector \
 		qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h \
-		qa/QAViewFactory.h \
-		qa/QASimpleView.h \
-		qa/QAView.h \
-		qa/QAMarker.h \
 		qa/IQAmarker.h \
+		qa/QAView.h \
 		/usr/include/qt5/QtCore/QObject \
+		qa/QAMarker.h \
 		qa/ImportHandler.h \
 		uiobservers/FilePathSelector.h \
 		qa/QAsAppender.h \
@@ -1529,9 +1520,16 @@ mainwindow.o: ui/mainwindow.cpp /usr/include/qt5/QtCore/QStringList \
 		qa/QAsSelection/QAsToLearnByUserChecker.h \
 		TeacherControllerFactory.h \
 		qa/QAsSelection/QAsToLearnCheckedByUserProvider.h \
-		qa/QAsSelection/QAsSelector.h \
-		uiobservers/ExceptionHandler.h \
-		qa/QASimpleViewFactory.h
+		qa/QAsSelection/Selectors/QAsSelector.h \
+		qa/QAsSelection/Selectors/QAsNewSelector.h \
+		qa/QAToViewConverter.h \
+		qa/QAsSelection/Selectors/QAsForRepeatSelector.h \
+		qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.h \
+		qa/QAToSimpleViewConverter.h \
+		qa/QASimpleView.h \
+		qa/QAsSelection/Selectors/QAsNotLearnedSelector.h \
+		qa/QARepetitionMarker.h \
+		uiobservers/ExceptionHandler.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ui/mainwindow.cpp
 
 DialogCreateAccount.o: ui/dialogs/DialogCreateAccount.cpp ui/dialogs/DialogCreateAccount.h \
@@ -3771,287 +3769,7 @@ QASaver.o: qa/QASaver.cpp /usr/include/qt5/QtCore/QQueue \
 		qa/IQAsFilePathProvider.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QASaver.o qa/QASaver.cpp
 
-QARepeatPeriodChecker.o: qa/QAsSelection/QARepeatPeriodChecker.cpp qa/QAsSelection/QARepeatPeriodChecker.h \
-		qa/QA.h \
-		qa/Question.h \
-		common/qtproxies/DataDeserializer.h \
-		/usr/include/qt5/QtCore/QDataStream \
-		/usr/include/qt5/QtCore/qdatastream.h \
-		/usr/include/qt5/QtCore/qscopedpointer.h \
-		/usr/include/qt5/QtCore/qglobal.h \
-		/usr/include/qt5/QtCore/qconfig.h \
-		/usr/include/qt5/QtCore/qfeatures.h \
-		/usr/include/qt5/QtCore/qsystemdetection.h \
-		/usr/include/qt5/QtCore/qprocessordetection.h \
-		/usr/include/qt5/QtCore/qcompilerdetection.h \
-		/usr/include/qt5/QtCore/qglobalstatic.h \
-		/usr/include/qt5/QtCore/qatomic.h \
-		/usr/include/qt5/QtCore/qbasicatomic.h \
-		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
-		/usr/include/qt5/QtCore/qgenericatomic.h \
-		/usr/include/qt5/QtCore/qatomic_msvc.h \
-		/usr/include/qt5/QtCore/qatomic_integrity.h \
-		/usr/include/qt5/QtCore/qoldbasicatomic.h \
-		/usr/include/qt5/QtCore/qatomic_vxworks.h \
-		/usr/include/qt5/QtCore/qatomic_power.h \
-		/usr/include/qt5/QtCore/qatomic_alpha.h \
-		/usr/include/qt5/QtCore/qatomic_armv7.h \
-		/usr/include/qt5/QtCore/qatomic_armv6.h \
-		/usr/include/qt5/QtCore/qatomic_armv5.h \
-		/usr/include/qt5/QtCore/qatomic_bfin.h \
-		/usr/include/qt5/QtCore/qatomic_ia64.h \
-		/usr/include/qt5/QtCore/qatomic_mips.h \
-		/usr/include/qt5/QtCore/qatomic_s390.h \
-		/usr/include/qt5/QtCore/qatomic_sh4a.h \
-		/usr/include/qt5/QtCore/qatomic_sparc.h \
-		/usr/include/qt5/QtCore/qatomic_gcc.h \
-		/usr/include/qt5/QtCore/qatomic_x86.h \
-		/usr/include/qt5/QtCore/qatomic_cxx11.h \
-		/usr/include/qt5/QtCore/qatomic_unix.h \
-		/usr/include/qt5/QtCore/qmutex.h \
-		/usr/include/qt5/QtCore/qlogging.h \
-		/usr/include/qt5/QtCore/qflags.h \
-		/usr/include/qt5/QtCore/qtypeinfo.h \
-		/usr/include/qt5/QtCore/qtypetraits.h \
-		/usr/include/qt5/QtCore/qsysinfo.h \
-		/usr/include/qt5/QtCore/qiodevice.h \
-		/usr/include/qt5/QtCore/qobject.h \
-		/usr/include/qt5/QtCore/qobjectdefs.h \
-		/usr/include/qt5/QtCore/qnamespace.h \
-		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
-		/usr/include/qt5/QtCore/qstring.h \
-		/usr/include/qt5/QtCore/qchar.h \
-		/usr/include/qt5/QtCore/qbytearray.h \
-		/usr/include/qt5/QtCore/qrefcount.h \
-		/usr/include/qt5/QtCore/qarraydata.h \
-		/usr/include/qt5/QtCore/qstringbuilder.h \
-		/usr/include/qt5/QtCore/qlist.h \
-		/usr/include/qt5/QtCore/qalgorithms.h \
-		/usr/include/qt5/QtCore/qiterator.h \
-		/usr/include/qt5/QtCore/qcoreevent.h \
-		/usr/include/qt5/QtCore/qmetatype.h \
-		/usr/include/qt5/QtCore/qvarlengtharray.h \
-		/usr/include/qt5/QtCore/qcontainerfwd.h \
-		/usr/include/qt5/QtCore/qisenum.h \
-		/usr/include/qt5/QtCore/qobject_impl.h \
-		/usr/include/qt5/QtCore/qpair.h \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qshareddata.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
-		/usr/include/qt5/QtCore/qhash.h \
-		common/qtproxies/IDataDeserializer.h \
-		common/qtproxies/DataSerializer.h \
-		/usr/include/qt5/QtCore/QString \
-		common/qtproxies/IDataSerializer.h \
-		qa/Answer.h \
-		common/FileException.h \
-		/usr/include/qt5/QtCore/QMultiMap \
-		/usr/include/qt5/QtCore/qmap.h \
-		/usr/include/qt5/QtCore/qdebug.h \
-		/usr/include/qt5/QtCore/qtextstream.h \
-		/usr/include/qt5/QtCore/qlocale.h \
-		/usr/include/qt5/QtCore/qvariant.h \
-		/usr/include/qt5/QtCore/qstringlist.h \
-		/usr/include/qt5/QtCore/qregexp.h \
-		/usr/include/qt5/QtCore/qstringmatcher.h \
-		/usr/include/qt5/QtCore/qvector.h \
-		/usr/include/qt5/QtCore/qpoint.h \
-		/usr/include/qt5/QtCore/qset.h \
-		/usr/include/qt5/QtCore/qcontiguouscache.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QARepeatPeriodChecker.o qa/QAsSelection/QARepeatPeriodChecker.cpp
-
-QAsForRepeatSelector.o: qa/QAsSelection/QAsForRepeatSelector.cpp qa/QAsSelection/QAsForRepeatSelector.h \
-		qa/QAsSelection/IQAsForRepeatSelector.h \
-		qa/QA.h \
-		qa/Question.h \
-		common/qtproxies/DataDeserializer.h \
-		/usr/include/qt5/QtCore/QDataStream \
-		/usr/include/qt5/QtCore/qdatastream.h \
-		/usr/include/qt5/QtCore/qscopedpointer.h \
-		/usr/include/qt5/QtCore/qglobal.h \
-		/usr/include/qt5/QtCore/qconfig.h \
-		/usr/include/qt5/QtCore/qfeatures.h \
-		/usr/include/qt5/QtCore/qsystemdetection.h \
-		/usr/include/qt5/QtCore/qprocessordetection.h \
-		/usr/include/qt5/QtCore/qcompilerdetection.h \
-		/usr/include/qt5/QtCore/qglobalstatic.h \
-		/usr/include/qt5/QtCore/qatomic.h \
-		/usr/include/qt5/QtCore/qbasicatomic.h \
-		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
-		/usr/include/qt5/QtCore/qgenericatomic.h \
-		/usr/include/qt5/QtCore/qatomic_msvc.h \
-		/usr/include/qt5/QtCore/qatomic_integrity.h \
-		/usr/include/qt5/QtCore/qoldbasicatomic.h \
-		/usr/include/qt5/QtCore/qatomic_vxworks.h \
-		/usr/include/qt5/QtCore/qatomic_power.h \
-		/usr/include/qt5/QtCore/qatomic_alpha.h \
-		/usr/include/qt5/QtCore/qatomic_armv7.h \
-		/usr/include/qt5/QtCore/qatomic_armv6.h \
-		/usr/include/qt5/QtCore/qatomic_armv5.h \
-		/usr/include/qt5/QtCore/qatomic_bfin.h \
-		/usr/include/qt5/QtCore/qatomic_ia64.h \
-		/usr/include/qt5/QtCore/qatomic_mips.h \
-		/usr/include/qt5/QtCore/qatomic_s390.h \
-		/usr/include/qt5/QtCore/qatomic_sh4a.h \
-		/usr/include/qt5/QtCore/qatomic_sparc.h \
-		/usr/include/qt5/QtCore/qatomic_gcc.h \
-		/usr/include/qt5/QtCore/qatomic_x86.h \
-		/usr/include/qt5/QtCore/qatomic_cxx11.h \
-		/usr/include/qt5/QtCore/qatomic_unix.h \
-		/usr/include/qt5/QtCore/qmutex.h \
-		/usr/include/qt5/QtCore/qlogging.h \
-		/usr/include/qt5/QtCore/qflags.h \
-		/usr/include/qt5/QtCore/qtypeinfo.h \
-		/usr/include/qt5/QtCore/qtypetraits.h \
-		/usr/include/qt5/QtCore/qsysinfo.h \
-		/usr/include/qt5/QtCore/qiodevice.h \
-		/usr/include/qt5/QtCore/qobject.h \
-		/usr/include/qt5/QtCore/qobjectdefs.h \
-		/usr/include/qt5/QtCore/qnamespace.h \
-		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
-		/usr/include/qt5/QtCore/qstring.h \
-		/usr/include/qt5/QtCore/qchar.h \
-		/usr/include/qt5/QtCore/qbytearray.h \
-		/usr/include/qt5/QtCore/qrefcount.h \
-		/usr/include/qt5/QtCore/qarraydata.h \
-		/usr/include/qt5/QtCore/qstringbuilder.h \
-		/usr/include/qt5/QtCore/qlist.h \
-		/usr/include/qt5/QtCore/qalgorithms.h \
-		/usr/include/qt5/QtCore/qiterator.h \
-		/usr/include/qt5/QtCore/qcoreevent.h \
-		/usr/include/qt5/QtCore/qmetatype.h \
-		/usr/include/qt5/QtCore/qvarlengtharray.h \
-		/usr/include/qt5/QtCore/qcontainerfwd.h \
-		/usr/include/qt5/QtCore/qisenum.h \
-		/usr/include/qt5/QtCore/qobject_impl.h \
-		/usr/include/qt5/QtCore/qpair.h \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qshareddata.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
-		/usr/include/qt5/QtCore/qhash.h \
-		common/qtproxies/IDataDeserializer.h \
-		common/qtproxies/DataSerializer.h \
-		/usr/include/qt5/QtCore/QString \
-		common/qtproxies/IDataSerializer.h \
-		qa/Answer.h \
-		common/FileException.h \
-		/usr/include/qt5/QtCore/QMultiMap \
-		/usr/include/qt5/QtCore/qmap.h \
-		/usr/include/qt5/QtCore/qdebug.h \
-		/usr/include/qt5/QtCore/qtextstream.h \
-		/usr/include/qt5/QtCore/qlocale.h \
-		/usr/include/qt5/QtCore/qvariant.h \
-		/usr/include/qt5/QtCore/qstringlist.h \
-		/usr/include/qt5/QtCore/qregexp.h \
-		/usr/include/qt5/QtCore/qstringmatcher.h \
-		/usr/include/qt5/QtCore/qvector.h \
-		/usr/include/qt5/QtCore/qpoint.h \
-		/usr/include/qt5/QtCore/qset.h \
-		/usr/include/qt5/QtCore/qcontiguouscache.h \
-		qa/QAsSelection/QARepeatPeriodChecker.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QAsForRepeatSelector.o qa/QAsSelection/QAsForRepeatSelector.cpp
-
-QAsSelector.o: qa/QAsSelection/QAsSelector.cpp qa/QAsSelection/QAsSelector.h \
-		qa/QAsSelection/IQAsSelector.h \
-		/usr/include/qt5/QtCore/QVector \
-		/usr/include/qt5/QtCore/qvector.h \
-		/usr/include/qt5/QtCore/qalgorithms.h \
-		/usr/include/qt5/QtCore/qglobal.h \
-		/usr/include/qt5/QtCore/qconfig.h \
-		/usr/include/qt5/QtCore/qfeatures.h \
-		/usr/include/qt5/QtCore/qsystemdetection.h \
-		/usr/include/qt5/QtCore/qprocessordetection.h \
-		/usr/include/qt5/QtCore/qcompilerdetection.h \
-		/usr/include/qt5/QtCore/qglobalstatic.h \
-		/usr/include/qt5/QtCore/qatomic.h \
-		/usr/include/qt5/QtCore/qbasicatomic.h \
-		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
-		/usr/include/qt5/QtCore/qgenericatomic.h \
-		/usr/include/qt5/QtCore/qatomic_msvc.h \
-		/usr/include/qt5/QtCore/qatomic_integrity.h \
-		/usr/include/qt5/QtCore/qoldbasicatomic.h \
-		/usr/include/qt5/QtCore/qatomic_vxworks.h \
-		/usr/include/qt5/QtCore/qatomic_power.h \
-		/usr/include/qt5/QtCore/qatomic_alpha.h \
-		/usr/include/qt5/QtCore/qatomic_armv7.h \
-		/usr/include/qt5/QtCore/qatomic_armv6.h \
-		/usr/include/qt5/QtCore/qatomic_armv5.h \
-		/usr/include/qt5/QtCore/qatomic_bfin.h \
-		/usr/include/qt5/QtCore/qatomic_ia64.h \
-		/usr/include/qt5/QtCore/qatomic_mips.h \
-		/usr/include/qt5/QtCore/qatomic_s390.h \
-		/usr/include/qt5/QtCore/qatomic_sh4a.h \
-		/usr/include/qt5/QtCore/qatomic_sparc.h \
-		/usr/include/qt5/QtCore/qatomic_gcc.h \
-		/usr/include/qt5/QtCore/qatomic_x86.h \
-		/usr/include/qt5/QtCore/qatomic_cxx11.h \
-		/usr/include/qt5/QtCore/qatomic_unix.h \
-		/usr/include/qt5/QtCore/qmutex.h \
-		/usr/include/qt5/QtCore/qlogging.h \
-		/usr/include/qt5/QtCore/qflags.h \
-		/usr/include/qt5/QtCore/qtypeinfo.h \
-		/usr/include/qt5/QtCore/qtypetraits.h \
-		/usr/include/qt5/QtCore/qsysinfo.h \
-		/usr/include/qt5/QtCore/qiterator.h \
-		/usr/include/qt5/QtCore/qlist.h \
-		/usr/include/qt5/QtCore/qrefcount.h \
-		/usr/include/qt5/QtCore/qarraydata.h \
-		/usr/include/qt5/QtCore/qpoint.h \
-		/usr/include/qt5/QtCore/qnamespace.h \
-		qa/QA.h \
-		qa/Question.h \
-		common/qtproxies/DataDeserializer.h \
-		/usr/include/qt5/QtCore/QDataStream \
-		/usr/include/qt5/QtCore/qdatastream.h \
-		/usr/include/qt5/QtCore/qscopedpointer.h \
-		/usr/include/qt5/QtCore/qiodevice.h \
-		/usr/include/qt5/QtCore/qobject.h \
-		/usr/include/qt5/QtCore/qobjectdefs.h \
-		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
-		/usr/include/qt5/QtCore/qstring.h \
-		/usr/include/qt5/QtCore/qchar.h \
-		/usr/include/qt5/QtCore/qbytearray.h \
-		/usr/include/qt5/QtCore/qstringbuilder.h \
-		/usr/include/qt5/QtCore/qcoreevent.h \
-		/usr/include/qt5/QtCore/qmetatype.h \
-		/usr/include/qt5/QtCore/qvarlengtharray.h \
-		/usr/include/qt5/QtCore/qcontainerfwd.h \
-		/usr/include/qt5/QtCore/qisenum.h \
-		/usr/include/qt5/QtCore/qobject_impl.h \
-		/usr/include/qt5/QtCore/qpair.h \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qshareddata.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
-		/usr/include/qt5/QtCore/qhash.h \
-		common/qtproxies/IDataDeserializer.h \
-		common/qtproxies/DataSerializer.h \
-		/usr/include/qt5/QtCore/QString \
-		common/qtproxies/IDataSerializer.h \
-		qa/Answer.h \
-		common/FileException.h \
-		/usr/include/qt5/QtCore/QMultiMap \
-		/usr/include/qt5/QtCore/qmap.h \
-		/usr/include/qt5/QtCore/qdebug.h \
-		/usr/include/qt5/QtCore/qtextstream.h \
-		/usr/include/qt5/QtCore/qlocale.h \
-		/usr/include/qt5/QtCore/qvariant.h \
-		/usr/include/qt5/QtCore/qstringlist.h \
-		/usr/include/qt5/QtCore/qregexp.h \
-		/usr/include/qt5/QtCore/qstringmatcher.h \
-		/usr/include/qt5/QtCore/qset.h \
-		/usr/include/qt5/QtCore/qcontiguouscache.h \
-		qa/QAsSelection/QAsForRepeatSelector.h \
-		qa/QAsSelection/IQAsForRepeatSelector.h \
-		qa/QAsSelection/QARepeatPeriodChecker.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QAsSelector.o qa/QAsSelection/QAsSelector.cpp
-
-QAsTolearnByUserChecker.o: qa/QAsSelection/QAsTolearnByUserChecker.cpp qa/QAsSelection/QAsToLearnByUserChecker.h \
+QAsToLearnByUserChecker.o: qa/QAsSelection/QAsToLearnByUserChecker.cpp qa/QAsSelection/QAsToLearnByUserChecker.h \
 		/usr/include/qt5/QtWidgets/QTreeWidget \
 		/usr/include/qt5/QtWidgets/qtreewidget.h \
 		/usr/include/qt5/QtWidgets/qtreeview.h \
@@ -4203,7 +3921,7 @@ QAsTolearnByUserChecker.o: qa/QAsSelection/QAsTolearnByUserChecker.cpp qa/QAsSel
 		/usr/include/qt5/QtCore/QDir \
 		/usr/include/qt5/QtCore/qdir.h \
 		/usr/include/qt5/QtCore/qfileinfo.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QAsTolearnByUserChecker.o qa/QAsSelection/QAsTolearnByUserChecker.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QAsToLearnByUserChecker.o qa/QAsSelection/QAsToLearnByUserChecker.cpp
 
 QAsToLearnCheckedByUserProvider.o: qa/QAsSelection/QAsToLearnCheckedByUserProvider.cpp qa/QAsSelection/QAsToLearnCheckedByUserProvider.h \
 		qa/IQARepository.h \
@@ -4407,16 +4125,9 @@ QAsToLearnProvider.o: qa/QAsSelection/QAsToLearnProvider.cpp qa/QAsSelection/QAs
 		qa/QAsSelection/QAsProvider.h \
 		uiobservers/IQuestionCollectionPresenter.h \
 		qa/QAsSelection/IQAsToLearnProvider.h \
-		qa/QAsSelection/IQAsSelector.h \
+		qa/QAsSelection/Selectors/IQAsSelector.h \
 		/usr/include/qt5/QtCore/QVector \
 		qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h \
-		qa/QAViewFactory.h \
-		qa/QASimpleView.h \
-		qa/QAView.h \
-		uiobservers/IQuestionPresenter.h \
-		uiobservers/IAnswerPresenter.h \
-		qa/QAMarker.h \
-		qa/IQAmarker.h \
 		/usr/include/qt5/QtCore/QQueue \
 		/usr/include/qt5/QtCore/qqueue.h \
 		common/Common.h \
@@ -4426,6 +4137,314 @@ QAsToLearnProvider.o: qa/QAsSelection/QAsToLearnProvider.cpp qa/QAsSelection/QAs
 		/usr/include/qt5/QtCore/qfile.h \
 		/usr/include/qt5/QtCore/qfiledevice.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QAsToLearnProvider.o qa/QAsSelection/QAsToLearnProvider.cpp
+
+QAsForRepeatSelector.o: qa/QAsSelection/Selectors/QAsForRepeatSelector.cpp qa/QAsSelection/Selectors/QAsForRepeatSelector.h \
+		qa/QAsSelection/Selectors/IQAsSelector.h \
+		/usr/include/qt5/QtCore/QVector \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		qa/QA.h \
+		qa/Question.h \
+		common/qtproxies/DataDeserializer.h \
+		/usr/include/qt5/QtCore/QDataStream \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		common/qtproxies/IDataDeserializer.h \
+		common/qtproxies/DataSerializer.h \
+		/usr/include/qt5/QtCore/QString \
+		common/qtproxies/IDataSerializer.h \
+		qa/Answer.h \
+		common/FileException.h \
+		/usr/include/qt5/QtCore/QMultiMap \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.h \
+		qa/QAToSimpleViewConverter.h \
+		qa/QAToViewConverter.h \
+		uiobservers/IQuestionPresenter.h \
+		uiobservers/IAnswerPresenter.h \
+		qa/QAMarker.h \
+		qa/IQAmarker.h \
+		qa/IQARepository.h \
+		common/SimpleTree/Node.h \
+		/usr/include/qt5/QtCore/QVariant \
+		/usr/include/qt5/QtCore/QMap \
+		qa/QAsSelection/QAsProvider.h \
+		uiobservers/IQuestionCollectionPresenter.h \
+		qa/QASimpleView.h \
+		qa/QAView.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QAsForRepeatSelector.o qa/QAsSelection/Selectors/QAsForRepeatSelector.cpp
+
+QAsSelector.o: qa/QAsSelection/Selectors/QAsSelector.cpp qa/QAsSelection/Selectors/QAsSelector.h \
+		qa/QAsSelection/Selectors/IQAsSelector.h \
+		/usr/include/qt5/QtCore/QVector \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		qa/QA.h \
+		qa/Question.h \
+		common/qtproxies/DataDeserializer.h \
+		/usr/include/qt5/QtCore/QDataStream \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		common/qtproxies/IDataDeserializer.h \
+		common/qtproxies/DataSerializer.h \
+		/usr/include/qt5/QtCore/QString \
+		common/qtproxies/IDataSerializer.h \
+		qa/Answer.h \
+		common/FileException.h \
+		/usr/include/qt5/QtCore/QMultiMap \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		qa/QAsSelection/Selectors/QAsForRepeatSelector.h \
+		qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.h \
+		qa/QAToSimpleViewConverter.h \
+		qa/QAToViewConverter.h \
+		uiobservers/IQuestionPresenter.h \
+		uiobservers/IAnswerPresenter.h \
+		qa/QAMarker.h \
+		qa/IQAmarker.h \
+		qa/IQARepository.h \
+		common/SimpleTree/Node.h \
+		/usr/include/qt5/QtCore/QVariant \
+		/usr/include/qt5/QtCore/QMap \
+		qa/QAsSelection/QAsProvider.h \
+		uiobservers/IQuestionCollectionPresenter.h \
+		qa/QASimpleView.h \
+		qa/QAView.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QAsSelector.o qa/QAsSelection/Selectors/QAsSelector.cpp
+
+QARepeatPeriodChecker.o: qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.cpp qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.h \
+		qa/QA.h \
+		qa/Question.h \
+		common/qtproxies/DataDeserializer.h \
+		/usr/include/qt5/QtCore/QDataStream \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
+		/usr/include/qt5/QtCore/qglobal.h \
+		/usr/include/qt5/QtCore/qconfig.h \
+		/usr/include/qt5/QtCore/qfeatures.h \
+		/usr/include/qt5/QtCore/qsystemdetection.h \
+		/usr/include/qt5/QtCore/qprocessordetection.h \
+		/usr/include/qt5/QtCore/qcompilerdetection.h \
+		/usr/include/qt5/QtCore/qglobalstatic.h \
+		/usr/include/qt5/QtCore/qatomic.h \
+		/usr/include/qt5/QtCore/qbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
+		/usr/include/qt5/QtCore/qgenericatomic.h \
+		/usr/include/qt5/QtCore/qatomic_msvc.h \
+		/usr/include/qt5/QtCore/qatomic_integrity.h \
+		/usr/include/qt5/QtCore/qoldbasicatomic.h \
+		/usr/include/qt5/QtCore/qatomic_vxworks.h \
+		/usr/include/qt5/QtCore/qatomic_power.h \
+		/usr/include/qt5/QtCore/qatomic_alpha.h \
+		/usr/include/qt5/QtCore/qatomic_armv7.h \
+		/usr/include/qt5/QtCore/qatomic_armv6.h \
+		/usr/include/qt5/QtCore/qatomic_armv5.h \
+		/usr/include/qt5/QtCore/qatomic_bfin.h \
+		/usr/include/qt5/QtCore/qatomic_ia64.h \
+		/usr/include/qt5/QtCore/qatomic_mips.h \
+		/usr/include/qt5/QtCore/qatomic_s390.h \
+		/usr/include/qt5/QtCore/qatomic_sh4a.h \
+		/usr/include/qt5/QtCore/qatomic_sparc.h \
+		/usr/include/qt5/QtCore/qatomic_gcc.h \
+		/usr/include/qt5/QtCore/qatomic_x86.h \
+		/usr/include/qt5/QtCore/qatomic_cxx11.h \
+		/usr/include/qt5/QtCore/qatomic_unix.h \
+		/usr/include/qt5/QtCore/qmutex.h \
+		/usr/include/qt5/QtCore/qlogging.h \
+		/usr/include/qt5/QtCore/qflags.h \
+		/usr/include/qt5/QtCore/qtypeinfo.h \
+		/usr/include/qt5/QtCore/qtypetraits.h \
+		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qobject.h \
+		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
+		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qmetatype.h \
+		/usr/include/qt5/QtCore/qvarlengtharray.h \
+		/usr/include/qt5/QtCore/qcontainerfwd.h \
+		/usr/include/qt5/QtCore/qisenum.h \
+		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		common/qtproxies/IDataDeserializer.h \
+		common/qtproxies/DataSerializer.h \
+		/usr/include/qt5/QtCore/QString \
+		common/qtproxies/IDataSerializer.h \
+		qa/Answer.h \
+		common/FileException.h \
+		/usr/include/qt5/QtCore/QMultiMap \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QARepeatPeriodChecker.o qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.cpp
 
 main.o: main.cpp ui/mainwindow.h \
 		/usr/include/qt5/QtWidgets/QMainWindow \
@@ -4588,15 +4607,13 @@ main.o: main.cpp ui/mainwindow.h \
 		uiobservers/IAnswerPresenter.h \
 		qa/QAsSelection/QAsToLearnProvider.h \
 		qa/QAsSelection/IQAsToLearnProvider.h \
-		qa/QAsSelection/IQAsSelector.h \
+		qa/QAsSelection/Selectors/IQAsSelector.h \
 		/usr/include/qt5/QtCore/QVector \
 		qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h \
-		qa/QAViewFactory.h \
-		qa/QASimpleView.h \
-		qa/QAView.h \
-		qa/QAMarker.h \
 		qa/IQAmarker.h \
+		qa/QAView.h \
 		/usr/include/qt5/QtCore/QObject \
+		qa/QAMarker.h \
 		qa/ImportHandler.h \
 		uiobservers/FilePathSelector.h \
 		qa/QAsAppender.h \
@@ -4658,8 +4675,15 @@ main.o: main.cpp ui/mainwindow.h \
 		/usr/include/qt5/QtGui/qtextformat.h \
 		/usr/include/qt5/QtGui/qpen.h \
 		qa/QAsSelection/QAsToLearnCheckedByUserProvider.h \
-		qa/QAsSelection/QAsSelector.h \
-		qa/QASimpleViewFactory.h
+		qa/QAsSelection/Selectors/QAsSelector.h \
+		qa/QAsSelection/Selectors/QAsNewSelector.h \
+		qa/QAToViewConverter.h \
+		qa/QAsSelection/Selectors/QAsForRepeatSelector.h \
+		qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.h \
+		qa/QAToSimpleViewConverter.h \
+		qa/QASimpleView.h \
+		qa/QAsSelection/Selectors/QAsNotLearnedSelector.h \
+		qa/QARepetitionMarker.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 QARepositoryFactory.o: QARepositoryFactory.cpp QARepositoryFactory.h \

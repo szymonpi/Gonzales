@@ -1,9 +1,14 @@
 #pragma once
+#include "QAToViewConverter.h"
+#include "../uiobservers/IQuestionPresenter.h"
+#include "../uiobservers/IAnswerPresenter.h"
+#include "QAMarker.h"
+#include "QASimpleView.h"
 
-class QASimpleViewFactory: public QAViewFactory
+class QAToSimpleViewConverter: public QAToViewConverter
 {
 public:
-    QASimpleViewFactory(std::shared_ptr<IQuestionPresenter> questionPresenter,
+    QAToSimpleViewConverter(std::shared_ptr<IQuestionPresenter> questionPresenter,
                         std::shared_ptr<IAnswerPresenter> answerPresenter,
                         std::shared_ptr<IQAMarker> qaMarker):
         m_questionPresenter(questionPresenter),
@@ -13,7 +18,7 @@ public:
 
     }
 
-    std::shared_ptr<QAView> createQAView(const std::shared_ptr<QA> &qaData) const override
+    std::shared_ptr<QAView> convert(const std::shared_ptr<QA> &qaData) const override
     {
         return std::make_shared<QASimpleView>(m_questionPresenter, m_answerPresenter, m_qaMarker, qaData);
     }

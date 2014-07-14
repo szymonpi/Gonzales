@@ -60,8 +60,8 @@ SOURCES       = AllTests.cpp \
 		QAsToLearnCheckedByUserProviderTestSuite.cpp \
 		../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.cpp \
 		../../GonzalesApp/qa/QAsSelection/QAsToLearnCheckedByUserProvider.cpp \
-		../../GonzalesApp/qa/QAsSelection/QAsTolearnByUserChecker.cpp \
-		../../GonzalesApp/qa/QAsSelection/QAsSelector.cpp \
+		../../GonzalesApp/qa/QAsSelection/QAsToLearnByUserChecker.cpp \
+		../../GonzalesApp/qa/QAsSelection/Selectors/QAsSelector.cpp \
 		QAsSelectorTestSuite.cpp \
 		QATestSuite.cpp \
 		QAMarkerTestSuite.cpp \
@@ -71,7 +71,7 @@ SOURCES       = AllTests.cpp \
 		../../GonzalesApp/qa/QALearnedChecker.cpp \
 		QAsForRepeatSelectorTestSuite.cpp \
 		QARepeatPeriodCheckerTestSuite.cpp \
-		../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.cpp 
+		../../GonzalesApp/qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.cpp 
 OBJECTS       = AllTests.o \
 		QARepositoryTestSuite.o \
 		QASaver.o \
@@ -87,7 +87,7 @@ OBJECTS       = AllTests.o \
 		QAsToLearnCheckedByUserProviderTestSuite.o \
 		QAsToLearnProvider.o \
 		QAsToLearnCheckedByUserProvider.o \
-		QAsTolearnByUserChecker.o \
+		QAsToLearnByUserChecker.o \
 		QAsSelector.o \
 		QAsSelectorTestSuite.o \
 		QATestSuite.o \
@@ -336,7 +336,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/qa1.0.0 || mkdir -p .tmp/qa1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/qa1.0.0/ && $(COPY_FILE) --parents ../gtest.h ../gmock.h ../../GonzalesApp/qa/QASaver.h ../../GonzalesApp/qa/QALoader.h ../../GonzalesApp/qa/QAImporter.h ../../GonzalesApp/IExceptionHandler.h ../../GonzalesApp/qa/ImportHandler.h ../../GonzalesApp/qa/QAsAppender.h ../../GonzalesApp/qa/IQAsAppender.h ../../GonzalesApp/QAsDestinationSelector.h ../../GonzalesApp/common/SimpleTree/Utils.h ../../GonzalesApp/common/SimpleTree/Node.h ExceptionHandlerMock.h QuestionsCollectionPresenterMock.h FilePathSelectorMock.h QAsImporterMock.h QAsAppenderMock.h QAsDestinationSelectorMock.h QAsRepositoryMock.h QALoaderMock.h QAsProviderMock.h QAsToLearnCheckedByUserProviderMock.h QASaverMock.h ../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.h ../../GonzalesApp/qa/QAsSelection/QAsToLearnCheckedByUserProvider.h ../../GonzalesApp/qa/QAsSelection/QAsToLearnByUserChecker.h ../../GonzalesApp/qa/QAsSelection/QAsProvider.h ../../GonzalesApp/qa/QAsSelection/IQAsToLearnProvider.h ../../GonzalesApp/qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h ../../GonzalesApp/qa/QAsSelection/IQAsSelector.h QAsSelectorMock.h ../../GonzalesApp/qa/QAMarker.h ../../GonzalesApp/qa/QALearnedChecker.h QAViewFactoryMock.h ../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.h .tmp/qa1.0.0/ && $(COPY_FILE) --parents AllTests.cpp QARepositoryTestSuite.cpp ../../GonzalesApp/qa/QASaver.cpp ../../GonzalesApp/qa/QALoader.cpp ../../GonzalesApp/qa/QAImporter.cpp ../../GonzalesApp/qa/QARepository.cpp ../../GonzalesApp/qa/QAsAppender.cpp ImportHandlertestSuite.cpp FilePathSelectorTestSuite.cpp QAsAppenderTestSuite.cpp QAsToLearnProviderTestSuite.cpp QAsToLearnByUserCheckerSuite.cpp QAsToLearnCheckedByUserProviderTestSuite.cpp ../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.cpp ../../GonzalesApp/qa/QAsSelection/QAsToLearnCheckedByUserProvider.cpp ../../GonzalesApp/qa/QAsSelection/QAsTolearnByUserChecker.cpp ../../GonzalesApp/qa/QAsSelection/QAsSelector.cpp QAsSelectorTestSuite.cpp QATestSuite.cpp QAMarkerTestSuite.cpp ../../GonzalesApp/qa/QAMarker.cpp LineSplitterTestSuite.cpp QALearnedCheckerTestSuite.cpp ../../GonzalesApp/qa/QALearnedChecker.cpp QAsForRepeatSelectorTestSuite.cpp QARepeatPeriodCheckerTestSuite.cpp ../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.cpp .tmp/qa1.0.0/ && (cd `dirname .tmp/qa1.0.0` && $(TAR) qa1.0.0.tar qa1.0.0 && $(COMPRESS) qa1.0.0.tar) && $(MOVE) `dirname .tmp/qa1.0.0`/qa1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/qa1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/qa1.0.0/ && $(COPY_FILE) --parents ../gtest.h ../gmock.h ../../GonzalesApp/qa/QASaver.h ../../GonzalesApp/qa/QALoader.h ../../GonzalesApp/qa/QAImporter.h ../../GonzalesApp/IExceptionHandler.h ../../GonzalesApp/qa/ImportHandler.h ../../GonzalesApp/qa/QAsAppender.h ../../GonzalesApp/qa/IQAsAppender.h ../../GonzalesApp/QAsDestinationSelector.h ../../GonzalesApp/common/SimpleTree/Utils.h ../../GonzalesApp/common/SimpleTree/Node.h ExceptionHandlerMock.h QuestionsCollectionPresenterMock.h FilePathSelectorMock.h QAsImporterMock.h QAsAppenderMock.h QAsDestinationSelectorMock.h QAsRepositoryMock.h QALoaderMock.h QAsProviderMock.h QAsToLearnCheckedByUserProviderMock.h QASaverMock.h ../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.h ../../GonzalesApp/qa/QAsSelection/QAsToLearnCheckedByUserProvider.h ../../GonzalesApp/qa/QAsSelection/QAsToLearnByUserChecker.h ../../GonzalesApp/qa/QAsSelection/QAsProvider.h ../../GonzalesApp/qa/QAsSelection/IQAsToLearnProvider.h ../../GonzalesApp/qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h ../../GonzalesApp/qa/QAsSelection/IQAsSelector.h QAsSelectorMock.h ../../GonzalesApp/qa/QAMarker.h ../../GonzalesApp/qa/QALearnedChecker.h ../../GonzalesApp/qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.h ../../GonzalesApp/qa/QAsSelection/Selectors/IQAsSelector.h QAToViewConverterMock.h .tmp/qa1.0.0/ && $(COPY_FILE) --parents AllTests.cpp QARepositoryTestSuite.cpp ../../GonzalesApp/qa/QASaver.cpp ../../GonzalesApp/qa/QALoader.cpp ../../GonzalesApp/qa/QAImporter.cpp ../../GonzalesApp/qa/QARepository.cpp ../../GonzalesApp/qa/QAsAppender.cpp ImportHandlertestSuite.cpp FilePathSelectorTestSuite.cpp QAsAppenderTestSuite.cpp QAsToLearnProviderTestSuite.cpp QAsToLearnByUserCheckerSuite.cpp QAsToLearnCheckedByUserProviderTestSuite.cpp ../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.cpp ../../GonzalesApp/qa/QAsSelection/QAsToLearnCheckedByUserProvider.cpp ../../GonzalesApp/qa/QAsSelection/QAsToLearnByUserChecker.cpp ../../GonzalesApp/qa/QAsSelection/Selectors/QAsSelector.cpp QAsSelectorTestSuite.cpp QATestSuite.cpp QAMarkerTestSuite.cpp ../../GonzalesApp/qa/QAMarker.cpp LineSplitterTestSuite.cpp QALearnedCheckerTestSuite.cpp ../../GonzalesApp/qa/QALearnedChecker.cpp QAsForRepeatSelectorTestSuite.cpp QARepeatPeriodCheckerTestSuite.cpp ../../GonzalesApp/qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.cpp .tmp/qa1.0.0/ && (cd `dirname .tmp/qa1.0.0` && $(TAR) qa1.0.0.tar qa1.0.0 && $(COMPRESS) qa1.0.0.tar) && $(MOVE) `dirname .tmp/qa1.0.0`/qa1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/qa1.0.0
 
 
 clean:compiler_clean 
@@ -1594,16 +1594,9 @@ QAsToLearnProviderTestSuite.o: QAsToLearnProviderTestSuite.cpp ../gtest.h \
 		../../GonzalesApp/qa/QAsSelection/QAsProvider.h \
 		../../GonzalesApp/uiobservers/IQuestionCollectionPresenter.h \
 		../../GonzalesApp/qa/QAsSelection/IQAsToLearnProvider.h \
-		../../GonzalesApp/qa/QAsSelection/IQAsSelector.h \
+		../../GonzalesApp/qa/QAsSelection/Selectors/IQAsSelector.h \
 		/usr/include/qt5/QtCore/QVector \
 		../../GonzalesApp/qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h \
-		../../GonzalesApp/qa/QAViewFactory.h \
-		../../GonzalesApp/qa/QASimpleView.h \
-		../../GonzalesApp/qa/QAView.h \
-		../../GonzalesApp/uiobservers/IQuestionPresenter.h \
-		../../GonzalesApp/uiobservers/IAnswerPresenter.h \
-		../../GonzalesApp/qa/QAMarker.h \
-		../../GonzalesApp/qa/IQAmarker.h \
 		/usr/include/qt5/QtCore/QQueue \
 		/usr/include/qt5/QtCore/qqueue.h \
 		QAsToLearnCheckedByUserProviderMock.h \
@@ -1614,8 +1607,9 @@ QAsToLearnProviderTestSuite.o: QAsToLearnProviderTestSuite.cpp ../gtest.h \
 		/usr/include/qt5/QtCore/qfile.h \
 		/usr/include/qt5/QtCore/qfiledevice.h \
 		QAsSelectorMock.h \
-		../../GonzalesApp/qa/QAsSelection/QAsSelector.h \
-		QAViewFactoryMock.h
+		../../GonzalesApp/qa/QAsSelection/Selectors/QAsSelector.h \
+		QAToViewConverterMock.h \
+		../../GonzalesApp/qa/QAToViewConverter.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QAsToLearnProviderTestSuite.o QAsToLearnProviderTestSuite.cpp
 
 QAsToLearnByUserCheckerSuite.o: QAsToLearnByUserCheckerSuite.cpp ../gtest.h \
@@ -2038,16 +2032,9 @@ QAsToLearnProvider.o: ../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.cpp .
 		../../GonzalesApp/qa/QAsSelection/QAsProvider.h \
 		../../GonzalesApp/uiobservers/IQuestionCollectionPresenter.h \
 		../../GonzalesApp/qa/QAsSelection/IQAsToLearnProvider.h \
-		../../GonzalesApp/qa/QAsSelection/IQAsSelector.h \
+		../../GonzalesApp/qa/QAsSelection/Selectors/IQAsSelector.h \
 		/usr/include/qt5/QtCore/QVector \
 		../../GonzalesApp/qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h \
-		../../GonzalesApp/qa/QAViewFactory.h \
-		../../GonzalesApp/qa/QASimpleView.h \
-		../../GonzalesApp/qa/QAView.h \
-		../../GonzalesApp/uiobservers/IQuestionPresenter.h \
-		../../GonzalesApp/uiobservers/IAnswerPresenter.h \
-		../../GonzalesApp/qa/QAMarker.h \
-		../../GonzalesApp/qa/IQAmarker.h \
 		/usr/include/qt5/QtCore/QQueue \
 		/usr/include/qt5/QtCore/qqueue.h \
 		../../GonzalesApp/common/Common.h \
@@ -2164,7 +2151,7 @@ QAsToLearnCheckedByUserProvider.o: ../../GonzalesApp/qa/QAsSelection/QAsToLearnC
 		/usr/include/qt5/QtCore/qfiledevice.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QAsToLearnCheckedByUserProvider.o ../../GonzalesApp/qa/QAsSelection/QAsToLearnCheckedByUserProvider.cpp
 
-QAsTolearnByUserChecker.o: ../../GonzalesApp/qa/QAsSelection/QAsTolearnByUserChecker.cpp ../../GonzalesApp/qa/QAsSelection/QAsToLearnByUserChecker.h \
+QAsToLearnByUserChecker.o: ../../GonzalesApp/qa/QAsSelection/QAsToLearnByUserChecker.cpp ../../GonzalesApp/qa/QAsSelection/QAsToLearnByUserChecker.h \
 		/usr/include/qt5/QtWidgets/QTreeWidget \
 		/usr/include/qt5/QtWidgets/qtreewidget.h \
 		/usr/include/qt5/QtWidgets/qtreeview.h \
@@ -2316,10 +2303,10 @@ QAsTolearnByUserChecker.o: ../../GonzalesApp/qa/QAsSelection/QAsTolearnByUserChe
 		/usr/include/qt5/QtCore/QDir \
 		/usr/include/qt5/QtCore/qdir.h \
 		/usr/include/qt5/QtCore/qfileinfo.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QAsTolearnByUserChecker.o ../../GonzalesApp/qa/QAsSelection/QAsTolearnByUserChecker.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QAsToLearnByUserChecker.o ../../GonzalesApp/qa/QAsSelection/QAsToLearnByUserChecker.cpp
 
-QAsSelector.o: ../../GonzalesApp/qa/QAsSelection/QAsSelector.cpp ../../GonzalesApp/qa/QAsSelection/QAsSelector.h \
-		../../GonzalesApp/qa/QAsSelection/IQAsSelector.h \
+QAsSelector.o: ../../GonzalesApp/qa/QAsSelection/Selectors/QAsSelector.cpp ../../GonzalesApp/qa/QAsSelection/Selectors/QAsSelector.h \
+		../../GonzalesApp/qa/QAsSelection/Selectors/IQAsSelector.h \
 		/usr/include/qt5/QtCore/QVector \
 		/usr/include/qt5/QtCore/qvector.h \
 		/usr/include/qt5/QtCore/qalgorithms.h \
@@ -2409,10 +2396,23 @@ QAsSelector.o: ../../GonzalesApp/qa/QAsSelection/QAsSelector.cpp ../../GonzalesA
 		/usr/include/qt5/QtCore/qstringmatcher.h \
 		/usr/include/qt5/QtCore/qset.h \
 		/usr/include/qt5/QtCore/qcontiguouscache.h \
-		../../GonzalesApp/qa/QAsSelection/QAsForRepeatSelector.h \
-		../../GonzalesApp/qa/QAsSelection/IQAsForRepeatSelector.h \
-		../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QAsSelector.o ../../GonzalesApp/qa/QAsSelection/QAsSelector.cpp
+		../../GonzalesApp/qa/QAsSelection/Selectors/QAsForRepeatSelector.h \
+		../../GonzalesApp/qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.h \
+		../../GonzalesApp/qa/QAToSimpleViewConverter.h \
+		../../GonzalesApp/qa/QAToViewConverter.h \
+		../../GonzalesApp/uiobservers/IQuestionPresenter.h \
+		../../GonzalesApp/uiobservers/IAnswerPresenter.h \
+		../../GonzalesApp/qa/QAMarker.h \
+		../../GonzalesApp/qa/IQAmarker.h \
+		../../GonzalesApp/qa/IQARepository.h \
+		../../GonzalesApp/common/SimpleTree/Node.h \
+		/usr/include/qt5/QtCore/QVariant \
+		/usr/include/qt5/QtCore/QMap \
+		../../GonzalesApp/qa/QAsSelection/QAsProvider.h \
+		../../GonzalesApp/uiobservers/IQuestionCollectionPresenter.h \
+		../../GonzalesApp/qa/QASimpleView.h \
+		../../GonzalesApp/qa/QAView.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QAsSelector.o ../../GonzalesApp/qa/QAsSelection/Selectors/QAsSelector.cpp
 
 QAsSelectorTestSuite.o: QAsSelectorTestSuite.cpp ../gtest.h \
 		../gtest/internal/gtest-internal.h \
@@ -2445,8 +2445,8 @@ QAsSelectorTestSuite.o: QAsSelectorTestSuite.cpp ../gtest.h \
 		../gmock/gmock-generated-matchers.h \
 		../gmock/gmock-more-actions.h \
 		../gmock/gmock-generated-nice-strict.h \
-		../../GonzalesApp/qa/QAsSelection/QAsSelector.h \
-		../../GonzalesApp/qa/QAsSelection/IQAsSelector.h \
+		../../GonzalesApp/qa/QAsSelection/Selectors/QAsSelector.h \
+		../../GonzalesApp/qa/QAsSelection/Selectors/IQAsSelector.h \
 		/usr/include/qt5/QtCore/QVector \
 		/usr/include/qt5/QtCore/qvector.h \
 		/usr/include/qt5/QtCore/qalgorithms.h \
@@ -3251,14 +3251,11 @@ QAsForRepeatSelectorTestSuite.o: QAsForRepeatSelectorTestSuite.cpp ../gtest.h \
 		../gmock/gmock-generated-matchers.h \
 		../gmock/gmock-more-actions.h \
 		../gmock/gmock-generated-nice-strict.h \
-		../../GonzalesApp/qa/QAsSelection/QAsForRepeatSelector.h \
-		../../GonzalesApp/qa/QAsSelection/IQAsForRepeatSelector.h \
-		../../GonzalesApp/qa/QA.h \
-		../../GonzalesApp/qa/Question.h \
-		../../GonzalesApp/common/qtproxies/DataDeserializer.h \
-		/usr/include/qt5/QtCore/QDataStream \
-		/usr/include/qt5/QtCore/qdatastream.h \
-		/usr/include/qt5/QtCore/qscopedpointer.h \
+		QAsDestinationSelectorMock.h \
+		../../GonzalesApp/uiobservers/QAsDestinationSelector.h \
+		/usr/include/qt5/QtCore/QMap \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qiterator.h \
 		/usr/include/qt5/QtCore/qglobal.h \
 		/usr/include/qt5/QtCore/qconfig.h \
 		/usr/include/qt5/QtCore/qfeatures.h \
@@ -3295,61 +3292,61 @@ QAsForRepeatSelectorTestSuite.o: QAsForRepeatSelectorTestSuite.cpp ../gtest.h \
 		/usr/include/qt5/QtCore/qtypeinfo.h \
 		/usr/include/qt5/QtCore/qtypetraits.h \
 		/usr/include/qt5/QtCore/qsysinfo.h \
+		/usr/include/qt5/QtCore/qlist.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
+		/usr/include/qt5/QtCore/qrefcount.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		/usr/include/qt5/QtCore/qchar.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
 		/usr/include/qt5/QtCore/qiodevice.h \
 		/usr/include/qt5/QtCore/qobject.h \
 		/usr/include/qt5/QtCore/qobjectdefs.h \
 		/usr/include/qt5/QtCore/qnamespace.h \
 		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
 		/usr/include/qt5/QtCore/qstring.h \
-		/usr/include/qt5/QtCore/qchar.h \
 		/usr/include/qt5/QtCore/qbytearray.h \
-		/usr/include/qt5/QtCore/qrefcount.h \
 		/usr/include/qt5/QtCore/qarraydata.h \
 		/usr/include/qt5/QtCore/qstringbuilder.h \
-		/usr/include/qt5/QtCore/qlist.h \
-		/usr/include/qt5/QtCore/qalgorithms.h \
-		/usr/include/qt5/QtCore/qiterator.h \
 		/usr/include/qt5/QtCore/qcoreevent.h \
+		/usr/include/qt5/QtCore/qscopedpointer.h \
 		/usr/include/qt5/QtCore/qmetatype.h \
 		/usr/include/qt5/QtCore/qvarlengtharray.h \
 		/usr/include/qt5/QtCore/qcontainerfwd.h \
 		/usr/include/qt5/QtCore/qisenum.h \
 		/usr/include/qt5/QtCore/qobject_impl.h \
-		/usr/include/qt5/QtCore/qpair.h \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qshareddata.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
-		/usr/include/qt5/QtCore/qhash.h \
-		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
-		../../GonzalesApp/common/qtproxies/DataSerializer.h \
-		/usr/include/qt5/QtCore/QString \
-		../../GonzalesApp/common/qtproxies/IDataSerializer.h \
-		../../GonzalesApp/qa/Answer.h \
-		../../GonzalesApp/common/FileException.h \
-		/usr/include/qt5/QtCore/QMultiMap \
-		/usr/include/qt5/QtCore/qmap.h \
-		/usr/include/qt5/QtCore/qdebug.h \
-		/usr/include/qt5/QtCore/qtextstream.h \
 		/usr/include/qt5/QtCore/qlocale.h \
 		/usr/include/qt5/QtCore/qvariant.h \
 		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
 		/usr/include/qt5/QtCore/qregexp.h \
 		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
 		/usr/include/qt5/QtCore/qvector.h \
 		/usr/include/qt5/QtCore/qpoint.h \
 		/usr/include/qt5/QtCore/qset.h \
 		/usr/include/qt5/QtCore/qcontiguouscache.h \
-		../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.h \
-		QAsDestinationSelectorMock.h \
-		../../GonzalesApp/uiobservers/QAsDestinationSelector.h \
-		/usr/include/qt5/QtCore/QMap \
 		/usr/include/qt5/QtCore/QStringList \
 		QAsRepositoryMock.h \
 		../../GonzalesApp/qa/IQARepository.h \
+		/usr/include/qt5/QtCore/QString \
 		../../GonzalesApp/common/SimpleTree/Node.h \
 		/usr/include/qt5/QtCore/QVariant \
+		../../GonzalesApp/common/qtproxies/DataSerializer.h \
+		/usr/include/qt5/QtCore/QDataStream \
+		/usr/include/qt5/QtCore/QDateTime \
+		/usr/include/qt5/QtCore/qdatetime.h \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		../../GonzalesApp/common/qtproxies/IDataSerializer.h \
+		../../GonzalesApp/common/qtproxies/DataDeserializer.h \
+		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
+		../../GonzalesApp/qa/QA.h \
+		../../GonzalesApp/qa/Question.h \
+		../../GonzalesApp/qa/Answer.h \
+		../../GonzalesApp/common/FileException.h \
+		/usr/include/qt5/QtCore/QMultiMap \
 		../../GonzalesApp/qa/QAsSelection/QAsProvider.h \
 		../../GonzalesApp/uiobservers/IQuestionCollectionPresenter.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QAsForRepeatSelectorTestSuite.o QAsForRepeatSelectorTestSuite.cpp
@@ -3384,99 +3381,10 @@ QARepeatPeriodCheckerTestSuite.o: QARepeatPeriodCheckerTestSuite.cpp ../gtest.h 
 		../gmock/gmock-matchers.h \
 		../gmock/gmock-generated-matchers.h \
 		../gmock/gmock-more-actions.h \
-		../gmock/gmock-generated-nice-strict.h \
-		../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.h \
-		../../GonzalesApp/qa/QA.h \
-		../../GonzalesApp/qa/Question.h \
-		../../GonzalesApp/common/qtproxies/DataDeserializer.h \
-		/usr/include/qt5/QtCore/QDataStream \
-		/usr/include/qt5/QtCore/qdatastream.h \
-		/usr/include/qt5/QtCore/qscopedpointer.h \
-		/usr/include/qt5/QtCore/qglobal.h \
-		/usr/include/qt5/QtCore/qconfig.h \
-		/usr/include/qt5/QtCore/qfeatures.h \
-		/usr/include/qt5/QtCore/qsystemdetection.h \
-		/usr/include/qt5/QtCore/qprocessordetection.h \
-		/usr/include/qt5/QtCore/qcompilerdetection.h \
-		/usr/include/qt5/QtCore/qglobalstatic.h \
-		/usr/include/qt5/QtCore/qatomic.h \
-		/usr/include/qt5/QtCore/qbasicatomic.h \
-		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
-		/usr/include/qt5/QtCore/qgenericatomic.h \
-		/usr/include/qt5/QtCore/qatomic_msvc.h \
-		/usr/include/qt5/QtCore/qatomic_integrity.h \
-		/usr/include/qt5/QtCore/qoldbasicatomic.h \
-		/usr/include/qt5/QtCore/qatomic_vxworks.h \
-		/usr/include/qt5/QtCore/qatomic_power.h \
-		/usr/include/qt5/QtCore/qatomic_alpha.h \
-		/usr/include/qt5/QtCore/qatomic_armv7.h \
-		/usr/include/qt5/QtCore/qatomic_armv6.h \
-		/usr/include/qt5/QtCore/qatomic_armv5.h \
-		/usr/include/qt5/QtCore/qatomic_bfin.h \
-		/usr/include/qt5/QtCore/qatomic_ia64.h \
-		/usr/include/qt5/QtCore/qatomic_mips.h \
-		/usr/include/qt5/QtCore/qatomic_s390.h \
-		/usr/include/qt5/QtCore/qatomic_sh4a.h \
-		/usr/include/qt5/QtCore/qatomic_sparc.h \
-		/usr/include/qt5/QtCore/qatomic_gcc.h \
-		/usr/include/qt5/QtCore/qatomic_x86.h \
-		/usr/include/qt5/QtCore/qatomic_cxx11.h \
-		/usr/include/qt5/QtCore/qatomic_unix.h \
-		/usr/include/qt5/QtCore/qmutex.h \
-		/usr/include/qt5/QtCore/qlogging.h \
-		/usr/include/qt5/QtCore/qflags.h \
-		/usr/include/qt5/QtCore/qtypeinfo.h \
-		/usr/include/qt5/QtCore/qtypetraits.h \
-		/usr/include/qt5/QtCore/qsysinfo.h \
-		/usr/include/qt5/QtCore/qiodevice.h \
-		/usr/include/qt5/QtCore/qobject.h \
-		/usr/include/qt5/QtCore/qobjectdefs.h \
-		/usr/include/qt5/QtCore/qnamespace.h \
-		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
-		/usr/include/qt5/QtCore/qstring.h \
-		/usr/include/qt5/QtCore/qchar.h \
-		/usr/include/qt5/QtCore/qbytearray.h \
-		/usr/include/qt5/QtCore/qrefcount.h \
-		/usr/include/qt5/QtCore/qarraydata.h \
-		/usr/include/qt5/QtCore/qstringbuilder.h \
-		/usr/include/qt5/QtCore/qlist.h \
-		/usr/include/qt5/QtCore/qalgorithms.h \
-		/usr/include/qt5/QtCore/qiterator.h \
-		/usr/include/qt5/QtCore/qcoreevent.h \
-		/usr/include/qt5/QtCore/qmetatype.h \
-		/usr/include/qt5/QtCore/qvarlengtharray.h \
-		/usr/include/qt5/QtCore/qcontainerfwd.h \
-		/usr/include/qt5/QtCore/qisenum.h \
-		/usr/include/qt5/QtCore/qobject_impl.h \
-		/usr/include/qt5/QtCore/qpair.h \
-		/usr/include/qt5/QtCore/QDateTime \
-		/usr/include/qt5/QtCore/qdatetime.h \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qshareddata.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
-		/usr/include/qt5/QtCore/qhash.h \
-		../../GonzalesApp/common/qtproxies/IDataDeserializer.h \
-		../../GonzalesApp/common/qtproxies/DataSerializer.h \
-		/usr/include/qt5/QtCore/QString \
-		../../GonzalesApp/common/qtproxies/IDataSerializer.h \
-		../../GonzalesApp/qa/Answer.h \
-		../../GonzalesApp/common/FileException.h \
-		/usr/include/qt5/QtCore/QMultiMap \
-		/usr/include/qt5/QtCore/qmap.h \
-		/usr/include/qt5/QtCore/qdebug.h \
-		/usr/include/qt5/QtCore/qtextstream.h \
-		/usr/include/qt5/QtCore/qlocale.h \
-		/usr/include/qt5/QtCore/qvariant.h \
-		/usr/include/qt5/QtCore/qstringlist.h \
-		/usr/include/qt5/QtCore/qregexp.h \
-		/usr/include/qt5/QtCore/qstringmatcher.h \
-		/usr/include/qt5/QtCore/qvector.h \
-		/usr/include/qt5/QtCore/qpoint.h \
-		/usr/include/qt5/QtCore/qset.h \
-		/usr/include/qt5/QtCore/qcontiguouscache.h
+		../gmock/gmock-generated-nice-strict.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QARepeatPeriodCheckerTestSuite.o QARepeatPeriodCheckerTestSuite.cpp
 
-QARepeatPeriodChecker.o: ../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.cpp ../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.h \
+QARepeatPeriodChecker.o: ../../GonzalesApp/qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.cpp ../../GonzalesApp/qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.h \
 		../../GonzalesApp/qa/QA.h \
 		../../GonzalesApp/qa/Question.h \
 		../../GonzalesApp/common/qtproxies/DataDeserializer.h \
@@ -3565,7 +3473,7 @@ QARepeatPeriodChecker.o: ../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker
 		/usr/include/qt5/QtCore/qpoint.h \
 		/usr/include/qt5/QtCore/qset.h \
 		/usr/include/qt5/QtCore/qcontiguouscache.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QARepeatPeriodChecker.o ../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o QARepeatPeriodChecker.o ../../GonzalesApp/qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.cpp
 
 ####### Install
 

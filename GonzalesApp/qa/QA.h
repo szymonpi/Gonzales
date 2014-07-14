@@ -6,8 +6,7 @@
 #include "../common/FileException.h"
 #include <QMultiMap>
 #include <QDateTime>
-
-
+#include <set>
 class QA
 {
 public:
@@ -68,13 +67,10 @@ public:
         return answersHistory;
     }
 
-    size_t answerHistorySize() const
-    {
-        return answersHistory.size();
-    }
 
 public:
     Question question;
     Answer answer;
     std::map<QDate, AnswerRating> answersHistory;
+    std::set<QDate> repetitionsHistory;
 };

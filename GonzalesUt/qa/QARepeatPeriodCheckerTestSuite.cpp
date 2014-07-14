@@ -2,7 +2,7 @@
 #include <memory>
 #include "../gtest.h"
 #include "../gmock.h"
-#include "../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.h"
+#include "../../GonzalesApp/qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.h"
 #include <utility>
 
 using namespace testing;

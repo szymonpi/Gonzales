@@ -20,11 +20,11 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/qa/QASaver.h \
     ../../GonzalesApp/qa/QALoader.h \
     ../../GonzalesApp/qa/QAImporter.h \
-    ../../GonzalesApp/IExceptionHandler.h \
+    ../../GonzalesApp/common/IExceptionHandler.h \
     ../../GonzalesApp/qa/ImportHandler.h \
     ../../GonzalesApp/qa/QAsAppender.h \
     ../../GonzalesApp/qa/IQAsAppender.h \
-    ../../GonzalesApp/QAsDestinationSelector.h \
+    ../../GonzalesApp/uiobservers/QAsDestinationSelector.h \
     ../../GonzalesApp/common/SimpleTree/Utils.h \
     ../../GonzalesApp/common/SimpleTree/Node.h \
     ExceptionHandlerMock.h \
@@ -44,12 +44,13 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/qa/QAsSelection/QAsProvider.h \
     ../../GonzalesApp/qa/QAsSelection/IQAsToLearnProvider.h \
     ../../GonzalesApp/qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h \
-    ../../GonzalesApp/qa/QAsSelection/IQAsSelector.h \
+    ../../GonzalesApp/qa/QAsSelection/Selectors/IQAsSelector.h \
     QAsSelectorMock.h \
     ../../GonzalesApp/qa/QAMarker.h \
     ../../GonzalesApp/qa/QALearnedChecker.h \
-    QAViewFactoryMock.h \
-    ../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.h
+    ../../GonzalesApp/qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.h \
+    ../../GonzalesApp/qa/QAsSelection/Selectors/IQAsSelector.h \
+    QAToViewConverterMock.h
 
 SOURCES += \
     AllTests.cpp \
@@ -68,7 +69,7 @@ SOURCES += \
     ../../GonzalesApp/qa/QAsSelection/QAsToLearnProvider.cpp \
     ../../GonzalesApp/qa/QAsSelection/QAsToLearnCheckedByUserProvider.cpp \
     ../../GonzalesApp/qa/QAsSelection/QAsToLearnByUserChecker.cpp \
-    ../../GonzalesApp/qa/QAsSelection/QAsSelector.cpp \
+    ../../GonzalesApp/qa/QAsSelection/Selectors/QAsSelector.cpp \
     QAsSelectorTestSuite.cpp \
     QATestSuite.cpp \
     QAMarkerTestSuite.cpp \
@@ -78,7 +79,7 @@ SOURCES += \
     ../../GonzalesApp/qa/QALearnedChecker.cpp \
     QAsForRepeatSelectorTestSuite.cpp \
     QARepeatPeriodCheckerTestSuite.cpp \
-    ../../GonzalesApp/qa/QAsSelection/QARepeatPeriodChecker.cpp
+    ../../GonzalesApp/qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.cpp
 
 unix
 {

@@ -17,9 +17,10 @@ SOURCES += $$files(common/*.cpp) \
            $$files(user/*.cpp) \
            $$files(qa/*.cpp) \
            $$files(qa/QAsSelection/*.cpp) \
+           $$files(qa/QAsSelection/Selectors/*.cpp) \
+           $$files(qa/QAsSelection/Selectors/Utils/*.cpp) \
            main.cpp \
            QARepositoryFactory.cpp \
-           ui/dialogs/LoginDialog.h
 
 HEADERS += $$files(common/*.h) \
            $$files(common/qtproxies/*.h) \
@@ -31,10 +32,15 @@ HEADERS += $$files(common/*.h) \
            $$files(user/*.h) \
            $$files(qa/*.h) \
            $$files(qa/QAsSelection/*.h) \
+           $$files(qa/QAsSelection/Selectors/*.h) \
+           $$files(qa/QAsSelection/Selectors/Utils/*.h) \
            ImportHandlerFactory.h \
            QARepositoryFactory.h \
            TeacherControllerFactory.h \
-           ui/dialogs/LoginDialog.cpp
+    qa/QAsSelection/Selectors/QAsNotLearnedSelector.h \
+    qa/QAsSelection/Selectors/QAsNewSelector.h \
+    qa/QAToViewConverter.h \
+    qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.h
 
 FORMS    += ui/dialogs/logindialog.ui \
     ui/dialogs/dialogcreateaccount.ui \
