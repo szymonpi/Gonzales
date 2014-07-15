@@ -34,6 +34,11 @@ public:
             QDate date = kv.first;
             serializer.serialize(date);
         }
+        serializer.serialize(repetitionsHistory.size());
+        for(auto &re: repetitionsHistory)
+        {
+            serializer.serialize(re);
+        }
     }
 
     void deserialize(IDataDeserializer& deserializer)
@@ -49,6 +54,14 @@ public:
             QDate date;
             deserializer.deserialize(date);
             answersHistory.emplace(date, QA::AnswerRating(value));
+        }
+        int repetitionSize = 0;
+        deserializer.deserialize(repetitionSize);
+        for(int i=0; i<repetitionSize; ++i)
+        {
+           QDate date;
+           deserializer.deserialize(date);
+           repetitionsHistory.insert(date);
         }
     }
 

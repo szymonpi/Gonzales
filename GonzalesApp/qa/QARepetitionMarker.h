@@ -5,8 +5,10 @@
 class QARepetitionMarker: public  IQAMarker
 {
 public:
-    QARepetitionMarker(std::shared_ptr<IQARepository> repository):
-        m_repository(repository)
+    QARepetitionMarker(std::shared_ptr<IQARepository> repository,
+                       std::shared_ptr<IQAMarker> genericMarker):
+        m_repository(repository),
+        m_marker(genericMarker)
     {}
 
     void markAsKnown(QA &qa) override

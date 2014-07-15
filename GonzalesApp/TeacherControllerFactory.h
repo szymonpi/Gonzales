@@ -28,12 +28,13 @@ public:
         std::shared_ptr<IExceptionHandler> exceptionHandler = std::make_shared<ExceptionHandler>();
         std::shared_ptr<IQAsToLearnCheckedByUserProvider> qasCheckedByUserProvider(
                     std::make_shared<QAsToLearnCheckedByUserProvider>(m_qasProvider));
+        auto genericMarker = std::make_shared<QAMarker>(m_qasProvider);
         auto qaToViewConverter = std::make_shared<QAToSimpleViewConverter>(questionProvider,
                                                                            answerProvider,
-                                                                           std::make_shared<QAMarker>(m_qasProvider));
+                                                                           genericMarker);
         auto qaToRepetitionViewConverter = std::make_shared<QAToSimpleViewConverter>(questionProvider,
                                                                                      answerProvider,
-                                                                                     std::make_shared<QARepetitionMarker>(m_qasProvider));
+                                                                                     std::make_shared<QARepetitionMarker>(m_qasProvider, genericMarker));
         auto forRepeatSelector = std::make_shared<QAsForRepeatSelector>(qaToRepetitionViewConverter);
         auto notLearnedSelector = std::make_shared<QAsNotLearnedSelector>(qaToViewConverter);
         auto newSelector = std::make_shared<QAsNewSelector>(qaToViewConverter);

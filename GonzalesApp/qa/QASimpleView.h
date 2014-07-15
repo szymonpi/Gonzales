@@ -26,6 +26,8 @@ public:
     void markAsKnown() override
     {
         auto qa = m_qaData.lock();
+        if(!qa)
+            throw std::exception{};
         m_qaMarker->markAsKnown(*qa);
     }
     void markAsUnknown() override

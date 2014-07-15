@@ -20,12 +20,15 @@ public:
                 return true;
             return false;
         });
-        auto newBegin = std::begin(qas);
+        std::vector<std::shared_ptr<QAView>> qaViews{};
 
-        std::vector<std::shared_ptr<QAView>> qaViews;
-        qaViews.reserve(std::distance(newBegin, newEnd));
-        std::transform(newBegin, newEnd, qaViews.begin(),
-                       [=](const std::shared_ptr<QA> &qa){ return m_converter->convert(qa); });
+        if(newEnd == qas.end())
+            return qaViews;
+        auto newBegin = std::begin(qas);
+        for(auto it = newBegin; it != newEnd; ++it)
+        {
+            qaViews.push_back(m_converter->convert(*it));
+        }
         return qaViews;
     }
 private:

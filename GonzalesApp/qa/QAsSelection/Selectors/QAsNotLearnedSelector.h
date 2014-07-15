@@ -23,9 +23,8 @@ public:
         auto notLearnedBegin = std::begin(qas);
 
         std::vector<std::shared_ptr<QAView>> qaViews;
-        qaViews.reserve(std::distance(notLearnedBegin, notLearnedEnd));
         std::transform(notLearnedBegin, notLearnedEnd, qaViews.begin(),
-                       [=](const std::shared_ptr<QA> &qa){ return m_converter->convert(qa); });
+                       [&](const std::shared_ptr<QA> &qa){ return m_converter->convert(qa); });
         return qaViews;
     }
 private:
