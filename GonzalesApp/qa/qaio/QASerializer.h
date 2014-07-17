@@ -1,7 +1,7 @@
 #pragma once
-#include "../common/SimpleTree/NodeSerializer.h"
-#include "../common/qtproxies/DataSerializer.h"
-#include "../common/qtproxies/DataDeserializer.h"
+#include "../../common/SimpleTree/NodeSerializer.h"
+#include "../../common/qtproxies/DataSerializer.h"
+#include "../../common/qtproxies/DataDeserializer.h"
 #include "IQASerializer.h"
 
 class IQADeserializer

@@ -1,7 +1,7 @@
 #ifndef QALOADERMOCK_H
 #define QALOADERMOCK_H
 
-#include "../../GonzalesApp/qa/QALoader.h"
+#include "../../GonzalesApp/qa/qaio/QALoader.h"
 #include "../gmock.h"
 
 class QALoaderMock: public IQALoader

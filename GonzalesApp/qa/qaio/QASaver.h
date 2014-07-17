@@ -1,12 +1,12 @@
 #pragma once
 #include <memory>
 
-#include "QA.h"
-#include "../common/qtproxies/File.h"
-#include "../common/qtproxies/FileFactory.h"
-#include "../common/qtproxies/DataSerializerFactory.h"
-#include "../common/Common.h"
-#include "../common/SimpleTree/Node.h"
+#include "../QA.h"
+#include "../../common/qtproxies/File.h"
+#include "../../common/qtproxies/FileFactory.h"
+#include "../../common/qtproxies/DataSerializerFactory.h"
+#include "../../common/Common.h"
+#include "../../common/SimpleTree/Node.h"
 #include "QASerializer.h"
 #include "IQASaver.h"
 #include "IQAsFilePathProvider.h"

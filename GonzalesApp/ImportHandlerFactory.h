@@ -2,8 +2,8 @@
 #define IMPORTHANDLERFACTORY_H
 #include "uiobservers/ExceptionHandler.h"
 #include "uiobservers/FilePathByDialogSelector.h"
-#include "qa/QAImporter.h"
-#include "qa/QAsAppender.h"
+#include "qa/qaio/QAImporter.h"
+#include "qa/qaio/QAsAppender.h"
 #include "qa/ImportHandler.h"
 #include "ui/dialogs/DialogQAImporterSelector.h"
 

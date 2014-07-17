@@ -1,7 +1,7 @@
 #ifndef QASAPPENDERMOCK_H
 #define QASAPPENDERMOCK_H
 
-#include "../../GonzalesApp/qa/QAsAppender.h"
+#include "../../GonzalesApp/qa/qaio/QAsAppender.h"
 #include "../gmock.h"
 
 class QAsAppenderMock: public IQAsAppender

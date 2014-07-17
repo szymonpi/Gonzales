@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../gmock.h"
-#include "../../GonzalesApp/qa/ILineSplitter.h"
+#include "../../GonzalesApp/qa/qaio/ILineSplitter.h"
 
 class LineSplitterMock : public ILineSplitter
 {

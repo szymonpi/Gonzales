@@ -15,9 +15,9 @@ HEADERS += ../gtest.h \
     DataDeserializerMock.h \
     DataDeserializerFactoryMock.h \
     ../../GonzalesApp/qa/Question.h \
-    ../../GonzalesApp/qa/QASaver.h \
-    ../../GonzalesApp/qa/QALoader.h \
-    ../../GonzalesApp/qa/QAImporter.h \
+    ../../GonzalesApp/qa/qaio/QASaver.h \
+    ../../GonzalesApp/qa/qaio/QALoader.h \
+    ../../GonzalesApp/qa/qaio/QAImporter.h \
     ../../GonzalesApp/qa/QA.h \
     ../../GonzalesApp/qa/Answer.h \
     ../../GonzalesApp/common/qtproxies/IFile.h \
@@ -45,9 +45,9 @@ SOURCES += \
     FileTestSuite.cpp \
     QALoaderTestSuite.cpp \
     QASaverTestSuite.cpp \
-    ../../GonzalesApp/qa/QASaver.cpp \
-    ../../GonzalesApp/qa/QALoader.cpp \
-    ../../GonzalesApp/qa/QAImporter.cpp \
+    ../../GonzalesApp/qa/qaio/QASaver.cpp \
+    ../../GonzalesApp/qa/qaio/QALoader.cpp \
+    ../../GonzalesApp/qa/qaio/QAImporter.cpp \
     AllTests.cpp
 
 unix

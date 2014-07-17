@@ -16,6 +16,7 @@ SOURCES += $$files(common/*.cpp) \
            $$files(uiobservers/*.cpp) \
            $$files(user/*.cpp) \
            $$files(qa/*.cpp) \
+           $$files(qa/qaio/*.cpp) \
            $$files(qa/QAsSelection/*.cpp) \
            $$files(qa/QAsSelection/Selectors/*.cpp) \
            $$files(qa/QAsSelection/Selectors/Utils/*.cpp) \
@@ -31,6 +32,7 @@ HEADERS += $$files(common/*.h) \
            $$files(uiobservers/*.h) \
            $$files(user/*.h) \
            $$files(qa/*.h) \
+           $$files(qa/qaio/*.h) \
            $$files(qa/QAsSelection/*.h) \
            $$files(qa/QAsSelection/Selectors/*.h) \
            $$files(qa/QAsSelection/Selectors/Utils/*.h) \
@@ -40,7 +42,8 @@ HEADERS += $$files(common/*.h) \
     qa/QAsSelection/Selectors/QAsNotLearnedSelector.h \
     qa/QAsSelection/Selectors/QAsNewSelector.h \
     qa/QAToViewConverter.h \
-    qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.h
+    qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.h \
+    qa/qaio/IQASaver.h
 
 FORMS    += ui/dialogs/logindialog.ui \
     ui/dialogs/dialogcreateaccount.ui \

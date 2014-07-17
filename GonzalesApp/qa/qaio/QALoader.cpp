@@ -1,6 +1,6 @@
 #include "QALoader.h"
 #include <memory>
-#include "../common/SimpleTree/Utils.h"
+#include "../../common/SimpleTree/Utils.h"
 
 QALoader::QALoader(std::shared_ptr<IQAsFilePathProvider> filePathProvider,
                    std::shared_ptr<IFileFactory> fileFactory,

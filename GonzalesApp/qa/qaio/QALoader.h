@@ -2,12 +2,12 @@
 
 #include <memory>
 #include<QQueue>
-#include "QA.h"
-#include "../common/qtproxies/File.h"
-#include "../common/qtproxies/DataDeserializerFactory.h"
-#include "../common/qtproxies/FileFactory.h"
-#include "../common/Common.h"
-#include "../common/SimpleTree/Node.h"
+#include "../QA.h"
+#include "../../common/qtproxies/File.h"
+#include "../../common/qtproxies/DataDeserializerFactory.h"
+#include "../../common/qtproxies/FileFactory.h"
+#include "../../common/Common.h"
+#include "../../common/SimpleTree/Node.h"
 #include "QASerializer.h"
 #include "IQALoader.h"
 #include "IQAsFilePathProvider.h"

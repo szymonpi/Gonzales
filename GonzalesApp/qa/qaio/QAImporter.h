@@ -9,11 +9,11 @@
 #include <QRegExp>
 #include <QDebug>
 
-#include "QA.h"
-#include "../common/qtproxies/FileFactory.h"
-#include "../common/qtproxies/File.h"
-#include "../common/SimpleTree/Node.h"
-#include "../qa/LineSplitter.h"
+#include "../QA.h"
+#include "../../common/qtproxies/FileFactory.h"
+#include "../../common/qtproxies/File.h"
+#include "../../common/SimpleTree/Node.h"
+#include "LineSplitter.h"
 
 class QAsImporter
 {

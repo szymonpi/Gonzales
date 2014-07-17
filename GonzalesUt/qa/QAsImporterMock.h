@@ -1,6 +1,6 @@
 #ifndef QASIMPORTERMOCK_H
 #define QASIMPORTERMOCK_H
-#include "../../GonzalesApp/qa/QAImporter.h"
+#include "../../GonzalesApp/qa/qaio/QAImporter.h"
 #include "../gmock.h"
 
 class QAsImporterMock: public QAsImporter

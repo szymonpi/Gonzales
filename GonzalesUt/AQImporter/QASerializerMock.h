@@ -2,7 +2,7 @@
 #define QASERIALIZERMOCK_H
 
 #include "../gmock.h"
-#include "../../GonzalesApp/qa/QASerializer.h"
+#include "../../GonzalesApp/qa/qaio/QASerializer.h"
 
 class QASerializerMock : public IQASerializer
 {

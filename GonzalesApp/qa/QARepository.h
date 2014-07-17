@@ -1,13 +1,13 @@
 #pragma once
 #include "IQARepository.h"
-#include "QALoader.h"
-#include "QAImporter.h"
-#include "QASaver.h"
+#include "qaio/IQALoader.h"
+#include "qaio/QAImporter.h"
+#include "qaio/IQASaver.h"
 #include <QMultiMap>
 #include "../common/SimpleTree/Node.h"
 #include "../uiobservers/IExceptionHandler.h"
 #include "../uiobservers/IQuestionCollectionPresenter.h"
-#include "IQASaver.h"
+#include "qaio/IQASaver.h"
 
 
 ///@todo move load to loadhandler

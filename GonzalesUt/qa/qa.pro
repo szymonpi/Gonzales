@@ -17,13 +17,13 @@ CONFIG += warn_off
 
 HEADERS += ../gtest.h \
            ../gmock.h \
-    ../../GonzalesApp/qa/QASaver.h \
-    ../../GonzalesApp/qa/QALoader.h \
-    ../../GonzalesApp/qa/QAImporter.h \
+    ../../GonzalesApp/qa/qaio/QASaver.h \
+    ../../GonzalesApp/qa/qaio/QALoader.h \
+    ../../GonzalesApp/qa/qaio/QAImporter.h \
     ../../GonzalesApp/common/IExceptionHandler.h \
     ../../GonzalesApp/qa/ImportHandler.h \
-    ../../GonzalesApp/qa/QAsAppender.h \
-    ../../GonzalesApp/qa/IQAsAppender.h \
+    ../../GonzalesApp/qa/qaio/QAsAppender.h \
+    ../../GonzalesApp/qa/qaio/IQAsAppender.h \
     ../../GonzalesApp/uiobservers/QAsDestinationSelector.h \
     ../../GonzalesApp/common/SimpleTree/Utils.h \
     ../../GonzalesApp/common/SimpleTree/Node.h \
@@ -55,11 +55,11 @@ HEADERS += ../gtest.h \
 SOURCES += \
     AllTests.cpp \
     QARepositoryTestSuite.cpp \
-    ../../GonzalesApp/qa/QASaver.cpp \
-    ../../GonzalesApp/qa/QALoader.cpp \
-    ../../GonzalesApp/qa/QAImporter.cpp \
+    ../../GonzalesApp/qa/qaio/QASaver.cpp \
+    ../../GonzalesApp/qa/qaio/QALoader.cpp \
+    ../../GonzalesApp/qa/qaio/QAImporter.cpp \
     ../../GonzalesApp/qa/QARepository.cpp \
-    ../../GonzalesApp/qa/QAsAppender.cpp \
+    ../../GonzalesApp/qa/qaio/QAsAppender.cpp \
     ImportHandlertestSuite.cpp \
     QAsAppenderTestSuite.cpp \
     QAsToLearnProviderTestSuite.cpp \

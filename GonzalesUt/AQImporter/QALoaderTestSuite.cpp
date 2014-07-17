@@ -6,7 +6,7 @@
 
 #include <QQueue>
 
-#include "../../GonzalesApp/qa/QALoader.h"
+#include "../../GonzalesApp/qa/qaio/QALoader.h"
 
 #include "DataDeserializerMock.h"
 #include "DataDeserializerFactoryMock.h"

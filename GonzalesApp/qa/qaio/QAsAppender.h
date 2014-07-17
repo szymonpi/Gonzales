@@ -1,13 +1,13 @@
 #pragma once
-#include "../common/SimpleTree/Node.h"
-#include "../qa/QA.h"
+#include "../../common/SimpleTree/Node.h"
+#include "../QA.h"
 #include "IQAsAppender.h"
 #include <QStringList>
-#include "IQARepository.h"
+#include "../IQARepository.h"
 #include <QMap>
 #include <QPair>
 #include <QStringList>
-#include "../uiobservers/QAsDestinationSelector.h"
+#include "../../uiobservers/QAsDestinationSelector.h"
 
 
 class QAsAppender: public IQAsAppender

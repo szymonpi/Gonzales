@@ -1,8 +1,8 @@
 #include <QQueue>
 
 #include "QASaver.h"
-#include "../common/SimpleTree/Node.h"
-#include "../common/SimpleTree/Utils.h"
+#include "../../common/SimpleTree/Node.h"
+#include "../../common/SimpleTree/Utils.h"
 
 
 QASaver::QASaver(std::shared_ptr<IQAsFilePathProvider> filePathProvider,

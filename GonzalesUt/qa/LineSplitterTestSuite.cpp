@@ -1,7 +1,7 @@
 #include <memory>
 #include "../gtest.h"
 #include "../gmock.h"
-#include "../../GonzalesApp/qa/LineSplitter.h"
+#include "../../GonzalesApp/qa/qaio/LineSplitter.h"
 #include "../CommonUtUtilities/PrintTo.h"
 
 using namespace testing;
