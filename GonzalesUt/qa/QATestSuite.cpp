@@ -25,7 +25,7 @@ TEST_F(QATestSuite, shouldSerializeQAWithoutAnswerHistory)
 {
     EXPECT_CALL(serializerMock, serialize(TypedEq<const QString&>(question)));
     EXPECT_CALL(serializerMock, serialize(TypedEq<const QString&>(answer)));
-    EXPECT_CALL(serializerMock, serialize(TypedEq<std::size_t>(0)));
+    EXPECT_CALL(serializerMock, serialize(TypedEq<std::size_t>(0))).Times(2);
     qa.serialize(serializerMock);
 }
 
@@ -40,7 +40,7 @@ TEST_F(QATestSuite, shouldSerializeQAWithAnswerHistory)
 
     EXPECT_CALL(serializerMock, serialize(TypedEq<const QString&>(question)));
     EXPECT_CALL(serializerMock, serialize(TypedEq<const QString&>(answer)));
-    EXPECT_CALL(serializerMock, serialize(TypedEq<std::size_t>(expectedAnswerHistorySize)));
+    EXPECT_CALL(serializerMock, serialize(TypedEq<std::size_t>(expectedAnswerHistorySize))).Times(2);
 
     EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(ExpectedAnswerRating)));
     EXPECT_CALL(serializerMock, serialize(TypedEq<const QDate &>(dateTime)));
