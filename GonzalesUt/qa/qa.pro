@@ -61,7 +61,6 @@ SOURCES += \
     ../../GonzalesApp/qa/QARepository.cpp \
     ../../GonzalesApp/qa/QAsAppender.cpp \
     ImportHandlertestSuite.cpp \
-    FilePathSelectorTestSuite.cpp \
     QAsAppenderTestSuite.cpp \
     QAsToLearnProviderTestSuite.cpp \
     QAsToLearnByUserCheckerSuite.cpp \
