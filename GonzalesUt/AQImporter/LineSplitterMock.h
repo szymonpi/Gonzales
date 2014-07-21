@@ -1,9 +1,9 @@
 #pragma once
 
 #include "../gmock.h"
-#include "../../GonzalesApp/qa/qaio/ILineSplitter.h"
+#include "../../GonzalesApp/qa/qaio/ILineToImportSplitter.h"
 
-class LineSplitterMock : public ILineSplitter
+class LineSplitterMock : public ILineToImportSplitter
 {
 public:
     MOCK_METHOD1(splitLine, QStringList(const QString &line));

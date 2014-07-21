@@ -1,9 +1,9 @@
 #pragma once
 #include <QStringList>
 
-class ILineSplitter
+class ILineToImportSplitter
 {
 public:
-    virtual ~ILineSplitter(){}
+    virtual ~ILineToImportSplitter(){}
     virtual QStringList splitLine(const QString &line) = 0;
 };

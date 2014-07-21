@@ -1,7 +1,7 @@
 #include <memory>
 #include "../gtest.h"
 #include "../gmock.h"
-#include "../../GonzalesApp/qa/qaio/LineSplitter.h"
+#include "../../GonzalesApp/qa/qaio/LineToImportSplitter.h"
 #include "../CommonUtUtilities/PrintTo.h"
 
 using namespace testing;
@@ -13,14 +13,14 @@ class LineSplitterTestSuite: public testing::Test
 
 TEST_F(LineSplitterTestSuite, GivenEmptyLine_ShouldThrow)
 {
-    LineSplitter lineSplitter;
+    LineToImportSplitter lineSplitter;
     QString line("");
     EXPECT_THROW(lineSplitter.splitLine(line), std::logic_error);
 }
 
 TEST_F(LineSplitterTestSuite, GivenProperLineWithDash_ShouldReturnProper2Lines)
 {
-    LineSplitter lineSplitter;
+    LineToImportSplitter lineSplitter;
     QString line("question-sdsd - dddd-answer");
     QStringList list = lineSplitter.splitLine(line);
     EXPECT_EQ(2, list.size());
@@ -30,7 +30,7 @@ TEST_F(LineSplitterTestSuite, GivenProperLineWithDash_ShouldReturnProper2Lines)
 
 TEST_F(LineSplitterTestSuite, GivenProperLineWithQA_ShouldReturnProper2Lines)
 {
-    LineSplitter lineSplitter;
+    LineToImportSplitter lineSplitter;
     QString line("Q: question A: answer");
     QStringList list = lineSplitter.splitLine(line);
     EXPECT_EQ(2, list.size());

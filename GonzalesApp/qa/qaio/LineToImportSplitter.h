@@ -1,8 +1,8 @@
 #pragma once
-#include "ILineSplitter.h"
+#include "ILineToImportSplitter.h"
 #include <QRegularExpression>
 
-class LineSplitter: public ILineSplitter
+class LineToImportSplitter: public ILineToImportSplitter
 {
 public:
     QStringList splitLine(const QString &line) override

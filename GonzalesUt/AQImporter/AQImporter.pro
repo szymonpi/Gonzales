@@ -38,7 +38,7 @@ HEADERS += ../gtest.h \
     DataDeserializerMock.h \
     QAsFilePathProviderMock.h \
     LineSplitterMock.h \
-    ../../GonzalesApp/qa/ILineSplitter.h
+    ../../GonzalesApp/qa/ILineToImportSplitter.h
 
 SOURCES += \
     QAImporterTestSuite.cpp \

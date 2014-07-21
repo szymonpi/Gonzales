@@ -11,7 +11,6 @@ CONFIG += warn_off
 SOURCES += \
     alltests.cpp \
     ../../GonzalesApp/user/AccountCreator.cpp \
-    ../../GonzalesApp/user/AccountsProvider.cpp \
     AccountCreatorTestSuite.cpp \
     accountsprovidetestsuite.cpp \
     QSettingsTestSuite.cpp \

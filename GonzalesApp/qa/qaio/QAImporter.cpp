@@ -1,5 +1,5 @@
 #include "QAImporter.h"
-#include "LineSplitter.h"
+#include "LineToImportSplitter.h"
 
 QStringList QAFromTextFileImporter::getLinesFromFile(IFile &file)
 {

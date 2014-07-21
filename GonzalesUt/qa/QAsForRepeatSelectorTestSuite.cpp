@@ -31,8 +31,7 @@ TEST_F(QAsForRepeatSelectorTestSuite, OneQAsGivenWithOneIncorrectHistoryItem_Sho
     std::shared_ptr<QA> qa = std::make_shared<QA>();
     qa->answersHistory.emplace(QDate::currentDate(), QA::AnswerRating::Incorrect);
     auto m_view = std::make_shared<QAViewMock>();
-    EXPECT_CALL(*m_converterMock, convert(_)).WillOnce(Return(m_view));
-    EXPECT_CALL(*m_repeatPeriodChecker, shouldBeRepeated(_)).WillOnce(Return(true));
+    EXPECT_CALL(*m_repeatPeriodChecker, shouldBeRepeated(_)).WillOnce(Return(false));
 
     qas.push_back(qa);
     QAsForRepeatSelector selector{m_converterMock, m_repeatPeriodChecker};
