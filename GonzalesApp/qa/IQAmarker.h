@@ -6,7 +6,7 @@
 class IQAMarker
 {
 public:
-    ~IQAMarker(){}
+    virtual ~IQAMarker(){}
     virtual void markAsKnown(QA &qa) = 0;
     virtual void markAsUnknown(QA &qa) = 0;
 };

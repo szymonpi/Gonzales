@@ -5,5 +5,5 @@ class IQAsFilePathProvider
 {
 public:
     virtual QString getPath() const = 0;
-    ~IQAsFilePathProvider(){}
+    virtual ~IQAsFilePathProvider(){}
 };

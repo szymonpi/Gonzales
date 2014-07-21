@@ -4,6 +4,6 @@
 class ILineSplitter
 {
 public:
-    ~ILineSplitter(){}
+    virtual ~ILineSplitter(){}
     virtual QStringList splitLine(const QString &line) = 0;
 };

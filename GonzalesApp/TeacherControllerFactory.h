@@ -8,6 +8,7 @@
 #include "qa/QAsSelection/Selectors/QAsNewSelector.h"
 #include "qa/QAsSelection/Selectors/QAsForRepeatSelector.h"
 #include "qa/QAsSelection/Selectors/QAsNotLearnedSelector.h"
+#include "qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.h"
 #include "qa/QARepetitionMarker.h"
 #include "qa/IQARepository.h"
 #include "uiobservers/ExceptionHandler.h"
@@ -35,7 +36,9 @@ public:
         auto qaToRepetitionViewConverter = std::make_shared<QAToSimpleViewConverter>(questionProvider,
                                                                                      answerProvider,
                                                                                      std::make_shared<QARepetitionMarker>(m_qasProvider, genericMarker));
-        auto forRepeatSelector = std::make_shared<QAsForRepeatSelector>(qaToRepetitionViewConverter);
+        std::set<Day> periods{1,2,7,30,60,180,360};
+        auto repeatPeriodChecker = std::make_shared<QARepeatPeriodChecker>(periods);
+        auto forRepeatSelector = std::make_shared<QAsForRepeatSelector>(qaToRepetitionViewConverter, repeatPeriodChecker);
         auto notLearnedSelector = std::make_shared<QAsNotLearnedSelector>(qaToViewConverter);
         auto newSelector = std::make_shared<QAsNewSelector>(qaToViewConverter);
 

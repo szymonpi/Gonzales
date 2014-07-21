@@ -19,7 +19,7 @@ class QAsImporter
 {
 public:
     virtual std::vector<std::shared_ptr<QA> > import(const QString &filePath) = 0;
-    ~QAsImporter(){}
+    virtual ~QAsImporter(){}
 };
 
 class QAFromTextFileImporter: public QAsImporter

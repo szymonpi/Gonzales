@@ -7,7 +7,7 @@ class IDataDeserializerFactory
 {
 public:
     virtual std::shared_ptr<IDataDeserializer> create(QIODevice *device) const=0;
-    ~IDataDeserializerFactory(){}
+    virtual ~IDataDeserializerFactory(){}
 };
 
 

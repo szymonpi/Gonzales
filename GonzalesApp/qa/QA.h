@@ -12,8 +12,8 @@ class QA
 public:
     enum class AnswerRating
     {
-        Correct,
-        Incorrect
+        Correct = 99,
+        Incorrect = 100
     };
 
     QA(Question question, Answer answer):

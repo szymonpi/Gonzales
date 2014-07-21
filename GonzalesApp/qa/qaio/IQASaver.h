@@ -7,6 +7,6 @@
 class IQASaver
 {
 public:
-    ~IQASaver(){}
+    virtual ~IQASaver(){}
     virtual void save(const SimpleTree::Node<QA> &QuestionAnswers) = 0;
 };

@@ -22,5 +22,5 @@ public:
     virtual QDataStream::Status status()=0;
     virtual bool atEnd()=0;
 
-    ~IDataDeserializer(){}
+    virtual ~IDataDeserializer(){}
 };

@@ -1,28 +1,27 @@
 #pragma once
 #include "IQAsSelector.h"
-#include "Utils/QARepeatPeriodChecker.h"
+#include "Utils/IQARepeatPeriodChecker.h"
 #include "../../QAToSimpleViewConverter.h"
 
 
 class QAsForRepeatSelector: public IQAsSelector
 {
 public:
-    QAsForRepeatSelector(std::shared_ptr<QAToViewConverter> converter):
-        m_converter(converter)
+    QAsForRepeatSelector(std::shared_ptr<QAToViewConverter> converter,
+                         std::shared_ptr<IQARepeatPeriodChecker> toRepeatSelector):
+        m_converter(converter),
+        m_toRepeatSelector(toRepeatSelector)
     {
     }
 
     std::vector<std::shared_ptr<QAView> > select(std::vector<std::shared_ptr<QA> >& qas) const override
     {
 
-        std::vector<std::shared_ptr<QAView>> toRepeat{};
-
-        std::set<Day> periods{1,2,4,7,14,30,90,180,360};
-        QARepeatPeriodChecker selector{periods};
+        std::vector<std::shared_ptr<QAView>> toRepeat;
 
         for(auto it = qas.begin(); it != qas.end(); ++it)
         {
-            if(selector.ShouldBeRepeated((*it)->answersHistory))
+            if(m_toRepeatSelector->shouldBeRepeated((*it)->answersHistory))
                 toRepeat.push_back(m_converter->convert(*it));
         }
 
@@ -31,5 +30,5 @@ public:
 
 private:
     std::shared_ptr<QAToViewConverter> m_converter;
-
+    std::shared_ptr<IQARepeatPeriodChecker> m_toRepeatSelector;
 };

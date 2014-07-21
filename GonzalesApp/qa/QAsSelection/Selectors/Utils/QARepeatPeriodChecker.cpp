@@ -70,7 +70,7 @@ bool QARepeatPeriodChecker::isHistoryEntryInRange(QDate currentPerDate,
     return true;
 }
 
-bool QARepeatPeriodChecker::ShouldBeRepeated(const std::map<QDate, QA::AnswerRating> &answerHistory) const
+bool QARepeatPeriodChecker::shouldBeRepeated(const std::map<QDate, QA::AnswerRating> &answerHistory) const
 {
     if(answerHistory.empty())
         return false;

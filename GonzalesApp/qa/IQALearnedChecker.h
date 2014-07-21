@@ -5,6 +5,6 @@ class QA;
 class IQALearnedChecker
 {
 public:
-    ~IQALearnedChecker(){}
+    virtual ~IQALearnedChecker(){}
     virtual bool isLearned(const QA &qa) = 0;
 };

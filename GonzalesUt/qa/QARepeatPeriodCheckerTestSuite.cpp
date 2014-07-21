@@ -25,7 +25,7 @@ TEST_F(QARepeatPeriodCheckerTestSuite, onePeriodsGiven_noHistoryGiven_shouldRetu
     std::map<QDate, QA::AnswerRating> history;
     std::set<Day> periods{1};
     QARepeatPeriodChecker checker{periods};
-    ASSERT_FALSE(checker.ShouldBeRepeated(history));
+    ASSERT_FALSE(checker.shouldBeRepeated(history));
 }
 
 TEST_F(QARepeatPeriodCheckerTestSuite, onePeriodsGiven_oneNBAGiven_OneHistoryGivenWithCurrentDate_shouldReturnFalse)
@@ -35,7 +35,7 @@ TEST_F(QARepeatPeriodCheckerTestSuite, onePeriodsGiven_oneNBAGiven_OneHistoryGiv
                 std::make_pair(QDate::currentDate(), QA::AnswerRating::Correct)};
     std::set<Day> periods{1};
     QARepeatPeriodChecker checker{periods};
-    ASSERT_FALSE(checker.ShouldBeRepeated(history));
+    ASSERT_FALSE(checker.shouldBeRepeated(history));
 }
 
 TEST_F(QARepeatPeriodCheckerTestSuite, onePeriodsGiven_oneNBAGiven_shouldReturnTrue)
@@ -44,7 +44,7 @@ TEST_F(QARepeatPeriodCheckerTestSuite, onePeriodsGiven_oneNBAGiven_shouldReturnT
     std::map<QDate, QA::AnswerRating> history{std::make_pair(yesterday, QA::AnswerRating::Correct)};
     std::set<Day> periods{1};
     QARepeatPeriodChecker checker{periods};
-    ASSERT_TRUE(checker.ShouldBeRepeated(history));
+    ASSERT_TRUE(checker.shouldBeRepeated(history));
 }
 
 TEST_F(QARepeatPeriodCheckerTestSuite, threePeriodsGiven_oneNBAGivenAndOneHistoryItem_shouldReturnTrue)
@@ -55,7 +55,7 @@ TEST_F(QARepeatPeriodCheckerTestSuite, threePeriodsGiven_oneNBAGivenAndOneHistor
                                               std::make_pair(threeDaysAgo, QA::AnswerRating::Correct)};
     std::set<Day> periods{1, 2, 4};
     QARepeatPeriodChecker checker{periods};
-    ASSERT_TRUE(checker.ShouldBeRepeated(history));
+    ASSERT_TRUE(checker.shouldBeRepeated(history));
 }
 
 TEST_F(QARepeatPeriodCheckerTestSuite, threePeriodsGiven_oneNBAGivenAndThreeHistoryItem_shouldReturnFalse)
@@ -70,6 +70,6 @@ TEST_F(QARepeatPeriodCheckerTestSuite, threePeriodsGiven_oneNBAGivenAndThreeHist
                                               std::make_pair(oneDayAgo, QA::AnswerRating::Correct)};
     std::set<Day> periods{1, 2, 4};
     QARepeatPeriodChecker checker{periods};
-    ASSERT_FALSE(checker.ShouldBeRepeated(history));
+    ASSERT_FALSE(checker.shouldBeRepeated(history));
 }
 

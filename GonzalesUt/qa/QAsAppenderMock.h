@@ -1,5 +1,4 @@
-#ifndef QASAPPENDERMOCK_H
-#define QASAPPENDERMOCK_H
+#pragma once
 
 #include "../../GonzalesApp/qa/qaio/QAsAppender.h"
 #include "../gmock.h"
@@ -10,4 +9,3 @@ public:
     MOCK_METHOD1(append, void(std::vector<std::shared_ptr<QA> > importedQAs));
 };
 
-#endif // QASAPPENDERMOCK_H

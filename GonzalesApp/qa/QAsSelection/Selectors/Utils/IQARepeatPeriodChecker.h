@@ -1,0 +1,13 @@
+#pragma once
+#include "../../../QA.h"
+#include <set>
+#include <deque>
+
+typedef unsigned Day;
+
+class IQARepeatPeriodChecker
+{
+public:
+    virtual bool shouldBeRepeated(const std::map<QDate, QA::AnswerRating> &answerHistory) const = 0;
+    virtual ~IQARepeatPeriodChecker(){}
+};

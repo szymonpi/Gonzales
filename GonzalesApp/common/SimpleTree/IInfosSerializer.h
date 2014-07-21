@@ -14,7 +14,7 @@ class IInfosSerializer
 public:
     virtual void deserialize(IDataDeserializer &deserializer, QMap<quint8, QVariant>& infos) = 0;
     virtual void serialize(IDataSerializer &serializer, const QMap<quint8, QVariant>& infos) = 0;
-    ~IInfosSerializer(){}
+    virtual ~IInfosSerializer(){}
 };
 
 

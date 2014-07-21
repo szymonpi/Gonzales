@@ -2,14 +2,15 @@
 #include "../../../QA.h"
 #include <set>
 #include <deque>
+#include "IQARepeatPeriodChecker.h"
 
 typedef unsigned Day;
 
-class QARepeatPeriodChecker
+class QARepeatPeriodChecker: public IQARepeatPeriodChecker
 {
 public:
     QARepeatPeriodChecker(std::set<Day> periods);
-    bool ShouldBeRepeated(const std::map<QDate, QA::AnswerRating> &answerHistory) const;
+    bool shouldBeRepeated(const std::map<QDate, QA::AnswerRating> &answerHistory) const override;
 
 private:
     QDate getDateSinceThereWasNoBadAnswer(const std::map<QDate, QA::AnswerRating> &answerHistory) const;

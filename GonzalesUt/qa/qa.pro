@@ -50,7 +50,9 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/qa/QALearnedChecker.h \
     ../../GonzalesApp/qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.h \
     ../../GonzalesApp/qa/QAsSelection/Selectors/IQAsSelector.h \
-    QAToViewConverterMock.h
+    QAToViewConverterMock.h \
+    ../Teacher/QAViewMock.h \
+    QARepeatPeriodCheckerMock.h
 
 SOURCES += \
     AllTests.cpp \
