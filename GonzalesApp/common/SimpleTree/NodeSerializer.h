@@ -18,36 +18,20 @@ public:
     }
 
 template<typename T>
-void deserialize(IDataDeserializer&deserializer, Node<T> &node)
+void deserialize(IDataDeserializer& deserializer, Node<T> &node)
 {
-    unsigned numOfChildren = 0;
-    quint8 nodeType;
-    deserializer.deserialize(nodeType);
-    if(nodeType == NodeType_Empty)
-        throw std::logic_error("Can't import empty node");
+    quint8 nodeType = getNodeType(deserializer);
+    node.setInfos(getInfos(deserializer));
+    unsigned numOfChildren = getNumOfChildren(deserializer);
 
-    QMap<quint8, QVariant> infos;
-    infosSerializer->deserialize(deserializer, infos);
-    node.setInfos(infos);
-
-    deserializer.deserialize(numOfChildren);
     if(nodeType & NodeType_WithValue)
     {
-        std::shared_ptr<T> value = std::make_shared<T>();
-        value->deserialize(deserializer);
-        node.appendNodeValue(value);
+        node.appendNodeValue(deserializeValue<T>(deserializer));
     }
     if(nodeType & NodeType_WithChildren)
     {
-        QString nodeName;
-        deserializer.deserialize(nodeName);
-        node.setName(nodeName);
-        for(int i = 0; i < numOfChildren; ++i)
-        {
-            Node<T> childNode;
-            deserialize(deserializer, childNode);
-            node.appendNode(childNode);
-        }
+        node.setName(getName(deserializer));
+        deserializeChildren(deserializer, node, numOfChildren);
     }
 }
 
@@ -71,6 +55,55 @@ void serialize(IDataSerializer &serializer, const Node<T> &node)
 }
 
 private:
+
+quint8 getNodeType(IDataDeserializer& deserializer)
+{
+    quint8 nodeType;
+    deserializer.deserialize(nodeType);
+    if(nodeType == NodeType_Empty)
+        throw std::logic_error("Can't import empty node");
+    return nodeType;
+}
+
+QMap<quint8, QVariant> getInfos(IDataDeserializer& deserializer)
+{
+    QMap<quint8, QVariant> infos;
+    infosSerializer->deserialize(deserializer, infos);
+    return infos;
+}
+
+unsigned getNumOfChildren(IDataDeserializer& deserializer)
+{
+    unsigned numOfChildren = 0;
+    deserializer.deserialize(numOfChildren);
+    return numOfChildren;
+}
+
+template<typename T>
+std::shared_ptr<T> deserializeValue(IDataDeserializer& deserializer)
+{
+    std::shared_ptr<T> value = std::make_shared<T>();
+    value->deserialize(deserializer);
+    return value;
+}
+
+QString getName(IDataDeserializer& deserializer)
+{
+    QString nodeName;
+    deserializer.deserialize(nodeName);
+    return nodeName;
+}
+
+template<typename T>
+void deserializeChildren(IDataDeserializer& deserializer, Node<T> &node, unsigned numOfChildren)
+{
+    for(int i = 0; i < numOfChildren; ++i)
+    {
+        Node<T> childNode;
+        deserialize(deserializer, childNode);
+        node.appendNode(childNode);
+    }
+}
 
 template<typename T>
 inline quint8 concludeNodeType(const Node<T> &node)
