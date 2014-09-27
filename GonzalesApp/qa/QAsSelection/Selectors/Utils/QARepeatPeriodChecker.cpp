@@ -1,6 +1,8 @@
 #include "QARepeatPeriodChecker.h"
+#include "../../../../common/Algorithms.h"
 #include <deque>
 #include <iterator>
+#include <functional>
 
 QARepeatPeriodChecker::QARepeatPeriodChecker(std::set<Day> periods):
     periods(periods)
@@ -9,86 +11,43 @@ QARepeatPeriodChecker::QARepeatPeriodChecker(std::set<Day> periods):
         throw std::logic_error("empty period list");
 }
 
-QDate QARepeatPeriodChecker::getDateSinceThereWasNoBadAnswer(const std::map<QDate, QA::AnswerRating> &answerHistory) const
+QDate function(const std::pair<QDate,QA::AnswerRating>& answer)
 {
-    auto itemSinceThereWasntBadAnswer = answerHistory.rbegin();
-
-    for(auto it = answerHistory.rbegin(); it != answerHistory.rend(); ++it)
-    {
-        if(it->second == QA::AnswerRating::Incorrect)
-            break;
-        itemSinceThereWasntBadAnswer = it;
-    }
-
-    return itemSinceThereWasntBadAnswer->first;
+    return answer.first;
 }
 
-Day QARepeatPeriodChecker::currentPeriod(std::deque<Day> &periodsToCheck) const
-{
-    Day currentPeriod = periodsToCheck.front();
-    periodsToCheck.pop_front();
-
-    return currentPeriod;
-}
-
-Day QARepeatPeriodChecker::currentMaxPeriod(std::deque<Day> periodsToCheck, Day currentPeriod) const
-{
-    Day currentMaxPeriod;
-    if(periodsToCheck.empty())
-        currentMaxPeriod = currentPeriod*2;
-    else
-        currentMaxPeriod = periodsToCheck.front();
-
-    return currentMaxPeriod;
-}
-
-QDate QARepeatPeriodChecker::currentPeriodDate(const QDate &nBA, Day currentPer) const
-{
-    auto currentPeriodDate = nBA.addDays(currentPer);
-
-    return currentPeriodDate;
-}
-
-QDate QARepeatPeriodChecker::currentMaxPeriodDate(const QDate &nBA, Day currentMaxPer, QDate currentDay) const
-{
-    auto currentMaxPeriodDate = nBA.addDays(currentMaxPer);
-    currentMaxPeriodDate =  currentMaxPeriodDate > currentDay ?
-                            QDate::currentDate() : currentMaxPeriodDate;
-
-    return currentMaxPeriodDate;
-}
-
-bool QARepeatPeriodChecker::isHistoryEntryInRange(QDate currentPerDate,
-                                                  QDate currentMaxPerDate,
-                                                  std::map<QDate, QA::AnswerRating> answerHistory) const
-{
-    auto lowerBoundHistory = answerHistory.lower_bound(currentPerDate);
-    if(lowerBoundHistory == answerHistory.end())
-        return false;
-    if(lowerBoundHistory->first > currentMaxPerDate)
-        return false;
-    return true;
-}
-
-bool QARepeatPeriodChecker::shouldBeRepeated(const std::map<QDate, QA::AnswerRating> &answerHistory) const
+bool QARepeatPeriodChecker::shouldBeRepeated(
+        const std::map<QDate, QA::AnswerRating>& answerHistory) const
 {
     if(answerHistory.empty())
         return false;
-    auto currentDay = QDate::currentDate();
-    auto nBA = getDateSinceThereWasNoBadAnswer(answerHistory);
 
-    std::deque<Day> periodsToCheck(periods.begin(), periods.end());
+    return containsRepeatPeriod(answerHistory.begin()->first,
+                                (--answerHistory.end())->first);
+}
 
-    while(!periodsToCheck.empty())
-    {
-        Day currentPer = currentPeriod(periodsToCheck);
-        Day currentMaxPer = currentMaxPeriod(periodsToCheck, currentPer);
-
-        QDate currentPerDate = currentPeriodDate(nBA, currentPer);
-        QDate currentMaxPerDate = currentMaxPeriodDate(nBA, currentMaxPer, currentDay);
-        if(!isHistoryEntryInRange(currentPerDate, currentMaxPerDate, answerHistory))
+bool QARepeatPeriodChecker::containsRepeatPeriod(const QDate& firstAnswerDate,
+                                                 const QDate& lastAnswerDate) const
+{
+    const std::set<QDate> periodDates = getPeriodDates(firstAnswerDate);
+    for(const auto& period: periodDates)
+        if(isPeriodInRange(period, lastAnswerDate, QDate::currentDate()))
             return true;
-    }
-
     return false;
+}
+
+std::set<QDate> QARepeatPeriodChecker::getPeriodDates(QDate firstAnswerDate) const
+{
+    std::set<QDate> periodDays;
+    for(const auto& period: periods)
+        periodDays.insert(firstAnswerDate.addDays(period));
+
+    return periodDays;
+}
+
+bool QARepeatPeriodChecker::isPeriodInRange(QDate period,
+                                            const QDate& leftBoundDate,
+                                            const QDate& rightBoundDate) const
+{
+    return period > leftBoundDate && period <= rightBoundDate;
 }

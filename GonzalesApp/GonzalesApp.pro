@@ -44,7 +44,8 @@ HEADERS += $$files(common/*.h) \
     qa/QAToViewConverter.h \
     qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.h \
     qa/qaio/IQASaver.h \
-    qa/QAsSelection/Selectors/Utils/IQARepeatPeriodChecker.h
+    qa/QAsSelection/Selectors/Utils/IQARepeatPeriodChecker.h \
+    common/Algorithms.h
 
 FORMS    += ui/dialogs/logindialog.ui \
     ui/dialogs/dialogcreateaccount.ui \

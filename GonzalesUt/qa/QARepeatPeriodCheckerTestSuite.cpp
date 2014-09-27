@@ -9,67 +9,123 @@ using namespace testing;
 
 class QARepeatPeriodCheckerTestSuite: public testing::Test
 {
+public:
+    std::set<Day> onePeriod{1};
+    std::set<Day> twoPeriods{1, 2};
+    std::set<Day> threePeriods{1, 2, 3};
+    std::set<Day> fourPeriods{1, 2, 3, 4};
+    QDate currentDay = QDate::currentDate();
+    QDate yesterday = currentDay.addDays(-1);
+    QDate dayBeforeYesterday = currentDay.addDays(-2);
+    QDate threeDaysAgo = currentDay.addDays(-3);
+    QDate fourDaysAgo = currentDay.addDays(-4);
+    QDate fiveDaysAgo = currentDay.addDays(-5);
 
 };
 
-// NBA - DateSinceThereWasNoBadAnswer = NoBadAnswer
-
+//0
 TEST_F(QARepeatPeriodCheckerTestSuite, noPeriodsGiven_ShouldThrow)
 {
     std::set<Day> periods{};
+
     ASSERT_THROW(std::make_shared<QARepeatPeriodChecker>(periods), std::logic_error);
 }
-
-TEST_F(QARepeatPeriodCheckerTestSuite, onePeriodsGiven_noHistoryGiven_shouldReturnFalse)
+//1
+TEST_F(QARepeatPeriodCheckerTestSuite,
+       OnePeriodGiven_AnswerHistoryWithTodayGivenShouldReturnFalse)
 {
-    std::map<QDate, QA::AnswerRating> history;
-    std::set<Day> periods{1};
-    QARepeatPeriodChecker checker{periods};
-    ASSERT_FALSE(checker.shouldBeRepeated(history));
+    QARepeatPeriodChecker checker{onePeriod};
+    ASSERT_FALSE(checker.shouldBeRepeated({{currentDay, QA::AnswerRating::Correct}}));
 }
 
-TEST_F(QARepeatPeriodCheckerTestSuite, onePeriodsGiven_oneNBAGiven_OneHistoryGivenWithCurrentDate_shouldReturnFalse)
+//1
+TEST_F(QARepeatPeriodCheckerTestSuite,
+       OnePeriodGiven_emptyAnswerHistoryGivenShouldReturnFalse)
 {
-    auto yesterday = QDate::currentDate().addDays(-1);
-    std::map<QDate, QA::AnswerRating> history{std::make_pair(yesterday, QA::AnswerRating::Correct),
-                std::make_pair(QDate::currentDate(), QA::AnswerRating::Correct)};
-    std::set<Day> periods{1};
-    QARepeatPeriodChecker checker{periods};
-    ASSERT_FALSE(checker.shouldBeRepeated(history));
+    QARepeatPeriodChecker checker{onePeriod};
+    ASSERT_FALSE(checker.shouldBeRepeated({}));
+}
+//2
+TEST_F(QARepeatPeriodCheckerTestSuite, OnePeriodGiven_AnswerHistoryWithYesterdayGivenShouldReturnTrue)
+{
+    QARepeatPeriodChecker checker{onePeriod};
+    ASSERT_TRUE(checker.shouldBeRepeated({{yesterday, QA::AnswerRating::Correct}}));
+}
+//3
+TEST_F(QARepeatPeriodCheckerTestSuite,
+       OnePeriodGiven_AnswerHistoryWithDayBeforeYesterdayGivenShouldReturnTrue)
+{
+    QARepeatPeriodChecker checker{onePeriod};
+    ASSERT_TRUE(checker.shouldBeRepeated({{dayBeforeYesterday, QA::AnswerRating::Correct}}));
+}
+//4
+TEST_F(QARepeatPeriodCheckerTestSuite,
+       OnePeriodGiven_AnswerHistoryWithdayBeforeYesterdayAndYesterdayGivenShouldReturnFalse)
+{
+    QARepeatPeriodChecker checker{onePeriod};
+    ASSERT_FALSE(checker.shouldBeRepeated({{yesterday, QA::AnswerRating::Correct},
+                                          {dayBeforeYesterday, QA::AnswerRating::Correct}}));
+}
+//5
+TEST_F(QARepeatPeriodCheckerTestSuite,
+       OnePeriodGiven_AnswerHistoryWithYesterdayAndTodayGivenShouldReturnFalse)
+{
+    QARepeatPeriodChecker checker{onePeriod};
+    ASSERT_FALSE(checker.shouldBeRepeated({{yesterday, QA::AnswerRating::Correct},
+                                          {currentDay, QA::AnswerRating::Correct}}));
+}
+//6
+TEST_F(QARepeatPeriodCheckerTestSuite,
+       TwoPeriodGiven_AnswerHistoryWithYesterdayAndDayBeforeYesterdayGivenShouldReturnTrue)
+{
+    QARepeatPeriodChecker checker{twoPeriods};
+    ASSERT_TRUE(checker.shouldBeRepeated({{dayBeforeYesterday, QA::AnswerRating::Correct},
+                                          {yesterday, QA::AnswerRating::Correct}}));
 }
 
-TEST_F(QARepeatPeriodCheckerTestSuite, onePeriodsGiven_oneNBAGiven_shouldReturnTrue)
+//7
+TEST_F(QARepeatPeriodCheckerTestSuite,
+       TwoPeriodGiven_AnswerHistoryWithTodayYesterdayAndDayBeforeYesterdayGivenShouldReturn_False)
 {
-    auto yesterday = QDate::currentDate().addDays(-1);
-    std::map<QDate, QA::AnswerRating> history{std::make_pair(yesterday, QA::AnswerRating::Correct)};
-    std::set<Day> periods{1};
-    QARepeatPeriodChecker checker{periods};
-    ASSERT_TRUE(checker.shouldBeRepeated(history));
+    QARepeatPeriodChecker checker{twoPeriods};
+
+    ASSERT_FALSE(checker.shouldBeRepeated({{currentDay, QA::AnswerRating::Correct},
+                                          {dayBeforeYesterday, QA::AnswerRating::Correct},
+                                          {yesterday, QA::AnswerRating::Correct}}));
 }
 
-TEST_F(QARepeatPeriodCheckerTestSuite, threePeriodsGiven_oneNBAGivenAndOneHistoryItem_shouldReturnTrue)
+//8
+TEST_F(QARepeatPeriodCheckerTestSuite,
+       TwoPeriodGiven_AnswerHistoryWithTodayYesterdayAndDayBeforeYesterdayGivenShouldReturnTrue)
 {
-    auto fourDaysAgo = QDate::currentDate().addDays(-4);
-    auto threeDaysAgo = QDate::currentDate().addDays(-3);
-    std::map<QDate, QA::AnswerRating> history{std::make_pair(fourDaysAgo, QA::AnswerRating::Correct),
-                                              std::make_pair(threeDaysAgo, QA::AnswerRating::Correct)};
-    std::set<Day> periods{1, 2, 4};
-    QARepeatPeriodChecker checker{periods};
-    ASSERT_TRUE(checker.shouldBeRepeated(history));
+    QARepeatPeriodChecker checker{threePeriods};
+
+    ASSERT_TRUE(checker.shouldBeRepeated({{dayBeforeYesterday, QA::AnswerRating::Correct},
+                                          {threeDaysAgo, QA::AnswerRating::Correct},
+                                          {fourDaysAgo, QA::AnswerRating::Correct}}));
 }
 
-TEST_F(QARepeatPeriodCheckerTestSuite, threePeriodsGiven_oneNBAGivenAndThreeHistoryItem_shouldReturnFalse)
+//9
+TEST_F(QARepeatPeriodCheckerTestSuite,
+       TwoPeriodGiven_AnswerHistoryWithThreeDaysAgoShouldReturnTrue)
 {
-    auto fiveDaysAgo = QDate::currentDate().addDays(-5);
-    auto fourDaysAgo = QDate::currentDate().addDays(-4);
-    auto threeDaysAgo = QDate::currentDate().addDays(-3);
-    auto oneDayAgo = QDate::currentDate().addDays(-1);
-    std::map<QDate, QA::AnswerRating> history{std::make_pair(fiveDaysAgo, QA::AnswerRating::Correct),
-                                              std::make_pair(fourDaysAgo, QA::AnswerRating::Correct),
-                                              std::make_pair(threeDaysAgo, QA::AnswerRating::Correct),
-                                              std::make_pair(oneDayAgo, QA::AnswerRating::Correct)};
-    std::set<Day> periods{1, 2, 4};
-    QARepeatPeriodChecker checker{periods};
-    ASSERT_FALSE(checker.shouldBeRepeated(history));
+    QARepeatPeriodChecker checker{{5}};
+
+    ASSERT_FALSE(checker.shouldBeRepeated({{threeDaysAgo, QA::AnswerRating::Correct}}));
 }
+
+//10
+TEST_F(QARepeatPeriodCheckerTestSuite,
+       ThreePeriodGiven_AnswerHistoryWithThreeDaysAgoShouldReturnTrue)
+{
+    QARepeatPeriodChecker checker{fourPeriods};
+
+    ASSERT_FALSE(checker.shouldBeRepeated({{fiveDaysAgo, QA::AnswerRating::Correct},
+                                           {fourDaysAgo, QA::AnswerRating::Correct},
+                                           {threeDaysAgo, QA::AnswerRating::Correct},
+                                           {dayBeforeYesterday, QA::AnswerRating::Correct},
+                                           {yesterday, QA::AnswerRating::Correct},
+                                           {currentDay, QA::AnswerRating::Correct}}));
+}
+
 
