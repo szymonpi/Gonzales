@@ -14,21 +14,13 @@ public:
     std::vector<std::shared_ptr<QAView> > select(std::vector<std::shared_ptr<QA> > &qas) const override
     {
         auto newEnd = std::stable_partition(std::begin(qas), std::end(qas),
-                                                  [](const std::shared_ptr<QA>& qa)
-        {
-            if(qa->answersHistory.empty())
-                return true;
-            return false;
-        });
-        std::vector<std::shared_ptr<QAView>> qaViews{};
+                                            [](const std::shared_ptr<QA>& qa)
+                                            {return qa->answersHistory.empty();});
 
-        if(newEnd == qas.end())
-            return qaViews;
-        auto newBegin = std::begin(qas);
-        for(auto it = newBegin; it != newEnd; ++it)
-        {
+        std::vector<std::shared_ptr<QAView>> qaViews;
+        for(auto it = qas.begin(); it != newEnd; ++it)
             qaViews.push_back(m_converter->convert(*it));
-        }
+
         return qaViews;
     }
 private:

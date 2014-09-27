@@ -21,6 +21,8 @@ bool QARepeatPeriodChecker::shouldBeRepeated(
 {
     if(answerHistory.empty())
         return false;
+    if((--answerHistory.end())->second == QA::AnswerRating::Incorrect)
+        return false;
 
     return containsRepeatPeriod(answerHistory.begin()->first,
                                 (--answerHistory.end())->first);

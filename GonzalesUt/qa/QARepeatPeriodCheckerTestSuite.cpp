@@ -23,12 +23,19 @@ public:
 
 };
 
-//0
+//0.a
 TEST_F(QARepeatPeriodCheckerTestSuite, noPeriodsGiven_ShouldThrow)
 {
     std::set<Day> periods{};
 
     ASSERT_THROW(std::make_shared<QARepeatPeriodChecker>(periods), std::logic_error);
+}
+
+//0.b
+TEST_F(QARepeatPeriodCheckerTestSuite, onePeriodGiven_IncorrectLastAnswerGiven_ShouldReturnFalse)
+{
+    QARepeatPeriodChecker checker{onePeriod};
+    ASSERT_FALSE(checker.shouldBeRepeated({{currentDay, QA::AnswerRating::Incorrect}}));
 }
 //1
 TEST_F(QARepeatPeriodCheckerTestSuite,

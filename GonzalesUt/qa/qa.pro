@@ -71,6 +71,7 @@ SOURCES += \
     ../../GonzalesApp/qa/QAsSelection/QAsToLearnCheckedByUserProvider.cpp \
     ../../GonzalesApp/qa/QAsSelection/QAsToLearnByUserChecker.cpp \
     ../../GonzalesApp/qa/QAsSelection/Selectors/QAsSelector.cpp \
+    ../../GonzalesApp/qa/QAsSelection/Selectors/QAsForRepeatSelector.cpp \
     QAsSelectorTestSuite.cpp \
     QATestSuite.cpp \
     QAMarkerTestSuite.cpp \
