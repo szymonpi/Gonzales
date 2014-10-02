@@ -9,5 +9,6 @@ std::vector<std::shared_ptr<QAView> > QAsSelector::select(std::vector<std::share
         auto lastSelected = selector->select(qas);
         selected.insert(selected.end(), lastSelected.begin(), lastSelected.end());
     }
-    return selected;
+    return std::vector<std::shared_ptr<QAView> >(selected.begin(),
+                                                 selected.begin() + 10);
 }

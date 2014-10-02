@@ -81,7 +81,9 @@ SOURCES += \
     ../../GonzalesApp/qa/QALearnedChecker.cpp \
     QAsForRepeatSelectorTestSuite.cpp \
     QARepeatPeriodCheckerTestSuite.cpp \
-    ../../GonzalesApp/qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.cpp
+    ../../GonzalesApp/qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.cpp \
+    QAsNotLearnedSelectorTestSuite.cpp \
+    QAsNewSelectorTestSuite.cpp
 
 unix
 {

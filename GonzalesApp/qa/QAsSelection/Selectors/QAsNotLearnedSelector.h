@@ -10,7 +10,17 @@ public:
     {
     }
 
-    std::vector<std::shared_ptr<QAView> > select(std::vector<std::shared_ptr<QA> > &qas) const override
+    std::vector<std::shared_ptr<QAView> > convertQAs(std::vector<std::shared_ptr<QA> >::iterator begin,
+                                                     std::vector<std::shared_ptr<QA> >::iterator end) const
+    {
+        std::vector<std::shared_ptr<QAView>> qaViews;
+        for(auto it = begin; it != end; ++it)
+            qaViews.push_back(m_converter->convert(*it));
+
+        return qaViews;
+    }
+
+    std::vector<std::shared_ptr<QA> >::iterator notNewNotLearnedStablePartition(std::vector<std::shared_ptr<QA> > &qas) const
     {
         auto notLearnedEnd = std::stable_partition(std::begin(qas), std::end(qas),
                                                   [](const std::shared_ptr<QA>& qa)
@@ -20,12 +30,13 @@ public:
             auto &aH = qa->answersHistory;
             return (--aH.end())->second == QA::AnswerRating::Incorrect;
         });
-        auto notLearnedBegin = std::begin(qas);
 
-        std::vector<std::shared_ptr<QAView>> qaViews;
-        std::transform(notLearnedBegin, notLearnedEnd, qaViews.begin(),
-                       [&](const std::shared_ptr<QA> &qa){ return m_converter->convert(qa); });
-        return qaViews;
+        return notLearnedEnd;
+    }
+
+    std::vector<std::shared_ptr<QAView> > select(std::vector<std::shared_ptr<QA> > &qas) const override
+    {
+        return convertQAs(qas.begin(), notNewNotLearnedStablePartition(qas));
     }
 private:
     std::shared_ptr<QAToViewConverter> m_converter;
