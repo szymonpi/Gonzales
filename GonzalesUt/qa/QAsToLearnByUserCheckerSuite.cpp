@@ -49,7 +49,7 @@ TEST_F(QAsToLearnByUserSelector, groupItemGivenShouldSelectOneGroup)
 
     group.setCheckState(2, Qt::Checked);
 
-    groupNode.emplaceNode(std::make_shared<QA>(Question("question"), Answer("anser")));
+    groupNode.emplaceNode(std::make_shared<QA>("question", "anser"));
     subjectNode.appendNode(groupNode);
     rootNode.appendNode(subjectNode);
 
@@ -73,7 +73,7 @@ TEST_F(QAsToLearnByUserSelector, wrongSubjectNameGivenShouldThrow)
     SimpleTree::Node<QA> groupNode;
     groupNode.setName("group");
 
-    groupNode.emplaceNode(std::make_shared<QA>(Question("question"), Answer("anser")));
+    groupNode.emplaceNode(std::make_shared<QA>("question", "answer"));
     subjectNode.appendNode(groupNode);
     rootNode.appendNode(subjectNode);
 
@@ -93,7 +93,7 @@ TEST_F(QAsToLearnByUserSelector, wrongGroupNameGivenShouldThrow)
     SimpleTree::Node<QA> groupNode;
     groupNode.setName("group");
 
-    groupNode.emplaceNode(std::make_shared<QA>(Question("question"), Answer("anser")));
+    groupNode.emplaceNode(std::make_shared<QA>("question", "answer"));
     subjectNode.appendNode(groupNode);
     rootNode.appendNode(subjectNode);
 
@@ -116,7 +116,7 @@ TEST_F(QAsToLearnByUserSelector, subjectItemGivenShouldSelectGroups)
     group.setCheckState(2, Qt::Checked);
     subject.setCheckState(2, Qt::Checked);
 
-    groupNode.emplaceNode(std::make_shared<QA>(Question("question"), Answer("anser")));
+    groupNode.emplaceNode(std::make_shared<QA>("question", "answer"));
     subjectNode.appendNode(groupNode);
     rootNode.appendNode(subjectNode);
 

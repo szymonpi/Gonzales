@@ -26,7 +26,7 @@ protected:
         dataDeserializerMock(std::make_shared<DataDeserializerMock>()),
         dataDeserializerFactoryMock(std::make_shared<DataDeserializerFactoryMock>()),
         loader(filePathProviderMock, fileFactoryMock, m_qaDeserializerMock, dataDeserializerFactoryMock),
-        qa(Question("question"), Answer("answer"))
+        qa("question", "answer")
     {
         EXPECT_CALL(*filePathProviderMock, getPath()).WillOnce(Return(path));
     }
@@ -115,7 +115,7 @@ TEST_F(QALoadTestSuite, shouldLoadQAsFromFile)
     expectCreateDeserializer();
     expectDeserializeFileVersion(QAFileVersion1);
 
-    std::shared_ptr<QA> qa = std::make_shared<QA>(Question("question"), Answer("answer"));
+    std::shared_ptr<QA> qa = std::make_shared<QA>("question", "answer");
     SimpleTree::Node<QA> rootNodeToSet(qa);
     EXPECT_CALL(*m_qaDeserializerMock, deserialize(_,_)).WillOnce(SetArgReferee<1>(rootNodeToSet));
     EXPECT_CALL(*dataDeserializerMock, status()).WillOnce(Return(QDataStream::Ok));

@@ -1,6 +1,6 @@
 #include "QA.h"
 
-QA::QA(Question question, Answer answer):
+QA::QA(QString question, QString answer):
     question(question),
     answer(answer)
 {}
@@ -9,8 +9,9 @@ QA::QA(){}
 
 void QA::serialize(IDataSerializer &serializer) const
 {
-    question.serialize(serializer);
-    answer.serialize(serializer);
+    serializer.serialize(question);
+    serializer.serialize(answer);
+
     serializer.serialize(answersHistory.size());
     for(auto &kv: answersHistory)
     {
@@ -27,8 +28,9 @@ void QA::serialize(IDataSerializer &serializer) const
 
 void QA::deserialize(IDataDeserializer &deserializer)
 {
-    question.deserialize(deserializer);
-    answer.deserialize(deserializer);
+    deserializer.deserialize(question);
+    deserializer.deserialize(answer);
+
     int historySize = 0;
     deserializer.deserialize(historySize);
     for(int i = 0; i<historySize; ++i)
@@ -87,10 +89,10 @@ void QA::markAsUnknown(const QDate &date)
 
 void QA::presentAnswer()
 {
-    question.present();
+
 }
 
 void QA::presentQuestion()
 {
-    answer.present();
+
 }

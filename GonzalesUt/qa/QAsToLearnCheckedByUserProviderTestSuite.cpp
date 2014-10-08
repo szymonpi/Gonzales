@@ -20,7 +20,7 @@ protected:
     }
     std::shared_ptr<StrictMock<QAsProviderMock>> m_qasProvider;
     QAsToLearnCheckedByUserProvider m_qasToLearnProvider;
-    std::shared_ptr<QA> m_qa = std::make_shared<QA>(Question("question"), Answer("answer"));
+    std::shared_ptr<QA> m_qa = std::make_shared<QA>("question", "answer");
 };
 
 TEST_F(QAsToLearnCheckedByUserProviderTestSuite, NoQAsGivenFromQARepositoryInRootNode_ShouldThrow)

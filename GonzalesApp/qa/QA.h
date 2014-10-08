@@ -19,7 +19,7 @@ public:
         Incorrect = 100
     };
 
-    QA(Question question, Answer answer);
+    QA(QString question, QString answer);
     QA();
 
     void serialize(IDataSerializer &serializer) const;
@@ -35,8 +35,8 @@ public:
     void presentQuestion();
 
 public:
-    Question question;
-    Answer answer;
+    QString question;
+    QString answer;
     std::map<QDate, AnswerRating> answersHistory;
     std::set<QDate> repetitionsHistory;
 };

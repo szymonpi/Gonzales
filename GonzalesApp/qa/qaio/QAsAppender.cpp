@@ -19,7 +19,7 @@ QStringList QAsAppender::createStringQuestionsList(std::vector<std::shared_ptr<Q
     QStringList importedQuestionsList;
     foreach(const std::shared_ptr<QA> &qa, importedQAs)
     {
-        importedQuestionsList.append((qa->question.question));
+        importedQuestionsList.append((qa->question));
     }
 
     return importedQuestionsList;

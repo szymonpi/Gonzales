@@ -40,7 +40,7 @@ TEST_F(QAsAppenderTestSuite, shouldAppendOneImportedQAToExistingGroup)
     rootNode.appendNode(subject);
 
     std::vector<std::shared_ptr<QA> > importedNodes;
-    importedNodes.push_back(std::make_shared<QA>(Question("question"), Answer("answer")));
+    importedNodes.push_back(std::make_shared<QA>("question", "answer"));
 
     QMap<QString, QStringList> groupMap;
     groupMap["subject"] = QStringList() << "group";
@@ -68,7 +68,7 @@ TEST_F(QAsAppenderTestSuite, shouldAppendOneImportedQAToNotExistingGroup)
     rootNode.appendNode(subject);
 
     std::vector<std::shared_ptr<QA> > importedNodes;
-    importedNodes.push_back(std::make_shared<QA>(Question("question"), Answer("answer")));
+    importedNodes.push_back(std::make_shared<QA>("question", "answer"));
 
     QMap<QString, QStringList> groupMap;
     groupMap["subject"] = QStringList() << "group";
@@ -98,7 +98,7 @@ TEST_F(QAsAppenderTestSuite, shouldAppendOneImportedQAToNotExistingSubjectAndGro
     rootNode.appendNode(subject);
 
     std::vector<std::shared_ptr<QA> > importedQAs;
-    importedQAs.push_back(std::make_shared<QA>(Question("question"), Answer("answer")));
+    importedQAs.push_back(std::make_shared<QA>("question", "answer"));
 
     QMap<QString, QStringList> groupMap;
     groupMap["subject"] = QStringList() << "group";

@@ -17,7 +17,7 @@ protected:
     StrictMock<DataSerializerMock> serializerMock;
     QString question = "question";
     QString answer = "answer";
-    QA qa{Question{question}, Answer{answer}};
+    QA qa{question, answer};
 };
 
 
