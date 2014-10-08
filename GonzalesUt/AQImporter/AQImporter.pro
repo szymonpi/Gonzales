@@ -21,16 +21,13 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/qa/QA.h \
     ../../GonzalesApp/qa/Answer.h \
     ../../GonzalesApp/common/qtproxies/IFile.h \
-    ../../GonzalesApp/common/qtproxies/FileSerializerFactory.h \
     ../../GonzalesApp/common/qtproxies/DataSerializer.h \
     ../../GonzalesApp/common/qtproxies/FileFactory.h \
-    ../../GonzalesApp/common/qtproxies/FileDeserializerFactory.h \
     ../../GonzalesApp/common/qtproxies/DataDeserializer.h \
     ../../GonzalesApp/common/qtproxies/File.h \
     DataSerializerMock.h \
     ../../GonzalesApp/common/SimpleTree/Node.h \
     ../../GonzalesApp/common/SimpleTree/Utils.h \
-    QASerializerMock.h \
     ../../GonzalesApp/common/FileException.h \
     DataSerializerFactoryMock.h \
     DataSerializerMock.h \
@@ -38,7 +35,9 @@ HEADERS += ../gtest.h \
     DataDeserializerMock.h \
     QAsFilePathProviderMock.h \
     LineSplitterMock.h \
-    ../../GonzalesApp/qa/ILineToImportSplitter.h
+    ../../GonzalesApp/qa/IQA.h \
+    QANodeSerializerMock.h \
+    ../../GonzalesApp/common/qtproxies/IFileFactory.h
 
 SOURCES += \
     QAImporterTestSuite.cpp \
@@ -48,7 +47,8 @@ SOURCES += \
     ../../GonzalesApp/qa/qaio/QASaver.cpp \
     ../../GonzalesApp/qa/qaio/QALoader.cpp \
     ../../GonzalesApp/qa/qaio/QAImporter.cpp \
-    AllTests.cpp
+    AllTests.cpp \
+    ../../GonzalesApp/qa/QA.cpp
 
 unix
 {

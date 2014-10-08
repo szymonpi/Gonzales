@@ -2,7 +2,8 @@
 #include "../../common/SimpleTree/NodeSerializer.h"
 #include "../../common/qtproxies/DataSerializer.h"
 #include "../../common/qtproxies/DataDeserializer.h"
-#include "IQASerializer.h"
+#include "../../common/SimpleTree/InfosSerializer.h"
+#include "IQANodeSerializer.h"
 
 class IQADeserializer
 {
@@ -11,10 +12,10 @@ public:
     virtual ~IQADeserializer(){}
 };
 
-class QASerializer: public IQASerializer, public IQADeserializer
+class QANodeSerializer: public IQANodeSerializer, public IQADeserializer
 {
 public:
-    QASerializer():
+    QANodeSerializer():
         serializer{std::make_shared<SimpleTree::Utils::InfosSerializer>()}
     {}
     void serialize(IDataSerializer& DataSerializer, const SimpleTree::Node<QA> &node)

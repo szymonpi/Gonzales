@@ -3,15 +3,11 @@
 
 #include <error.h>
 
-#include <QQueue>
-#include <QFile>
 #include <QStringList>
-#include <QRegExp>
-#include <QDebug>
 
 #include "../QA.h"
 #include "../../common/qtproxies/FileFactory.h"
-#include "../../common/qtproxies/File.h"
+#include "../../common/qtproxies/IFile.h"
 #include "../../common/SimpleTree/Node.h"
 #include "LineToImportSplitter.h"
 

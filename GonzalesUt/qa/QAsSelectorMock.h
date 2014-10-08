@@ -6,5 +6,5 @@
 class QAsSelectorMock: public IQAsSelector
 {
 public:
-    MOCK_CONST_METHOD1(select, std::vector<std::shared_ptr<QAView>>(std::vector<std::shared_ptr<QA> > &));
+    MOCK_CONST_METHOD1(select, std::vector<std::shared_ptr<QA>>(std::vector<std::shared_ptr<QA> > &));
 };

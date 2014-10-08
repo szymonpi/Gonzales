@@ -1,7 +1,7 @@
-#include <iostream>
 #include "../gtest.h"
 
-#include <QQueue>
+#include <iostream>
+#include <memory>
 #include <QStringList>
 
 #include "../../GonzalesApp/common/qtproxies/DataSerializer.h"

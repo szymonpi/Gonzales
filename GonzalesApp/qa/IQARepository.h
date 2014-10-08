@@ -1,8 +1,5 @@
 #pragma once
 
-#include <QString>
-#include "../common/SimpleTree/Node.h"
-#include "QA.h"
 #include "QAsSelection/QAsProvider.h"
 #include "../uiobservers/IQuestionCollectionPresenter.h"
 

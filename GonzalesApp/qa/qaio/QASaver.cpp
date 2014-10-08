@@ -7,7 +7,7 @@
 
 QASaver::QASaver(std::shared_ptr<IQAsFilePathProvider> filePathProvider,
                  std::shared_ptr<IFileFactory> fileFactory,
-                 std::shared_ptr<IQASerializer> qASerializer,
+                 std::shared_ptr<IQANodeSerializer> qASerializer,
                  std::shared_ptr<IDataSerializerFactory> dataSerializerFactory):
     m_filePathProvider(filePathProvider),
     fileFactory(fileFactory),

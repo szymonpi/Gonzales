@@ -1,8 +1,11 @@
 #pragma once
 
 #include <string>
+#include <memory>
 #include "../common/qtproxies/DataSerializer.h"
 #include "../common/qtproxies/DataDeserializer.h"
+
+
 
 class Answer
 {
@@ -11,6 +14,10 @@ public:
     Answer(const QString& answer)
     {
         this->answer = answer;
+    }
+
+    void present()
+    {
     }
 
     QString getAsString() const

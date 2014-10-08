@@ -13,6 +13,11 @@ public:
         this->question = question;
     }
 
+    void present()
+    {
+
+    }
+
     QString getAsString() const
     {
         return question;
@@ -20,7 +25,7 @@ public:
 
     bool operator==(const Question &question) const
     {
-        return !this->question.compare(question.getAsString());
+        return !this->question.compare(question.question);
     }
 
     void serialize(IDataSerializer &serializer) const
@@ -35,6 +40,5 @@ public:
         question = str;
     }
 
-private:
     QString question;
 };

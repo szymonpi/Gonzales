@@ -37,7 +37,7 @@ TEST_F(QATestSuite, shouldSerializeQAWithAnswerHistory)
     QDate dateTime(2014, 5, 6);
 
 
-    qa.addHistoryEntry(dateTime, QA::AnswerRating(ExpectedAnswerRating));
+    qa.markAsKnown(dateTime);
 
     EXPECT_CALL(serializerMock, serialize(TypedEq<const QString&>(question)));
     EXPECT_CALL(serializerMock, serialize(TypedEq<const QString&>(answer)));

@@ -19,7 +19,7 @@ QStringList QAsAppender::createStringQuestionsList(std::vector<std::shared_ptr<Q
     QStringList importedQuestionsList;
     foreach(const std::shared_ptr<QA> &qa, importedQAs)
     {
-        importedQuestionsList.append((qa->question.getAsString()));
+        importedQuestionsList.append((qa->question.question));
     }
 
     return importedQuestionsList;
@@ -38,22 +38,18 @@ QStringList QAsAppender::createGroupList(std::vector<SimpleTree::Node<QA> > &nod
 
 QMap<QString, QStringList> QAsAppender::createGroupsMap(SimpleTree::Node<QA> &qas)
 {
-    std::vector<SimpleTree::Node<QA>> &subjects = qas.getNodes();
     QMap<QString, QStringList> groupMap;
-    for(auto subjectIt = subjects.begin(); subjectIt!= subjects.end(); ++subjectIt)
-    {
-        groupMap[(*subjectIt).getName()] = createGroupList((*subjectIt).getNodes());
-    }
+    for(auto& subject: qas.getNodes())
+        groupMap[subject.getName()] = createGroupList(subject.getNodes());
+
     return groupMap;
 }
 
 std::vector<SimpleTree::Node<QA> > QAsAppender::createNewNodes(std::vector<std::shared_ptr<QA> > &importedQAs)
 {
     std::vector<SimpleTree::Node<QA> > newNodes;
-    for(auto qaIt = importedQAs.begin(); qaIt!= importedQAs.end(); ++qaIt)
-    {
-        newNodes.push_back(SimpleTree::Node<QA>(*qaIt));
-    }
+    for(const auto& qaIt: importedQAs)
+        newNodes.push_back(SimpleTree::Node<QA>(qaIt));
 
     return newNodes;
 }

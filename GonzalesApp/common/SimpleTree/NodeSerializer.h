@@ -1,5 +1,6 @@
 #pragma once
-#include "InfosSerializer.h"
+#include "IInfosSerializer.h"
+#include "Utils.h"
 #include <memory>
 #include "Node.h"
 

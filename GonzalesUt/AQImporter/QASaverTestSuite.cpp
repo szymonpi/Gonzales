@@ -10,7 +10,7 @@
 #include "../../GonzalesApp/qa/qaio/QALoader.h"
 #include "DataSerializerMock.h"
 #include "DataSerializerFactoryMock.h"
-#include "QASerializerMock.h"
+#include "QANodeSerializerMock.h"
 #include "../../GonzalesApp/common/SimpleTree/Node.h"
 #include "QAsFilePathProviderMock.h"
 #include "FileMock.h"
@@ -26,7 +26,7 @@ protected:
         m_fileFactoryMock(std::make_shared<FileFactoryMock>()),
         m_DataSerializerMock(std::make_shared<DataSerializerMock>()),
         m_DataSerializerFactoryMock(std::make_shared<DataSerializerFactoryMock>()),
-        m_qaSerializerMock(std::make_shared<QASerializerMock>()),
+        m_qaSerializerMock(std::make_shared<QANodeSerializerMock>()),
         m_saver(m_filePathProviderMock, m_fileFactoryMock, m_qaSerializerMock, m_DataSerializerFactoryMock)
     {
     }
@@ -40,9 +40,9 @@ protected:
         EXPECT_CALL(*m_filePathProviderMock, getPath()).WillOnce(Return(m_path));
     }
 
-    Matcher<const char *> questionMatcher(Question qa)
+    Matcher<const char *> questionMatcher(Question question)
     {
-        return Matcher<const char*>(StrEq(qa.getAsString().toStdString()));
+        return Matcher<const char*>(StrEq(question.question.toStdString()));
     }
 
     Matcher<const char *> answerMatcher(Answer qa)
@@ -99,7 +99,7 @@ protected:
     std::shared_ptr<FileFactoryMock> m_fileFactoryMock;
     std::shared_ptr<DataSerializerMock> m_DataSerializerMock;
     std::shared_ptr<DataSerializerFactoryMock> m_DataSerializerFactoryMock;
-    std::shared_ptr<QASerializerMock> m_qaSerializerMock = std::make_shared<QASerializerMock>();
+    std::shared_ptr<QANodeSerializerMock> m_qaSerializerMock = std::make_shared<QANodeSerializerMock>();
     QASaver m_saver;
     SimpleTree::Node<QA> m_oneQAs;
     std::shared_ptr<QA> m_qa = std::make_shared<QA>();

@@ -7,7 +7,6 @@
 #include "PresentersMock.h"
 #include "../qa/QAsRepositoryMock.h"
 #include "QAsToLearnProviderMock.h"
-#include "QAMarkerMock.h"
 #include "QAViewMock.h"
 
 using namespace testing;
@@ -27,7 +26,6 @@ protected:
     std::shared_ptr<QuestionPresenterMock> m_questionPresenterMock;
     std::shared_ptr<AnswerPresenterMock> m_answerPresenterMock;
     std::shared_ptr<QAsToLearnProviderMock> m_qasProvider;
-    std::shared_ptr<QAMarkerMock> m_qaMarker = std::make_shared<QAMarkerMock>();
     std::shared_ptr<Teacher> teacher;
     std::vector<QA> oneQuestionQueue;
     std::vector<QA> twoQuestionQueue;

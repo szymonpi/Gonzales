@@ -13,7 +13,7 @@ class QAsNotLearnedTestSuite: public testing::Test
 {
 protected:
     std::shared_ptr<StrictMock<QAToViewConverterMock>> converterMock = std::make_shared<StrictMock<QAToViewConverterMock>>();
-    QAsNotLearnedSelector selector{converterMock};
+    QAsNotLearnedSelector selector{};
 };
 
 TEST_F(QAsNotLearnedTestSuite, EmptyQAsGiven_ShouldSelectNothing)
@@ -37,8 +37,6 @@ TEST_F(QAsNotLearnedTestSuite, OneQAsGivenWithIncorrectAnsweredQuestion_ShouldSe
     qa->answersHistory.insert(std::make_pair(QDate::currentDate().addDays(-1), QA::AnswerRating::Correct));
     qa->answersHistory.insert(std::make_pair(QDate::currentDate(), QA::AnswerRating::Incorrect));
 
-    std::shared_ptr<QAViewMock> mock = std::make_shared<QAViewMock>();
-    EXPECT_CALL(*converterMock, convert(qa)).WillOnce(Return(mock));
     std::vector<std::shared_ptr<QA>> qas{qa};
     ASSERT_EQ(1, selector.select(qas).size());
 }
@@ -50,8 +48,6 @@ TEST_F(QAsNotLearnedTestSuite, TwoQAsGivenWithIncorrectAnsweredQuestion_ShouldSe
     qa1->answersHistory.insert(std::make_pair(QDate::currentDate(), QA::AnswerRating::Incorrect));
 
     std::shared_ptr<QA> qa2 = std::make_shared<QA>();
-    std::shared_ptr<QAViewMock> mock = std::make_shared<QAViewMock>();
-    EXPECT_CALL(*converterMock, convert(qa1)).WillOnce(Return(mock));
     std::vector<std::shared_ptr<QA>> qas{qa1, qa2};
     ASSERT_EQ(1, selector.select(qas).size());
 }

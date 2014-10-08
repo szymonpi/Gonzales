@@ -20,8 +20,8 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/qa/qaio/QASaver.h \
     ../../GonzalesApp/qa/qaio/QALoader.h \
     ../../GonzalesApp/qa/qaio/QAImporter.h \
-    ../../GonzalesApp/common/IExceptionHandler.h \
     ../../GonzalesApp/qa/ImportHandler.h \
+    ../../GonzalesApp/qa/QA.h \
     ../../GonzalesApp/qa/qaio/QAsAppender.h \
     ../../GonzalesApp/qa/qaio/IQAsAppender.h \
     ../../GonzalesApp/uiobservers/QAsDestinationSelector.h \
@@ -46,8 +46,6 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/qa/QAsSelection/IQAsToLearnCheckedByUserProvider.h \
     ../../GonzalesApp/qa/QAsSelection/Selectors/IQAsSelector.h \
     QAsSelectorMock.h \
-    ../../GonzalesApp/qa/QAMarker.h \
-    ../../GonzalesApp/qa/QALearnedChecker.h \
     ../../GonzalesApp/qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.h \
     ../../GonzalesApp/qa/QAsSelection/Selectors/IQAsSelector.h \
     QAToViewConverterMock.h \
@@ -62,6 +60,7 @@ SOURCES += \
     ../../GonzalesApp/qa/qaio/QAImporter.cpp \
     ../../GonzalesApp/qa/QARepository.cpp \
     ../../GonzalesApp/qa/qaio/QAsAppender.cpp \
+    ../../GonzalesApp/qa/QA.cpp \
     ImportHandlertestSuite.cpp \
     QAsAppenderTestSuite.cpp \
     QAsToLearnProviderTestSuite.cpp \
@@ -74,11 +73,7 @@ SOURCES += \
     ../../GonzalesApp/qa/QAsSelection/Selectors/QAsForRepeatSelector.cpp \
     QAsSelectorTestSuite.cpp \
     QATestSuite.cpp \
-    QAMarkerTestSuite.cpp \
-    ../../GonzalesApp/qa/QAMarker.cpp \
     LineSplitterTestSuite.cpp \
-    QALearnedCheckerTestSuite.cpp \
-    ../../GonzalesApp/qa/QALearnedChecker.cpp \
     QAsForRepeatSelectorTestSuite.cpp \
     QARepeatPeriodCheckerTestSuite.cpp \
     ../../GonzalesApp/qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.cpp \

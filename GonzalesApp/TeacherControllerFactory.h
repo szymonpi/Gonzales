@@ -9,7 +9,6 @@
 #include "qa/QAsSelection/Selectors/QAsForRepeatSelector.h"
 #include "qa/QAsSelection/Selectors/QAsNotLearnedSelector.h"
 #include "qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.h"
-#include "qa/QARepetitionMarker.h"
 #include "qa/IQARepository.h"
 #include "uiobservers/ExceptionHandler.h"
 #include "qa/QAToSimpleViewConverter.h"
@@ -18,7 +17,7 @@ class TeacherControllerFactory{
 
 public:
     TeacherControllerFactory(std::shared_ptr<IQARepository> qasProvider):
-        m_qasProvider(qasProvider)
+        qasProvider(qasProvider)
     {
 
     }
@@ -28,19 +27,15 @@ public:
     {
         std::shared_ptr<IExceptionHandler> exceptionHandler = std::make_shared<ExceptionHandler>();
         std::shared_ptr<IQAsToLearnCheckedByUserProvider> qasCheckedByUserProvider(
-                    std::make_shared<QAsToLearnCheckedByUserProvider>(m_qasProvider));
-        auto genericMarker = std::make_shared<QAMarker>(m_qasProvider);
+                    std::make_shared<QAsToLearnCheckedByUserProvider>(qasProvider));
         auto qaToViewConverter = std::make_shared<QAToSimpleViewConverter>(questionProvider,
                                                                            answerProvider,
-                                                                           genericMarker);
-        auto qaToRepetitionViewConverter = std::make_shared<QAToSimpleViewConverter>(questionProvider,
-                                                                                     answerProvider,
-                                                                                     std::make_shared<QARepetitionMarker>(m_qasProvider, genericMarker));
+                                                                           qasProvider);
         std::set<Day> periods{1,2,7,30,60,180,360};
         auto repeatPeriodChecker = std::make_shared<QARepeatPeriodChecker>(periods);
-        auto forRepeatSelector = std::make_shared<QAsForRepeatSelector>(qaToRepetitionViewConverter, repeatPeriodChecker);
-        auto notLearnedSelector = std::make_shared<QAsNotLearnedSelector>(qaToViewConverter);
-        auto newSelector = std::make_shared<QAsNewSelector>(qaToViewConverter);
+        auto forRepeatSelector = std::make_shared<QAsForRepeatSelector>(repeatPeriodChecker);
+        auto notLearnedSelector = std::make_shared<QAsNotLearnedSelector>();
+        auto newSelector = std::make_shared<QAsNewSelector>();
 
         std::vector<std::shared_ptr<IQAsSelector> > selectors;
         selectors.push_back(forRepeatSelector);
@@ -49,14 +44,16 @@ public:
 
         std::shared_ptr<IQAsSelector> selector = std::make_shared<QAsSelector>(selectors);
         std::shared_ptr<QAsToLearnProvider> qasToLearnProvider =
-                std::make_shared<QAsToLearnProvider>(qasCheckedByUserProvider, selector);
+                std::make_shared<QAsToLearnProvider>(qasCheckedByUserProvider,
+                                                     selector,
+                                                     qaToViewConverter);
 
         return std::make_shared<TeacherController>(qasToLearnProvider,
                                                    exceptionHandler);
     }
 
 private:
-    std::shared_ptr<IQARepository> m_qasProvider;
+    std::shared_ptr<IQARepository> qasProvider;
 };
 
 #endif // TEACHERCONTROLLERFACTORY_H

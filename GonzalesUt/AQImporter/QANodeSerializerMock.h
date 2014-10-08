@@ -1,10 +1,9 @@
-#ifndef QASERIALIZERMOCK_H
-#define QASERIALIZERMOCK_H
+#pragma once
 
 #include "../gmock.h"
-#include "../../GonzalesApp/qa/qaio/QASerializer.h"
+#include "../../GonzalesApp/qa/qaio/QANodeSerializer.h"
 
-class QASerializerMock : public IQASerializer
+class QANodeSerializerMock : public IQANodeSerializer
 {
 public:
     MOCK_METHOD2(serialize, void(IDataSerializer&, const SimpleTree::Node<QA>&));
@@ -16,4 +15,3 @@ public:
     MOCK_METHOD2(deserialize, void(IDataDeserializer&, SimpleTree::Node<QA>&));
 };
 
-#endif // QASERIALIZERMOCK_H

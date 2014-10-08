@@ -1,14 +1,13 @@
 #pragma once
 
 #include <memory>
-#include<QQueue>
 #include "../QA.h"
 #include "../../common/qtproxies/File.h"
 #include "../../common/qtproxies/DataDeserializerFactory.h"
 #include "../../common/qtproxies/FileFactory.h"
 #include "../../common/Common.h"
 #include "../../common/SimpleTree/Node.h"
-#include "QASerializer.h"
+#include "QANodeSerializer.h"
 #include "IQALoader.h"
 #include "IQAsFilePathProvider.h"
 
@@ -17,7 +16,7 @@ class QALoader: public IQALoader
 public:
     QALoader(std::shared_ptr<IQAsFilePathProvider> filePathProvider,
              std::shared_ptr<IFileFactory> fileFactory = std::make_shared<FileFactory>(),
-             std::shared_ptr<IQADeserializer> qASerializer = std::make_shared<QASerializer>(),
+             std::shared_ptr<IQADeserializer> qASerializer = std::make_shared<QANodeSerializer>(),
              std::shared_ptr<IDataDeserializerFactory> dataDeserializerFactory
                 = std::make_shared<DataDeserializerFactory>());
 

@@ -1,13 +1,16 @@
 #pragma once
 
+#include <set>
+#include <memory>
+
+#include <QDateTime>
+
 #include "Question.h"
 #include "Answer.h"
-#include "stdexcept"
 #include "../common/FileException.h"
-#include <QMultiMap>
-#include <QDateTime>
-#include <set>
-class QA
+#include "IQA.h"
+
+class QA : public IQA
 {
 public:
     enum class AnswerRating
@@ -16,70 +19,20 @@ public:
         Incorrect = 100
     };
 
-    QA(Question question, Answer answer):
-        question(question),
-        answer(answer)
-    {}
+    QA(Question question, Answer answer);
+    QA();
 
-    QA(){}
+    void serialize(IDataSerializer &serializer) const;
+    void deserialize(IDataDeserializer& deserializer);
 
-    void serialize(IDataSerializer &serializer) const
-    {
-        question.serialize(serializer);
-        answer.serialize(serializer);
-        serializer.serialize(answersHistory.size());
-        for(auto &kv: answersHistory)
-        {
-            serializer.serialize(unsigned(kv.second));
-            QDate date = kv.first;
-            serializer.serialize(date);
-        }
-        serializer.serialize(repetitionsHistory.size());
-        for(auto &re: repetitionsHistory)
-        {
-            serializer.serialize(re);
-        }
-    }
+    bool operator ==(const IQA &qA) const;
+    bool isLearned() const;
 
-    void deserialize(IDataDeserializer& deserializer)
-    {
-        question.deserialize(deserializer);
-        answer.deserialize(deserializer);
-        int historySize = 0;
-        deserializer.deserialize(historySize);
-        for(int i = 0; i<historySize; ++i)
-        {
-            unsigned value = 0;
-            deserializer.deserialize(value);
-            QDate date;
-            deserializer.deserialize(date);
-            answersHistory.emplace(date, QA::AnswerRating(value));
-        }
-        int repetitionSize = 0;
-        deserializer.deserialize(repetitionSize);
-        for(int i=0; i<repetitionSize; ++i)
-        {
-           QDate date;
-           deserializer.deserialize(date);
-           repetitionsHistory.insert(date);
-        }
-    }
+    void markAsKnown(const QDate& date);
+    void markAsUnknown(const QDate& date);
 
-    bool operator ==(const QA &qA) const
-    {
-        return (qA.question == question) && (qA.answer == answer);
-    }
-
-    void addHistoryEntry(const QDate &dateTime, AnswerRating questionResult)
-    {
-        answersHistory[dateTime] = questionResult;
-    }
-
-    std::map<QDate, AnswerRating> getAnswersHistory() const
-    {
-        return answersHistory;
-    }
-
+    void presentAnswer();
+    void presentQuestion();
 
 public:
     Question question;

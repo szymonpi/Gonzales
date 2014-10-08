@@ -11,7 +11,7 @@
 #include "DataDeserializerMock.h"
 #include "DataDeserializerFactoryMock.h"
 #include "FileMock.h"
-#include "QASerializerMock.h"
+#include "QANodeSerializerMock.h"
 #include "QAsFilePathProviderMock.h"
 
 using namespace testing;

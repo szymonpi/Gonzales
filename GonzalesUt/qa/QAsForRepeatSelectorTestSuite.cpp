@@ -21,7 +21,7 @@ protected:
 TEST_F(QAsForRepeatSelectorTestSuite, EmptyQAsGiven_ShouldSelectNothing)
 {
     std::vector<std::shared_ptr<QA>> qas;
-    QAsForRepeatSelector selector{m_converterMock, m_repeatPeriodChecker};
+    QAsForRepeatSelector selector{m_repeatPeriodChecker};
     ASSERT_TRUE(selector.select(qas).empty());
 }
 

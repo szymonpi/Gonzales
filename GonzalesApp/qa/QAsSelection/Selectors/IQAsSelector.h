@@ -10,5 +10,5 @@ class IQAsSelector
 {
 public:
     virtual ~IQAsSelector(){}
-    virtual std::vector<std::shared_ptr<QAView>> select(std::vector<std::shared_ptr<QA> > &qas) const= 0;
+    virtual std::vector<std::shared_ptr<QA>> select(std::vector<std::shared_ptr<QA> > &qas) const = 0;
 };

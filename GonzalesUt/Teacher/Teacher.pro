@@ -21,8 +21,6 @@ HEADERS += ../gtest.h \
     ../../GonzalesApp/common/qtproxies/DataDeserializer.h \
     ../../GonzalesApp/common/SimpleTree/Node.h \
     QAsToLearnProviderMock.h \
-    QAMarkerMock.h \
-    ../../GonzalesApp/qa/IQAmarker.h \
     QAViewMock.h \
     ../../GonzalesApp/qa/QAsSelection/Selectors/IQAsSelector.h
 

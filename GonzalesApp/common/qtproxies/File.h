@@ -1,11 +1,8 @@
 #pragma once
 
 #include <QFile>
-#include <QDataStream>
-
 #include <string>
 #include <cstring>
-#include <memory>
 
 #include "IFile.h"
 
@@ -26,6 +23,11 @@ public:
     bool open(QFile::OpenModeFlag flags)
     {
         return file.open(flags);
+    }
+
+    void close()
+    {
+        file.close();
     }
 
     void setFileName(const QString &fileName)

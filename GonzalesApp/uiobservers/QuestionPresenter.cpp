@@ -9,7 +9,7 @@ QuestionPresenter::QuestionPresenter(QTextEdit &textEdit):
 
 void QuestionPresenter::presentQuestion(const Question &question)
 {
-    m_textEdit.setText(question.getAsString());
+    m_textEdit.setText(question.question);
     m_textEdit.setAlignment(Qt::AlignCenter);
     m_textEdit.update();
 }

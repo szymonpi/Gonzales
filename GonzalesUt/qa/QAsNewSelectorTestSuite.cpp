@@ -13,7 +13,7 @@ class QAsNewSelectorTestSuite: public testing::Test
 {
 protected:
     std::shared_ptr<StrictMock<QAToViewConverterMock>> converterMock = std::make_shared<StrictMock<QAToViewConverterMock>>();
-    QAsNewSelector selector{converterMock};
+    QAsNewSelector selector{};
 };
 
 TEST_F(QAsNewSelectorTestSuite, EmptyQAsGiven_ShouldSelectNothing)
@@ -24,8 +24,6 @@ TEST_F(QAsNewSelectorTestSuite, EmptyQAsGiven_ShouldSelectNothing)
 
 TEST_F(QAsNewSelectorTestSuite, OneNewQAGiven_ShouldSelectOne)
 {
-    EXPECT_CALL(*converterMock, convert(_))
-            .WillOnce(Return(std::make_shared<QAViewMock>()));
     std::vector<std::shared_ptr<QA>> qas{std::make_shared<QA>()};
     EXPECT_EQ(1, selector.select(qas).size());
 }

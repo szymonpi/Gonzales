@@ -7,7 +7,7 @@
 #include "../../common/qtproxies/DataSerializerFactory.h"
 #include "../../common/Common.h"
 #include "../../common/SimpleTree/Node.h"
-#include "QASerializer.h"
+#include "QANodeSerializer.h"
 #include "IQASaver.h"
 #include "IQAsFilePathProvider.h"
 
@@ -17,7 +17,7 @@ public:
 
     QASaver(std::shared_ptr<IQAsFilePathProvider> filePathProvider,
             std::shared_ptr<IFileFactory> fileFactory = std::make_shared<FileFactory>(),
-            std::shared_ptr<IQASerializer> qASerializer = std::make_shared<QASerializer>(),
+            std::shared_ptr<IQANodeSerializer> qASerializer = std::make_shared<QANodeSerializer>(),
             std::shared_ptr<IDataSerializerFactory> dataSerializerFactory =
                 std::make_shared<DataSerializerFactory>());
 
@@ -27,7 +27,7 @@ private:
 
     std::shared_ptr<IQAsFilePathProvider> m_filePathProvider;
     std::shared_ptr<IFileFactory> fileFactory;
-    std::shared_ptr<IQASerializer> qASerializer;
+    std::shared_ptr<IQANodeSerializer> qASerializer;
     std::shared_ptr<IDataSerializerFactory> dataSerializerFactory;
     void openFile(IFile &file);
     void serializeFileVersion(IDataSerializer &serializer);

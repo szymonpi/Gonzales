@@ -2,7 +2,6 @@
 
 #include "QA.h"
 
-class QAMarker;
 class QuestionPresenter;
 class AnswerPresenter;
 

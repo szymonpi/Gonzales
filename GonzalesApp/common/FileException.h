@@ -1,5 +1,6 @@
-#ifndef FILEEXCEPTION_H
-#define FILEEXCEPTION_H
+#pragma once
+
+#include <stdexcept>
 
 class FileException : public std::runtime_error
 {
@@ -9,5 +10,3 @@ public:
     {}
 
 };
-
-#endif // FILEEXCEPTION_H
