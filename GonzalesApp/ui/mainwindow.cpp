@@ -9,11 +9,10 @@
 #include "../qa/IQARepository.h"
 #include "../user/UserInfo.h"
 #include "../common/Common.h"
-#include "../uiobservers/AnswerPresenter.h"
-#include "../uiobservers/QuestionPresenter.h"
 #include "../uiobservers/QuestionCollectionPresenter.h"
 #include "../qa/QAsSelection/QAsToLearnByUserChecker.h"
 #include "TeacherControllerFactory.h"
+#include "../uiobservers/QAPresenter.h"
 
 void MainWindow::loadUserData()
 {
@@ -52,12 +51,14 @@ void MainWindow::setupControllers()
 {
     std::shared_ptr<IQuestionCollectionPresenter> l_questionCollectionPresenter(
                                 new QuestionCollectionPresenter(*ui->treeWidgetQuestions));
-    std::shared_ptr<IQuestionPresenter> l_questionPresenter(new QuestionPresenter(*ui->textEditQuestion));
-    std::shared_ptr<IAnswerPresenter> l_answerPresenter(new AnswerPresenter(*ui->textEditAnswer));
+
+    std::shared_ptr<IQAPresenter> l_qaPresenter =
+            std::make_shared<QAPresenter>(*ui->textEditQuestion,
+                                          *ui->textEditAnswer);
 
     qARepository->registerQuestionCollectionPresenter(l_questionCollectionPresenter);
     TeacherControllerFactory teacherControllerFactory(qARepository);
-    teacherController = teacherControllerFactory.create(l_questionPresenter, l_answerPresenter);
+    teacherController = teacherControllerFactory.create(l_qaPresenter);
     connect(teacherController.get(), SIGNAL(stopLearn()), this, SIGNAL(stopLearn()));
 }
 

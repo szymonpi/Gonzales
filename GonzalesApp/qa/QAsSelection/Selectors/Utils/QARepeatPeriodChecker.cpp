@@ -4,19 +4,14 @@
 #include <iterator>
 #include <functional>
 
-QARepeatPeriodChecker::QARepeatPeriodChecker(std::set<Day> periods):
+IsForRepeatQA::IsForRepeatQA(std::set<Day> periods):
     periods(periods)
 {
     if(periods.empty())
         throw std::logic_error("empty period list");
 }
 
-QDate function(const std::pair<QDate,QA::AnswerRating>& answer)
-{
-    return answer.first;
-}
-
-bool QARepeatPeriodChecker::shouldBeRepeated(
+bool IsForRepeatQA::shouldBeRepeated(
         const std::map<QDate, QA::AnswerRating>& answerHistory) const
 {
     if(answerHistory.empty())
@@ -28,7 +23,7 @@ bool QARepeatPeriodChecker::shouldBeRepeated(
                                 (--answerHistory.end())->first);
 }
 
-bool QARepeatPeriodChecker::containsRepeatPeriod(const QDate& firstAnswerDate,
+bool IsForRepeatQA::containsRepeatPeriod(const QDate& firstAnswerDate,
                                                  const QDate& lastAnswerDate) const
 {
     const std::set<QDate> periodDates = getPeriodDates(firstAnswerDate);
@@ -38,7 +33,7 @@ bool QARepeatPeriodChecker::containsRepeatPeriod(const QDate& firstAnswerDate,
     return false;
 }
 
-std::set<QDate> QARepeatPeriodChecker::getPeriodDates(QDate firstAnswerDate) const
+std::set<QDate> IsForRepeatQA::getPeriodDates(QDate firstAnswerDate) const
 {
     std::set<QDate> periodDays;
     for(const auto& period: periods)
@@ -47,7 +42,7 @@ std::set<QDate> QARepeatPeriodChecker::getPeriodDates(QDate firstAnswerDate) con
     return periodDays;
 }
 
-bool QARepeatPeriodChecker::isPeriodInRange(QDate period,
+bool IsForRepeatQA::isPeriodInRange(QDate period,
                                             const QDate& leftBoundDate,
                                             const QDate& rightBoundDate) const
 {

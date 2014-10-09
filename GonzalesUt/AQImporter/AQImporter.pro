@@ -14,12 +14,10 @@ HEADERS += ../gtest.h \
     DataSerializerFactoryMock.h \
     DataDeserializerMock.h \
     DataDeserializerFactoryMock.h \
-    ../../GonzalesApp/qa/Question.h \
     ../../GonzalesApp/qa/qaio/QASaver.h \
     ../../GonzalesApp/qa/qaio/QALoader.h \
     ../../GonzalesApp/qa/qaio/QAImporter.h \
     ../../GonzalesApp/qa/QA.h \
-    ../../GonzalesApp/qa/Answer.h \
     ../../GonzalesApp/common/qtproxies/IFile.h \
     ../../GonzalesApp/common/qtproxies/DataSerializer.h \
     ../../GonzalesApp/common/qtproxies/FileFactory.h \

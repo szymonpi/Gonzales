@@ -1,5 +1,8 @@
 #pragma once
 
+class IDataSerializer;
+class IDataDeserializer;
+
 class IQA
 {
 public:
@@ -7,6 +10,7 @@ public:
     virtual void deserialize(IDataDeserializer& deserializer) = 0;
 
     virtual bool isLearned() const = 0;
+    virtual bool hasHistory() const = 0;
 
     virtual void markAsKnown(const QDate& date) = 0;
     virtual void markAsUnknown(const QDate& date) = 0;

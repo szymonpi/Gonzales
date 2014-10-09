@@ -40,16 +40,6 @@ protected:
         EXPECT_CALL(*m_filePathProviderMock, getPath()).WillOnce(Return(m_path));
     }
 
-    Matcher<const char *> questionMatcher(Question question)
-    {
-        return Matcher<const char*>(StrEq(question.question.toStdString()));
-    }
-
-    Matcher<const char *> answerMatcher(Answer qa)
-    {
-        return Matcher<const char*>(StrEq(qa.getAsString().toStdString()));
-    }
-
     Matcher<quint16> fileVersionMatcher(QAFileVersion fv)
     {
         return  Matcher<quint16>(static_cast<quint16>(QAFileVersion1));

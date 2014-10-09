@@ -6,13 +6,18 @@
 
 typedef unsigned Day;
 
-class QARepeatPeriodChecker: public IQARepeatPeriodChecker
+class IsForRepeatQA
 {
 public:
-    QARepeatPeriodChecker(std::set<Day> periods);
-    bool shouldBeRepeated(const std::map<QDate, QA::AnswerRating>& answerHistory) const override;
+    IsForRepeatQA(std::set<Day> periods);
+
+    bool operator()(std::shared_ptr<QA> qa) const
+    {
+        return shouldBeRepeated(qa->answersHistory);
+    }
 
 private:
+    bool shouldBeRepeated(const std::map<QDate, QA::AnswerRating>& answerHistory) const;
     std::set<Day> periods;
     std::set<QDate> getPeriodDates(QDate firstAnswerDate) const;
     bool containsRepeatPeriod(const QDate &firstAnswerDate, const QDate &lastAnswerDate) const;

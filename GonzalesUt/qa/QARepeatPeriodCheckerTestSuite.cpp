@@ -7,7 +7,7 @@
 
 using namespace testing;
 
-class QARepeatPeriodCheckerTestSuite: public testing::Test
+class IsForRepeatQATestSuite: public testing::Test
 {
 public:
     std::set<Day> onePeriod{1};
@@ -24,115 +24,133 @@ public:
 };
 
 //0.a
-TEST_F(QARepeatPeriodCheckerTestSuite, noPeriodsGiven_ShouldThrow)
+TEST_F(IsForRepeatQATestSuite, noPeriodsGiven_ShouldThrow)
 {
     std::set<Day> periods{};
 
-    ASSERT_THROW(std::make_shared<QARepeatPeriodChecker>(periods), std::logic_error);
+    ASSERT_THROW(IsForRepeatQA{periods}, std::logic_error);
 }
 
 //0.b
-TEST_F(QARepeatPeriodCheckerTestSuite, onePeriodGiven_IncorrectLastAnswerGiven_ShouldReturnFalse)
+TEST_F(IsForRepeatQATestSuite, onePeriodGiven_IncorrectLastAnswerGiven_ShouldReturnFalse)
 {
-    QARepeatPeriodChecker checker{onePeriod};
-    ASSERT_FALSE(checker.shouldBeRepeated({{currentDay, QA::AnswerRating::Incorrect}}));
+    IsForRepeatQA checker{onePeriod};
+    std::shared_ptr<QA> qa = std::make_shared<QA>();
+    qa->markAsUnknown(currentDay);
+    ASSERT_FALSE(checker(qa));
 }
 //1
-TEST_F(QARepeatPeriodCheckerTestSuite,
+TEST_F(IsForRepeatQATestSuite,
        OnePeriodGiven_AnswerHistoryWithTodayGivenShouldReturnFalse)
 {
-    QARepeatPeriodChecker checker{onePeriod};
-    ASSERT_FALSE(checker.shouldBeRepeated({{currentDay, QA::AnswerRating::Correct}}));
+    IsForRepeatQA checker{onePeriod};
+
+    std::shared_ptr<QA> qa = std::make_shared<QA>();
+    qa->markAsKnown(currentDay);
+    ASSERT_FALSE(checker(qa));
 }
 
-//1
-TEST_F(QARepeatPeriodCheckerTestSuite,
-       OnePeriodGiven_emptyAnswerHistoryGivenShouldReturnFalse)
-{
-    QARepeatPeriodChecker checker{onePeriod};
-    ASSERT_FALSE(checker.shouldBeRepeated({}));
-}
 //2
-TEST_F(QARepeatPeriodCheckerTestSuite, OnePeriodGiven_AnswerHistoryWithYesterdayGivenShouldReturnTrue)
+TEST_F(IsForRepeatQATestSuite, OnePeriodGiven_AnswerHistoryWithYesterdayGivenShouldReturnTrue)
 {
-    QARepeatPeriodChecker checker{onePeriod};
-    ASSERT_TRUE(checker.shouldBeRepeated({{yesterday, QA::AnswerRating::Correct}}));
+    IsForRepeatQA checker{onePeriod};
+    std::shared_ptr<QA> qa = std::make_shared<QA>();
+    qa->markAsKnown(yesterday);
+
+    ASSERT_TRUE(checker(qa));
 }
 //3
-TEST_F(QARepeatPeriodCheckerTestSuite,
+TEST_F(IsForRepeatQATestSuite,
        OnePeriodGiven_AnswerHistoryWithDayBeforeYesterdayGivenShouldReturnTrue)
 {
-    QARepeatPeriodChecker checker{onePeriod};
-    ASSERT_TRUE(checker.shouldBeRepeated({{dayBeforeYesterday, QA::AnswerRating::Correct}}));
+    IsForRepeatQA checker{onePeriod};
+    std::shared_ptr<QA> qa = std::make_shared<QA>();
+    qa->markAsKnown(dayBeforeYesterday);
+
+    ASSERT_TRUE(checker(qa));
 }
 //4
-TEST_F(QARepeatPeriodCheckerTestSuite,
+TEST_F(IsForRepeatQATestSuite,
        OnePeriodGiven_AnswerHistoryWithdayBeforeYesterdayAndYesterdayGivenShouldReturnFalse)
 {
-    QARepeatPeriodChecker checker{onePeriod};
-    ASSERT_FALSE(checker.shouldBeRepeated({{yesterday, QA::AnswerRating::Correct},
-                                          {dayBeforeYesterday, QA::AnswerRating::Correct}}));
+    IsForRepeatQA checker{onePeriod};
+    std::shared_ptr<QA> qa = std::make_shared<QA>();
+    qa->markAsKnown(yesterday);
+    qa->markAsKnown(dayBeforeYesterday);
+    ASSERT_FALSE(checker(qa));
 }
 //5
-TEST_F(QARepeatPeriodCheckerTestSuite,
+TEST_F(IsForRepeatQATestSuite,
        OnePeriodGiven_AnswerHistoryWithYesterdayAndTodayGivenShouldReturnFalse)
 {
-    QARepeatPeriodChecker checker{onePeriod};
-    ASSERT_FALSE(checker.shouldBeRepeated({{yesterday, QA::AnswerRating::Correct},
-                                          {currentDay, QA::AnswerRating::Correct}}));
+    IsForRepeatQA checker{onePeriod};
+    std::shared_ptr<QA> qa = std::make_shared<QA>();
+    qa->markAsKnown(yesterday);
+    qa->markAsKnown(currentDay);
+    ASSERT_FALSE(checker(qa));
 }
 //6
-TEST_F(QARepeatPeriodCheckerTestSuite,
+TEST_F(IsForRepeatQATestSuite,
        TwoPeriodGiven_AnswerHistoryWithYesterdayAndDayBeforeYesterdayGivenShouldReturnTrue)
 {
-    QARepeatPeriodChecker checker{twoPeriods};
-    ASSERT_TRUE(checker.shouldBeRepeated({{dayBeforeYesterday, QA::AnswerRating::Correct},
-                                          {yesterday, QA::AnswerRating::Correct}}));
+    IsForRepeatQA checker{twoPeriods};
+    std::shared_ptr<QA> qa = std::make_shared<QA>();
+    qa->markAsKnown(dayBeforeYesterday);
+    qa->markAsKnown(yesterday);
+    ASSERT_TRUE(checker(qa));
 }
 
 //7
-TEST_F(QARepeatPeriodCheckerTestSuite,
+TEST_F(IsForRepeatQATestSuite,
        TwoPeriodGiven_AnswerHistoryWithTodayYesterdayAndDayBeforeYesterdayGivenShouldReturn_False)
 {
-    QARepeatPeriodChecker checker{twoPeriods};
+    IsForRepeatQA checker{twoPeriods};
+    std::shared_ptr<QA> qa = std::make_shared<QA>();
+    qa->markAsKnown(currentDay);
+    qa->markAsKnown(dayBeforeYesterday);
+    qa->markAsKnown(yesterday);
 
-    ASSERT_FALSE(checker.shouldBeRepeated({{currentDay, QA::AnswerRating::Correct},
-                                          {dayBeforeYesterday, QA::AnswerRating::Correct},
-                                          {yesterday, QA::AnswerRating::Correct}}));
+    ASSERT_FALSE(checker(qa));
 }
 
 //8
-TEST_F(QARepeatPeriodCheckerTestSuite,
+TEST_F(IsForRepeatQATestSuite,
        TwoPeriodGiven_AnswerHistoryWithTodayYesterdayAndDayBeforeYesterdayGivenShouldReturnTrue)
 {
-    QARepeatPeriodChecker checker{threePeriods};
+    IsForRepeatQA checker{threePeriods};
+    std::shared_ptr<QA> qa = std::make_shared<QA>();
+    qa->markAsKnown(dayBeforeYesterday);
+    qa->markAsKnown(threeDaysAgo);
+    qa->markAsKnown(fourDaysAgo);
 
-    ASSERT_TRUE(checker.shouldBeRepeated({{dayBeforeYesterday, QA::AnswerRating::Correct},
-                                          {threeDaysAgo, QA::AnswerRating::Correct},
-                                          {fourDaysAgo, QA::AnswerRating::Correct}}));
+    ASSERT_TRUE(checker(qa));
 }
 
 //9
-TEST_F(QARepeatPeriodCheckerTestSuite,
+TEST_F(IsForRepeatQATestSuite,
        TwoPeriodGiven_AnswerHistoryWithThreeDaysAgoShouldReturnTrue)
 {
-    QARepeatPeriodChecker checker{{5}};
+    IsForRepeatQA checker{{5}};
+    std::shared_ptr<QA> qa = std::make_shared<QA>();
+    qa->markAsKnown(threeDaysAgo);
 
-    ASSERT_FALSE(checker.shouldBeRepeated({{threeDaysAgo, QA::AnswerRating::Correct}}));
+    ASSERT_FALSE(checker(qa));
 }
 
 //10
-TEST_F(QARepeatPeriodCheckerTestSuite,
+TEST_F(IsForRepeatQATestSuite,
        ThreePeriodGiven_AnswerHistoryWithThreeDaysAgoShouldReturnTrue)
 {
-    QARepeatPeriodChecker checker{fourPeriods};
+    IsForRepeatQA checker{fourPeriods};
+    std::shared_ptr<QA> qa = std::make_shared<QA>();
+    qa->markAsKnown(fiveDaysAgo);
+    qa->markAsKnown(fourDaysAgo);
+    qa->markAsKnown(threeDaysAgo);
+    qa->markAsKnown(dayBeforeYesterday);
+    qa->markAsKnown(yesterday);
+    qa->markAsKnown(currentDay);
 
-    ASSERT_FALSE(checker.shouldBeRepeated({{fiveDaysAgo, QA::AnswerRating::Correct},
-                                           {fourDaysAgo, QA::AnswerRating::Correct},
-                                           {threeDaysAgo, QA::AnswerRating::Correct},
-                                           {dayBeforeYesterday, QA::AnswerRating::Correct},
-                                           {yesterday, QA::AnswerRating::Correct},
-                                           {currentDay, QA::AnswerRating::Correct}}));
+    ASSERT_FALSE(checker(qa));
 }
 
 

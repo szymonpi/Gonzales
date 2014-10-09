@@ -39,8 +39,8 @@ HEADERS += $$files(common/*.h) \
            ImportHandlerFactory.h \
            QARepositoryFactory.h \
            TeacherControllerFactory.h \
-    qa/IQuestion.h \
-    qa/IAnswer.h
+    uiobservers/QAPresenter.h \
+    uiobservers/IQAPresenter.h
 
 FORMS    += ui/dialogs/logindialog.ui \
     ui/dialogs/dialogcreateaccount.ui \

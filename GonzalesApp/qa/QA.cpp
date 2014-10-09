@@ -1,4 +1,6 @@
 #include "QA.h"
+#include "../common/qtproxies/IDataDeserializer.h"
+#include "../common/qtproxies/IDataSerializer.h"
 
 QA::QA(QString question, QString answer):
     question(question),
@@ -70,6 +72,11 @@ bool QA::isLearned() const
     if(lastItem->second == QA::AnswerRating::Incorrect)
         return false;
     return true;
+}
+
+bool QA::hasHistory() const
+{
+    return !answersHistory.empty();
 }
 
 void QA::markAsKnown(const QDate &date)

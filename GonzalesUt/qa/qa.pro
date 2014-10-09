@@ -70,13 +70,11 @@ SOURCES += \
     ../../GonzalesApp/qa/QAsSelection/QAsToLearnCheckedByUserProvider.cpp \
     ../../GonzalesApp/qa/QAsSelection/QAsToLearnByUserChecker.cpp \
     ../../GonzalesApp/qa/QAsSelection/Selectors/QAsSelector.cpp \
-    ../../GonzalesApp/qa/QAsSelection/Selectors/QAsForRepeatSelector.cpp \
+    ../../GonzalesApp/qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.cpp \
     QAsSelectorTestSuite.cpp \
     QATestSuite.cpp \
     LineSplitterTestSuite.cpp \
-    QAsForRepeatSelectorTestSuite.cpp \
     QARepeatPeriodCheckerTestSuite.cpp \
-    ../../GonzalesApp/qa/QAsSelection/Selectors/Utils/QARepeatPeriodChecker.cpp \
     QAsNotLearnedSelectorTestSuite.cpp \
     QAsNewSelectorTestSuite.cpp
 

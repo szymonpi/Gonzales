@@ -1,4 +1,0 @@
-#ifndef IUIADAPTERS_H
-#define IUIADAPTERS_H
-
-#endif // IUIADAPTERS_H

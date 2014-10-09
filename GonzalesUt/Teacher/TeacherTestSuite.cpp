@@ -16,16 +16,15 @@ class TeacherTestSuite: public ::testing::Test
 
 protected:
     TeacherTestSuite():
-        m_questionPresenterMock(std::make_shared<QuestionPresenterMock>()),
-        m_answerPresenterMock(std::make_shared<AnswerPresenterMock>()),
         m_qasProvider(std::make_shared<QAsToLearnProviderMock>())
     {
 
     }
 
-    std::shared_ptr<QuestionPresenterMock> m_questionPresenterMock;
-    std::shared_ptr<AnswerPresenterMock> m_answerPresenterMock;
-    std::shared_ptr<QAsToLearnProviderMock> m_qasProvider;
+    std::shared_ptr<QAPresenterMock> qaPresenterMock =
+            std::make_shared<StrictMock<QAPresenterMock>>();
+    std::shared_ptr<QAsToLearnProviderMock> m_qasProvider =
+            std::make_shared<QAsToLearnProviderMock>();
     std::shared_ptr<Teacher> teacher;
     std::vector<QA> oneQuestionQueue;
     std::vector<QA> twoQuestionQueue;

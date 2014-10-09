@@ -1,4 +1,5 @@
 #pragma once
+#include <QDataStream>
 
 class IDataSerializer{
 public:

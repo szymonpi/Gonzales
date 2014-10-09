@@ -5,8 +5,6 @@
 
 #include <QDateTime>
 
-#include "Question.h"
-#include "Answer.h"
 #include "../common/FileException.h"
 #include "IQA.h"
 
@@ -27,6 +25,7 @@ public:
 
     bool operator ==(const IQA &qA) const;
     bool isLearned() const;
+    bool hasHistory() const;
 
     void markAsKnown(const QDate& date);
     void markAsUnknown(const QDate& date);
@@ -34,7 +33,7 @@ public:
     void presentAnswer();
     void presentQuestion();
 
-public:
+public: //change to private
     QString question;
     QString answer;
     std::map<QDate, AnswerRating> answersHistory;

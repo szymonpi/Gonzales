@@ -2,21 +2,13 @@
 #define PRESENTERSMOCK_H
 
 #include "../gmock.h"
-#include "../../GonzalesApp/uiobservers/IQuestionPresenter.h"
+#include "../../GonzalesApp/uiobservers/IQAPresenter.h"
 
-
-class QuestionPresenterMock: public IQuestionPresenter
+class QAPresenterMock: public IQAPresenter
 {
 public:
-    MOCK_METHOD1(presentQuestion, void(const Question &));
-    MOCK_METHOD0(clear, void());
-};
-
-class AnswerPresenterMock: public IAnswerPresenter
-{
-public:
-    MOCK_METHOD1(presentAnswer, void(const Answer &));
-    MOCK_METHOD0(clear, void());
+    MOCK_METHOD1(presentAnswer, void(const QString &));
+    MOCK_METHOD1(presentQuestion, void(const QString &));
 };
 
 #endif // PRESENTERSMOCK_H

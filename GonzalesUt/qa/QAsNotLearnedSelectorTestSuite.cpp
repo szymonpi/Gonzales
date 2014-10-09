@@ -13,13 +13,13 @@ class QAsNotLearnedTestSuite: public testing::Test
 {
 protected:
     std::shared_ptr<StrictMock<QAToViewConverterMock>> converterMock = std::make_shared<StrictMock<QAToViewConverterMock>>();
-    QAsNotLearnedSelector selector{};
+    isNotLearned selector{};
 };
 
 TEST_F(QAsNotLearnedTestSuite, EmptyQAsGiven_ShouldSelectNothing)
 {
-    std::vector<std::shared_ptr<QA>> qas;
-    ASSERT_TRUE(selector.select(qas).empty());
+    std::shared_ptr<QA> qa = std::make_shared<QA>();
+    ASSERT_FALSE(selector(qa));
 }
 
 TEST_F(QAsNotLearnedTestSuite, OneQAsGivenWithCorrectedAnsweredQuestion_ShouldSelectNothing)
@@ -27,8 +27,7 @@ TEST_F(QAsNotLearnedTestSuite, OneQAsGivenWithCorrectedAnsweredQuestion_ShouldSe
     std::shared_ptr<QA> qa = std::make_shared<QA>();
     qa->answersHistory.insert(std::make_pair(QDate::currentDate(), QA::AnswerRating::Correct));
 
-    std::vector<std::shared_ptr<QA>> qas{qa};
-    ASSERT_TRUE(selector.select(qas).empty());
+    ASSERT_FALSE(selector(qa));
 }
 
 TEST_F(QAsNotLearnedTestSuite, OneQAsGivenWithIncorrectAnsweredQuestion_ShouldSelectOneQA)
@@ -37,19 +36,5 @@ TEST_F(QAsNotLearnedTestSuite, OneQAsGivenWithIncorrectAnsweredQuestion_ShouldSe
     qa->answersHistory.insert(std::make_pair(QDate::currentDate().addDays(-1), QA::AnswerRating::Correct));
     qa->answersHistory.insert(std::make_pair(QDate::currentDate(), QA::AnswerRating::Incorrect));
 
-    std::vector<std::shared_ptr<QA>> qas{qa};
-    ASSERT_EQ(1, selector.select(qas).size());
+    ASSERT_TRUE(selector(qa));
 }
-
-TEST_F(QAsNotLearnedTestSuite, TwoQAsGivenWithIncorrectAnsweredQuestion_ShouldSelectOneQA)
-{
-    std::shared_ptr<QA> qa1 = std::make_shared<QA>();
-    qa1->answersHistory.insert(std::make_pair(QDate::currentDate().addDays(-1), QA::AnswerRating::Correct));
-    qa1->answersHistory.insert(std::make_pair(QDate::currentDate(), QA::AnswerRating::Incorrect));
-
-    std::shared_ptr<QA> qa2 = std::make_shared<QA>();
-    std::vector<std::shared_ptr<QA>> qas{qa1, qa2};
-    ASSERT_EQ(1, selector.select(qas).size());
-}
-
-
