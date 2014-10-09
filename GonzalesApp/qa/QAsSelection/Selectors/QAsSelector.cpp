@@ -16,10 +16,11 @@ std::vector<std::shared_ptr<QA> > QAsSelector::select(std::vector<std::shared_pt
     auto oldQAsEnd = getOldQasEnd(qas.begin(), qas.end());
     auto forRepeatEnd = getRepeatQasEnd(qas.begin(), oldQAsEnd);
     auto notLearnedEnd = getNotLearnedEnd(forRepeatEnd, oldQAsEnd);
-    auto newQasEnd = getNewQasEnd(oldQAsEnd, qas.end());
 
     for(auto it = qas.begin(); it != notLearnedEnd; ++it)
         selected.push_back(*it);
+
+    auto newQasEnd = getNewQasEnd(oldQAsEnd, qas.end());
     for(auto it = oldQAsEnd; it!= newQasEnd; ++it)
         selected.push_back(*it);
 
