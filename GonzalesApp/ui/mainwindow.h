@@ -42,6 +42,8 @@ private slots:
     
     void on_treeWidgetQuestions_itemChanged(QTreeWidgetItem *item, int column);
 
+    void on_spinBoxNewMaterialAmount_editingFinished();
+
 signals:
     void startLearn();
     void emptyQA();

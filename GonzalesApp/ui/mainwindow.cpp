@@ -138,3 +138,8 @@ void MainWindow::on_treeWidgetQuestions_itemChanged(QTreeWidgetItem *item, int c
     QAsToLearnByUserChecker selector(qARepository);
     selector.select(*item);
 }
+
+void MainWindow::on_spinBoxNewMaterialAmount_editingFinished()
+{
+
+}
