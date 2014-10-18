@@ -6,6 +6,7 @@
 
 #include <QQueue>
 #include "../../GonzalesApp/qa/qaio/QAImporter.h"
+#include "../Teacher/PresentersMock.h"
 #include "FileMock.h"
 #include "LineSplitterMock.h"
 
@@ -32,6 +33,7 @@ protected:
     }
 
     QString filePath;
+    QAPresenterMock presenterMock{};
     std::shared_ptr<StrictMock<FileMock>> m_fileMock = std::make_shared<StrictMock<FileMock>>();
     std::shared_ptr<StrictMock<FileFactoryMock>> m_fileFacotryMock = std::make_shared<StrictMock<FileFactoryMock>>();
     std::shared_ptr<StrictMock<LineSplitterMock>> m_lineSplitterMock = std::make_shared<StrictMock<LineSplitterMock>>();
@@ -64,8 +66,8 @@ TEST_F(QATextFileImporterTestSuite, shouldImportOneQA)
     std::vector<std::shared_ptr<QA> > importedQas = importer.import(filePath);
     ASSERT_FALSE(importedQas.empty());
     std::shared_ptr<QA> importedQa = importedQas[0];
-    EXPECT_EQ("question", importedQa->question);
-    EXPECT_EQ("answer", importedQa->answer);
+    EXPECT_EQ("question", importedQa->getQuestionStringRepresentation());
+    EXPECT_EQ("answer", importedQa->getAnswerStringRepresentation());
 }
 
 TEST_F(QATextFileImporterTestSuite, shouldntImportImproperQA)

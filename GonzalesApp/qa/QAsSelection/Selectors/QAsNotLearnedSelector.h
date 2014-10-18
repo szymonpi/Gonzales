@@ -8,9 +8,11 @@ public:
 
     bool operator()(std::shared_ptr<QA> qa)
     {
-        if(qa->answersHistory.empty())
+        if(!qa->hasHistory())
             return false;
-        return (--qa->answersHistory.end())->second == QA::AnswerRating::Incorrect;
+        if(!qa->isLearned())
+            return true;
+        return false;
     }
 
 };

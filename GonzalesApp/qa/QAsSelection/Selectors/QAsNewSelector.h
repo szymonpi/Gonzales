@@ -11,7 +11,7 @@ public:
     {
         auto newEnd = std::stable_partition(std::begin(qas), std::end(qas),
                                             [](const std::shared_ptr<QA>& qa)
-                                            {return qa->answersHistory.empty();});
+                                            {return !qa->hasHistory();});
 
         std::vector<std::shared_ptr<QA>> qaViews;
         for(auto it = qas.begin(); it != newEnd; ++it)

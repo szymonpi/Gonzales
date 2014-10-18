@@ -34,12 +34,12 @@ public:
     void presentQuestion() const override
     {
         auto qa = m_qaData.lock();
-        m_presenter->presentQuestion(qa->question);
+        qa->presentQuestion(*m_presenter);
     }
     void presentAnswer() const override
     {
         auto qa = m_qaData.lock();
-        m_presenter->presentAnswer(qa->answer);
+        qa->presentAnswer(*m_presenter);
     }
 
 private:

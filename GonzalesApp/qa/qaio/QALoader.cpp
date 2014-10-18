@@ -4,7 +4,7 @@
 
 QALoader::QALoader(std::shared_ptr<IQAsFilePathProvider> filePathProvider,
                    std::shared_ptr<IFileFactory> fileFactory,
-                   std::shared_ptr<IQADeserializer> qASerializer,
+                   std::shared_ptr<IQANodeDeserializer> qASerializer,
                    std::shared_ptr<IDataDeserializerFactory> dataDeserializerFactory):
     m_filePathProvider(filePathProvider),
     m_fileFactory(fileFactory),

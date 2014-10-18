@@ -16,7 +16,7 @@ class QALoader: public IQALoader
 public:
     QALoader(std::shared_ptr<IQAsFilePathProvider> filePathProvider,
              std::shared_ptr<IFileFactory> fileFactory = std::make_shared<FileFactory>(),
-             std::shared_ptr<IQADeserializer> qASerializer = std::make_shared<QANodeSerializer>(),
+             std::shared_ptr<IQANodeDeserializer> qASerializer = std::make_shared<QANodeSerializer>(),
              std::shared_ptr<IDataDeserializerFactory> dataDeserializerFactory
                 = std::make_shared<DataDeserializerFactory>());
 
@@ -25,7 +25,7 @@ public:
 private:
     std::shared_ptr<IQAsFilePathProvider> m_filePathProvider;
     std::shared_ptr<IFileFactory> m_fileFactory;
-    std::shared_ptr<IQADeserializer> m_qADeserializer;
+    std::shared_ptr<IQANodeDeserializer> m_qADeserializer;
     std::shared_ptr<IDataDeserializerFactory> m_DataDeserializerFactory;
 
     void checkFileVersion(IDataDeserializer&deserializer);

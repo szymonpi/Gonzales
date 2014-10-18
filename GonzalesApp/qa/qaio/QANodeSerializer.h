@@ -5,14 +5,14 @@
 #include "../../common/SimpleTree/InfosSerializer.h"
 #include "IQANodeSerializer.h"
 
-class IQADeserializer
+class IQANodeDeserializer
 {
 public:
     virtual void deserialize(IDataDeserializer &deserializer, SimpleTree::Node<QA> &node) = 0;
-    virtual ~IQADeserializer(){}
+    virtual ~IQANodeDeserializer(){}
 };
 
-class QANodeSerializer: public IQANodeSerializer, public IQADeserializer
+class QANodeSerializer: public IQANodeSerializer, public IQANodeDeserializer
 {
 public:
     QANodeSerializer():

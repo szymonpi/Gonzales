@@ -9,7 +9,7 @@ public:
     MOCK_METHOD2(serialize, void(IDataSerializer&, const SimpleTree::Node<QA>&));
 };
 
-class QADeserializerMock : public IQADeserializer
+class QADeserializerMock : public IQANodeDeserializer
 {
 public:
     MOCK_METHOD2(deserialize, void(IDataDeserializer&, SimpleTree::Node<QA>&));

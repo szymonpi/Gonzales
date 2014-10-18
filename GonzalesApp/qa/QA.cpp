@@ -21,11 +21,6 @@ void QA::serialize(IDataSerializer &serializer) const
         QDate date = kv.first;
         serializer.serialize(date);
     }
-    serializer.serialize(repetitionsHistory.size());
-    for(auto &re: repetitionsHistory)
-    {
-        serializer.serialize(re);
-    }
 }
 
 void QA::deserialize(IDataDeserializer &deserializer)
@@ -42,14 +37,6 @@ void QA::deserialize(IDataDeserializer &deserializer)
         QDate date;
         deserializer.deserialize(date);
         answersHistory.emplace(date, QA::AnswerRating(value));
-    }
-    int repetitionSize = 0;
-    deserializer.deserialize(repetitionSize);
-    for(int i=0; i<repetitionSize; ++i)
-    {
-        QDate date;
-        deserializer.deserialize(date);
-        repetitionsHistory.insert(date);
     }
 }
 
@@ -94,12 +81,22 @@ void QA::markAsUnknown(const QDate &date)
     answersHistory[date] =  QA::AnswerRating::Incorrect;
 }
 
-void QA::presentAnswer()
+QString QA::getQuestionStringRepresentation()
 {
-
+    return question;
 }
 
-void QA::presentQuestion()
+QString QA::getAnswerStringRepresentation()
 {
+    return answer;
+}
 
+void QA::presentAnswer(IQAPresenter& presenter)
+{
+    presenter.presentAnswer(answer);
+}
+
+void QA::presentQuestion(IQAPresenter& presenter)
+{
+    presenter.presentQuestion(question);
 }

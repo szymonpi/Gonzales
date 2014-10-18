@@ -25,16 +25,15 @@ TEST_F(QAsNotLearnedTestSuite, EmptyQAsGiven_ShouldSelectNothing)
 TEST_F(QAsNotLearnedTestSuite, OneQAsGivenWithCorrectedAnsweredQuestion_ShouldSelectNothing)
 {
     std::shared_ptr<QA> qa = std::make_shared<QA>();
-    qa->answersHistory.insert(std::make_pair(QDate::currentDate(), QA::AnswerRating::Correct));
-
+    qa->markAsKnown(QDate::currentDate());
     ASSERT_FALSE(selector(qa));
 }
 
 TEST_F(QAsNotLearnedTestSuite, OneQAsGivenWithIncorrectAnsweredQuestion_ShouldSelectOneQA)
 {
     std::shared_ptr<QA> qa = std::make_shared<QA>();
-    qa->answersHistory.insert(std::make_pair(QDate::currentDate().addDays(-1), QA::AnswerRating::Correct));
-    qa->answersHistory.insert(std::make_pair(QDate::currentDate(), QA::AnswerRating::Incorrect));
+    qa->markAsKnown(QDate::currentDate().addDays(-1));
+    qa->markAsUnknown(QDate::currentDate());
 
     ASSERT_TRUE(selector(qa));
 }

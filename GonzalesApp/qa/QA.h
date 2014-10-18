@@ -7,10 +7,12 @@
 
 #include "../common/FileException.h"
 #include "IQA.h"
+#include "../uiobservers/IQAPresenter.h"
 
 class QA : public IQA
 {
 public:
+    friend class IsForRepeatQA;
     enum class AnswerRating
     {
         Correct = 99,
@@ -30,12 +32,14 @@ public:
     void markAsKnown(const QDate& date);
     void markAsUnknown(const QDate& date);
 
-    void presentAnswer();
-    void presentQuestion();
+    QString getQuestionStringRepresentation();
+    QString getAnswerStringRepresentation();
 
-public: //change to private
+    void presentAnswer(IQAPresenter& presenter); /// @todo move to constructor?
+    void presentQuestion(IQAPresenter& presenter); /// @todo move to constructor?
+
+private:
     QString question;
     QString answer;
     std::map<QDate, AnswerRating> answersHistory;
-    std::set<QDate> repetitionsHistory;
 };
