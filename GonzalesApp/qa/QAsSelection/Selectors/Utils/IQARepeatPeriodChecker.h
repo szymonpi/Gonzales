@@ -3,8 +3,6 @@
 #include <set>
 #include <deque>
 
-typedef unsigned Day;
-
 class IQARepeatPeriodChecker
 {
 public:

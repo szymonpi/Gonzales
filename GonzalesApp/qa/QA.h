@@ -25,7 +25,6 @@ public:
     void serialize(IDataSerializer &serializer) const;
     void deserialize(IDataDeserializer& deserializer);
 
-    bool operator ==(const IQA &qA) const;
     bool isLearned() const;
     bool hasHistory() const;
 

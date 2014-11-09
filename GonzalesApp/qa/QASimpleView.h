@@ -12,40 +12,36 @@ public:
     QASimpleView(std::shared_ptr<IQAPresenter> presenter,
                  std::shared_ptr<QA> qa,
                  std::shared_ptr<IQARepository> p_observer):
-        m_presenter(presenter),
-        m_qaData(qa),
-        m_observer(p_observer)
+        qa(qa),
+        presenter(presenter),
+        dataObserver(p_observer)
 
     {
     }
 
     void markAsKnown() override
     {
-        auto qa = m_qaData.lock();
         qa->markAsKnown(QDate::currentDate());
-        m_observer->onQAsUpdate();
+        dataObserver->onQAsUpdate();
     }
     void markAsUnknown() override
     {
-        auto qa = m_qaData.lock();
         qa->markAsUnknown(QDate::currentDate());
-        m_observer->onQAsUpdate();
+        dataObserver->onQAsUpdate();
     }
     void presentQuestion() const override
     {
-        auto qa = m_qaData.lock();
-        qa->presentQuestion(*m_presenter);
+        qa->presentQuestion(*presenter);
     }
     void presentAnswer() const override
     {
-        auto qa = m_qaData.lock();
-        qa->presentAnswer(*m_presenter);
+        qa->presentAnswer(*presenter);
     }
 
 private:
-    std::shared_ptr<IQAPresenter> m_presenter;
-    std::weak_ptr<QA> m_qaData;
-    std::shared_ptr<IQARepository> m_observer;
+    std::shared_ptr<QA> qa;
+    std::shared_ptr<IQAPresenter> presenter;
+    std::shared_ptr<IQARepository> dataObserver;
 
 
 };

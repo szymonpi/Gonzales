@@ -40,17 +40,6 @@ void QA::deserialize(IDataDeserializer &deserializer)
     }
 }
 
-bool QA::operator ==(const IQA &qA) const
-{
-    const QA* qa_ = static_cast<const QA*>(&qA);
-    if(!qa_)
-        return false;
-
-    return qa_->question == question &&
-            qa_->answer == answer &&
-            qa_->answersHistory == answersHistory;
-}
-
 bool QA::isLearned() const
 {
     if(answersHistory.empty())

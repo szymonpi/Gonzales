@@ -21,15 +21,14 @@ public:
 
     }
 
-    std::shared_ptr<TeacherController> create(std::shared_ptr<IQAPresenter> qaPresenter)
+    std::shared_ptr<TeacherController> create(std::shared_ptr<IQAPresenter> qaPresenter,
+                                              std::shared_ptr<IQAsSelector> selector)
     {
         std::shared_ptr<IExceptionHandler> exceptionHandler = std::make_shared<ExceptionHandler>();
         std::shared_ptr<IQAsToLearnCheckedByUserProvider> qasCheckedByUserProvider(
                     std::make_shared<QAsToLearnCheckedByUserProvider>(qasProvider));
         auto qaToViewConverter = std::make_shared<QAToSimpleViewConverter>(qaPresenter,
                                                                            qasProvider);
-
-        std::shared_ptr<IQAsSelector> selector = std::make_shared<QAsSelector>();
         std::shared_ptr<QAsToLearnProvider> qasToLearnProvider =
                 std::make_shared<QAsToLearnProvider>(qasCheckedByUserProvider,
                                                      selector,

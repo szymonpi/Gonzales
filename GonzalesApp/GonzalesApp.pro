@@ -40,7 +40,8 @@ HEADERS += $$files(common/*.h) \
            QARepositoryFactory.h \
            TeacherControllerFactory.h \
     uiobservers/QAPresenter.h \
-    uiobservers/IQAPresenter.h
+    uiobservers/IQAPresenter.h \
+    qa/QAsSelection/Selectors/IQASelectorSettings.h
 
 FORMS    += ui/dialogs/logindialog.ui \
     ui/dialogs/dialogcreateaccount.ui \

@@ -13,6 +13,8 @@
 #include "../qa/QAsSelection/QAsToLearnByUserChecker.h"
 #include "TeacherControllerFactory.h"
 #include "../uiobservers/QAPresenter.h"
+#include <QInputDialog>
+#include <QDebug>
 
 void MainWindow::loadUserData()
 {
@@ -58,7 +60,9 @@ void MainWindow::setupControllers()
 
     qARepository->registerQuestionCollectionPresenter(l_questionCollectionPresenter);
     TeacherControllerFactory teacherControllerFactory(qARepository);
-    teacherController = teacherControllerFactory.create(l_qaPresenter);
+    std::shared_ptr<QAsSelector> selector = std::make_shared<QAsSelector>();
+    selectorSettings = selector;
+    teacherController = teacherControllerFactory.create(l_qaPresenter, selector);
     connect(teacherController.get(), SIGNAL(stopLearn()), this, SIGNAL(stopLearn()));
 }
 
@@ -139,7 +143,107 @@ void MainWindow::on_treeWidgetQuestions_itemChanged(QTreeWidgetItem *item, int c
     selector.select(*item);
 }
 
-void MainWindow::on_spinBoxNewMaterialAmount_editingFinished()
+void MainWindow::on_horizontalSlider_valueChanged(int value)
 {
+    QString newMaterialLabel = "New material :";
+    newMaterialLabel += QString::number(value);
+    newMaterialLabel += "%";
+    ui->labelMaterial->setText(newMaterialLabel);
 
+    QString oldMaterialLabel = "Material for repetition :";
+    oldMaterialLabel += QString::number(100 - value);
+    oldMaterialLabel += "%";
+    ui->labelRepetitions->setText(oldMaterialLabel);
+
+    unsigned QAsNumber = ui->spinBoxMaterialAmount->value();
+    double newMaterialPart = value/100;
+    double oldMaterialPart = 1 - newMaterialPart;
+
+    unsigned maxNewQAs = newMaterialPart * QAsNumber;
+    unsigned maxOldQAs = oldMaterialPart * QAsNumber;
+
+    unsigned maxForRepetition = maxOldQAs / 2;
+    unsigned maxForNotLearned = maxOldQAs / 2;
+
+    selectorSettings->setMaxQA(IQASelectorSettings::SettingsMaxNewQAs, maxNewQAs);
+    selectorSettings->setMaxQA(IQASelectorSettings::SettingsMaxForRepeat, maxForRepetition);
+    selectorSettings->setMaxQA(IQASelectorSettings::SettingsMaxNotLearned, maxForNotLearned);
+}
+
+void MainWindow::on_checkBoxRepetitionOnly_toggled(bool checked)
+{
+    if(checked)
+    {
+        newMaterialAmount = ui->horizontalSlider->value();
+        ui->horizontalSlider->setValue(0);
+    }
+    else
+    {
+        ui->horizontalSlider->setValue(newMaterialAmount);
+    }
+}
+
+void MainWindow::on_toolButtonAddPeriod_clicked()
+{
+    QInputDialog dialog(this);
+    dialog.setModal(true);
+    QString days = dialog.getText(this, "Get period", "Period");
+
+    bool ok;
+    days.toInt(&ok);
+    if(ok)
+    {
+        ui->listWidgetRepetitionPeriods->addItem(days);
+        std::vector<QListWidgetItem> widgets;
+        widgets.reserve(ui->listWidgetRepetitionPeriods->count());
+
+        for(int i = 0; i < ui->listWidgetRepetitionPeriods->count(); ++i)
+        {
+            widgets.push_back(*ui->listWidgetRepetitionPeriods->item(i));
+        }
+
+        std::sort(widgets.begin(), widgets.end(),
+                  [](const QListWidgetItem& widgetL,
+                     const QListWidgetItem& widgetR){
+                     return widgetL.text().toInt() < widgetR.text().toInt();});
+
+        ui->listWidgetRepetitionPeriods->clear();
+        for(const auto& widget: widgets)
+        {
+            ui->listWidgetRepetitionPeriods->addItem(widget.text());
+        }
+    }
+}
+
+void MainWindow::on_toolButtonRemovePeriod_clicked()
+{
+    ui->listWidgetRepetitionPeriods->takeItem(ui->listWidgetRepetitionPeriods->currentRow());
+}
+
+void MainWindow::on_spinBoxMaterialAmount_valueChanged(int)
+{
+    int value = ui->horizontalSlider->value();
+    QString newMaterialLabel = "New material :";
+    newMaterialLabel += QString::number(value);
+    newMaterialLabel += "%";
+    ui->labelMaterial->setText(newMaterialLabel);
+
+    QString oldMaterialLabel = "Material for repetition :";
+    oldMaterialLabel += QString::number(100 - value);
+    oldMaterialLabel += "%";
+    ui->labelRepetitions->setText(oldMaterialLabel);
+
+    unsigned QAsNumber = ui->spinBoxMaterialAmount->value();
+    double newMaterialPart = double(value)/double(100);
+    double oldMaterialPart = 1 - newMaterialPart;
+
+    unsigned maxNewQAs = newMaterialPart * QAsNumber;
+    unsigned maxOldQAs = oldMaterialPart * QAsNumber;
+
+    unsigned maxForRepetition = maxOldQAs / 2;
+    unsigned maxForNotLearned = maxOldQAs / 2;
+
+    selectorSettings->setMaxQA(IQASelectorSettings::SettingsMaxNewQAs, maxNewQAs);
+    selectorSettings->setMaxQA(IQASelectorSettings::SettingsMaxForRepeat, maxForRepetition);
+    selectorSettings->setMaxQA(IQASelectorSettings::SettingsMaxNotLearned, maxForNotLearned);
 }

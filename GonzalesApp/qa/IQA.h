@@ -23,7 +23,5 @@ public:
     virtual QString getQuestionStringRepresentation() = 0;
     virtual QString getAnswerStringRepresentation() = 0;
 
-    virtual bool operator ==(const IQA &qA) const = 0;
-
     virtual ~IQA(){}
 };
