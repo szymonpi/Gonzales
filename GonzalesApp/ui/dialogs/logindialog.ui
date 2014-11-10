@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Login to gonzales!</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../../icons.qrc">
+    <normaloff>:/resources/icons/gonzales_icon.png</normaloff>:/resources/icons/gonzales_icon.png</iconset>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
@@ -94,6 +98,8 @@
   <tabstop>comboBoxAccounts</tabstop>
   <tabstop>toolButtonCreateNewAccount</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="../../icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

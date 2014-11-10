@@ -8,5 +8,6 @@
         <file>resources/icons/ok.png</file>
         <file>resources/icons/play.png</file>
         <file>resources/icons/settings.png</file>
+        <file>resources/icons/gonzales_icon.png</file>
     </qresource>
 </RCC>
