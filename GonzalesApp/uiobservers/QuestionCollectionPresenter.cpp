@@ -25,7 +25,7 @@ void QuestionCollectionPresenter::buildWidgetTree(const SimpleTree::Node<QA> &no
         item->setText(0, node.getNodeValue()->getQuestionStringRepresentation());
         item->setText(1, node.getNodeValue()->getAnswerStringRepresentation());
         item->setDisabled(false);
-        QPixmap pixmap("://resources/icons/question.jpg");
+        QPixmap pixmap("://resources/icons/document.png");
         QIcon icon(pixmap);
         item->setIcon(0, icon);
         if(parent)

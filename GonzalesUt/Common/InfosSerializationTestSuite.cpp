@@ -12,6 +12,7 @@
 #include "../AQImporter/DataDeserializerMock.h"
 #include "../AQImporter/DataSerializerMock.h"
 #include <memory>
+#include <QStringList>
 
 using namespace testing;
 using namespace SimpleTree;

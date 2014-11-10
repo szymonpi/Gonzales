@@ -2,7 +2,7 @@
 
 #include <set>
 #include <memory>
-
+#include <map>
 #include <QDateTime>
 
 #include "../common/FileException.h"
