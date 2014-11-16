@@ -62,6 +62,35 @@ void MainWindow::setupControllers()
     TeacherControllerFactory teacherControllerFactory(qARepository);
     std::shared_ptr<QAsSelector> selector = std::make_shared<QAsSelector>();
     selectorSettings = selector;
+
+    auto getterFun = [this](){ return this->ui->horizontalSlider->value();};
+    auto uiSetterFun = [this](const int& val){ this->ui->horizontalSlider->setValue(val);};
+    auto userSetter = [this](const int& val)
+    {
+        int newMaterial = this->ui->spinBoxMaterialAmount->value()*(double)val/100;
+        int oldMaterial = 1 - newMaterial;
+        int repetitions = oldMaterial / 2;
+        int notLearned = oldMaterial/2;
+        this->selectorSettings->setMaxQA(QAsSelector::SettingsMaxNewQAs, newMaterial);
+        this->selectorSettings->setMaxQA(QAsSelector::SettingsMaxForRepeat, repetitions);
+        this->selectorSettings->setMaxQA(QAsSelector::SettingsMaxNotLearned, notLearned);
+    };
+    std::shared_ptr<ISetting> setting = std::make_shared<Setting<int> >
+    (
+        getterFun,
+        uiSetterFun,
+        userSetter,
+        std::make_shared<ApplicationSettings>(),
+        g_Users + "/" + m_userInfo.login + "/" + "settings",
+        "MaterialDisposal"
+    );
+
+    settings.push_back(setting);
+    for(const auto& setting: settings)
+    {
+        setting->load();
+    }
+
     teacherController = teacherControllerFactory.create(l_qaPresenter, selector);
     connect(teacherController.get(), SIGNAL(stopLearn()), this, SIGNAL(stopLearn()));
 }
@@ -154,33 +183,6 @@ void MainWindow::on_horizontalSlider_valueChanged(int value)
     oldMaterialLabel += QString::number(100 - value);
     oldMaterialLabel += "%";
     ui->labelRepetitions->setText(oldMaterialLabel);
-
-    unsigned QAsNumber = ui->spinBoxMaterialAmount->value();
-    double newMaterialPart = value/100;
-    double oldMaterialPart = 1 - newMaterialPart;
-
-    unsigned maxNewQAs = newMaterialPart * QAsNumber;
-    unsigned maxOldQAs = oldMaterialPart * QAsNumber;
-
-    unsigned maxForRepetition = maxOldQAs / 2;
-    unsigned maxForNotLearned = maxOldQAs / 2;
-
-    selectorSettings->setMaxQA(IQASelectorSettings::SettingsMaxNewQAs, maxNewQAs);
-    selectorSettings->setMaxQA(IQASelectorSettings::SettingsMaxForRepeat, maxForRepetition);
-    selectorSettings->setMaxQA(IQASelectorSettings::SettingsMaxNotLearned, maxForNotLearned);
-}
-
-void MainWindow::on_checkBoxRepetitionOnly_toggled(bool checked)
-{
-    if(checked)
-    {
-        newMaterialAmount = ui->horizontalSlider->value();
-        ui->horizontalSlider->setValue(0);
-    }
-    else
-    {
-        ui->horizontalSlider->setValue(newMaterialAmount);
-    }
 }
 
 void MainWindow::on_toolButtonAddPeriod_clicked()
@@ -233,17 +235,21 @@ void MainWindow::on_spinBoxMaterialAmount_valueChanged(int)
     oldMaterialLabel += "%";
     ui->labelRepetitions->setText(oldMaterialLabel);
 
-    unsigned QAsNumber = ui->spinBoxMaterialAmount->value();
-    double newMaterialPart = double(value)/double(100);
-    double oldMaterialPart = 1 - newMaterialPart;
 
-    unsigned maxNewQAs = newMaterialPart * QAsNumber;
-    unsigned maxOldQAs = oldMaterialPart * QAsNumber;
+}
 
-    unsigned maxForRepetition = maxOldQAs / 2;
-    unsigned maxForNotLearned = maxOldQAs / 2;
+void MainWindow::on_pushButton_clicked()
+{
+    for(const auto& setting: settings)
+    {
+        setting->update();
+    }
+}
 
-    selectorSettings->setMaxQA(IQASelectorSettings::SettingsMaxNewQAs, maxNewQAs);
-    selectorSettings->setMaxQA(IQASelectorSettings::SettingsMaxForRepeat, maxForRepetition);
-    selectorSettings->setMaxQA(IQASelectorSettings::SettingsMaxNotLearned, maxForNotLearned);
+void MainWindow::on_pushButton_2_clicked()
+{
+    for(const auto& setting: settings)
+    {
+        setting->load();
+    }
 }

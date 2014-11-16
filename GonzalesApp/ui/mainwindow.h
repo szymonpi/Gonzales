@@ -9,6 +9,8 @@
 #include "qa/ImportHandler.h"
 #include <QTreeWidgetItem>
 #include <qa/QAsSelection/Selectors/QAsSelector.h>
+#include "../common/Setting.h"
+
 
 class IQARepository;
 
@@ -42,12 +44,13 @@ private slots:
     void on_pushButtonShowAnswer_clicked();
     void on_treeWidgetQuestions_itemChanged(QTreeWidgetItem *item, int column);
     void on_horizontalSlider_valueChanged(int value);
-    void on_checkBoxRepetitionOnly_toggled(bool checked);
     void on_toolButtonAddPeriod_clicked();
-
     void on_toolButtonRemovePeriod_clicked();
-
     void on_spinBoxMaterialAmount_valueChanged(int);
+
+    void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
 
 signals:
     void startLearn();
@@ -74,9 +77,7 @@ private:
         QState stateShowAnswer;
         QState stateAnswerVerified;
 
-    int newMaterialAmount = 0;
-
-
+    std::vector<std::shared_ptr<ISetting>> settings;
     void setupStateMachine();
 };
 

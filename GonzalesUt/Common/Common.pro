@@ -32,7 +32,8 @@ SOURCES += main.cpp \
     NodeDeserializationTestSuite.cpp \
     NodeSerializationTestSuite.cpp \
     InfosSerializationTestSuite.cpp \
-    InfosDeserializationTestSuite.cpp
+    InfosDeserializationTestSuite.cpp \
+    SettingTestSuite.cpp
 
 
 unix

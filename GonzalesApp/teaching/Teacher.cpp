@@ -8,7 +8,7 @@ Teacher::Teacher(std::shared_ptr<IQAsToLearnProvider> qAsToLearnProvider):
     m_qAViewsToLearn = qAsToLearnProvider->getQAs();
 
     if(m_qAViewsToLearn.empty())
-        throw std::logic_error("Are you check what you want to learn?");
+        throw std::logic_error("Did you check what you want to learn?");
 
 }
 
