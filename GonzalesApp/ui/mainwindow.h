@@ -13,6 +13,7 @@
 
 
 class IQARepository;
+class SettingsBuilder;
 
 namespace Ui {
 class MainWindow;
@@ -23,7 +24,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(const UserInfo &m_userInfo,
+    explicit MainWindow(const UserInfo &userInfo,
                         std::shared_ptr<IQARepository> qARepository,
                         std::shared_ptr<ImportHandler> importHandler,
                         QWidget *parent = 0);
@@ -35,8 +36,9 @@ public:
     void setupWindowUI();
     void setupControllers();
     void loadUserData();
-private slots:
+    void loadSettings();
 
+private slots:
     void on_pushButtonKnowIt_clicked();
     void on_pushButtonDontKnowIt_clicked();
     void on_actionStart_triggered();
@@ -47,9 +49,7 @@ private slots:
     void on_toolButtonAddPeriod_clicked();
     void on_toolButtonRemovePeriod_clicked();
     void on_spinBoxMaterialAmount_valueChanged(int);
-
     void on_pushButton_clicked();
-
     void on_pushButton_2_clicked();
 
 signals:
@@ -61,12 +61,20 @@ signals:
     void stopLearn();
 
 private:
+
+    enum MainTabs
+    {
+        MainTabs_WelcomeScreen = 0,
+        Maintabs_Learning,
+        MainTabs_Library,
+        Maintabs_Settings
+    };
+
     Ui::MainWindow *ui;
-    UserInfo m_userInfo;
+    UserInfo userInfo;
     std::shared_ptr<IQARepository> qARepository;
     std::shared_ptr<ImportHandler> importHandler;
     std::shared_ptr<TeacherController> teacherController;
-    std::shared_ptr<IQASelectorSettings> selectorSettings;
 
     QPair<QString,QString> currentQA;
     QStateMachine stateMachine;
@@ -77,6 +85,7 @@ private:
         QState stateShowAnswer;
         QState stateAnswerVerified;
 
+    std::shared_ptr<QAsSelector> selector;
     std::vector<std::shared_ptr<ISetting>> settings;
     void setupStateMachine();
 };

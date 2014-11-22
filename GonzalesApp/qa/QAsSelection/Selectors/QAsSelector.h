@@ -23,7 +23,7 @@ private:
     QAsSelector::QAsIter getNotLearnedEnd(QAsIter begin, QAsIter end) const;
     QAsSelector::QAsIter getNewQasEnd(QAsIter begin, QAsIter end) const;
 
-    std::map<Settings, unsigned> qaMax{{SettingsMaxForRepeat, 20},
+    std::map<Settings, Day> qaMax{{SettingsMaxForRepeat, 20},
                                        {SettingsMaxNewQAs, 15},
                                        {SettingsMaxNotLearned, 20}};
     std::set<Day> periods{1,2,7,30,90,180,360};

@@ -44,7 +44,7 @@ QAsSelector::QAsIter QAsSelector::getRepeatQasEnd(QAsIter begin, QAsIter end) co
 {
     auto forRepeatEnd = std::partition(begin, end, IsForRepeatQA{periods});
     int dist = std::distance(begin, forRepeatEnd);
-    if( dist> qaMax.at(SettingsMaxForRepeat))
+    if( static_cast<Day>(dist) > qaMax.at(SettingsMaxForRepeat))
         forRepeatEnd = begin + qaMax.at(SettingsMaxForRepeat);
     return forRepeatEnd;
 }
@@ -52,7 +52,7 @@ QAsSelector::QAsIter QAsSelector::getRepeatQasEnd(QAsIter begin, QAsIter end) co
 QAsSelector::QAsIter QAsSelector::getNotLearnedEnd(QAsIter begin, QAsIter end) const
 {
     auto notLearnedEnd = std::partition(begin, end, isNotLearned{});
-    if(std::distance(begin, notLearnedEnd) > qaMax.at(SettingsMaxNotLearned))
+    if(static_cast<Day>(std::distance(begin, notLearnedEnd)) > static_cast<Day>(qaMax.at(SettingsMaxNotLearned)))
         notLearnedEnd = begin + qaMax.at(SettingsMaxNotLearned);
 
     return notLearnedEnd;
@@ -61,7 +61,7 @@ QAsSelector::QAsIter QAsSelector::getNotLearnedEnd(QAsIter begin, QAsIter end) c
 QAsSelector::QAsIter QAsSelector::getNewQasEnd(const QAsIter begin, QAsIter end) const
 {
     auto newQasEnd = end;
-    if(std::distance(begin, end)> qaMax.at(SettingsMaxNewQAs))
+    if(static_cast<Day>(std::distance(begin, end)) > static_cast<Day>(qaMax.at(SettingsMaxNewQAs)))
         newQasEnd = begin + qaMax.at(SettingsMaxNewQAs);
     return newQasEnd;
 }

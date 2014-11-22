@@ -45,7 +45,9 @@ HEADERS += $$files(common/*.h) \
     teaching/TeachingSettings.h \
     teaching/ITeachingSettings.h \
     common/ISetting.h \
-    common/Setting.h
+    common/Setting.h \
+    qa/QAsSelection/Selectors/MaterialDisposalCalculator.h \
+    ui/SettingsBuilder.h
 
 FORMS    += ui/dialogs/logindialog.ui \
     ui/dialogs/dialogcreateaccount.ui \

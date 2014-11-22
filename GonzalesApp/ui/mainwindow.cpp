@@ -15,6 +15,8 @@
 #include "../uiobservers/QAPresenter.h"
 #include <QInputDialog>
 #include <QDebug>
+#include "../qa/QAsSelection/Selectors/MaterialDisposalCalculator.h"
+#include "SettingsBuilder.h"
 
 void MainWindow::loadUserData()
 {
@@ -27,7 +29,7 @@ MainWindow::MainWindow(const UserInfo &userInfo,
                        QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    m_userInfo(userInfo),
+    userInfo(userInfo),
     qARepository(qARepository),
     importHandler(importHandler),
     stateIdle(),
@@ -40,13 +42,23 @@ MainWindow::MainWindow(const UserInfo &userInfo,
     setupWindowUI();
     setupControllers();
     loadUserData();
-
+    loadSettings();
 }
 
 void MainWindow::setupWindowUI()
 {
-    setWindowTitle("Logged as "+m_userInfo.login);
+    setWindowTitle("Logged as "+userInfo.login);
     setupStateMachine();
+}
+
+void MainWindow::loadSettings()
+{
+    SettingsBuilder settingsBuilder{*ui, selector, userInfo};
+    settings = settingsBuilder.build(*ui, selector);
+    for(const auto& setting: settings)
+    {
+        setting->load();
+    }
 }
 
 void MainWindow::setupControllers()
@@ -60,37 +72,7 @@ void MainWindow::setupControllers()
 
     qARepository->registerQuestionCollectionPresenter(l_questionCollectionPresenter);
     TeacherControllerFactory teacherControllerFactory(qARepository);
-    std::shared_ptr<QAsSelector> selector = std::make_shared<QAsSelector>();
-    selectorSettings = selector;
-
-    auto getterFun = [this](){ return this->ui->horizontalSlider->value();};
-    auto uiSetterFun = [this](const int& val){ this->ui->horizontalSlider->setValue(val);};
-    auto userSetter = [this](const int& val)
-    {
-        int newMaterial = this->ui->spinBoxMaterialAmount->value()*(double)val/100;
-        int oldMaterial = 1 - newMaterial;
-        int repetitions = oldMaterial / 2;
-        int notLearned = oldMaterial/2;
-        this->selectorSettings->setMaxQA(QAsSelector::SettingsMaxNewQAs, newMaterial);
-        this->selectorSettings->setMaxQA(QAsSelector::SettingsMaxForRepeat, repetitions);
-        this->selectorSettings->setMaxQA(QAsSelector::SettingsMaxNotLearned, notLearned);
-    };
-    std::shared_ptr<ISetting> setting = std::make_shared<Setting<int> >
-    (
-        getterFun,
-        uiSetterFun,
-        userSetter,
-        std::make_shared<ApplicationSettings>(),
-        g_Users + "/" + m_userInfo.login + "/" + "settings",
-        "MaterialDisposal"
-    );
-
-    settings.push_back(setting);
-    for(const auto& setting: settings)
-    {
-        setting->load();
-    }
-
+    selector = std::make_shared<QAsSelector>();
     teacherController = teacherControllerFactory.create(l_qaPresenter, selector);
     connect(teacherController.get(), SIGNAL(stopLearn()), this, SIGNAL(stopLearn()));
 }
@@ -155,7 +137,7 @@ void MainWindow::on_pushButtonShowAnswer_clicked()
 void MainWindow::on_actionStart_triggered()
 {
     teacherController->startTeaching();
-    ui->MainTab->setCurrentIndex(0);
+    ui->MainTab->setCurrentIndex(MainTabs::Maintabs_Learning);
     emit startLearn();
 }
 

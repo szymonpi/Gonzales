@@ -43,7 +43,7 @@
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <property name="iconSize">
        <size>
@@ -57,6 +57,24 @@
       <property name="tabsClosable">
        <bool>false</bool>
       </property>
+      <widget class="QWidget" name="Gonzales">
+       <attribute name="icon">
+        <iconset resource="../icons.qrc">
+         <normaloff>:/resources/icons/gonzales_icon.png</normaloff>:/resources/icons/gonzales_icon.png</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>Gonzales</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_13">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600; color:#0c1f9e;&quot;&gt;Welcome to gonzales!&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; font-style:italic;&quot;&gt;- click &amp;quot;+&amp;quot; icon and import your learning material&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; font-style:italic;&quot;&gt;- click Library and select what do you want to learn&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; font-style:italic;&quot;&gt;- click &amp;quot;play&amp;quot; button to start learning!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="learning">
        <attribute name="icon">
         <iconset resource="../icons.qrc">
@@ -511,41 +529,6 @@ p, li { white-space: pre-wrap; }
                   <property name="sortingEnabled">
                    <bool>false</bool>
                   </property>
-                  <item>
-                   <property name="text">
-                    <string>1</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>2</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>7</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>30</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>90</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>180</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>360</string>
-                   </property>
-                  </item>
                  </widget>
                 </item>
                </layout>
