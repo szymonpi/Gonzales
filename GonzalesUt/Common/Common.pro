@@ -33,7 +33,8 @@ SOURCES += main.cpp \
     NodeSerializationTestSuite.cpp \
     InfosSerializationTestSuite.cpp \
     InfosDeserializationTestSuite.cpp \
-    SettingTestSuite.cpp
+    SettingTestSuite.cpp \
+    PasswordEncryptorTestSuite.cpp
 
 
 unix

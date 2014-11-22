@@ -2,6 +2,7 @@
 #include <QString>
 #include <QRegExp>
 #include <QSettings>
+#include "../common/Encryptors.h"
 
 AccountCreator::AccountCreator(std::shared_ptr<IApplicationSettings>
                                settings, std::shared_ptr<ICredentialsValidatorFactory> validatorFactory):
@@ -25,8 +26,12 @@ void AccountCreator::checkCanCreateAccount(const QString &confirmedPassword, con
 
 void AccountCreator::createEntryInApplicationSettings(const QString &password, const QString &login)
 {
+    PasswordEncryptor encryptor;
+    PasswordInfo info = encryptor.encrypt(password);
+
     settings->setValue(g_Users+"/", login);
-    settings->setValue(g_Users+"/"+login+"/password", password);
+    settings->setValue(g_Users+"/"+login+"/password", info.encryptedPassword);
+    settings->setValue(g_Users+"/"+login+"/passwordSalt", info.salt);
 }
 
 void AccountCreator::create(const QString &login, const QString &password, const QString &confirmedPassword)
