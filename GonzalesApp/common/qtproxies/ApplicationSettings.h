@@ -4,12 +4,13 @@
 #include <QStringList>
 #include "../Common.h"
 #include "IApplicationSettings.h"
+#include <QDebug>
 
 class ApplicationSettings: public IApplicationSettings
 {
 public:
     ApplicationSettings():
-        settings(g_Company, g_Project)
+        settings("settings.ini", QSettings::IniFormat)
     {
     }
 

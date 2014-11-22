@@ -182,9 +182,7 @@ void MainWindow::on_toolButtonAddPeriod_clicked()
         widgets.reserve(ui->listWidgetRepetitionPeriods->count());
 
         for(int i = 0; i < ui->listWidgetRepetitionPeriods->count(); ++i)
-        {
             widgets.push_back(*ui->listWidgetRepetitionPeriods->item(i));
-        }
 
         std::sort(widgets.begin(), widgets.end(),
                   [](const QListWidgetItem& widgetL,
@@ -193,9 +191,7 @@ void MainWindow::on_toolButtonAddPeriod_clicked()
 
         ui->listWidgetRepetitionPeriods->clear();
         for(const auto& widget: widgets)
-        {
             ui->listWidgetRepetitionPeriods->addItem(widget.text());
-        }
     }
 }
 
