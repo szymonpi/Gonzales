@@ -53,7 +53,7 @@ void MainWindow::setupWindowUI()
 
 void MainWindow::loadSettings()
 {
-    SettingsBuilder settingsBuilder{*ui, selector, userInfo};
+    SettingsBuilder settingsBuilder{g_Users + "/" + userInfo.login + "/" + "settings"};
     settings = settingsBuilder.build(*ui, selector);
     for(const auto& setting: settings)
     {

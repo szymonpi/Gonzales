@@ -58,14 +58,14 @@ public:
 
 TEST_F(InfosSerializationTestSuite, emptyInfosMapGiven_shouldntSerializeAnything)
 {
-    QMap<quint8, QVariant> infosMap;
+    std::map<quint8, QVariant> infosMap;
     EXPECT_CALL(*dataSerializerMock, serialize(TypedEq<int>(0)));
     serializer.serialize(*dataSerializerMock, infosMap);
 }
 
 TEST_F(InfosSerializationTestSuite, OneBoolInfoGiven_shouldSerializeInfo)
 {
-    QMap<quint8, QVariant> infosMap;
+    std::map<quint8, QVariant> infosMap;
     infosMap[expectedKey_0] = expectedValue_bool;
     setExpectationsForSerialize(expectedInfosSize_1, expectedKey_0, expectedType_Bool, expectedValue_bool);
     serializer.serialize(*dataSerializerMock, infosMap);
@@ -73,7 +73,7 @@ TEST_F(InfosSerializationTestSuite, OneBoolInfoGiven_shouldSerializeInfo)
 
 TEST_F(InfosSerializationTestSuite, OneUIntInfoGiven_shouldSerializeInfo)
 {
-    QMap<quint8, QVariant> infosMap;
+    std::map<quint8, QVariant> infosMap;
     infosMap[expectedKey_0] = expectedValue_uint;
     setExpectationsForSerialize(expectedInfosSize_1, expectedKey_0, expectedType_Uint, expectedValue_uint);
     serializer.serialize(*dataSerializerMock, infosMap);
@@ -81,7 +81,7 @@ TEST_F(InfosSerializationTestSuite, OneUIntInfoGiven_shouldSerializeInfo)
 
 TEST_F(InfosSerializationTestSuite, OneIntInfoGiven_shouldSerializeInfo)
 {
-    QMap<quint8, QVariant> infosMap;
+    std::map<quint8, QVariant> infosMap;
     infosMap[expectedKey_0] = expectedValue_Int;
     setExpectationsForSerialize(expectedInfosSize_1, expectedKey_0, expectedType_Int, expectedValue_Int);
     serializer.serialize(*dataSerializerMock, infosMap);
@@ -89,7 +89,7 @@ TEST_F(InfosSerializationTestSuite, OneIntInfoGiven_shouldSerializeInfo)
 
 TEST_F(InfosSerializationTestSuite, OneLongLongInfoGiven_shouldSerializeInfo)
 {
-    QMap<quint8, QVariant> infosMap;
+    std::map<quint8, QVariant> infosMap;
     infosMap[expectedKey_0] = expectedValue_LongLong;
     setExpectationsForSerialize(expectedInfosSize_1, expectedKey_0, expectedType_LongLong, expectedValue_LongLong);
     serializer.serialize(*dataSerializerMock, infosMap);
@@ -97,7 +97,7 @@ TEST_F(InfosSerializationTestSuite, OneLongLongInfoGiven_shouldSerializeInfo)
 
 TEST_F(InfosSerializationTestSuite, OneULongLongInfoGiven_shouldSerializeInfo)
 {
-    QMap<quint8, QVariant> infosMap;
+    std::map<quint8, QVariant> infosMap;
     infosMap[expectedKey_0] = expectedValue_ULongLong;
     setExpectationsForSerialize(expectedInfosSize_1, expectedKey_0, expectedType_ULongLong, expectedValue_ULongLong);
     serializer.serialize(*dataSerializerMock, infosMap);
@@ -105,7 +105,7 @@ TEST_F(InfosSerializationTestSuite, OneULongLongInfoGiven_shouldSerializeInfo)
 
 TEST_F(InfosSerializationTestSuite, OneDoubleInfoGiven_shouldSerializeInfo)
 {
-    QMap<quint8, QVariant> infosMap;
+    std::map<quint8, QVariant> infosMap;
     infosMap[expectedKey_0] = expectedValue_Double;
     setExpectationsForSerialize(expectedInfosSize_1, expectedKey_0, expectedType_Double, expectedValue_Double);
     serializer.serialize(*dataSerializerMock, infosMap);
@@ -113,7 +113,7 @@ TEST_F(InfosSerializationTestSuite, OneDoubleInfoGiven_shouldSerializeInfo)
 
 TEST_F(InfosSerializationTestSuite, OneStringInfoGiven_shouldSerializeInfo)
 {
-    QMap<quint8, QVariant> infosMap;
+    std::map<quint8, QVariant> infosMap;
     infosMap[expectedKey_0] = expectedValue_String;
     setExpectationsForSerialize<const QString &>(expectedInfosSize_1, expectedKey_0, expectedType_String, expectedValue_String);
     serializer.serialize(*dataSerializerMock, infosMap);
@@ -121,7 +121,7 @@ TEST_F(InfosSerializationTestSuite, OneStringInfoGiven_shouldSerializeInfo)
 
 TEST_F(InfosSerializationTestSuite, ThreeStringInfoGiven_shouldSerializeInfo)
 {
-    QMap<quint8, QVariant> infosMap;
+    std::map<quint8, QVariant> infosMap;
     infosMap[expectedKey_0] = expectedValue_String;
     infosMap[expectedKey_1] = expectedValue_String;
     infosMap[expectedKey_2] = expectedValue_String;
@@ -140,7 +140,7 @@ TEST_F(InfosSerializationTestSuite, ThreeStringInfoGiven_shouldSerializeInfo)
 
 TEST_F(InfosSerializationTestSuite, OneUnsupportedInfoGiven_shouldSerializeInfo)
 {
-    QMap<quint8, QVariant> infosMap;
+    std::map<quint8, QVariant> infosMap;
     infosMap[expectedKey_0] = QStringList();
     EXPECT_CALL(*dataSerializerMock, serialize(TypedEq<int>(expectedInfosSize_1)));
 

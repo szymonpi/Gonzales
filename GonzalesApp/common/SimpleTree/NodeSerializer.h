@@ -47,7 +47,7 @@ void serialize(IDataSerializer &serializer, const Node<T> &node)
         node.getNodeValue()->serialize(serializer);
     else
     {
-        serializer.serialize(node.getName());
+        serializer.serialize(QString::fromStdString(node.getName()));
         foreach(const Node<T> &node, node.getNodes())
         {
             serialize(serializer, node);
@@ -66,9 +66,9 @@ quint8 getNodeType(IDataDeserializer& deserializer)
     return nodeType;
 }
 
-QMap<quint8, QVariant> getInfos(IDataDeserializer& deserializer)
+std::map<quint8, QVariant> getInfos(IDataDeserializer& deserializer)
 {
-    QMap<quint8, QVariant> infos;
+    std::map<quint8, QVariant> infos;
     infosSerializer->deserialize(deserializer, infos);
     return infos;
 }
@@ -88,9 +88,9 @@ std::shared_ptr<T> deserializeValue(IDataDeserializer& deserializer)
     return value;
 }
 
-QString getName(IDataDeserializer& deserializer)
+std::string getName(IDataDeserializer& deserializer)
 {
-    QString nodeName;
+    std::string nodeName;
     deserializer.deserialize(nodeName);
     return nodeName;
 }

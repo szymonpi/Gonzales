@@ -20,6 +20,7 @@ public:
     virtual void deserialize(QString &str)=0;
     virtual void deserialize(QDateTime &dateTime)=0;
     virtual void deserialize(QDate &date)=0;
+    virtual void deserialize(std::string& str)=0;
     virtual QDataStream::Status status()=0;
     virtual bool atEnd()=0;
 

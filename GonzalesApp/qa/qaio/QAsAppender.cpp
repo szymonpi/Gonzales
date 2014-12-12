@@ -30,7 +30,7 @@ QStringList QAsAppender::createGroupList(std::vector<SimpleTree::Node<QA> > &nod
     QStringList groupsList;
     for(unsigned i = 0; i < nodes.size(); ++i)
     {
-        groupsList.append(nodes.at(i).getName());
+        groupsList.append(QString::fromStdString(nodes.at(i).getName()));
     }
 
     return groupsList;
@@ -40,7 +40,7 @@ QMap<QString, QStringList> QAsAppender::createGroupsMap(SimpleTree::Node<QA> &qa
 {
     QMap<QString, QStringList> groupMap;
     for(auto& subject: qas.getNodes())
-        groupMap[subject.getName()] = createGroupList(subject.getNodes());
+        groupMap[QString::fromStdString(subject.getName())] = createGroupList(subject.getNodes());
 
     return groupMap;
 }
@@ -59,7 +59,7 @@ void QAsAppender::appendNewNodesToNewGroup(const QString &group,
                                                    std::vector<SimpleTree::Node<QA> > &groups)
 {
     SimpleTree::Node<QA> newGroup;
-    newGroup.setName(group);
+    newGroup.setName(group.toStdString());
     newGroup.appendNodes(newNodes);
     groups.push_back(newGroup);
 }
@@ -70,7 +70,7 @@ void QAsAppender::appendInExistingSubject(std::vector<SimpleTree::Node<QA> > &gr
 {
     for(unsigned i = 0; i < groups.size(); i++)
     {
-        if(groups.at(i).getName() == group)
+        if(groups.at(i).getName() == group.toStdString())
         {
             groups.at(i).appendNodes(newNodes);
             return;
@@ -85,10 +85,10 @@ void QAsAppender::appendNewNodesToNewSubject(const QString &subject,
                                                      SimpleTree::Node<QA> &mainNode)
 {
     SimpleTree::Node<QA> groupN;
-    groupN.setName(group);
+    groupN.setName(group.toStdString());
     groupN.appendNodes(newNodes);
     SimpleTree::Node<QA> subjectN;
-    subjectN.setName(subject);
+    subjectN.setName(subject.toStdString());
     subjectN.appendNode(groupN);
     mainNode.appendNode(subjectN);
 }
@@ -100,7 +100,7 @@ void QAsAppender::appendNewNodesToRelevantSubject(const QString &subject,
 {
     for(unsigned i=0; i < mainNode.size(); ++i)
     {
-        if(mainNode.getNode(i).getName()==subject)
+        if(mainNode.getNode(i).getName()==subject.toStdString())
         {
             appendInExistingSubject(mainNode.getNode(i).getNodes(), newNodes, group);
             return;

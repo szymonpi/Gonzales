@@ -76,7 +76,7 @@ TEST_F(SerializationTestSuite, serializeTwoItemsInOneNode)
     Node<NodeValueMock> node2(nodeValue2);
 
     Node<NodeValueMock> mainNode;
-    QString nodeName = "ContainingNode";
+    std::string nodeName = "ContainingNode";
     mainNode.setName(nodeName);
     mainNode.appendNode(node1);
     mainNode.appendNode(node2);
@@ -84,7 +84,7 @@ TEST_F(SerializationTestSuite, serializeTwoItemsInOneNode)
     EXPECT_CALL(*infosSerializer, serialize(_,_)).Times(3);
     EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(NodeType_WithChildren)));
     EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(numOfChildrenContaining2Nodes)));
-    EXPECT_CALL(serializerMock, serialize(TypedEq<const QString &>(nodeName)));
+    EXPECT_CALL(serializerMock, serialize(TypedEq<const std::string &>(nodeName)));
 
     EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(numOfChildrenNotContaining))).Times(2);
     EXPECT_CALL(serializerMock, serialize(TypedEq<quint8>(NodeType_WithValue))).Times(2);
@@ -103,23 +103,23 @@ TEST_F(SerializationTestSuite, serializeSixItemsInThreeNodes)
     Node<NodeValueMock> node6(nodeValue6);
 
     Node<NodeValueMock> continingNode1;
-    QString containingNode1Name = "ContainingNode1";
+    std::string containingNode1Name = "ContainingNode1";
     continingNode1.setName(containingNode1Name);
     continingNode1.appendNode(node1);
     continingNode1.appendNode(node2);
     Node<NodeValueMock> continingNode2;
-    QString containingNode2Name = "ContainingNode2";
+    std::string containingNode2Name = "ContainingNode2";
     continingNode2.setName(containingNode2Name);
     continingNode2.appendNode(node3);
     continingNode2.appendNode(node4);
     Node<NodeValueMock> continingNode3;
-    QString containingNode3Name = "ContainingNode3";
+    std::string containingNode3Name = "ContainingNode3";
     continingNode3.setName(containingNode3Name);
     continingNode3.appendNode(node5);
     continingNode3.appendNode(node6);
 
     Node<NodeValueMock> mainNode;
-    QString mainNodeName = "ContainingNode";
+    std::string mainNodeName = "ContainingNode";
     mainNode.setName(mainNodeName);
     mainNode.appendNode(continingNode1);
     mainNode.appendNode(continingNode2);
@@ -135,10 +135,10 @@ TEST_F(SerializationTestSuite, serializeSixItemsInThreeNodes)
     EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(numOfChildrenContaining3Nodes)));
     EXPECT_CALL(serializerMock, serialize(TypedEq<unsigned>(numOfChildrenContaining2Nodes))).Times(3);
 
-    EXPECT_CALL(serializerMock, serialize(TypedEq<const QString &>(mainNodeName)));
-    EXPECT_CALL(serializerMock, serialize(TypedEq<const QString &>(containingNode1Name)));
-    EXPECT_CALL(serializerMock, serialize(TypedEq<const QString &>(containingNode2Name)));
-    EXPECT_CALL(serializerMock, serialize(TypedEq<const QString &>(containingNode3Name)));
+    EXPECT_CALL(serializerMock, serialize(TypedEq<const std::string &>(mainNodeName)));
+    EXPECT_CALL(serializerMock, serialize(TypedEq<const std::string &>(containingNode1Name)));
+    EXPECT_CALL(serializerMock, serialize(TypedEq<const std::string &>(containingNode2Name)));
+    EXPECT_CALL(serializerMock, serialize(TypedEq<const std::string &>(containingNode3Name)));
     EXPECT_CALL(*nodeValue, serialize(_));
     EXPECT_CALL(*nodeValue2, serialize(_));
     EXPECT_CALL(*nodeValue3, serialize(_));

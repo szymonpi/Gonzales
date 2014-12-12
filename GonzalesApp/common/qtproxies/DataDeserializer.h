@@ -89,6 +89,13 @@ public:
         stream >> str;
     }
 
+    void deserialize(std::string &str)
+    {
+        QString tmp;
+        stream >> tmp;
+        str = tmp.toStdString();
+    }
+
     void deserialize(QDateTime &dateTime)
     {
         stream >> dateTime;

@@ -8,7 +8,7 @@ void QuestionCollectionPresenter::buildWidgetTree(const SimpleTree::Node<QA> &no
         QTreeWidgetItem *item = new QTreeWidgetItem(parent, TREE_WIDGET_TYPE_GROUP);
         item->setFlags(Qt::ItemIsUserCheckable);
         item->setData(2, Qt::CheckStateRole, node.getInfo(NODE_INFO_ROLE_CHECKED).toBool()?Qt::Checked:Qt::Unchecked);
-        item->setText(0, node.getName());
+        item->setText(0, QString::fromStdString(node.getName()));
         item->setDisabled(false);
         if(parent)
             parent->addChild(item);

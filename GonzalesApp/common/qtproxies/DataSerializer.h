@@ -86,6 +86,11 @@ public:
         stream << str;
     }
 
+    virtual void serialize(const std::string& str)
+    {
+        stream <<  QString::fromStdString(str);
+    }
+
     void serialize(const QDateTime& dateTime) override
     {
         stream << dateTime;

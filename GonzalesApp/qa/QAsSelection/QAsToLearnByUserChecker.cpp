@@ -55,7 +55,7 @@ SimpleTree::Node<QA> & QAsToLearnByUserChecker::findNode(QString desiredName, Si
 {
     auto &nodes = rootNode.getNodes();
     auto foundNode = std::find_if(nodes.begin(), nodes.end(),
-                 [&](const SimpleTree::Node<QA> &node){ return node.getName() == desiredName; });
+                 [&](const SimpleTree::Node<QA> &node){ return node.getName() == desiredName.toStdString(); });
     if(foundNode == nodes.end())
         throw std::logic_error("Question and answer repository corrupted");
 

@@ -1,9 +1,9 @@
 #pragma once
 #include <vector>
 #include <memory>
-#include <QString>
+#include <string>
 #include <QVariant>
-#include <QMap>
+#include <map>
 #include "../qtproxies/DataSerializer.h"
 #include "../qtproxies/DataDeserializer.h"
 
@@ -44,11 +44,11 @@ public:
     {
         return m_nodes.at(index);
     }
-    void setName(const QString &name)
+    void setName(const std::string &name)
     {
         m_name = name;
     }
-    QString getName() const
+    std::string getName() const
     {
         return m_name;
     }
@@ -106,7 +106,7 @@ public:
 
     QVariant getInfo(quint8 role) const
     {
-        return m_infos[role];
+        return m_infos.at(role);
     }
 
     void setInfo(unsigned role, const QVariant &value)
@@ -114,20 +114,20 @@ public:
         m_infos[role] = value;
     }
 
-    QMap<quint8, QVariant> getInfos() const
+    std::map<quint8, QVariant> getInfos() const
     {
         return m_infos;
     }
 
-    void setInfos(QMap<quint8, QVariant> p_infos)
+    void setInfos(std::map<quint8, QVariant> p_infos)
     {
         this->m_infos = p_infos;
     }
 
 
 private:
-    QString m_name;
-    QMap<quint8, QVariant> m_infos;
+    std::string m_name;
+    std::map<quint8, QVariant> m_infos;
     std::shared_ptr<T> m_value;
     std::vector<SimpleTree::Node<T> > m_nodes;
 };

@@ -27,7 +27,7 @@ public:
 
 TEST_F(InfosDeserializationTestSuite, ShouldntDeserializeAnyInfo)
 {
-    QMap<quint8, QVariant> infosMap;
+    std::map<quint8, QVariant> infosMap;
     int infosSize = 0;
     EXPECT_CALL(*dataDeserializerMock, deserialize(An<int&>())).WillOnce(SetArgReferee<0>(infosSize));
     serializer.deserialize(*dataDeserializerMock, infosMap);
@@ -35,7 +35,7 @@ TEST_F(InfosDeserializationTestSuite, ShouldntDeserializeAnyInfo)
 
 TEST_F(InfosDeserializationTestSuite, ShouldDeserializeOneBoolInfo)
 {
-    QMap<quint8, QVariant> infosMap;
+    std::map<quint8, QVariant> infosMap;
     int infosSize = 1;
     quint8 nodeInfoRole = 1;
     unsigned type = QVariant::Bool;
@@ -50,7 +50,7 @@ TEST_F(InfosDeserializationTestSuite, ShouldDeserializeOneBoolInfo)
 
 TEST_F(InfosDeserializationTestSuite, ShouldDeserializeUintOneInfo)
 {
-    QMap<quint8, QVariant> infosMap;
+    std::map<quint8, QVariant> infosMap;
     int infosSize = 1;
     quint8 nodeInfoRole = 1;
     unsigned type = QVariant::UInt;
@@ -66,7 +66,7 @@ TEST_F(InfosDeserializationTestSuite, ShouldDeserializeUintOneInfo)
 
 TEST_F(InfosDeserializationTestSuite, ShouldDeserializeIntOneInfo)
 {
-    QMap<quint8, QVariant> infosMap;
+    std::map<quint8, QVariant> infosMap;
     int infosSize = 1;
     quint8 nodeInfoRole = 1;
     unsigned type = QVariant::Int;

@@ -20,6 +20,7 @@ public:
     MOCK_METHOD1(deserialize, void(double &i));
     MOCK_METHOD1(deserialize, void(char *&i));
     MOCK_METHOD1(deserialize, void(QString &str));
+    MOCK_METHOD1(deserialize, void(std::string& str));
     MOCK_METHOD1(deserialize, void(QDateTime &dateTime));
     MOCK_METHOD1(deserialize, void(QDate &date));
     MOCK_METHOD0(status, QDataStream::Status());
