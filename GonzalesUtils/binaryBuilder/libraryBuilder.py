@@ -63,15 +63,13 @@ class AppBuilder:
         options = self.get_options()
         self.validate_options(options)
 
+        print("options validated")
 
         output_binary = "Gonzales.exe"
         output_binary_path = options.output_directory + "\\" + output_binary
         output_zip = options.output_directory+"\Gonzales.zip"
 
 
-        print(self.app_binary_path(options))
-        print(options.output_directory)
-        print(output_binary_path)
 
         copyfile(self.app_binary_path(options), output_binary_path)
 
@@ -104,6 +102,8 @@ class AppBuilder:
         for library in libraries:
             copyfile(options.library_path + "\\" + library, libraries_path + "\\" + library)
 
+        print("[APP RELEASE BUILDER] --- All files copied")
+
         with ZipFile(output_zip, 'w', zipfile.ZIP_DEFLATED) as myzip:
             myzip.write(output_binary_path, output_binary)
 
@@ -115,14 +115,19 @@ class AppBuilder:
             for library in libraries:
                 myzip.write(libraries_path + "\\" + library, libraries_dir + "\\" + library)
 
+        print("[APP RELEASE BUILDER] --- All files zipped")
+
         to_delete_files = self.dlls
         to_delete_files.add(output_binary)
-        print(to_delete_files)
 
         rmtree(platforms_path)
         rmtree(libraries_path)
         for file in to_delete_files:
             os.remove(options.output_directory + "\\" + file)
+
+        print("[APP RELEASE BUILDER] --- Successfully clean-up")
+        print("[APP RELEASE BUILDER] --- zip path : ")
+        print(output_zip)
 
 
 
