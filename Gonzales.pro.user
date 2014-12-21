@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 2.8.1, 2014-12-14T08:49:24. -->
+<!-- Written by QtCreator 2.8.1, 2014-12-21T02:16:13. -->
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -134,7 +134,7 @@
      </valuemap>
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.2">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">C:\projects\Gonzales\GonzalesUtils\binaryBuilder\libraryBuilder.py --qt_sdk_directory=C:\Qt\5.1.1\mingw48_32 --build_directory=%{buildDir} --output_directory=&quot;C:\projects\GonzalesApp&quot; --library_path=C:\projects\Gonzales\GonzalesUtils\testFilesToImport&quot;</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">C:\projects\Gonzales\GonzalesUtils\binaryBuilder\libraryBuilder.py --qt_sdk_directory=C:\Qt\5.1.1\mingw48_32 --build_directory=%{buildDir}\GonzalesApp\release\GonzalesApp.exe --output_directory=&quot;C:\projects\GonzalesApp&quot; --library_path=&quot;C:\projects\Gonzales\GonzalesUtils\testFilesToImport&quot; --verbose --binary_name=&quot;Gonzales&quot;</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">python</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">%{buildDir}</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom Process Step</value>
