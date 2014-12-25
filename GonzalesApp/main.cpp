@@ -1,6 +1,6 @@
 #include "ui/mainwindow.h"
 #include <QApplication>
-
+//szymon
 #include "user/UserInfo.h"
 #include "ui/dialogs/LoginDialog.h"
 #include "QARepositoryFactory.h"
